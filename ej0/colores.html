@@ -1,0 +1,27 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+	"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<title>Mi primera web - Colores</title>
+		<link id ="estilo" rel="stylesheet" type="text/css" href="default.css" media="screen" />
+	</head>
+	<body>
+		<h1>Página sencilla para decorar con estilos</h1>
+		<p>Éste es el primer párrafo, que no tiene nada de especial.</p>
+		<h2>Esto es un título de segundo nivel</h2>
+		<p>Que tiene dentro un párrafo con <em>un fragmento enfatizado</em></p>
+		<h3>Esto es un título de tercer nivel</h3>
+		<p>El tercer párrafo tampoco tiene nada de especial</p>
+
+		<button onclick="cambiarCSS('verde.css')">Verde</button>
+		<button onclick="cambiarCSS('marron.css')">Marrón y grande</button>
+		<button onclick="cambiarCSS('consola.css')">Consola</button>
+	</body>
+
+	<script type="text/javascript">
+		function cambiarCSS(nuevo){
+			document.getElementById('estilo').setAttribute('href', nuevo);
+		}
+	</script>
+</html>
