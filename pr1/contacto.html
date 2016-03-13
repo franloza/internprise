@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 
 <html lang="es">
 <head>
@@ -7,14 +7,33 @@
 </head>
 
 <body>
-  <h1>Contacto</h1>
-  <ul>
+	<h1>Contacto</h1>
+  	<ul>
     <li><a href="index.html">Home</a></li>
     <li><a href="detalles.html">Detalles</a></li>
     <li><a href="bocetos.html">Bocetos</a></li>
     <li><a href="miembros.html">Miembros</a></li>
     <li><a href="planificacion.html">Planificación</a></li>
     <li><a href="contacto.html">Contacto</a></li>
-  </ul>
+ 	</ul>
+
+	<form action="mailto:correoprueba@ucm.es">
+		<p>	Nombre : <input type="text" name="nombre" value=""/> </p>
+
+		<p> Correo : <input type="text" name="correo" value=""/> </p>
+
+		<p> Consulta </p> </p> <textarea name="consulta" rows="4" cols="50"> Escribo con motivo de...	</textarea> </p> 
+
+		<p> Motivo de la consulta <input type="radio" name="motivo" value="Evaluacion" checked="checked" /> Evaluacion
+		<input type="radio" name="motivo" value="Sugerencias" /> Sugerencias
+		<input type="radio" name="motivo" value="Críticas" /> Criticas </p>
+
+		<p> Marque esta casilla para verificar que ha leido nuestros terminos y condiciones del servicio: <input name="" type="checkbox" value="on" /> </p>
+
+		<button type="submit">Enviar</button>
+		<button type="reset">Borrar Formulario</button>
+
+	</form>
+
 </body>
 </html>
