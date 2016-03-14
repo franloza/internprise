@@ -17,23 +17,44 @@
     <li><a href="contacto.html">Contacto</a></li>
  	</ul>
 
-	<form action="mailto:correoprueba@ucm.es">
-		<p>	Nombre : <input type="text" name="nombre" value=""/> </p>
+	<div class="form-main">
+ 		<div class="form-div">
+			<form class="form" id="form1" action="mailto:andrespl@ucm.es">
+				
+				<p class="nombre">	
+					<input type="text" name="nombre" placeholder="Nombre" id="nombre"/> 
+				</p>
 
-		<p> Correo : <input type="text" name="correo" value=""/> </p>
+				<p>
+					<input type="text" name="correo" placeholder="eMail" id="email"/> 
+				</p>
 
-		<p> Consulta </p> </p> <textarea name="consulta" rows="4" cols="50"> Escribo con motivo de...	</textarea> </p> 
+				<p> Consulta </p> 
 
-		<p> Motivo de la consulta <input type="radio" name="motivo" value="Evaluacion" checked="checked" /> Evaluacion
-		<input type="radio" name="motivo" value="Sugerencias" /> Sugerencias
-		<input type="radio" name="motivo" value="Críticas" /> Criticas </p>
+				<p> 
+					<textarea name="consulta" placeholder="Esribo con motivo de ..." id="cometarios"></textarea> 
+				</p> 
 
-		<p> Marque esta casilla para verificar que ha leido nuestros terminos y condiciones del servicio: <input name="" type="checkbox" value="on" /> </p>
+				<p> 
+					Motivo de la consulta <input type="radio" name="motivo" value="Evaluacion" checked="checked" /> Evaluacion
+					<input type="radio" name="motivo" value="Sugerencias" /> Sugerencias
+					<input type="radio" name="motivo" value="Críticas" /> Criticas 
+				</p>
 
-		<button type="submit">Enviar</button>
-		<button type="reset">Borrar Formulario</button>
+				<p> 
+					Marque esta casilla para verificar que ha leido nuestros terminos y condiciones del servicio: <input name="" type="checkbox" value="on" /> 
+				</p>
 
-	</form>
+				<div class="submit">
+					<input type="submit" value="SEND" id="boton-enviar"/>
+				</div>
+
+				<div class="reset">
+					<button type="reset">Borrar Formulario</button>
+				</div>	
+			</form>
+		</div>
+	</div>
 
 </body>
 </html>
