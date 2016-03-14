@@ -1,0 +1,69 @@
+/* index styles for all the web*/
+
+.container{
+  width: 900px;
+  margin: 0 auto;
+}
+.header {
+  background-image:url("/img/headerBackground.png");
+  background-position: center;
+  background-size:cover;
+  height: 150px;
+}
+.menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 50px;
+  margin: auto;
+  position: relative;
+  background-color: tomato;
+  font-family: sans-serif;
+}
+.content {
+  width:100%;
+  padding:10px;
+}
+.footer {
+  background-color: Tomato;
+  color:white;
+  clear:both;
+  text-align:center;
+  padding:5px;
+}
+.menu ul{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.menu li {
+  float: left;
+  width: 16%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.menu a {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  text-decoration: none;
+  position: relative;
+  font-size: 18px;
+  z-index: 9;
+}
+.card{
+  margin: 25px;
+  border: 2px solid;
+  border-color: #C0C0C0;
+  padding: 5px;
+  background-color: #F0FFFF;
+  float:left;
+  width: 40%;
+  min-height:300px;
+
+}
