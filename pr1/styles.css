@@ -65,5 +65,31 @@
   float:left;
   width: 40%;
   min-height:300px;
+}
 
+table.table-planning {
+    font-size: 12px;
+    border: 1px solid #CCC; 
+    font-family: Arial, Helvetica, sans-serif;
+} 
+.table-planning td {
+    padding: 4px;
+    margin: 3px;
+    border: 1px solid #CCC;
+}
+.table-planning th {
+    background-color: tomato; 
+    color: #FFF;
+    font-weight: bold;
+}
+
+.table-planning-milestone {
+    font-weight: bold;
+    background-color: #F6BFB6; 
+}
+
+textarea#comentarios {
+    width: 50%;
+    height: 50%;
+    
 }
