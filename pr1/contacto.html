@@ -2,59 +2,76 @@
 
 <html lang="es">
 <head>
-  <meta charset="utf-8">
   <title>Internprise - Contacto</title>
+  <link rel="stylesheet" type="text/css" href="styles.css" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 
 <body>
-	<h1>Contacto</h1>
-  	<ul>
-    <li><a href="index.html">Home</a></li>
-    <li><a href="detalles.html">Detalles</a></li>
-    <li><a href="bocetos.html">Bocetos</a></li>
-    <li><a href="miembros.html">Miembros</a></li>
-    <li><a href="planificacion.html">Planificación</a></li>
-    <li><a href="contacto.html">Contacto</a></li>
- 	</ul>
+  <!-- DIV CONTAINER -->
+  <div class="container">
+    <!-- DIV HEADER -->
+    <div class="header">
+    </div>
+    <!-- END DIV HEADER -->
 
-	<div class="form-main">
- 		<div class="form-div">
-			<form class="form" id="form1" action="mailto:andrespl@ucm.es">
-				
-				<p class="nombre">	
-					<input type="text" name="nombre" placeholder="Nombre" id="nombre"/> 
-				</p>
+  <!-- MENU -->
+  <ul class="menu">
+    <li><a href="/index.html">Home</a></li>
+    <li><a href="/detalles.html">Detalles</a></li>
+    <li><a href="/bocetos.html">Bocetos</a></li>
+    <li><a href="/miembros.html">Miembros</a></li>
+    <li><a href="/planificacion.html">Planificación</a></li>
+    <li><a href="/contacto.html">Contacto</a></li>
+  </ul>
+  <!-- END MENU -->
 
-				<p>
-					<input type="text" name="correo" placeholder="eMail" id="email"/> 
-				</p>
+  <!-- DIV CONTENT -->
+  <div class="content">
+    <h1>Contacto</h1>
+	    <div class="form-main">
+ 		    <div class="form-div">
+			    <form class="form" id="form1" action="mailto:andrespl@ucm.es">
+				    <p class="nombre">
+					  <input type="text" name="nombre" placeholder="Nombre" id="nombre"/>
+				    </p>
+				    <p>
+					  <input type="text" name="correo" placeholder="eMail" id="email"/>
+				    </p>
+				    <p> Consulta </p>
+				    <p>
+					<textarea name="consulta" placeholder="Esribo con motivo de ..." id="cometarios"></textarea>
+				  </p>
 
-				<p> Consulta </p> 
+				  <p>
+					  Motivo de la consulta <input type="radio" name="motivo" value="Evaluacion" checked="checked" /> Evaluacion
+					  <input type="radio" name="motivo" value="Sugerencias" /> Sugerencias
+					  <input type="radio" name="motivo" value="Críticas" /> Criticas
+				  </p>
 
-				<p> 
-					<textarea name="consulta" placeholder="Esribo con motivo de ..." id="cometarios"></textarea> 
-				</p> 
+				  <p>
+					Marque esta casilla para verificar que ha leido nuestros terminos y condiciones del servicio: <input name="" type="checkbox" value="on" />
+				  </p>
 
-				<p> 
-					Motivo de la consulta <input type="radio" name="motivo" value="Evaluacion" checked="checked" /> Evaluacion
-					<input type="radio" name="motivo" value="Sugerencias" /> Sugerencias
-					<input type="radio" name="motivo" value="Críticas" /> Criticas 
-				</p>
-
-				<p> 
-					Marque esta casilla para verificar que ha leido nuestros terminos y condiciones del servicio: <input name="" type="checkbox" value="on" /> 
-				</p>
-
-				<div class="submit">
+				  <div class="submit">
 					<input type="submit" value="SEND" id="boton-enviar"/>
-				</div>
+				  </div>
 
-				<div class="reset">
-					<button type="reset">Borrar Formulario</button>
-				</div>	
+				  <div class="reset">
+					  <button type="reset">Borrar Formulario</button>
+				  </div>
 			</form>
 		</div>
 	</div>
+</div>
+<!-- END DIV CONTENT -->
 
+<!-- DIV FOOTER -->
+<div class="footer">
+    Copyright © internprise.com
+  </div>
+<!-- END DIV FOOTER -->
+</div>
+<!-- END DIV CONTAINER -->
 </body>
 </html>
