@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <title>Internprise - Portal Administracion</title>
-  <link rel="stylesheet" href="admin.css" type="text/css">
-   <link rel="stylesheet" href="menu.css" type="text/css">
-    <link rel="stylesheet" href="header.css" type="text/css">
+  <link rel="stylesheet" href="css/admin.css" type="text/css">
+   <link rel="stylesheet" href="css/menu.css" type="text/css">
+    <link rel="stylesheet" href="css/header.css" type="text/css">
   </head>
   <body>
   <h1> Internprise </h1>
