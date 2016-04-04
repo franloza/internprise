@@ -9,49 +9,47 @@
   </head>
   <body>
   <h1> Internprise </h1>
-  <div id="contenedor">
+  <div id="container-index" class="admin-container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-header.html'); ?>
-	<div id="contenido">
-	<div id="buscador">
-	<input type="text" placeholder="Buscador de estudiantes /empresas">
-	</div>
-	
-	<div id="widgets">
-		<div class= "widget">
-			<div class="titulo">
-			
-			</div>
-			<div class="cuerpo">
-			
-			</div>
-		<div>
-		<div class= "widget">
-			<div class="titulo">
-			
-			</div>
-			<div class="cuerpo">
-			
-			</div>
-		<div>
-		<div class= "widget">
-			<div class="titulo">
-			
-			</div>
-			<div class="cuerpo">
-			
-			</div>
-		<div>
-		<div class= "widget">
-			<div class="titulo">
-			
-			</div>
-			<div class="cuerpo">
-			
-			</div>
-		<div>
-	</div>
-	
+	<div id="content-index" class="admin-content">
+        <div id="buscador">
+        <input type="text" placeholder="Buscador de estudiantes/empresas">
+        </div>
+        <div id="widgets">
+            <div class= "widget">
+                <div class="titulo">
+                
+                </div>
+                <div class="cuerpo">
+                
+                </div>
+            <div>
+            <div class= "widget">
+                <div class="titulo">
+                
+                </div>
+                <div class="cuerpo">
+                
+                </div>
+            <div>
+            <div class= "widget">
+                <div class="titulo">
+                
+                </div>
+                <div class="cuerpo">
+                
+                </div>
+            <div>
+            <div class= "widget">
+                <div class="titulo">
+                
+                </div>
+                <div class="cuerpo">
+                
+                </div>
+            <div>
+        </div>
 	</div>
   </div>
   </body>
