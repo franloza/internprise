@@ -1,0 +1,32 @@
+
+.menu-title {
+  padding: 20px;
+  background: #16a085;
+  color: #fff;
+}
+
+.menu-content ul {
+  list-style: none;
+  background: #444;
+  overflow: hidden;
+}
+.menu-content ul li{
+  border-top: thin solid #555;
+}
+
+.menu-content ul li :hover{
+  background: #555;
+  color: #f60;
+  -moz-transition-duration: 0.5s;
+  -o-transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+}
+
+.menu-content ul li a {
+  padding: 20px 20px 20px 20px;
+  width: 100%;
+  display: table;
+  text-decoration: none;
+  color: #fff;
+}
