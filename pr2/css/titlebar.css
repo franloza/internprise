@@ -1,0 +1,18 @@
+#admin-titlebar {
+    background: #16a085;   
+    color: #fff;
+    font-family: "helvitica", arial;
+}
+
+.titlebar {
+    margin:10px 0px 10px 0px;
+    height: 40px;
+}
+
+.label-titlebar {
+    padding-top:10px;
+}
+
+.label-titlebar label {
+    margin-left:10px; 
+}

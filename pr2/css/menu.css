@@ -1,3 +1,9 @@
+#admin-sidebar {
+ 	float: left;
+  	font-family: "helvitica", arial;
+	min-height: 100%;
+	width: 250px;
+}
 
 .menu-title {
   padding: 20px;
@@ -9,9 +15,13 @@
   list-style: none;
   background: #444;
   overflow: hidden;
+  list-style-type: none;
+ -webkit-margin-before: 0em;
+ -webkit-padding-start: 0px;
 }
 .menu-content ul li{
   border-top: thin solid #555;
+  list-style-type: none;
 }
 
 .menu-content ul li :hover{
@@ -29,4 +39,5 @@
   display: table;
   text-decoration: none;
   color: #fff;
+  
 }

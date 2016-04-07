@@ -1,21 +1,16 @@
  <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Internprise - Portal Administracion</title>
-  <link rel="stylesheet" href="css/admin.css" type="text/css">
-   <link rel="stylesheet" href="css/menu.css" type="text/css">
-    <link rel="stylesheet" href="css/header.css" type="text/css">
-  </head>
+<?php include ('admin-head.html'); ?>
   <body>
-  <h1> Internprise </h1>
   <div id="container-encuestas" class="admin-container">
 	<?php include ('admin-menu.html'); ?>
-	<?php include ('admin-header.html'); ?>
+	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-encuestas" class="admin-content">
-        <div id="buscador">
-        <input type="text" placeholder="Introduzca ID de Contrato">
-        </div>
+        <div class="widget-container">
+		      <form class="form-search cf" action="">
+			     <input type="text" placeholder="Introduzca ID de Contrato">
+		      </form>
+	       </div>
         <div id="tabla-encuestas">
             <table class="admin-table">
                 <tr>
