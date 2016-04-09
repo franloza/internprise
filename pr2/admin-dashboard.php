@@ -2,7 +2,7 @@
 <html>
 <?php include ('admin-head.html'); ?>
   <body>
-	<div id="container-dashboard" class="admin-container">   
+	<div id="container-dashboard" class="admin-container" style="padding: 0px;">   
         <?php include ('admin-menu.html'); ?>
         <?php include ('admin-titlebar.html'); ?>
         <div id="dashboard-content" class="admin-content"> 

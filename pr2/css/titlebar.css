@@ -1,7 +1,8 @@
 #admin-titlebar {
     background: #16a085;   
-    color: #fff;
+  	color: #fff;
     font-family: "helvitica", arial;
+    margin: 0 0 0 0;
 }
 
 .titlebar {
@@ -11,8 +12,19 @@
 
 .label-titlebar {
     padding-top:10px;
+    float:left;
 }
 
 .label-titlebar label {
     margin-left:10px; 
+}
+
+.icons-titlebar {
+	float: right;
+	margin: 10px 10px 0px 10px;
+}
+
+.icons-titlebar i {
+	margin-left: 15px;
+	margin-right: 15px;
 }
