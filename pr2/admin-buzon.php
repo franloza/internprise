@@ -15,6 +15,10 @@
                <option value="otro">Otro</option>
            </select>
        </div>
+
+       <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
+       <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
+
     <div id="tabla-buzon">
        <table class="buzon-table">
        <tr>
@@ -54,6 +58,9 @@
        </tr>
        </table>
        </div>
+
+       <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
+       <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
  </div>
  </div>
  </body>

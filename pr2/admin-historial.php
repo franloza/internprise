@@ -1,6 +1,6 @@
  <!DOCTYPE html>
 <html>
-<?php include ('admin-head.html'); ?>  
+<?php include ('admin-head.html'); ?>
   <body>
   <div id="container-historial" class="admin-container">
 	<?php include ('admin-menu.html'); ?>
@@ -19,8 +19,12 @@
                 <option value="ing-com">Grado en Ingeniería de Computadores</option>
                 <option value="ing-sof">Grado en Ingeniería del Software</option>
                 <option value="dbl-grad-inf-mat">Doble Grado Ingeniería Informática - Matemáticas</option>
-            </select>   
-        </div>     
+            </select>
+        </div>
+
+        <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
+        <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
+
 	   <div id="tabla-historial">
         <table class="admin-table">
         <tr>
@@ -70,6 +74,10 @@
         </tr>
         </table>
         </div>
+
+        <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
+        <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
+        
 	</div>
   </div>
   </body>
