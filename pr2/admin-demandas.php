@@ -26,7 +26,7 @@
             <th>Accion</th>
         </tr>
         <tr>
-			<td>0051300</td>
+			<td>0151300</td>
             <td>Intel</td>
             <td><a href="admin-demandas-vista.php">Luna Maria Moreno Sanchez</a></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>

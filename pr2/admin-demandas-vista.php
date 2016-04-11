@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
-<?php include ('admin-head.html'); ?>
-  <body>
-  <div id="container-demandas-ver" class="admin-container">
+	<head>
+		<link rel="stylesheet" type="text/css" href="admin-demandas-css.css">
+	</head>
+	<?php include ('admin-head.html'); ?>
+  	<body>
+ 	<div id="container-demandas-ver" class="admin-container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-demandas-ver" class="admin-content">
@@ -34,15 +37,31 @@
 					<th>Idiomas</th>
 					<th>Ingles, Frances y aleman<th>
 				</tr>
-				
-				<div id="aptitudes">aptitudes</div>
-				<div id="informacion-personal">informaciuon personal</div>
-				<div id="documentacion-adicional">documentacion(cv)</div>
-			
-				
 			</table>
-		
 		</div>
+
+		<div id="aptitudes"><strong>Aptitudes</strong>
+			<ul>
+				<li class="li2">Trabajador</li>
+				<li class="li2">Optimista</li>
+				<li class="li2">Lider</li>
+				<li class="li2">Extrovertido</li>
+				<li class="li2">Alegre</li>
+				<li class="li2">Inconformista</li>
+				<li class="li2">Ambicioso</li>
+				<li class="li2">Leal</li>
+			</ul>
+
+
+
+
+		</div>
+		<div id="informacion-personal">informacion personal</div>
+		<div id="documentacion-adicional">
+			<a href="cvLuna.docx">Curriculum Vitae</a>
+
+		</div>
+
 	</div>
   </div>
   </body>
