@@ -5,8 +5,8 @@
  <div id="container-historial" class="admin-container">
  <?php include ('admin-menu.html'); ?>
  <?php include ('admin-titlebar.html'); ?>
- <div id="content-buzon" class="admin-buzon">
-       <div id="filtros">
+ <div id="content-buzon" class="admin-content">
+       <div class="filtros">
            <label>Tipo de mensaje</label>
            <select class="filtro">
                <option value="duda">Duda</option>
@@ -20,7 +20,7 @@
        <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
 
     <div id="tabla-buzon">
-       <table class="buzon-table">
+       <table class="admin-table">
        <tr>
            <th>Tipo</th>
            <th>Asunto</th>

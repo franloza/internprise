@@ -6,7 +6,7 @@
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-ofertas" class="admin-content">
-        <div id="carrera">
+        <div class="filtros">
             <label>Seleccione una carrera:</label>
             <select class="filtro">
                 <option value="todos">Todos</option>

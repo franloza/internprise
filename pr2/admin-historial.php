@@ -6,7 +6,7 @@
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-historial" class="admin-content">
-        <div id="filtros">
+        <div class="filtros">
             <label>Año</label>
             <select class="filtro">
                 <option value="2014">2014</option>
@@ -77,7 +77,7 @@
 
         <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
         <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
-        
+
 	</div>
   </div>
   </body>
