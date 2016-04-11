@@ -2,32 +2,25 @@
 <html>
 <?php include ('admin-head.html'); ?>
   <body>
-  <div id="container-ofertas-ver" class="admin-container">
+  <div id="container-ofertas-ver2" class="admin-container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-ofertas-ver" class="admin-content">
-        <div id="tabla-ofertas-ver">
+	<div id="content-ofertas-ver2" class="admin-content">
+        <div id="tabla-ofertas-ver2">
             <div id="cuerpo">
                 <table class="admin-table">
                 <thead>OFERTA DE PRACTICAS</thead>
                 <tr>
                     <td>Empresa</td>
-                    <td>Intel</td>
+                    <td>Rediris</td>
                 </tr>
                 <tr>
                     <td>Puesto</td>
-                    <td>Especialista IT</td>
+                    <td>Tecnico de seguridad</td>
         		</tr>
                 <tr>
                     <td>Sueldo</td>
                     <td>400€</td>
-                </tr>
-                <tr>
-                    <td>Carrera</td>
-                    <td><p>Grado Ingenieria Informática</p>
-                        <p>Grado Ingenieria Software</p>
-                        <p>Grado Ingenieria Computadores</p>
-
                 </tr>
                 <tr>
                     <td>Horas</td>
@@ -39,44 +32,35 @@
                 </tr>
         		-<tr>
                     <td>Duracion</td>
-                    <td>6 meses</td>
+                    <td>4 meses</td>
                 </tr>
                 <tr>
                     <td>Disponibilidad</td>
                     <td>mañana</td>
-        		</tr>
+        		</tr>ºº
                 <tr>
                     <td>Funciones</td>
-                    <td>Mantenimiento de la red y de las conexiones de la empresa, como a su vez dar soporte de ayuda a las diferentes
-        				estructuras dentro de la red empresarial con sus colaboradores</td>
+                    <td>Creacion y mantenimiento de scripts que evaluen la seguridad de las ip's consultadas a traves de los routers establecidos</td>
                 </tr>
                 <tr>
                     <td>Aptitudes</td>
-                    <td><p>Ingles</p>
+                    <td><p>Perl</p>
                         <p>Python</p>
                         <p>Estudiante</p>
-                        <p>Linux</p>
-                        <p>Red</p>
+                        <p>Disponibilidad</p>
                         <p>Seguridad</p></td>
                 </tr>
                 <tr>
                     <td>Requisitos minimos</td>
                     <td><p>Estar en ultimo año de carrera</p>
-                        <p>Nivel B2 de ingles</p>
-                        <p>Conocimientos avanzados de PYTHON</p></td>
+                        <p>Nivel B1 de ingles</p>
+                        <p>Experiencia con uso de iptables y firewall</p></td>
 
                 </tr>
                 <tr>
                     <td>Aconsejable</td>
-                    <td><p>Buen manejo con sistema operativo Linux</p>
-        				<p>Facilidad para trabajar en grupo</p>
+                    <td><p>Facilidad para trabajar en grupo</p>
         				<p>Conocimientos basicos de protocolos de red</p></td>
-                </tr>
-                <tr>
-                    <td colspan =2>
-                    <button type="submit">Aceptar</button>
-                    <button type="submit">Rechazar</button>
-                    </td>
                 </tr>
                 </table>
             </div>
