@@ -24,7 +24,27 @@
 	margin: 10px 10px 0px 10px;
 }
 
-.icons-titlebar i {
+.icons-titlebar a {
 	margin-left: 15px;
 	margin-right: 15px;
+    text-decoration: none
+
+}
+
+.icons-titlebar a:link {
+    text-decoration: none;
+    color: white;
+}
+.icons-titlebar a:visited {
+    text-decoration: none;
+    color: white;
+}
+
+.icons-titlebar a:hover {
+    text-decoration: none;
+    color: #444;
+}
+
+.icons-titlebar a:active {
+    text-decoration: none;
 }

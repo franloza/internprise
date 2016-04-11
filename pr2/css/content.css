@@ -22,7 +22,9 @@
     border: none;
     border-radius: 3px 0 0 3px;
     float: left;
-    font-family: Tahoma;font-size:15px;font-weight: bold;
+    font-family: Tahoma;
+    font-size:15px;
+    font-weight: bold;
     height: 20px;
     padding: 10px 5px;
     width: 600px;
@@ -76,23 +78,26 @@
     flex: 6 1 0%;
     margin: 0 1rem 1rem 14px;
     min-width: 15rem;
+    border: 2px solid #444;
+    box-shadow: 5px 5px grey;
 }      
-header {
+.widget header {
     /*background: #2c3e50;*/
     background: #444;
     color: #ecf0f1;
-    padding: 1px;
 }
-h3 {
-	font-size: 0.9em;
-	margin-left: 10px;
+.widget header h2 {
+	font-size: 1em;
   	display: inline-block;
-   	width: 1.5rem;
+   	width: 100%;
+    text-align: center;
+    font-family: "helvitica", arial;
+    font-weight:normal;
 }
-.content {
-	padding: 1rem;
-}
-li {
-	list-style-type: square;
-    margin: 0 0 0 1rem;
+
+.content li{
+    border: 1px solid grey;
+    list-style: none;
+    width: 100%;
+
 }
