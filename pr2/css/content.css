@@ -141,7 +141,6 @@
 .filtro{
   margin:0;
   background:none;
-  border: 1px solid transparent;
 
   /* Prefixed box-sizing rules necessary for older browsers */
   -webkit-box-sizing: border-box;
