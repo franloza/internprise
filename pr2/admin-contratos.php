@@ -7,18 +7,12 @@
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-historial" class="admin-content">
         <div id="filtros">
-            <label>A√±o</label>
-            <select class="filtro">
-                <option value="2014">2014</option>
-                <option value="2015">2015</option>
-                <option value="2016">2016</option>
-            </select>
             <label>Estudios</label>
             <select class="filtro">
-                <option value="ing-inf">Grado en Ingenier√≠a Inform√°tica</option>
-                <option value="ing-com">Grado en Ingenier√≠a de Computadores</option>
-                <option value="ing-sof">Grado en Ingenier√≠a del Software</option>
-                <option value="dbl-grad-inf-mat">Doble Grado Ingenier√≠a Inform√°tica - Matem√°ticas</option>
+                <option value="ing-inf">Grado en IngenierÌa Inform·tica</option>
+                <option value="ing-com">Grado en IngenierÌa de Computadores</option>
+                <option value="ing-sof">Grado en IngenierÌa del Software</option>
+                <option value="dbl-grad-inf-mat">Doble Grado IngenierÌa Inform·tica - Matem·ticas</option>
             </select>
         </div>
 
@@ -35,37 +29,33 @@
             <th>Fecha Fin</th>
             <th>Puesto</th>
             <th>Accion</th>
-			<th>Estado</th>
         </tr>
         <tr>
             <td>0051299</td>
             <td>Everis</td>
-            <td>Antonio P√©rez S√°nchez</td>
+            <td>Antonio PÈrez S·nchez</td>
             <td>12/03/2014</td>
             <td>30/07/2014</td>
             <td>Programador Java</td>
             <td><a href="#">Ver</a></td>
-			<td>Finalizado</td>
         </tr>
         <tr>
             <td>0051100</td>
             <td>Everis</td>
-            <td>Elvira Jurado P√©rez</td>
+            <td>Elvira Jurado PÈrez</td>
             <td>12/03/2014</td>
             <td>30/07/2014</td>
             <td>Programador PHP</td>
             <td><a href="#">Ver</a></td>
-			<td>Cancelado</td>
         </tr>
         <tr>
             <td>0051101</td>
             <td>Indra</td>
-            <td>Pedro Ramirez Garc√≠a</td>
+            <td>Pedro Ramirez GarcÌa</td>
             <td>13/03/2014</td>
             <td>31/12/2014</td>
             <td>Administrador de Sistemas</td>
             <td><a href="#">Ver</a></td>
-			<td>Cancelado</td>
         </tr>
         <tr>
             <td>0051101</td>
@@ -75,7 +65,6 @@
             <td>31/09/2014</td>
             <td>Analista de datos</td>
             <td><a href="#">Ver</a></td>
-			<td>Finalizado</td>
         </tr>
         </table>
         </div>
