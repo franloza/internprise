@@ -3,7 +3,7 @@
 <?php include ('admin-head.html'); ?>
   <body>
 	<div id="container-dashboard" class="admin-container">   
-        <?php include ('admin-menu.html'); ?>
+        <?php include ('admin-menu.php'); ?>
         <?php include ('admin-titlebar.html'); ?>
         <div id="dashboard-content" class="admin-content"> 
 	       <div class="widget-container">
