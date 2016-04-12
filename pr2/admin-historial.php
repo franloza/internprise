@@ -25,8 +25,9 @@
         <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
         <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
 
-	   <div id="tabla-historial">
+	   <div id="tabla-historial" class="table-container">
         <table class="admin-table">
+        <div class="table-header"> Contratos expirados </div>
         <tr>
             <th>ID Contrato</th>
             <th>Empresa</th>
@@ -45,7 +46,7 @@
             <td>30/07/2014</td>
             <td>Programador Java</td>
             <td><a href="#">Ver</a></td>
-			<td>Finalizado</td>
+			<td class="cell-status"><label class="pass">Finalizado</label></td>
         </tr>
         <tr>
             <td>0051100</td>
@@ -55,7 +56,7 @@
             <td>30/07/2014</td>
             <td>Programador PHP</td>
             <td><a href="#">Ver</a></td>
-			<td>Cancelado</td>
+			<td class="cell-status"><label class="fail">Cancelado</label></td>
         </tr>
         <tr>
             <td>0051101</td>
@@ -65,7 +66,7 @@
             <td>31/12/2014</td>
             <td>Administrador de Sistemas</td>
             <td><a href="#">Ver</a></td>
-			<td>Cancelado</td>
+			<td class="cell-status"><label class="fail">Cancelado</label></td>
         </tr>
         <tr>
             <td>0051101</td>
@@ -75,7 +76,7 @@
             <td>31/09/2014</td>
             <td>Analista de datos</td>
             <td><a href="#">Ver</a></td>
-			<td>Finalizado</td>
+            <td class="cell-status"><label class="pass">Finalizado</label></td>
         </tr>
         </table>
         </div>

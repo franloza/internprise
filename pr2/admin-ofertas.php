@@ -17,10 +17,10 @@
                 <option value="infor-mates">Doble Grado Ingenieria Informatica - Matematicas</option>
             </select>
         </div>
-	   <div id="tabla-ofertas">
-        <div id="tabla-noclasificadas">
+	   <div id="tablas-ofertas">
+        <div id="tabla-noclasificadas" class="table-container">
+            <div class="table-header"> Ofertas no Clasificadas </div>
              <table class="admin-table">
-                <thead>Ofertas no clasificadas</thead>
                 <tr>
                     <th>Empresa</th>
                     <th>Puesto</th>
@@ -63,15 +63,16 @@
                 </tr>
             </table>
         </div>
-        <div id="tabla-clasificadas">
+        <div id="tabla-clasificadas" class="table-container">
             <table class="admin-table">
-                <thead>Ofertas clasificadas</thead>
+                <div class="table-header"> Ofertas clasificadas</div>
                 <tr>
                     <th>Empresa</th>
                     <th>Puesto</th>
                     <th>Sueldo</th>
                     <th>Horas</th>
                     <th>Plazas</th>
+                    <th>Estado</th>
                     <th>Accion</th>
                 </tr>
                 <tr>
@@ -80,6 +81,7 @@
                     <td>400€</td>
                     <td>20</td>
                     <td>2</td>
+                    <td class="cell-status"><label class="pass">Aceptada</label></td>
                     <td><a href="admin-ofertas-vista2.php">Ver</a></td>
                 </tr>
                 <tr>
@@ -88,6 +90,7 @@
                     <td>400€</td>
                     <td>20</td>
                     <td>3</td>
+                    <td class="cell-status"><label class="pass">Aceptada</label></td>
                     <td><a href="admin-ofertas-vista2.php">Ver</a></td>
                 </tr>
                 <tr>
@@ -96,6 +99,7 @@
                     <td>450€</td>
                     <td>25</td>
                     <td>2</td>
+                    <td class="cell-status"><label class="pass">Aceptada</label></td>
                     <td><a href="admin-ofertas-vista2.php">Ver</a></td>
                 </tr>
                 <tr>
@@ -104,6 +108,7 @@
                     <td>400€</td>
                     <td>25</td>
                     <td>4</td>
+                    <td class="cell-status"><label class="fail">Rechazada</label></td>
                     <td><a href="admin-ofertas-vista2.php">Ver</a></td>
                 </tr>
             </table>

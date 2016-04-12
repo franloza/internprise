@@ -1,9 +1,14 @@
+
 .admin-content {
 	position: absolute;
 	top: 40px;
 	left: 250px;
 	width: 80%;
 }
+/*CSS correspondiente a la sección contenido*/
+/*==============================================================*/
+
+/*Cuadro de búsqueda */
 
 .cf:before, .cf:after {
     content:"";
@@ -75,6 +80,9 @@
 .form-search button:hover:before { border-right-color: #E54040; }
 .form-search button:focus:before { border-right-color: #C42F2F; }
 
+/*==============================================================*/
+
+/*Widgets*/
 
 .widget-container {
     display: flex;
@@ -101,12 +109,31 @@
     font-weight:normal;
 }
 
+/*==============================================================*/
+
+/*Content generico */
+
 .content li{
     border: 1px solid grey;
     list-style: none;
     width: 100%;
 }
-.admin-table{
+
+.admin-content{
+    float:left;
+    width: 80%;
+  }
+
+/*==============================================================*/
+
+/*Tabla genérica content*/
+
+.table-container {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.admin-table,.table-header{
     width: 75%;
     border-collapse: collapse;
     text-align: left;
@@ -133,6 +160,31 @@
     background-color: rgba(22, 160, 133, 0.3);
   }
 
+
+.table-container .table-header {
+  background-color: grey;
+  margin-bottom: 0px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  text-align: center;
+  color:white;
+  font-family: Helvetica,Arial,sans-serif;
+  font-size: 16px;
+}
+
+.admin-table .cell-status .pass{
+  color:green;
+}
+
+.admin-table .cell-status .fail{
+  color:red;
+}
+
+
+/*==============================================================*/
+
+ /*Filtros*/ 
+
 .filtros{
   margin : 20px;
 
@@ -141,6 +193,7 @@
 .filtros label{
   font-size:1.00em;
 }
+
 .filtro{
   margin:0;
   background:none;
@@ -169,21 +222,48 @@
   background: #f3f3f3;
 }
 
-/*CSS Pagina Admin Demandas Vista */
+/*==============================================================*/
 
-#content-demandas-ver li.li2{
+/*Pagina Admin Demandas Vista */
+
+#content-demandas-ver #aptitudes li.li2{
+float: left;
 color: #fff;
 display: inline-block;
-width: 100px;
+width: 90px;
 height: 30px;
 padding: 10px;
 border-radius: 20px;
 background: #29DD89;
 text-align: center;
 margin: 5px;
-
 }
 
+
 #content-demandas-ver #aptitudes li.li2:nth-child(2n){
-  background: #2C614B;
+   background: #2C614B;
+}
+
+#content-demandas-ver img{
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  width: 250px;
+  height: 250px;
+}
+
+#content-demandas-ver #contenedor-perfil{
+  float: left;
+  margin-right: 40px;
+  margin-bottom: 30px;
+  width: 60%;
+}
+
+#content-demandas-ver #informacion-personal{
+  clear: both;
+}
+
+#content-demandas-ver #documentacion-adicional{
+  clear: both;
+
 }

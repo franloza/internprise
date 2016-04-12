@@ -8,6 +8,9 @@ body, html{
 	height: 100%;
 	width: 100%;
 }
+/*CSS correspondiente a la seccion sidebar*/
+/*==============================================================*/
+
 #admin-sidebar {
   	font-family: "helvitica", arial;
 	height: 100%;

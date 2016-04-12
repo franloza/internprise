@@ -6,20 +6,23 @@
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-historial" class="admin-content">
-        <div id="filtros">
-            <label>Estudios</label>
+        <div class="filtros">
+            <label>Seleccione una carrera:</label>
             <select class="filtro">
-                <option value="ing-inf">Grado en Ingeniería Informática</option>
-                <option value="ing-com">Grado en Ingeniería de Computadores</option>
-                <option value="ing-sof">Grado en Ingeniería del Software</option>
-                <option value="dbl-grad-inf-mat">Doble Grado Ingeniería Informática - Matemáticas</option>
+                <option value="todos">Todos</option>
+                <option value="informatica">Grado en Ingenieria Informatica</option>
+                <option value="computadores">Grado en Ingenieria de Computadores</option>
+                <option value="software">Grado en Ingenieria del Software</option>
+                <option value="videojuegos">Grado en Videojuegos</option>
+                <option value="infor-mates">Doble Grado Ingenieria Informatica - Matematicas</option>
             </select>
         </div>
 
         <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
         <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
 
-	   <div id="tabla-historial">
+	   <div id="tabla-historial" class="table-container">
+        <div class="table-header"> Contratos en vigor </div>
         <table class="admin-table">
         <tr>
             <th>ID Contrato</th>
@@ -33,7 +36,7 @@
         <tr>
             <td>0051299</td>
             <td>Everis</td>
-            <td>Antonio Pérez Sánchez</td>
+            <td>Antonio Perez Sanchez</td>
             <td>12/03/2014</td>
             <td>30/07/2014</td>
             <td>Programador Java</td>
@@ -42,7 +45,7 @@
         <tr>
             <td>0051100</td>
             <td>Everis</td>
-            <td>Elvira Jurado Pérez</td>
+            <td>Elvira Jurado Perez</td>
             <td>12/03/2014</td>
             <td>30/07/2014</td>
             <td>Programador PHP</td>
@@ -51,7 +54,7 @@
         <tr>
             <td>0051101</td>
             <td>Indra</td>
-            <td>Pedro Ramirez García</td>
+            <td>Pedro Ramirez Garcia</td>
             <td>13/03/2014</td>
             <td>31/12/2014</td>
             <td>Administrador de Sistemas</td>

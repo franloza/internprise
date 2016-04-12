@@ -8,7 +8,7 @@
 	<div id="content-demandas-ver" class="admin-content">
         
 		<div id="imagen-estudiante">
-			<a href="imagen.jpg"></a>
+			<IMG SRC="img/kakshi.jpg">
 		</div>
 		<div id="contenedor-perfil">
 			<h2><strong>Luna Maria Moreno Sanchez</strong></h2>
@@ -37,8 +37,9 @@
 			</table>
 		</div>
 
-		<div id="aptitudes"><strong>Aptitudes</strong>
+		<div id="aptitudes">
 			<ul>
+				<li class="admin-table"><strong>Aptitudes</strong></li>
 				<li class="li2">Trabajador</li>
 				<li class="li2">Optimista</li>
 				<li class="li2">Lider</li>
@@ -49,13 +50,32 @@
 				<li class="li2">Leal</li>
 			</ul>
 
+		</div>
+		<div id="informacion-personal">
+			<p><strong>Informacion Personal</strong></p>
+			<table class="admin-table">
+				<tr>
+					<td>eMail</td>
+					<td>LunaMGS@ucm.es</td>
+				</tr>
 
+				<tr>
+					<td>telefono movil</td>
+					<td>608 85 66 47</td>
+				</tr>
+
+				<tr>
+					<td>telefono fijo</td>
+					<td> 91 857 24 89</td>
+				</tr>
+
+			</table>
 
 
 		</div>
-		<div id="informacion-personal">informacion personal</div>
+
 		<div id="documentacion-adicional">
-			<a href="cvLuna.docx">Curriculum Vitae</a>
+			<a href="cvLuna.docx"><strong>Curriculum Vitae</strong></a>
 
 		</div>
 
