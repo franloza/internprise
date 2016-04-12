@@ -2,10 +2,10 @@
 <html>
 <?php include ('admin-head.html'); ?>
   <body>
-  <div id="container-ofertas-ver2" class="admin-container">
+  <div id="container-ofertas-ver2" class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-ofertas-ver2" class="admin-content">
+	<div id="content-ofertas-ver2" class="content">
         <div id="tabla-ofertas-ver2">
             <div id="cuerpo">
                 <table class="admin-table">

@@ -1,4 +1,4 @@
-.admin-content {
+.content {
 	position: absolute;
 	top: 40px;
 	left: 250px;
@@ -121,18 +121,13 @@
 
 /*==============================================================*/
 
-/*Content generico */
+/*Content de los widgets del dashboard */
 
-.content li{
+.widget-content li{
     border: 1px solid grey;
     list-style: none;
     width: 100%;
 }
-
-.admin-content{
-    float:left;
-    width: 80%;
-  }
 
 /*==============================================================*/
 

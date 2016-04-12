@@ -2,10 +2,10 @@
 <html>
 <?php include ('admin-head.html'); ?>
   <body>
-  <div id="container-ofertas" class="admin-container">
+  <div id="container-ofertas" class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-ofertas" class="admin-content">
+	<div id="content-ofertas" class="content">
         <div class="filtros">
             <label>Seleccione una carrera:</label>
             <select class="filtro">

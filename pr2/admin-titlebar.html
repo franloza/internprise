@@ -1,12 +1,19 @@
 <!-- Fragmento para definir el titlebar (header) -->
-<div id='admin-titlebar' class="titlebar">
+<div id='titlebar'>
 	<img src="img/favicon.png" alt="Internprise icon" height="70" width="70"></img>
-	<div class="label-titlebar">
-		<label><span id="title" action="admin-dashboard.php">Internprise Administration</span>&nbsp &nbsp &gt &nbsp Pestaña anterior &nbsp &gt &nbspPestaña actual</label>
+	<div id="label-titlebar">
+		<label>
+			<a id="title-site" href="admin-dashboard.php">Internprise Administration</a>
+			&nbsp &nbsp
+			<i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+			<a id="previous-page" href="admin-dashboard.php">Anterior</a>
+			<i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+			<a id="current-page" href="admin-dashboard.php">Actual</a>
+		</label>
 	</div>
-	<div class="icons-titlebar">
+	<div id="icons-titlebar">
 		<a id="bell" class="fa fa-bell fa-lg" href="notifications.php"></a>
-		<a id="settings"class="fa fa-cog fa-lg" href="settings.php"></a>
+		<a id="settings" class="fa fa-cog fa-lg" href="settings.php"></a>
 		<a class="fa fa-power-off fa-lg" href="index.html"></a>
 	</div>
 </div>

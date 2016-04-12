@@ -2,10 +2,10 @@
 <html>
 	<?php include ('admin-head.html'); ?>
   	<body>
- 	<div id="container-demandas-ver" class="admin-container">
+ 	<div id="container-demandas-ver" class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-demandas-ver" class="admin-content">
+	<div id="content-demandas-ver" class="content">
         
 		<div id="imagen-estudiante">
 			<IMG SRC="img/kakshi.jpg">
