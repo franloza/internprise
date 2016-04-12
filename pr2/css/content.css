@@ -3,7 +3,8 @@
 	position: absolute;
 	top: 40px;
 	left: 250px;
-	width: 80%;
+	padding: 20px;
+	min-width: 800px;
 }
 /*CSS correspondiente a la sección contenido*/
 /*==============================================================*/

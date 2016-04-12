@@ -35,6 +35,7 @@
                <p> Satisfacción media de estudiantes: 7.1</p>
                <a href="#"> Ver informe extendido </a>   
             </div>
+            <?php include ('footer.html'); ?>
       </div>
   </body>
 </html>

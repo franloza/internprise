@@ -2,7 +2,7 @@ body, html{
   margin: 0;
   width: 100%;
   height: 100%;
-}
+ }
 
 .admin-container {
 	height: 100%;
@@ -14,35 +14,31 @@ body, html{
 #admin-sidebar {
   	font-family: "helvitica", arial;
 	height: 100%;
-	min-width: 15%;
-	max-width: 20%
-	top: 40px;
+	width: 250px;
 	position: fixed;
+	top: 50px;
+	box-shadow: 5px 0px grey;
+	z-index: 10;
+	margin: 0;
+	padding: 0;
+	background: #444;
 }
 
-#admin-sidebar .menu-title {
-  padding: 20px;
-  background: #16a085;
-  color: #fff;
-}
-.menu-content {
-	background: #444;
-	height: 100%;
-}
-.menu-content ul {
+#admin-sidebar ul {
   list-style: none;
   background: #444;
   overflow: hidden;
   list-style-type: none;
-  -webkit-margin-before: 0em;
-  -webkit-padding-start: 0px;
+  margin: 0;
+  padding: 0;
   height: 100%;
+  width: 100%;
 }
-#admin-sidebar .menu-content ul li{
-  border-top: thin solid #555;
+#admin-sidebar ul li{
+  border-bottom: thin solid #555;
 }
 
-#admin-sidebar .menu-content ul li :hover{
+#admin-sidebar ul li :hover{
   background: #555;
   color: #16a085;
   -moz-transition-duration: 0.5s;
@@ -51,7 +47,7 @@ body, html{
   transition-duration: 0.5s;
 }
 
-#admin-sidebar .menu-content ul li a {
+#admin-sidebar ul li a {
 	text-align: center;
   	padding: 20px 0px 20px 0px;
   	width: 100%;

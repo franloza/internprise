@@ -82,6 +82,7 @@
             </div>
         </div>
 	</div>
+    <?php include ('footer.html'); ?>
   </div>
   </body>
 </html>

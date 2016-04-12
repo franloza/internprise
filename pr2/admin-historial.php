@@ -85,6 +85,7 @@
         <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
 
 	</div>
+    <?php include ('footer.html'); ?>
   </div>
   </body>
 </html>
