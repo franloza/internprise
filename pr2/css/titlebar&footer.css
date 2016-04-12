@@ -9,13 +9,24 @@
     font-family: "helvitica", arial;
     height: 50px;
     width: 100%;
-    min-width: 800px;
+    min-width: 900px;
     position: fixed; /*Hace que la posición no varie ni haciendo scroll, siempre se mantiene en el mismo lugar*/
     z-index: 10; /*Necesario para que el titlebar se muestre encima de otros elementos*/
 }
-#admin-titlebar img {
+#admin-titlebar img { /*favicon*/
 	float: left;
 	padding: 5px 0 0 10px;
+	animation-name: faviconAnimation;
+	animation-duration: 0.4s;
+	animation-delay: 0.09s;
+	animation-iteration-count: 1;
+	animation-direction: both;
+}
+@keyframes faviconAnimation {
+	0%{transform: scale(4,4);}
+	50%{transform: scale(1,1);}
+	75%{transform: scale(4,4);}
+	100%{transform: scale(1,1);}
 }
 .label-titlebar {
     padding: 8px 0 8px 20px;
@@ -25,6 +36,7 @@
 .label-titlebar #title {
 	font-family: 'Satisfy', cursive;
 	font-size: 25px;
+	text-shadow: 2px 2px 4px #000000;
 }
 
 .icons-titlebar {
@@ -36,6 +48,42 @@
 	margin-left: 15px;
 	margin-right: 20px;
     text-decoration: none
+}
+
+.icons-titlebar #bell:hover { /*animación para campana*/
+	animation-name: ringinBell;
+	animation-duration: 0.1s;
+	animation-timing-function: linear;
+	animation-delay: 0s;
+	animation-iteration-count: infinite;
+	animation-direction: both;
+}
+
+@keyframes ringinBell
+{
+  0%   {transform: rotate(10deg)}
+  25%  {transform: rotate(-10deg)}
+  50%  {transform: rotate(0)}
+  75%  {transform: rotate(10deg)}
+  100% {transform: rotate(0)}
+}
+
+.icons-titlebar #settings:hover { /*animación para ajustes*/
+	animation-name: rotateSettings;
+	animation-duration: 0.2s;
+	animation-timing-function: linear;
+	animation-delay: 0s;
+	animation-iteration-count: infinite;
+}
+
+@keyframes rotateSettings
+{
+  from {
+  	transform: rotate(0deg);
+  }
+  to{
+  	transform: rotate(360deg);
+  }
 }
 
 .icons-titlebar a:link {
@@ -66,7 +114,7 @@
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	min-width: 800px;
+	min-width: 900px;
 	height: 20px;
 	max-height: 20px;
 	background: #16a085;
