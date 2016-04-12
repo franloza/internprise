@@ -3,8 +3,15 @@
 /*CSS correspondiente a la sección titlebar*/
 /*==============================================================*/
 
-#titlebar {
+#admin-titlebar{ 
     background: #16a085;   
+}
+
+#estudiante-titlebar{ 
+    background: #B40404;   
+}
+
+.titlebar {
   	color: #fff;
     font-family: "helvitica", arial;
     height: 50px;
@@ -13,7 +20,7 @@
     position: fixed; /*Hace que la posición no varie ni haciendo scroll, siempre se mantiene en el mismo lugar*/
     z-index: 10; /*Necesario para que el titlebar se muestre encima de otros elementos*/
 }
-#titlebar img { /*favicon*/
+.titlebar img { /*favicon*/
 	float: left;
 	padding-left: 10px;
 	animation-name: faviconAnimation;
@@ -124,41 +131,48 @@
 /*CSS correspondiente a la sección footer (pie de página)*/
 /*==============================================================*/
 
-#footer {
+#admin-footer {  
+    background: #16a085;
+}
+
+#estudiante-footer {
+    background: #B40404;
+}
+
+.footer {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
 	min-width: 900px;
 	height: 20px;
 	max-height: 20px;
-	background: #16a085;
 	color: white;
 	text-align: center;
 	font-family: 'Satisfy', cursive;
 	z-index: 11;
 }
 
-#footer-icons {
+.footer-icons {
 	float: right;
 	text-decoration: none;
 	margin-right: 10px;
 }
 
-#footer-icons a:active {
+.footer-icons a:active {
 	text-decoration: none;
 }
 
-#footer-icons a:link {
+.footer-icons a:link {
 	text-decoration: none;
 	color: white;
 }
 
-#footer-icons a:hover {
+.footer-icons a:hover {
 	text-decoration: none;
 	color: #444;
 }
 
-#footer-icons a:visited {
+.footer-icons a:visited {
     text-decoration: none;
     color: white;
 }
