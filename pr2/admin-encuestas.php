@@ -5,7 +5,7 @@
     <div id="container-encuestas" class="container">
       <?php include ('admin-menu.html'); ?>
       <?php include ('admin-titlebar.html'); ?>
-        <div id="content-encuestas" class="content">
+        <div id="content-encuestas" class="admin-content">
           <div class="widget-container">
             <form class="form-search cf" action="">
              <input type="text" placeholder="Introduzca ID de Contrato">
@@ -29,12 +29,7 @@
                 </table>
               </div>
            </div>
-           <div class ="widget" id="report-encuestas">
-               <p> Total encuestas completadas: 542 </p>
-               <p> Satisfacción media de empresas: 6.6/10 </p>
-               <p> Satisfacción media de estudiantes: 7.1</p>
-               <a href="#"> Ver informe extendido </a>   
-            </div>
+           
             <?php include ('footer.html'); ?>
       </div>
   </body>

@@ -5,7 +5,7 @@
   <div id="container-historial" class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-historial" class="content">
+	<div id="content-historial" class="admin-content">
         <div class="filtros">
             <label>Seleccione una carrera:</label>
             <select class="filtro">

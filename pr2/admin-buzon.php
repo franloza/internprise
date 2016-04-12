@@ -5,7 +5,7 @@
  <div id="container-historial" class="container">
  <?php include ('admin-menu.html'); ?>
  <?php include ('admin-titlebar.html'); ?>
- <div id="content-buzon" class="content">
+ <div id="content-buzon" class="admin-content">
        <div class="filtros">
            <label>Tipo de mensaje</label>
            <select class="filtro">

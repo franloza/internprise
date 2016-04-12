@@ -5,14 +5,14 @@
  	<div id="container-demandas-ver" class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-demandas-ver" class="content">
+	<div id="content-demandas-ver" class="admin-content">
         
 		<div id="imagen-estudiante">
 			<IMG SRC="img/kakshi.jpg">
 		</div>
 		<div id="contenedor-perfil">
 			<h2><strong>Luna Maria Moreno Sanchez</strong></h2>
-			<p>Probador de paginas web y su utilidad, diseñador de bases de datos</p>
+			<p>Probador de paginas web y su utilidad, diseï¿½ador de bases de datos</p>
 			<p>Madrid zona centro y norte</p>
 			<table class="admin-table">
 				<tr>

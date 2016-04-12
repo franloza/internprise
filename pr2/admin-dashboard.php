@@ -2,11 +2,17 @@
 <html>
 <?php include ('admin-head.html'); ?>
   <body>
-	<div id="container-dashboard" class="container">   
+	<div id="container-dashboard" class="admin-container">   
         <?php include ('admin-menu.html'); ?>
         <?php include ('admin-titlebar.html'); ?>
- 
-        <div class="dashboard-content">
+        <div class="dashboard-content" class="admin-content">
+          
+              <div class="widget-container">             
+                <form class="form-search" action="">
+                 <input type="text" placeholder="Buscador de estudiantes / empresas">
+                </form>
+	        </div>
+             
             <!-- INI Contenedor widgets superior -->    
             <div class="widget-content">
                 <!-- INI Widget Nuevas ofertas -->  
@@ -118,6 +124,10 @@
                                 </p>
                             </div>
                         </div>
+                    </div>
+                </div>
+                <!-- FIN Widget Nuevas ofertas -->  
+
                 <!-- INI Widget Contratos activos -->   
                 <div class="widget">
                     <!-- Header widget -->
@@ -213,18 +223,6 @@
                                 </p>
                             </div>
                         </div>
-=======
-                    <header>
-                        <h2>Contratos activos</h2>
-                    </header>
-                    <div class="widget-content">
-                        <ul>
-                            <li>Juan Machin en Red.es</li>
-                            <li>Francisco Gonzalez </li>
-                            <li>Linea 3</li>
-                            <li>Linea 4</li>
-                        </ul>
->>>>>>> 30de47a050c1039a6a8450b31db485041dc8abdd
                     </div>
                 </div>
                 <!-- FIN Widget Contratos activos -->   
@@ -236,7 +234,6 @@
             <div class="widget-content">
                 <!-- INI Widget Nuevas demandas --> 
                 <div class="widget">
-<<<<<<< HEAD
                     <!-- Header widget -->
                     <div class="widget-header">
                         <p class="title">Nuevas demandas</p>
@@ -289,25 +286,12 @@
                             </div>
                         </div>
 
-=======
-                    <header>
-                        <h2>Nuevas demandas</h2>
-                    </header>
-                    <div class="widget-content">
-                        <ul>
-                            <li>Linea 1</li>
-                            <li>Linea 2</li>
-                            <li>Linea 3</li>
-                            <li>Linea 4</li>
-                        </ul>
->>>>>>> 30de47a050c1039a6a8450b31db485041dc8abdd
                     </div>
                 </div>
                 <!-- FIN Widget Nuevas demandas-->  
 
                 <!-- INI Widget Dudas y sugerencias --> 
                 <div class="widget">
-<<<<<<< HEAD
                     <!-- Header widget -->
                     <div class="widget-header">
                         <p class="title">Dudas y sugerencias</p>
@@ -457,18 +441,6 @@
                                 </p>
                             </div>
                         </div>
-=======
-                    <header>
-                        <h2>Dudas y sugerencias</h2>
-                    </header>
-                    <div class="widget-content">
-                        <ul>
-                            <li>Linea 1</li>
-                            <li>Linea 2</li>
-                            <li>Linea 3</li>
-                            <li>Linea 4</li>
-                        </ul>
->>>>>>> 30de47a050c1039a6a8450b31db485041dc8abdd
                     </div>
                 </div>
                 <!-- FIN Widget Dudas y sugerencias --> 

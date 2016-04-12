@@ -1,4 +1,4 @@
-.content {
+.admin-content {
 	position: absolute;
 	top: 40px;
 	left: 250px;
@@ -118,6 +118,13 @@
   color: #777;
 }
 
+/*Cuadro de búsqueda */
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 30%;
+  transform: translate(-50%, -50%);
+}
 
 /*==============================================================*/
 
