@@ -19,7 +19,8 @@
        <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
        <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
 
-    <div id="tabla-buzon">
+    <div id="tabla-buzon" class="table-container">
+       <div class="table-header"> Mensajes del buzón </div>
        <table class="admin-table">
        <tr>
            <th>Tipo</th>
