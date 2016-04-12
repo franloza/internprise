@@ -165,3 +165,22 @@
   box-shadow: 0 1px 0 1px rgba(0,0,0,.04);
   background: #f3f3f3;
 }
+
+/*CSS Pagina Admin Demandas Vista */
+
+#content-demandas-ver li.li2{
+color: #fff;
+display: inline-block;
+width: 100px;
+height: 30px;
+padding: 10px;
+border-radius: 20px;
+background: #29DD89;
+text-align: center;
+margin: 5px;
+
+}
+
+#content-demandas-ver #aptitudes li.li2:nth-child(2n){
+  background: #2C614B;
+}

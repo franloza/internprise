@@ -1,8 +1,5 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="admin-demandas-css.css">
-	</head>
 	<?php include ('admin-head.html'); ?>
   	<body>
  	<div id="container-demandas-ver" class="admin-container">
@@ -17,25 +14,25 @@
 			<h2><strong>Luna Maria Moreno Sanchez</strong></h2>
 			<p>Probador de paginas web y su utilidad, diseñador de bases de datos</p>
 			<p>Madrid zona centro y norte</p>
-			<table>
+			<table class="admin-table">
 				<tr>
-					<th>Actual</th>
-					<th>Programadora de bases de datos para banco Caminos</th>
+					<td>Actual</td>
+					<td>Programadora de bases de datos para banco Caminos</td>
 				</tr>
 				
 				<tr>
-					<th>Anterior</th>
-					<th>Becaria en la Universidad Complutense. Tecnica de Infomatica</th>
+					<td>Anterior</td>
+					<td>Becaria en la Universidad Complutense. Tecnica de Infomatica</td>
 				</tr>
 				
 				<tr>
-					<th>Educacion</th>
-					<th>UCM-Informatica</th>
+					<td>Educacion</td>
+					<td>UCM-Informatica</td>
 				</tr>
 				
 				<tr>
-					<th>Idiomas</th>
-					<th>Ingles, Frances y aleman<th>
+					<td>Idiomas</td>
+					<td>Ingles, Frances y aleman</td>
 				</tr>
 			</table>
 		</div>
