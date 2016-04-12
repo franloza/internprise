@@ -2,26 +2,23 @@
     background: #16a085;   
   	color: #fff;
     font-family: "helvitica", arial;
-    margin: 0 0 0 0;
-}
-
-.titlebar {
-    margin:10px 0px 10px 0px;
+    margin: 0;
     height: 40px;
+    width: 100%;
+    position: fixed;
 }
 
 .label-titlebar {
     padding-top:10px;
-    float:left;
 }
 
 .label-titlebar label {
-    margin-left:10px; 
+    margin-left:10px;
+    float: left;
 }
 
 .icons-titlebar {
 	float: right;
-	margin: 10px 10px 0px 10px;
 }
 
 .icons-titlebar a {

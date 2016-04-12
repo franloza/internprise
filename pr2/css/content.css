@@ -1,3 +1,10 @@
+.admin-content {
+	position: absolute;
+	top: 40px;
+	left: 250px;
+	width: 80%;
+}
+
 .cf:before, .cf:after {
     content:"";
     display:table;
@@ -126,10 +133,6 @@
     background-color: rgba(22, 160, 133, 0.3);
   }
 
-  .admin-content{
-    float:left;
-    width: 80%;
-  }
 .filtros{
   margin : 20px;
 
