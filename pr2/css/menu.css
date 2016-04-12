@@ -4,14 +4,14 @@ body, html{
   height: 100%;
  }
 
-.admin-container {
+.container {
 	height: 100%;
 	width: 100%;
 }
 /*CSS correspondiente a la seccion sidebar*/
 /*==============================================================*/
 
-#admin-sidebar {
+.sidebar {
   	font-family: "helvitica", arial;
 	height: 100%;
 	width: 250px;
@@ -24,7 +24,7 @@ body, html{
 	background: #444;
 }
 
-#admin-sidebar ul {
+.sidebar ul {
   list-style: none;
   background: #444;
   overflow: hidden;
@@ -34,11 +34,11 @@ body, html{
   height: 100%;
   width: 100%;
 }
-#admin-sidebar ul li{
+.sidebar ul li{
   border-bottom: thin solid #555;
 }
 
-#admin-sidebar ul li :hover{
+.sidebar ul li :hover{
   background: #555;
   color: #16a085;
   -moz-transition-duration: 0.5s;
@@ -47,7 +47,7 @@ body, html{
   transition-duration: 0.5s;
 }
 
-#admin-sidebar ul li a {
+.sidebar ul li a {
 	text-align: center;
   	padding: 20px 0px 20px 0px;
   	width: 100%;

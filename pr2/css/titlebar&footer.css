@@ -3,7 +3,7 @@
 /*CSS correspondiente a la sección titlebar*/
 /*==============================================================*/
 
-#admin-titlebar {
+#titlebar {
     background: #16a085;   
   	color: #fff;
     font-family: "helvitica", arial;
@@ -13,9 +13,9 @@
     position: fixed; /*Hace que la posición no varie ni haciendo scroll, siempre se mantiene en el mismo lugar*/
     z-index: 10; /*Necesario para que el titlebar se muestre encima de otros elementos*/
 }
-#admin-titlebar img { /*favicon*/
+#titlebar img { /*favicon*/
 	float: left;
-	padding: 5px 0 0 10px;
+	padding-left: 10px;
 	animation-name: faviconAnimation;
 	animation-duration: 0.4s;
 	animation-delay: 0.09s;
@@ -28,29 +28,43 @@
 	75%{transform: scale(4,4);}
 	100%{transform: scale(1,1);}
 }
-.label-titlebar {
+#label-titlebar {
     padding: 8px 0 8px 20px;
     float: left;
 }
 
-.label-titlebar #title {
+#label-titlebar label i{
+	padding-right: 20px;
+	padding-left: 20px;
+}
+
+#label-titlebar #title-site {
 	font-family: 'Satisfy', cursive;
-	font-size: 25px;
+	font-size: 27px;
 	text-shadow: 2px 2px 4px #000000;
 }
 
-.icons-titlebar {
+#label-titlebar a:hover {
+	text-decoration: underline;
+}
+
+#label-titlebar a {
+	text-decoration: none;
+	color: white;
+}
+
+#icons-titlebar {
 	float: right;
 	padding: 15px 0 15px 0;
 }
 
-.icons-titlebar a {
+#icons-titlebar a {
 	margin-left: 15px;
 	margin-right: 20px;
     text-decoration: none
 }
 
-.icons-titlebar #bell:hover { /*animación para campana*/
+#icons-titlebar #bell:hover { /*animación para campana*/
 	animation-name: ringinBell;
 	animation-duration: 0.1s;
 	animation-timing-function: linear;
@@ -68,7 +82,7 @@
   100% {transform: rotate(0)}
 }
 
-.icons-titlebar #settings:hover { /*animación para ajustes*/
+#icons-titlebar #settings:hover { /*animación para ajustes*/
 	animation-name: rotateSettings;
 	animation-duration: 0.2s;
 	animation-timing-function: linear;
@@ -86,21 +100,21 @@
   }
 }
 
-.icons-titlebar a:link {
+#icons-titlebar a:link {
     text-decoration: none;
     color: white;
 }
-.icons-titlebar a:visited {
+#icons-titlebar a:visited {
     text-decoration: none;
     color: white;
 }
 
-.icons-titlebar a:hover {
+#icons-titlebar a:hover {
     text-decoration: none;
     color: #444;
 }
 
-.icons-titlebar a:active {
+#icons-titlebar a:active {
     text-decoration: none;
 }
 /*==============================================================*/
