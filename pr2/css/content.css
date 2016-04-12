@@ -219,19 +219,44 @@
 
 /*Pagina Admin Demandas Vista */
 
-#content-demandas-ver li.li2{
+#content-demandas-ver #aptitudes li.li2{
+float: left;
 color: #fff;
 display: inline-block;
-width: 100px;
+width: 90px;
 height: 30px;
 padding: 10px;
 border-radius: 20px;
 background: #29DD89;
 text-align: center;
 margin: 5px;
-
 }
 
+
 #content-demandas-ver #aptitudes li.li2:nth-child(2n){
-  background: #2C614B;
+   background: #2C614B;
+}
+
+#content-demandas-ver img{
+  float: left;
+  margin-right: 30px;
+  margin-bottom: 30px;
+  width: 250px;
+  height: 250px;
+}
+
+#content-demandas-ver #contenedor-perfil{
+  float: left;
+  margin-right: 40px;
+  margin-bottom: 30px;
+  width: 60%;
+}
+
+#content-demandas-ver #informacion-personal{
+  clear: both;
+}
+
+#content-demandas-ver #documentacion-adicional{
+  clear: both;
+
 }
