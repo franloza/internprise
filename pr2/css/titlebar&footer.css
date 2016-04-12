@@ -13,7 +13,10 @@
     position: fixed; /*Hace que la posición no varie ni haciendo scroll, siempre se mantiene en el mismo lugar*/
     z-index: 10; /*Necesario para que el titlebar se muestre encima de otros elementos*/
 }
-
+#admin-titlebar img {
+	float: left;
+	padding: 5px 0 0 10px;
+}
 .label-titlebar {
     padding: 8px 0 8px 20px;
     float: left;
