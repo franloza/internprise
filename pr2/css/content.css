@@ -1,4 +1,3 @@
-
 .admin-content {
 	position: absolute;
 	top: 40px;
@@ -9,106 +8,116 @@
 /*CSS correspondiente a la sección contenido*/
 /*==============================================================*/
 
-/*Cuadro de búsqueda */
-
-.cf:before, .cf:after {
-    content:"";
-    display:table;
-  }
-.cf:after {clear:both; }
-.cf { zoom:1; }
-
-   /* el formulario en si mismo */
-.form-search {
-    background-color: #303941;
-    border-radius: 10px;
-    box-shadow: 0 0 2px #606971 inset;
-    margin: 0 auto;
-    padding: 15px;
-    width: 850px;
-    margin:10px;
-  }
-
-   /* la caja donde se ingresa el texto a buscar */
-.form-search input {
-    background-color: #EEE;
-    border: none;
-    border-radius: 3px 0 0 3px;
-    float: left;
-    font-family: Tahoma;
-    font-size:15px;
-    font-weight: bold;
-    height: 20px;
-    padding: 10px 5px;
-    width: 600px;
-  }
-.form-search input:focus {
-    outline: 0;
-    background: #FFF;
-    box-shadow: 0 0 2px rgba(0,0,0,.8) inset;
-}
-
-.form-search {
-	background-color: #9099A1;
-    border: none;
-    border-radius: 0 3px 3px 0;
-    color: #FFF;
-    cursor: pointer;
-    float: right;
-    font-family: Tahoma;
-    font-size: 15px;
-    font-weight: bold;
-    height: 40px;
-    overflow: visible;
-    padding: 0;
-    position: relative;
-    text-transform: uppercase;
-    text-shadow: 0 -1px 0 rgba(0, 0 ,0, .3);
-    width: 110px;
-}
-.form-search button:hover{ background: #E54040; }
-.form-search button:active,
-.form-search button:focus{ background: #C42F2F; }
-.form-search button:before { /* el detalle del triángulo izquierdo */
-    content: "";
-    border-color: transparent #9099A1 transparent;
-    border-style: solid solid solid none;
-    border-width: 8px 8px 8px 0;
-    left: -6px;
-    position: absolute;
-    top: 12px;
-}
-.form-search button:hover:before { border-right-color: #E54040; }
-.form-search button:focus:before { border-right-color: #C42F2F; }
-
-/*==============================================================*/
-
 /*Widgets*/
+#square a {
+  text-decoration: none;
+  color: inherit;
+}
+#square a:link {
+  text-decoration: none;
+}
 
-.widget-container {
-    display: flex;
-    flex-flow: row wrap;
+#square a:visited {
+  text-decoration: none;
 }
-.widget {
-    background: #eee;
-    flex: 6 1 0%;
-    margin: 0 1rem 1rem 14px;
-    min-width: 15rem;
-    border: 2px solid #444;
-    box-shadow: 5px 5px grey;
+
+.dashboard-content {
+	padding-top: 60px;
+	margin-left: 520px;
 }
-.widget header {
-    background: #444;
-    color: #ecf0f1;
+
+.dashboard-content .widget-content {
+  padding-top: 30px;
+  width: 900px;
+  height: 300px;
+  text-align: center;
 }
-.widget header h2 {
-	font-size: 1em;
-  	display: inline-block;
-   	width: 100%;
-    text-align: center;
-    font-family: "helvitica", arial;
-    font-weight:normal;
+
+.dashboard-content .widget {
+  border: 1px solid #ccc;
+  background: #f5f7fa;
+  margin-right: 15px;
+  margin-left: 15px;
+  width: 400px;
+  height: 280px;
+  display: inline-block;
+
+  -webkit-box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
+  -moz-box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
+  box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
 }
+
+.dashboard-content .widget-header {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+  color: #000;
+  width: 370px;
+  height: 50px;
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ccc;
+}
+
+.dashboard-content .content {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: #fff;
+  width: 385px;
+  height: 225px;
+  padding-left: 15px;
+  text-align: left;
+  display: inline-block;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.dashboard-content .title {
+  font-size: 18px;
+  display: inline-block;
+}
+
+.dashboard-content .title-items {
+  display: inline-block;
+  float: right;
+}
+
+.dashboard-content .square {
+  text-decoration: none;
+  text-align: center;
+  vertical-align: center;
+  color: #ed5565;
+  width: 50px;
+  height: 50px;
+  border: 1px solid #ed5565;
+  padding: 2px 8px;
+}
+
+.dashboard-content .square:hover {
+  color: #000;
+  background: #ed5565
+}
+
+.dashboard-content .media {
+  margin-top: 15px;
+  margin-right: 15px;
+}
+
+.dashboard-content .media-left {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.dashboard-content .media-body {
+  margin-left: 10px;
+  margin-right: 5px;
+  display: inline-block;
+  font-size: 16px;
+}
+
+.dashboard-content .text-muted {
+  color: #777;
+}
+
 
 /*==============================================================*/
 
