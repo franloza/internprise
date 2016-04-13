@@ -2,17 +2,16 @@
 <html>
 	<?php include ('admin-head.html'); ?>
   	<body>
- 	<div id="container-demandas-ver" class="container">
+ 	<div class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-demandas-ver" class="content">
-        
+	<div id="content-perfil" class="content">    
 		<div id="imagen-estudiante">
 			<IMG SRC="img/kakshi.jpg">
 		</div>
-		<div id="contenedor-perfil">
+		<div class="contenedor-perfil">
 			<h2><strong>Luna Maria Moreno Sanchez</strong></h2>
-			<p>Probador de paginas web y su utilidad, dise�ador de bases de datos</p>
+			<p>Probador de paginas web y su utilidad, disenadora de bases de datos</p>
 			<p>Madrid zona centro y norte</p>
 			<table class="admin-table">
 				<tr>
@@ -37,7 +36,7 @@
 			</table>
 		</div>
 
-		<div id="aptitudes">
+		<div id="admin-aptitudes" class="aptitudes"> 
 			<ul>
 				<li class="admin-table"><strong>Aptitudes</strong></li>
 				<li class="li2">Trabajador</li>
