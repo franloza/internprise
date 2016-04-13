@@ -48,7 +48,6 @@
 
 .dashboard-content {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
 }
 
 .dashboard-content .widget-content {
@@ -299,3 +298,15 @@ margin: 5px;
   clear: both;
 
 }
+
+/*==============================================================*/
+/*Pagina Empresa Buzon */
+.form-buzon{
+  text-align: center;
+}
+.buzon h1, h2 {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+
+/*==============================================================*/

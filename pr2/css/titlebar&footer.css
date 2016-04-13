@@ -17,11 +17,11 @@
 	background: #16a085;
 }
 
-#empresa-sidebar {
-	
+#empresa-titlebar {
+	background: #448AFF;
 }
 
-#estudiante-sidebar {
+#estudiante-titlebar {
 	
 }
 .titlebar img { /*favicon*/
@@ -152,7 +152,7 @@
 }
 
 #empresa-footer {
-	
+	background: #448AFF;
 }
 
 #estudiante-footer {
@@ -165,18 +165,10 @@
 	margin-right: 10px;
 }
 
-#footer-icons a:active {
-	text-decoration: none;
-}
 
 #footer-icons a:link {
 	text-decoration: none;
 	color: white;
-}
-
-#footer-icons a:hover {
-	text-decoration: none;
-	color: #444;
 }
 
 #footer-icons a:visited {
