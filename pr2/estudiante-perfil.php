@@ -7,7 +7,7 @@
 	<?php include ('estudiante-titlebar.html'); ?>
 	<div id="content-perfil" class="content">  
 		<div id="imagen-estudiante">
-			<IMG SRC="img/kakshi.jpg">
+			<IMG SRC="img/estudiante-avatar.png">
 		</div>
 		<div class="contenedor-perfil">
 			<h2><strong>Pedro Sanchez Pérez</strong></h2>
