@@ -191,7 +191,7 @@
     background-color: #16a085;
     color : white;
   }
- 
+
 .admin-table tr:nth-of-type(even) td{
     background-color: rgba(22, 160, 133, 0.3);
   }
@@ -240,7 +240,7 @@
     background-color: #B40404;
     color : white;
   }
- 
+
 .estudiante-table tr:nth-of-type(even) td{
     background-color: rgba(180,4,4,0.3);
   }
@@ -313,7 +313,7 @@ background: rgba(180,4,4,50);
 }
 
 #content-perfil #estudiante-aptitudes li.li2:nth-child(2n){
-   background: #B40404; 
+   background: #B40404;
 }
 
 #content-perfil img{
@@ -348,6 +348,12 @@ background: rgba(180,4,4,50);
 }
 .buzon h1, h2 {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+/*==============================================================*/
+/* DASHBOARD EMPRESA */
+.Buscador-talentos{
+	float:left;
 }
 
 /*==============================================================*/

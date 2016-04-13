@@ -7,7 +7,7 @@
 		<?php include ('empresa-titlebar.html'); ?>
 		<div class="content">
 
-			<div class="dashboard-content" class="estudiante-content">
+			<div class="dashboard-content" class="empresas-content">
 
 		<!-- INI Contenedor widgets superior -->
 		<div class="widget-content">
