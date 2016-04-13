@@ -9,7 +9,7 @@
         <div id="tabla-ofertas-ver">
             <div id="cuerpo">
                 <table class="admin-table">
-                <thead>Encuesta Empresa</thead>
+                <thead>Encuesta Empresa - Resuelta</thead>
                 <tr></tr>
                 <tr>
                     <td>¿Te gustan las gallinas?</td>
