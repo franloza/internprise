@@ -351,6 +351,85 @@ background: rgba(180,4,4,50);
 }
 
 /*==============================================================*/
+/*Pagina Perfil Empresa */
+
+.perfil-empresa-content {
+  width: 900px;
+}
+.container-empresa-perfil {
+  background: #f5f7fa;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  width: 900px;
+  height: 756px;
+}
+.perfil-empresa-content .titulo-perfil {
+  background: #444;
+  width: 900px;
+  height: 195px;
+  padding-top: 35px;
+  position: relative;
+}
+.perfil-empresa-content .logo-perfil {
+  border: 1px solid #ccc;
+  background-image: url("img/rediris.jpg");
+  background-size: 200px 180px;
+  width: 200px;
+  height: 180px;
+  margin-left: 40px;
+  display: inline-block;
+  position: absolute;
+  z-index: 2;
+}
+.perfil-empresa-content .datos-logo-perfil {
+  border: 1px solid #ccc;
+  background: #fff;
+  width: 640px;
+  height: 120px;
+  display: inline-block;
+  position: absolute;
+  margin-top: 10px;
+  z-index: 1;
+}
+.perfil-empresa-content .datos-logo-perfil {
+  padding-left: 260px;
+  padding-top: 40px;
+}
+.perfil-empresa-content .container-empresa-perfil .text-muted {
+  color: #7f8490;
+}
+.perfil-empresa-content #nombre-empresa {
+  margin-bottom: 2px;
+}
+
+.perfil-empresa-content .descripcion-perfil {
+  padding: 30px 50px 30px 30px;
+}
+
+.perfil-empresa-content .descripcion-perfil p{
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #444;
+  padding-bottom: 10px;
+}
+.perfil-empresa-content .datos-interes-perfil {
+  width: 900px;
+}
+.perfil-empresa-content .bloque {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  display: inline-block;
+  text-align: justify;
+  width: 200px;
+  float: left;
+  margin: 0px 50px;
+  text-align: left;
+}
+.perfil-empresa-content .text-muted {
+  color: #555;
+  margin-bottom: 14px;
+}
+/*==============================================================*/
+
 /* DASHBOARD EMPRESA */
 .Buscador-talentos{
 	float:left;
