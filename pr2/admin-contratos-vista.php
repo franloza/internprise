@@ -19,8 +19,12 @@
                     <td>Antonio Perez Sanchez</td>
                 </tr>
                 <tr>
+                    <td>Estudios</td>
+                    <td>Ingeniería informática</td>
+                </tr>
+                <tr>
                     <td>Puesto</td>
-                    <td>Especialista IT</td>
+                    <td>Programador Java</td>
         		</tr>
                 <tr>
                     <td>Sueldo</td>
