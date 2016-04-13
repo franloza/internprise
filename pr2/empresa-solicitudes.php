@@ -8,7 +8,7 @@
 	<div id="content-empresa-solicitudes" class="content">
 		 <div id="tabla-ofertas" class="table-container">
             <div class="table-header"> Solicitudes </div>
-             <table class="admin-table">
+             <table class="empresa-table">
                 <tr>
                     <th>Id Oferta</th>
                     <th>Puesto</th>

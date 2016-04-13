@@ -227,7 +227,7 @@ body {
   margin-bottom: 20px;
 }
 
-/*Tablas administrado*/
+/*Tablas administrador*/
 
 .admin-table,.table-header{
     width: 75%;
@@ -304,7 +304,36 @@ body {
 .estudiante-table tr:nth-of-type(even) td{
     background-color: rgba(180,4,4,0.3);
   }
+/*Tablas empresa*/
 
+.empresa-table,.table-header{
+    width: 75%;
+    border-collapse: collapse;
+    text-align: left;
+    overflow: hidden;
+    margin-left: 30px;
+}
+
+.empresa-table td, th {
+    border-top: 1px solid #448AFF;
+    padding: 10px;
+}
+
+.empresa-table td{
+    border-left: 1px solid #448AFF;
+    border-right: 1px solid #448AFF;
+  }
+
+.empresa-table  th{
+    background-color: #448AFF;
+    color : white;
+  }
+
+.empresa-table tr:nth-of-type(even) td{
+    background-color: rgba(70,150,250,0.3);
+  }
+  
+  
 /*==============================================================*/
 
  /*Filtros*/
@@ -375,7 +404,6 @@ background: rgba(180,4,4,50);
 #content-perfil #estudiante-aptitudes li.li2:nth-child(2n){
    background: #B40404;
 }
-
 #content-perfil img{
   float: left;
   margin-right: 30px;

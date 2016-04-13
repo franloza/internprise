@@ -14,7 +14,7 @@
 	   <div id="tablas-ofertas">
         <div id="tabla-ofertas" class="table-container">
             <div class="table-header"> Ofertas disponibles </div>
-             <table class="admin-table">
+             <table class="empresa-table">
                 <tr>
                     <th>Empresa</th>
                     <th>Puesto</th>

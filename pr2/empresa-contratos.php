@@ -8,7 +8,7 @@
 	<div id="content-empresa-contratos" class="content">
 		<div id="tabla-historial" class="table-container">
         <div class="table-header"> Contratos en vigor </div>
-        <table class="admin-table">
+        <table class="empresa-table">
         <tr>
             <th>ID Contrato</th>
             <th>Estudiante</th>
@@ -49,7 +49,7 @@
         </div>
 		<div id="tabla-historial" class="table-container">
         <div class="table-header"> Contratos finalizados </div>
-        <table class="admin-table">
+        <table class="empresa-table">
         <tr>
             <th>ID Contrato</th>
             <th>Estudiante</th>
@@ -68,7 +68,6 @@
 			<td>400€</td>
             <td><a href="admin-contratos-vista.php">Ver</a></td>
         </tr>
-        <tr>
         <tr>
             <td>0057569</td>
             <td>Jesus Gil y Gil</td>

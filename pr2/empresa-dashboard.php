@@ -44,7 +44,7 @@
 										</div>
 										<div class="media-body">
 												<div class="media-header">
-														<strong> Gato De Lucha </strong> ha demandado tu oferta <strong>Administrador Solaris</strong>
+														<strong> Gallina Lopez </strong> ha aceptado tu oferta <strong>Administrador Solaris</strong>
 												</div>
 												<div class="text-muted">
 														<small>Hace 2 dias</small>
