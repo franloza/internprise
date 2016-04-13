@@ -3,7 +3,15 @@
 /*CSS correspondiente a la sección titlebar*/
 /*==============================================================*/
 
-.titlebar {   
+#admin-titlebar{ 
+    background: #16a085;   
+}
+
+#estudiante-titlebar{ 
+    background: #B40404;   
+}
+
+.titlebar {
   	color: #fff;
     font-family: "helvitica", arial;
     height: 50px;
@@ -21,9 +29,6 @@
 	background: #448AFF;
 }
 
-#estudiante-titlebar {
-	
-}
 .titlebar img { /*favicon*/
 	float: left;
 	padding-left: 10px;
@@ -131,9 +136,16 @@
 /*==============================================================*/
 
 
-
 /*CSS correspondiente a la sección footer (pie de página)*/
 /*==============================================================*/
+
+#admin-footer {  
+    background: #16a085;
+}
+
+#estudiante-footer {
+    background: #B40404;
+}
 
 .footer {
 	position: fixed;
@@ -141,6 +153,7 @@
 	width: 100%;
 	min-width: 800px;
 	height: 20px;
+    max-height: 20px;
 	color: white;
 	text-align: center;
 	font-family: 'Satisfy', cursive;
@@ -155,23 +168,23 @@
 	background: #448AFF;
 }
 
-#estudiante-footer {
-	
-}
 
-#footer-icons {
+.footer-icons {
 	float: right;
 	text-decoration: none;
 	margin-right: 10px;
 }
 
+.footer-icons a:active {
+	text-decoration: none;
+}
 
-#footer-icons a:link {
+.footer-icons a:link {
 	text-decoration: none;
 	color: white;
 }
 
-#footer-icons a:visited {
+.footer-icons a:visited {
     text-decoration: none;
     color: white;
 }
