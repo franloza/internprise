@@ -29,29 +29,29 @@
         <tr>
 			<td>0151300</td>
             <td>Intel</td>
-            <td><a href="vista-estudiante.php">Luna Maria Moreno Sanchez</a></td>
-            <td><a href="admin-demandas-vista.php">Ver</a></td>
+            <td><a href="admin-demandas-vista.php">Luna Maria Moreno Sanchez</a></td>
+            <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
 			<td>0051111</td>
             <td>Google ESP</td>
-			<td><a href="vista-estudiante.php">Alejandro Reguilon Mota</a></td>
-            <td><a href="admin-demandas-vista.php">Ver</a></td>
+			<td><a href="lista-estudiantes.php">Alejandro Reguilon Mota</a></td>
+            <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
 			<td>0051322</td>
             <td>Coritel</td>
-			<td><a href="vista-estudiante.php">Hector Garcia Ronda</a></td>
-            <td><a href="admin-demandas-vista.php">Ver</a></td>
+			<td><a href="lista-estudiantes.php">Hector Garcia Ronda</a></td>
+            <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
 			<td>0052000</td>
             <td>Indra</td>
-			<td><a href="vista-estudiante.php">Jaime Borregon Perez</a></td>
-            <td><a href="admin-demandas-vista.php">Ver</a></td>
+			<td><a href="lista-estudiantes.php">Jaime Borregon Perez</a></td>
+            <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         </table>
-        </div>
+        </div>  
 
         <div id="tabla-demandas" class="table-container">
         <div class="table-header"> Demandas clasificadas </div>
@@ -66,33 +66,33 @@
         <tr>
             <td>0152370</td>
             <td>Everis</td>
-            <td><a href="vista-estudiante.php">Antonio García Perez</a></td>
+            <td><a href="admin-demandas-vista.php">Antonio García Perez</a></td>
             <td class="cell-status"><label class="pass">Aceptada</label></td>
-            <td><a href="admin-demandas-vista.php">Ver</a></td>
+            <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0052189</td>
             <td>Becarios NO S.A</td>
-            <td><a href="vista-estudiante.php">Pedro Aguilar Rodriguez</a></td>
+            <td><a href="lista-estudiantes.php">Pedro Aguilar Rodriguez</a></td>
             <td class="cell-status"><label class="fail">Rechazada</label></td>
-            <td><a href="admin-demandas-vista.php">Ver</a></td>
+            <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0051242</td>
             <td>Yin Peng Consultora</td>
-            <td><a href="vista-estudiante.php"> Sara Diaz Diaz</a></td>
+            <td><a href="lista-estudiantes.php"> Sara Diaz Diaz</a></td>
             <td class="cell-status"><label class="pass">Aceptada</label></td>
-            <td><a href="admin-demandas-vista.php">Ver</a></td>
+            <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>00525012</td>
             <td>Indra</td>
-            <td><a href="vista-estudiante.php">Rosa Vega Sanchez</a></td>
+            <td><a href="lista-estudiantes.php">Rosa Vega Sanchez</a></td>
             <td class="cell-status"><label class="pass">Aceptada</label></td>
-            <td><a href="admin-demandas-vista.php">Ver</a></td>
+            <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         </table>
-        </div>
+        </div>         
 	</div>
     <?php include ('footer.html'); ?>
   </div>
