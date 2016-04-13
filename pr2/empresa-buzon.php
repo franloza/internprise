@@ -12,15 +12,16 @@
 	    <div id="form-buzon-empresa" class="form-buzon">
  		    <div class="form-div">
 			    <form class="form" id="form1" action="">
-				    <p> Consulta </p>
-				    <p>
-					<textarea name="consulta" rows=1 placeholder="Asunto" id="textarea-asunto"></textarea>
-					<textarea name="consulta" rows=8 placeholder="Escribo con motivo de ..." id="textarea-texto"></textarea>
-				    </p>
+				    <div id="container-texareas-empresa-buzon" class="container-texareas-buzon">
+						<textarea name="consulta" rows="1" cols="50" placeholder="Asunto" id="textarea-asunto"></textarea>
+						<br>
+						<textarea name="consulta" rows="20" cols="50" placeholder="Escribo con motivo de ..." id="textarea-texto"></textarea>
+				    </div>
 				  	<p>
-					  Motivo de la consulta <input type="radio" name="motivo" value="Evaluacion" checked="checked" /> Evaluacion
-					  <input type="radio" name="motivo" value="Sugerencias" /> Sugerencias
-					  <input type="radio" name="motivo" value="Críticas" /> Criticas
+					  <input type="radio" name="motivo" value="Duda" checked="checked" /> Duda
+					  <input type="radio" name="motivo" value="Sugerencia" /> Sugerencia
+					  <input type="radio" name="motivo" value="Contacto" /> Contacto
+					  <input type="radio" name="motivo" value="Otro" /> Otro
 				  	</p>
 				 	<div class="submit">
 						<input type="submit" value="Enviar" id="boton-enviar"/>

@@ -3,14 +3,6 @@
 /*CSS correspondiente a la sección titlebar*/
 /*==============================================================*/
 
-#admin-titlebar{ 
-    background: #16a085;   
-}
-
-#estudiante-titlebar{ 
-    background: #B40404;   
-}
-
 .titlebar {
   	color: #fff;
     font-family: "helvitica", arial;
@@ -27,6 +19,10 @@
 
 #empresa-titlebar {
 	background: #448AFF;
+}
+
+#estudiante-titlebar{ 
+    background: #B40404;   
 }
 
 .titlebar img { /*favicon*/
@@ -139,14 +135,6 @@
 /*CSS correspondiente a la sección footer (pie de página)*/
 /*==============================================================*/
 
-#admin-footer {  
-    background: #16a085;
-}
-
-#estudiante-footer {
-    background: #B40404;
-}
-
 .footer {
 	position: fixed;
 	bottom: 0;
@@ -168,6 +156,9 @@
 	background: #448AFF;
 }
 
+#estudiante-footer {
+    background: #B40404;
+}
 
 .footer-icons {
 	float: right;
