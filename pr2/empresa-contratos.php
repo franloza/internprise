@@ -25,7 +25,7 @@
             <td>30/07/2016</td>
             <td>Programador Java</td>
 			<td>400€</td>
-            <td><a href="admin-contratos-vista.php">Ver</a></td>
+            <td><a href="empresa-contratos-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0051100</td>
@@ -34,7 +34,7 @@
             <td>16/08/2016</td>
             <td>Programador PHP</td>
 			<td>450€</td>
-            <td><a href="admin-contratos-vista.php">Ver</a></td>
+            <td><a href="empresa-contratos-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0051101</td>
@@ -43,7 +43,7 @@
             <td>31/12/2016</td>
             <td>Administrador de Sistemas</td>
 			<td>400€</td>
-            <td><a href="admin-contratos-vista.php">Ver</a></td>
+            <td><a href="empresa-contratos-vista.php">Ver</a></td>
         </tr>
         </table>
         </div>
@@ -66,7 +66,7 @@
             <td>30/07/2015</td>
             <td>Tecnico telecomunicaciones</td>
 			<td>400€</td>
-            <td><a href="admin-contratos-vista.php">Ver</a></td>
+            <td><a href="empresa-contratos-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0057569</td>
@@ -75,7 +75,7 @@
             <td>30/07/2015</td>
             <td>Administrador BBDD</td>
 			<td>400€</td>
-            <td><a href="admin-contratos-vista.php">Ver</a></td>
+            <td><a href="empresa-contratos-vista.php">Ver</a></td>
         </tr>
 		<tr>
             <td>0053252</td>
@@ -84,7 +84,7 @@
             <td>30/07/2014</td>
             <td>Programador C++</td>
 			<td>400€</td>
-            <td><a href="admin-contratos-vista.php">Ver</a></td>
+            <td><a href="empresa-contratos-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0094059</td>
@@ -93,7 +93,7 @@
             <td>30/07/2014</td>
             <td>Gestor de la web de la empresa</td>
 			<td>400€</td>
-            <td><a href="admin-contratos-vista.php">Ver</a></td>
+            <td><a href="empresa-contratos-vista.php">Ver</a></td>
         </tr>
         </table>
         </div>
