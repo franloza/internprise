@@ -19,17 +19,17 @@
                         <th>Empresa</th>
                         <th>Nombre estudiante</th>
                         <th>Acción</th>
-                    </tr>    
+                    </tr>
                     <tr>
                         <td>0051299</td>
                         <td>Everis</td>
                         <td>Antonio Pérez Sánchez</td>
-                        <td><a href="#">Ver enc.estudiante</a> / <a href="#"> Ver enc.empresa</a></td>
-                    </tr>     
+                        <td><a href="admin-encuestas-estudiante.php">Ver enc.estudiante</a> / <a href="admin-encuestas-empresa.php"> Ver enc.empresa</a></td>
+                    </tr>
                 </table>
               </div>
            </div>
-           
+
             <?php include ('footer.html'); ?>
       </div>
   </body>
