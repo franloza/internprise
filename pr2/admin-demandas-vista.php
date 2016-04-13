@@ -5,7 +5,7 @@
  	<div id="container-demandas-ver" class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-demandas-ver" class="admin-content">
+	<div id="content-demandas-ver" class="content">
         
 		<div id="imagen-estudiante">
 			<IMG SRC="img/kakshi.jpg">
@@ -80,7 +80,7 @@
 		</div>
 
 	</div>
-	<?php include ('footer.html'); ?>
+	<?php include ('admin-footer.html'); ?>
   </div>
   </body>
 </html>

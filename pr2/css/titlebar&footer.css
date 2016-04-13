@@ -3,17 +3,28 @@
 /*CSS correspondiente a la sección titlebar*/
 /*==============================================================*/
 
-#titlebar {
-    background: #16a085;   
+.titlebar {   
   	color: #fff;
     font-family: "helvitica", arial;
     height: 50px;
     width: 100%;
-    min-width: 900px;
+    min-width: 800px;
     position: fixed; /*Hace que la posición no varie ni haciendo scroll, siempre se mantiene en el mismo lugar*/
     z-index: 10; /*Necesario para que el titlebar se muestre encima de otros elementos*/
 }
-#titlebar img { /*favicon*/
+
+#admin-titlebar {
+	background: #16a085;
+}
+
+#empresa-sidebar {
+	
+}
+
+#estudiante-sidebar {
+	
+}
+.titlebar img { /*favicon*/
 	float: left;
 	padding-left: 10px;
 	animation-name: faviconAnimation;
@@ -124,18 +135,28 @@
 /*CSS correspondiente a la sección footer (pie de página)*/
 /*==============================================================*/
 
-#footer {
+.footer {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	min-width: 900px;
+	min-width: 800px;
 	height: 20px;
-	max-height: 20px;
-	background: #16a085;
 	color: white;
 	text-align: center;
 	font-family: 'Satisfy', cursive;
 	z-index: 11;
+}
+
+#admin-footer {
+	background: #16a085;
+}
+
+#empresa-footer {
+	
+}
+
+#estudiante-footer {
+	
 }
 
 #footer-icons {

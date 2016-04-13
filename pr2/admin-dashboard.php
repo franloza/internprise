@@ -5,7 +5,7 @@
 	<div id="container-dashboard" class="container">   
         <?php include ('admin-menu.html'); ?>
         <?php include ('admin-titlebar.html'); ?>
-        <div class="admin-content">
+        <div class="content">
 		<div class="dashboard-content">
 
 			<!-- INI Contenedor busqueda dashboard -->
@@ -34,7 +34,7 @@
                         </p>
                     </div>
                     <!-- Content widget -->
-                    <div class="content">
+                    <div class="content-widget">
                         <div class="media">
                             <div class="media-left">
                                 <i class="fa fa-envelope-o" style="color:blue;"></i>
@@ -147,7 +147,7 @@
                         </p>
                     </div>
                     <!-- Content widget -->
-                    <div class="content">
+                    <div class="content-widget">
                         <div class="media">
                             <div class="media-left">
                                 <i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i>
@@ -251,7 +251,7 @@
                         </p>
                     </div>
                     <!-- Content widget -->
-                    <div class="content">
+                    <div class="content-widget">
                         <div class="media">
                             <div class="media-left">
                                 <i class="fa fa-caret-square-o-down" style="color:#FF800D"></i>
@@ -309,7 +309,7 @@
                         </p>
                     </div>
                     <!-- Content widget -->
-                    <div class="content">
+                    <div class="content-widget">
                         <div class="media">
                             <div class="media-left">
                                 <i class="fa fa-commenting-o" style="color:#B9264F"></i>    
@@ -334,7 +334,7 @@
                                     Error acceso panel control
                                 </div>
                                 <div class="text-muted">
-                                    <small>Hace 3 horas/small>
+                                    <small>Hace 3 horas</small>
                                 </div>
                             </div>
                         </div>
@@ -459,7 +459,7 @@
 		</div>   
 		</div>
 
-        <?php include ('footer.html'); ?>
+        <?php include ('admin-footer.html'); ?>
     </div>
   </body>
 </html>

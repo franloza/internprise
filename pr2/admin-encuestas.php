@@ -5,7 +5,7 @@
     <div id="container-encuestas" class="container">
       <?php include ('admin-menu.html'); ?>
       <?php include ('admin-titlebar.html'); ?>
-        <div id="content-encuestas" class="admin-content">
+        <div id="content-encuestas" class="content">
           <div class="widget-container">
             <form class="form-search cf" action="">
              <input type="text" placeholder="Introduzca ID de Contrato">
@@ -30,7 +30,7 @@
               </div>
            </div>
 
-            <?php include ('footer.html'); ?>
+            <?php include ('admin-footer.html'); ?>
       </div>
   </body>
 </html>

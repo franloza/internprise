@@ -5,7 +5,7 @@
   <div id="container-ofertas-ver" class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-ofertas-ver" class="admin-content">
+	<div id="content-ofertas-ver" class="content">
         <div id="tabla-ofertas-ver">
             <div id="cuerpo">
                 <table class="admin-table">
@@ -35,7 +35,7 @@
             </div>
         </div>
 	</div>
-    <?php include ('footer.html'); ?>
+    <?php include ('admin-footer.html'); ?>
   </div>
   </body>
 </html>

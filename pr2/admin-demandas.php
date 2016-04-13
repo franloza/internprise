@@ -5,7 +5,7 @@
   <div id="container-demandas" class="container">
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
-	<div id="content-demandas" class="admin-content">
+	<div id="content-demandas" class="content">
         <div class="filtros">
             <label>Seleccione una carrera:</label>
             <select class="filtro">
@@ -94,7 +94,7 @@
         </table>
         </div>         
 	</div>
-    <?php include ('footer.html'); ?>
+    <?php include ('admin-footer.html'); ?>
   </div>
   </body>
 </html>

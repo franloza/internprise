@@ -13,9 +13,9 @@ body, html{
 /*==============================================================*/
 
 .sidebar {
-  	font-family: "helvitica", arial;
+  font-family: "Open Sans", arial;
 	height: 100%;
-	width: 250px;
+	width: 200px;
 	position: fixed;
 	top: 50px;
 	box-shadow: 5px 0px grey;
@@ -24,6 +24,18 @@ body, html{
 	padding: 0;
 	background: #444;
 }
+
+#admin-sidebar ul li :hover{
+    color: #16a085;
+}
+
+#estudiante-sidebar ul li :hover{
+
+}
+#empresa-sidebar ul li :hover{
+
+}
+
 
 .sidebar ul {
   list-style: none;
@@ -41,19 +53,14 @@ body, html{
 
 .sidebar ul li :hover{
   background: #555;
-  color: #16a085;
-  -moz-transition-duration: 0.5s;
-  -o-transition-duration: 0.5s;
-  -webkit-transition-duration: 0.5s;
   transition-duration: 0.5s;
 }
 
 .sidebar ul li a {
 	text-align: center;
-  	padding: 20px 0px 20px 0px;
-  	width: 100%;
-  	display: table;
-  	text-decoration: none;
-  	color: #fff;
-  
+  padding: 20px 0px 20px 0px;
+  width: 100%;
+  display: table;
+  text-decoration: none;
+  color: #fff;
 }

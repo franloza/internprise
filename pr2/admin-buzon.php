@@ -5,7 +5,7 @@
  <div id="container-historial" class="container">
  <?php include ('admin-menu.html'); ?>
  <?php include ('admin-titlebar.html'); ?>
- <div id="content-buzon" class="admin-content">
+ <div id="content-buzon" class="content">
        <div class="filtros">
            <label>Tipo de mensaje</label>
            <select class="filtro">
@@ -63,7 +63,7 @@
        <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
        <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
  </div>
- <?php include ('footer.html'); ?>
+ <?php include ('admin-footer.html'); ?>
  </div>
  </body>
 </html>
