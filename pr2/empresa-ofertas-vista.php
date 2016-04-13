@@ -8,7 +8,7 @@
 	<div id="content-ofertas-ver2" class="content">
         <div id="tabla-ofertas-ver2">
             <div id="cuerpo">
-                <table class="admin-table">
+                <table class="empresa-table">
                 <thead>OFERTA DE PRACTICAS</thead>
                 <tr>
                     <td>Empresa</td>
