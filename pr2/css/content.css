@@ -4,30 +4,55 @@
 	left: 250px;
 	padding: 20px;
 	min-width: 800px;
+    background: #f5f7fa;
 }
 /*CSS correspondiente a la sección contenido*/
 /*==============================================================*/
 
-/*Widgets*/
-#square a {
+/*Dashboard search*/
+
+.dashboard-content .btn-search {
+	border: 1px solid #ccc;
+	background: #fff;
+	font-size: 12px;
+	padding: 6px 10px;
+	margin-left: 30px;
+	margin-top: 20px;
+	width: 820px;
+}
+
+.dashboard-content .icon-search {
+	padding-left: 2px;
+	display: inline-block;
+}
+.dashboard-content .txt-search {
+	padding-left: 17px;
+	width: 94%;
+	display: inline-block;
+}
+
+
+/*Widgets dashboard*/
+
+.square a {
   text-decoration: none;
   color: inherit;
 }
-#square a:link {
+.square a:link {
   text-decoration: none;
 }
 
-#square a:visited {
+.square a:visited {
   text-decoration: none;
 }
 
 .dashboard-content {
-	padding-top: 60px;
-	margin-left: 520px;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	
 }
 
 .dashboard-content .widget-content {
-  padding-top: 30px;
+  padding-top: 35px;
   width: 900px;
   height: 300px;
   text-align: center;
@@ -48,7 +73,6 @@
 }
 
 .dashboard-content .widget-header {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #fff;
   color: #000;
   width: 370px;
@@ -60,7 +84,6 @@
 }
 
 .dashboard-content .content {
-  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: #fff;
   width: 385px;
   height: 225px;
@@ -98,8 +121,8 @@
 }
 
 .dashboard-content .media {
-  margin-top: 15px;
-  margin-right: 15px;
+  margin-top: 12px;
+  margin-right: 12px;
 }
 
 .dashboard-content .media-left {
@@ -111,7 +134,7 @@
   margin-left: 10px;
   margin-right: 5px;
   display: inline-block;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 .dashboard-content .text-muted {
