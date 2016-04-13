@@ -1,5 +1,5 @@
 .admin-content {
-	position: absolute;
+	position: relative;
 	top: 40px;
 	left: 250px;
 	padding: 20px;
@@ -48,7 +48,7 @@
 
 .dashboard-content {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	
+
 }
 
 .dashboard-content .widget-content {

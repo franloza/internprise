@@ -40,7 +40,7 @@
             <td>12/03/2014</td>
             <td>30/07/2014</td>
             <td>Programador Java</td>
-            <td><a href="#">Ver</a></td>
+            <td><a href="admin-contratos-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0051100</td>
@@ -49,7 +49,7 @@
             <td>12/03/2014</td>
             <td>30/07/2014</td>
             <td>Programador PHP</td>
-            <td><a href="#">Ver</a></td>
+            <td><a href="admin-contratos-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0051101</td>
@@ -58,7 +58,7 @@
             <td>13/03/2014</td>
             <td>31/12/2014</td>
             <td>Administrador de Sistemas</td>
-            <td><a href="#">Ver</a></td>
+            <td><a href="admin-contratos-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0051101</td>
@@ -67,14 +67,14 @@
             <td>15/03/2014</td>
             <td>31/09/2014</td>
             <td>Analista de datos</td>
-            <td><a href="#">Ver</a></td>
+            <td><a href="admin-contratos-vista.php">Ver</a></td>
         </tr>
         </table>
         </div>
 
         <input type=image src="img/mover-a-la-anterior.jpg" width="25" height="15">
         <input type=image src="img/mover-a-la-siguiente.jpg" width="25" height="15">
-        
+
 	</div>
     <?php include ('footer.html'); ?>
   </div>
