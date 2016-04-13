@@ -34,28 +34,28 @@
            <td>Gallinas</td>
            <td>Iberdrola</td>
            <td>Empresa</td>
-           <td><a href="#">Ver</a></td>
+           <td><a href="admin-buzon-vista.php">Ver</a></td>
        </tr>
        <tr>
          <td>Otro</td>
          <td>Gatos</td>
          <td>E.Lecrerc</td>
          <td>Empresa</td>
-         <td><a href="#">Ver</a></td>
+         <td><a href="admin-buzon-vista.php">Ver</a></td>
        </tr>
        <tr>
          <td>Contacto</td>
          <td>Becas</td>
          <td>Management Solutions</td>
          <td>Empresa</td>
-         <td><a href="#">Ver</a></td>
+         <td><a href="admin-buzon-vista.php">Ver</a></td>
        </tr>
        <tr>
          <td>Sugerencia</td>
          <td>Notas</td>
          <td>UCM</td>
          <td>Empresa</td>
-         <td><a href="#">Ver</a></td>
+         <td><a href="admin-buzon-vista.php">Ver</a></td>
        </tr>
        </table>
        </div>
