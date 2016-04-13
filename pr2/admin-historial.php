@@ -45,7 +45,7 @@
             <td>12/03/2014</td>
             <td>30/07/2014</td>
             <td>Programador Java</td>
-            <td><a href="#">Ver</a></td>
+            <td><a href="admin-contratos-vista.php">Ver</a></td>
 			<td class="cell-status"><label class="pass">Finalizado</label></td>
         </tr>
         <tr>
@@ -55,7 +55,7 @@
             <td>12/03/2014</td>
             <td>30/07/2014</td>
             <td>Programador PHP</td>
-            <td><a href="#">Ver</a></td>
+            <td><a href="admin-contratos-vista.php">Ver</a></td>
 			<td class="cell-status"><label class="fail">Cancelado</label></td>
         </tr>
         <tr>
@@ -65,7 +65,7 @@
             <td>13/03/2014</td>
             <td>31/12/2014</td>
             <td>Administrador de Sistemas</td>
-            <td><a href="#">Ver</a></td>
+            <td><a href="admin-contratos-vista.php">Ver</a></td>
 			<td class="cell-status"><label class="fail">Cancelado</label></td>
         </tr>
         <tr>
@@ -75,7 +75,7 @@
             <td>15/03/2014</td>
             <td>31/09/2014</td>
             <td>Analista de datos</td>
-            <td><a href="#">Ver</a></td>
+            <td><a href="admin-contratos-vista.php">Ver</a></td>
             <td class="cell-status"><label class="pass">Finalizado</label></td>
         </tr>
         </table>
