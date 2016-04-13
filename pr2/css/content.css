@@ -167,6 +167,8 @@
   margin-bottom: 20px;
 }
 
+/*Tablas administrado*/
+
 .admin-table,.table-header{
     width: 75%;
     border-collapse: collapse;
@@ -189,7 +191,7 @@
     background-color: #16a085;
     color : white;
   }
-
+ 
 .admin-table tr:nth-of-type(even) td{
     background-color: rgba(22, 160, 133, 0.3);
   }
@@ -214,6 +216,34 @@
   color:red;
 }
 
+/*Tablas estudiante*/
+
+.estudiante-table,.table-header{
+    width: 75%;
+    border-collapse: collapse;
+    text-align: left;
+    overflow: hidden;
+    margin-left: 30px;
+}
+
+.estudiante-table td, th {
+    border-top: 1px solid #ECF0F1;
+    padding: 10px;
+}
+
+.estudiante-table td{
+    border-left: 1px solid #ECF0F1;
+    border-right: 1px solid #ECF0F1;
+  }
+
+.estudiante-table  th{
+    background-color: #B40404;
+    color : white;
+  }
+ 
+.estudiante-table tr:nth-of-type(even) td{
+    background-color: rgba(180,4,4,0.3);
+  }
 
 /*==============================================================*/
 
@@ -257,7 +287,7 @@
 
 /*Pagina Admin Demandas Vista */
 
-#content-demandas-ver #aptitudes li.li2{
+#content-perfil .aptitudes li.li2{
 float: left;
 color: #fff;
 display: inline-block;
@@ -265,17 +295,28 @@ width: 90px;
 height: 30px;
 padding: 10px;
 border-radius: 20px;
-background: #29DD89;
 text-align: center;
 margin: 5px;
 }
 
+#content-perfil #admin-aptitudes li.li2{
+background: rgba(22,160,133,50);
+}
 
-#content-demandas-ver #aptitudes li.li2:nth-child(2n){
+#content-perfil #estudiante-aptitudes li.li2{
+background: rgba(180,4,4,50);
+}
+
+
+#content-perfil #admin-aptitudes li.li2:nth-child(2n){
    background: #2C614B;
 }
 
-#content-demandas-ver img{
+#content-perfil #estudiante-aptitudes li.li2:nth-child(2n){
+   background: #B40404; 
+}
+
+#content-perfil img{
   float: left;
   margin-right: 30px;
   margin-bottom: 30px;
@@ -283,20 +324,21 @@ margin: 5px;
   height: 250px;
 }
 
-#content-demandas-ver #contenedor-perfil{
+#content-perfil .header-perfil{
   float: left;
   margin-right: 40px;
   margin-bottom: 30px;
   width: 60%;
 }
 
-#content-demandas-ver #informacion-personal{
+#content-perfil #informacion-personal{
   clear: both;
+  padding:10px;
 }
 
-#content-demandas-ver #documentacion-adicional{
+#content-perfil #documentacion-adicional{
   clear: both;
-
+   padding:10px;
 }
 
 /*==============================================================*/
