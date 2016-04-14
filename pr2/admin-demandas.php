@@ -28,26 +28,26 @@
         </tr>
         <tr>
 			<td>0151300</td>
-            <td>Intel</td>
+            <td><a href="admin-demandas-vista-empresa.php">Intel</a></td>
             <td><a href="admin-demandas-vista.php">Luna Maria Moreno Sanchez</a></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
 			<td>0051111</td>
-            <td>Google ESP</td>
-			<td><a href="lista-estudiantes.php">Alejandro Reguilon Mota</a></td>
+            <td><a href="admin-demandas-vista-empresa.php">Google ESP</a></td>
+			<td><a href="admin-demandas-vista.php">Alejandro Reguilon Mota</a></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
 			<td>0051322</td>
-            <td>Coritel</td>
-			<td><a href="lista-estudiantes.php">Hector Garcia Ronda</a></td>
+            <td><a href="admin-demandas-vista-empresa.php">Coritel</a></td>
+			<td><a href="admin-demandas-vista.php">Hector Garcia Ronda</a></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
 			<td>0052000</td>
-            <td>Indra</td>
-			<td><a href="lista-estudiantes.php">Jaime Borregon Perez</a></td>
+            <td><a href="admin-demandas-vista-empresa.php">Indra</a></td>
+			<td><a href="admin-demandas-vista.php">Jaime Borregon Perez</a></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         </table>
@@ -65,29 +65,29 @@
         </tr>
         <tr>
             <td>0152370</td>
-            <td>Everis</td>
+            <td><a href="admin-demandas-vista-empresa.php">Everis</a></td>
             <td><a href="admin-demandas-vista.php">Antonio García Perez</a></td>
             <td class="cell-status"><label class="pass">Aceptada</label></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0052189</td>
-            <td>Becarios NO S.A</td>
-            <td><a href="lista-estudiantes.php">Pedro Aguilar Rodriguez</a></td>
+            <td><a href="admin-demandas-vista-empresa.php">Becarios NO S.A</a></td>
+            <td><a href="admin-demandas-vista.php">Pedro Aguilar Rodriguez</a></td>
             <td class="cell-status"><label class="fail">Rechazada</label></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>0051242</td>
-            <td>Yin Peng Consultora</td>
-            <td><a href="lista-estudiantes.php"> Sara Diaz Diaz</a></td>
+            <td><a href="admin-demandas-vista-empresa.php">Yin Peng Consultora</a></td>
+            <td><a href="admin-demandas-vista.php"> Sara Diaz Diaz</a></td>
             <td class="cell-status"><label class="pass">Aceptada</label></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>
         <tr>
             <td>00525012</td>
-            <td>Indra</td>
-            <td><a href="lista-estudiantes.php">Rosa Vega Sanchez</a></td>
+            <td><a href="admin-demandas-vista-empresa.php">Indra</a></td>
+            <td><a href="admin-demandas-vista.php">Rosa Vega Sanchez</a></td>
             <td class="cell-status"><label class="pass">Aceptada</label></td>
             <td><a href="admin-ofertas-vista.php">Ver</a></td>
         </tr>

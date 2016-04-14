@@ -30,7 +30,7 @@
                     <th>Accion</th>
                 </tr>
                 <tr>
-                    <td>Intel</td>
+                    <td><a href="admin-demandas-vista-empresa.php">Intel</a></td>
                     <td>Especialista IT</td>
                     <td>400€</td>
                     <td>20</td>
@@ -38,7 +38,7 @@
                     <td><a href="admin-ofertas-vista.php">Ver</a></td>
                 </tr>
                 <tr>
-                    <td>Google ESP</td>
+                    <td><a href="admin-demandas-vista-empresa.php">Google ESP</a></td>
                     <td>Analista de datos</td>
                     <td>500€</td>
                     <td>25</td>
@@ -46,7 +46,7 @@
                     <td><a href="admin-ofertas-vista.php">Ver</a></td>
                 </tr>
                 <tr>
-                    <td>Coritel</td>
+                    <td><a href="admin-demandas-vista-empresa.php">Coritel</a></td>
                     <td>Desarrollador Web</td>
                     <td>450€</td>
                     <td>25</td>
@@ -54,7 +54,7 @@
                     <td><a href="admin-ofertas-vista.php">Ver</a></td>
                 </tr>
                 <tr>
-                    <td>Indra</td>
+                    <td><a href="admin-demandas-vista-empresa.php">Indra</a>td>
                     <td>Seguridad y firewall</td>
                     <td>400€</td>
                     <td>20</td>
@@ -76,7 +76,7 @@
                     <th>Accion</th>
                 </tr>
                 <tr>
-                    <td>Red.es</td>
+                    <td><a href="admin-demandas-vista-empresa.php">Red.es</a></td>
                     <td>Especialista IT</td>
                     <td>400€</td>
                     <td>20</td>
@@ -85,7 +85,7 @@
                     <td><a href="admin-ofertas-vista2.php">Ver</a></td>
                 </tr>
                 <tr>
-                    <td>UCM Fundacion</td>
+                    <td><a href="admin-demandas-vista-empresa.php">UCM Fundacion</a></td>
                     <td>Programador Java Junior</td>
                     <td>400€</td>
                     <td>20</td>
@@ -94,7 +94,7 @@
                     <td><a href="admin-ofertas-vista2.php">Ver</a></td>
                 </tr>
                 <tr>
-                    <td>Indra</td>
+                    <td><a href="admin-demandas-vista-empresa.php">Indra</a></td>
                     <td>Desarrollador Web</td>
                     <td>450€</td>
                     <td>25</td>
@@ -103,7 +103,7 @@
                     <td><a href="admin-ofertas-vista2.php">Ver</a></td>
                 </tr>
                 <tr>
-                    <td>Oracle</td>
+                    <td><a href="admin-demandas-vista-empresa.php">Oracle</a></td>
                     <td>Programador PHP</td>
                     <td>400€</td>
                     <td>25</td>

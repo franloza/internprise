@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
-	<?php include ('estudiante-head.html'); ?>
+	<?php include ('admin-head.html'); ?>
   	<body>
  	<div class="container">
-	<?php include ('estudiante-menu.html'); ?>
-	<?php include ('estudiante-titlebar.html'); ?>
+	<?php include ('admin-menu.html'); ?>
+	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-perfil" class="content">  
-		<div id="imagen-estudiante">
-			<IMG SRC="img/estudiante-avatar.png">
+		<div id="imagen-admin">
+			<IMG SRC="img/admin-avatar.png">
 		</div>
 		<div class="contenedor-perfil">
-			<h2><strong>Pedro Sanchez PÃ©rez</strong></h2>
-			<p>Analista de datos y consultor tÃ©cnico</p>
+			<h2><strong>Pedro Sanchez Pérez</strong></h2>
+			<p>Analista de datos y consultor técnico</p>
 			<p>Madrid zona centro y norte</p>
-			<table class="estudiante-table">
+			<table class="admin-table">
 				<tr>
 					<td>Actual</td>
 					<td>Analista de datos en Data Center</td>
@@ -36,9 +36,9 @@
 			</table>
 		</div>
 
-		<div id="estudiante-aptitudes" class="aptitudes"> 
+		<div id="admin-aptitudes" class="aptitudes"> 
 			<ul>
-				<li class="estudiante-table"><strong>Aptitudes</strong></li>
+				<li class="admin-table"><strong>Aptitudes</strong></li>
 				<li class="li2">SQL Server 2008</li>
 				<li class="li2">PL/SQL</li>
 				<li class="li2">R</li>
@@ -51,7 +51,7 @@
 		</div>
 		<div id="informacion-personal">
 			<p><strong>Informacion Personal</strong></p>
-			<table class="estudiante-table">
+			<table class="admin-table">
 				<tr>
 					<td>eMail</td>
 					<td>psanchez@ucm.es</td>
@@ -78,7 +78,7 @@
 		</div>
 
 	</div>
-	<?php include ('estudiante-footer.html'); ?>
+	<?php include ('admin-footer.html'); ?>
   </div>
   </body>
 </html>
