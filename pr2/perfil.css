@@ -1,0 +1,82 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+}
+body {
+	background: #ccc;
+}
+.perfil-container {
+	background: #f5f7fa;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 30px;
+	width: 900px;
+	height: 756px;
+}
+.titulo-perfil {
+	background: #bbb;
+	width: 900px;
+	height: 195px;
+	padding-top: 35px;
+	position: relative;
+}
+.logo-perfil {
+	border: 1px solid #ccc;
+	background-image: url("rediris.jpg");
+	background-size: 200px 180px;
+	width: 200px;	
+	height: 180px;
+	margin-left: 40px;
+	display: inline-block;
+	position: absolute;
+	z-index: 2;
+}
+.datos-logo-perfil {
+	border: 1px solid #ccc;
+	background-image: url("rediris.jpg");
+	background: #fff;
+	width: 640px;
+	height: 120px;
+	display: inline-block;
+	position: absolute;
+	margin-top: 10px;
+	z-index: 1;
+}
+.datos-logo-perfil {
+	padding-left: 260px;
+	padding-top: 40px;
+}
+.text-muted {
+	color: #7f8490;
+}
+#nombre-empresa {
+	margin-bottom: 10px;
+}
+
+.descripcion-perfil {
+	padding: 30px 50px 30px 30px;
+}
+
+.descripcion-perfil p{
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #444;
+	padding-bottom: 25px;
+}
+.datos-interes-perfil {
+	width: 900px;
+}
+.bloque {
+	font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	display: inline-block;
+	text-align: justify;
+	width: 200px;
+	float: left;
+	margin: 5px 50px;
+	text-align: left;
+}
+.datos-interes-perfil .text-muted {
+	color: #555;
+	margin-bottom: 14px;
+}
+
