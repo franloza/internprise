@@ -96,7 +96,7 @@
 
 #icons-titlebar #settings:hover { /*animación para ajustes*/
 	animation-name: rotateSettings;
-	animation-duration: 0.2s;
+	animation-duration: 1s;
 	animation-timing-function: linear;
 	animation-delay: 0s;
 	animation-iteration-count: infinite;

@@ -431,14 +431,47 @@ background: rgba(180,4,4,50);
 
 
 /*==============================================================*/
-/*Pagina Empresa Buzon */
+/*Pagina Buzón */
 .buzon{
   text-align: center;
+  width: 70%;
 }
 .buzon h1, h2 {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.form-buzon > fieldset{
+  border: medium none;
+  margin: 0 0 10px;
+  min-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+.form-buzon textarea {
+  width:100%;
+  border:1px solid #CCC;
+  background:#FFF;
+  margin:0 0 5px;
+  padding:10px;
+}
+
+.form-buzon button[type="submit"] {
+  cursor:pointer;
+  width:100%;
+  border:none;
+  color:#FFF;
+  margin:10px 0 5px;
+  padding:10px;
+  font-size:15px;
+}
+.form-buzon #buzon-submit-empresa {
+   background: #448AFF;
+}
+
+.form-buzon #buzon-submit-estudiante {
+   background: #B40404;
+}
 /*==============================================================*/
 /*Pagina Perfil Empresa */
 

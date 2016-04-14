@@ -10,6 +10,7 @@
 		<div class="perfil-empresa-content">
 			<div class="titulo-perfil">
 			<div class="logo-perfil">
+			<img src="img/rediris.jpg" width="200" height="180"></img>
 			</div>
 			<div class="datos-logo-perfil">
 				<div class="text-datos-logo">

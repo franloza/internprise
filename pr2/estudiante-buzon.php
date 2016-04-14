@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
-<?php include ('empresa-head.html'); ?>
+<?php include ('estudiante-head.html'); ?>
   <body>
-  <div id="container-empresa-buzon" class="container">
-	<?php include ('empresa-menu.html'); ?>
-	<?php include ('empresa-titlebar.html'); ?>
-	<div id="content-empresa-buzon" class="content">
-		<div id="empresa-buzon" class="buzon">
-			<form class="form-buzon" id="form-buzon-empresa" action="" method="post">
+  <div id="container-estudiante-buzon" class="container">
+	<?php include ('estudiante-menu.html'); ?>
+	<?php include ('estudiante-titlebar.html'); ?>
+	<div id="content-estudiante-buzon" class="content">
+		<div id="estudiante-buzon" class="buzon">
+			<form class="form-buzon" id="form-buzon-estudiante" action="" method="post">
 			    <h2>Dejanos tus sugerencias y las leeremos cuanto antes</h2>
 				<h1>¡Ayuda a mejorar Internprise!</h1>
 				<fieldset>
@@ -23,12 +23,12 @@
 					<input type="radio" name="motivo" value="Otro" /> Otro
 				</div>
 				<fieldset>
-      				<button name="submit" type="submit" id="buzon-submit-empresa" data-submit="...Sending">Enviar</button>
+      				<button name="submit" type="submit" id="buzon-submit-estudiante" data-submit="...Sending">Enviar</button>
     			</fieldset>
 			</form>
 		</div>
 	</div>
-  <?php include ('empresa-footer.html'); ?>
+  <?php include ('estudiante-footer.html'); ?>
   </div>
   </body>
 </html>
