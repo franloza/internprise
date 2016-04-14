@@ -54,7 +54,7 @@
                     <td><a href="admin-ofertas-vista.php">Ver</a></td>
                 </tr>
                 <tr>
-                    <td><a href="admin-demandas-vista-empresa.php">Indra</a>td>
+                    <td><a href="admin-demandas-vista-empresa.php">Indra</a></td>
                     <td>Seguridad y firewall</td>
                     <td>400€</td>
                     <td>20</td>
