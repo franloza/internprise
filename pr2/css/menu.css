@@ -51,6 +51,10 @@ body, html{
   border-bottom: thin solid #555;
 }
 
+.sidebar ul :first-child {
+  border-top: thin solid #555;
+}
+
 .sidebar ul li :hover{
   background: #555;
   transition-duration: 0.5s;
