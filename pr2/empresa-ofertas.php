@@ -6,11 +6,9 @@
 	<?php include ('empresa-menu.html'); ?>
 	<?php include ('empresa-titlebar.html'); ?>
 	<div id="content-empresa-ofertas" class="content">
-		<div class="crear">
-            <form action="empresa-crear-oferta.php">
-				<input type=submit value="Crear Oferta">
-			</form>
-        </div>
+        <form action="empresa-crear-oferta.php">
+            <input id="add-oferta" type=submit value="Crear Oferta">
+        </form>
 	   <div id="tablas-ofertas">
         <div id="tabla-ofertas" class="table-container">
             <div class="table-header"> Ofertas disponibles </div>

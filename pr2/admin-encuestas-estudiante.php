@@ -6,10 +6,9 @@
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-ofertas-ver" class="content">
-        <div id="tabla-ofertas-ver">
-            <div id="cuerpo">
+        <div id="tabla-ofertas-ver" class="table-container">
+             <div class="table-header"> Encuesta Estudiante - Resuelta </div>
                 <table class="admin-table">
-                <thead>Encuesta Empresa - Resuelta</thead>
                 <tr></tr>
                 <tr>
                     <td>¿Te gustan las gallinas?</td>
@@ -36,7 +35,7 @@
                     <td>No lo he hecho...</td>
                 </tr>
 
-        		-<tr>
+        		<tr>
                 <td>¿Cuánto te gustaria cobrar en nuestra empresa?</td>
                 <td>Lo que ustedes consideren oportuno para un becario</td>
 

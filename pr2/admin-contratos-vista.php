@@ -6,10 +6,9 @@
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-ofertas-ver" class="content">
-        <div id="tabla-ofertas-ver">
-            <div id="cuerpo">
-                <table class="admin-table">
-                <thead>CONTRATO DE PRACTICAS</thead>
+        <div id="tabla-ofertas-ver" class="table-container">
+            <div class="table-header"> Contrato de prácticas </div>
+                <table class="admin-table">           
                 <tr>
                     <td>Empresa</td>
                     <td>Intel</td>
@@ -35,7 +34,7 @@
                     <td>20</td>
                 </tr>
 
-        		-<tr>
+        		<tr>
                     <td>Fecha de inicio del contrato</td>
                     <td>12/03/2014</td>
                 </tr>
@@ -49,7 +48,6 @@
         				estructuras dentro de la red empresarial con sus colaboradores</td>
                 </tr>
                 </table>
-            </div>
         </div>
 	</div>
     <?php include ('admin-footer.html'); ?>

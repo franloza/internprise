@@ -6,10 +6,9 @@
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-ofertas-ver" class="content">
-        <div id="tabla-ofertas-ver">
-            <div id="cuerpo">
+        <div id="tabla-ofertas-ver"class="table-container">
+             <div class="table-header"> Encuesta Empresa </div>
                 <table class="admin-table">
-                <thead>Encuesta Empresa</thead>
                 <tr></tr>
                 <tr>
                     <td>¿Te gustan las gallinas?</td>
@@ -36,7 +35,7 @@
                     <td></td>
                 </tr>
 
-        		-<tr>
+        		<tr>
                 <td>¿Cuánto te gustaria cobrar en nuestra empresa?</td>
                 <td></td>
 
@@ -54,7 +53,6 @@
                     <td></td>
                 </tr>
                 </table>
-            </div>
         </div>
 	</div>
     <?php include ('admin-footer.html'); ?>

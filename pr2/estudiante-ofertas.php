@@ -19,7 +19,7 @@
                     <th>Solicitar</th>    
                 </tr>
                 <tr>
-                    <td><a href="#">Intel</a></td>
+                    <td><a href="estudiante-ofertas-vista.php">Intel</a></td>
                     <td>Especialista IT</td>
                     <td>400€</td>
                     <td>20</td>
@@ -28,30 +28,30 @@
                     <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href="#">Google ESP</a></td>
+                    <td><a href="estudiante-ofertas-vista.php">Google ESP</a></td>
                     <td>Analista de datos</td>
                     <td>500€</td>
                     <td>25</td>
                     <td>1</td>
-                    <td><a href="#">Ver</a></td>
+                    <td><a href="estudiante-ofertas-vista.php">Ver</a></td>
                     <td><input type="checkbox" disabled="disabled" checked></td>
                 </tr>
                 <tr>
-                    <td><a href="#">Coritel</a></td>
+                    <td><a href="estudiante-ofertas-vista.php">Coritel</a></td>
                     <td>Desarrollador Web</td>
                     <td>450€</td>
                     <td>25</td>
                     <td>2</td>
-                    <td><a href="#">Ver</a></td>
+                    <td><a href="estudiante-ofertas-vista.php">Ver</a></td>
                     <td><input type="checkbox"></td>
                 </tr>
                 <tr>
-                    <td><a href="#">Indra</a></td>
+                    <td><a href="estudiante-ofertas-vista.php">Indra</a></td>
                     <td>Seguridad y firewall</td>
                     <td>400€</td>
                     <td>20</td>
                     <td>1</td>
-                    <td><a href="#">Ver</a></td>
+                    <td><a href="estudiante-ofertas-vista.php">Ver</a></td>
                     <td><input type="checkbox"></td>
                 </tr>
             </table>

@@ -6,11 +6,20 @@
       <?php include ('admin-menu.html'); ?>
       <?php include ('admin-titlebar.html'); ?>
         <div id="content-encuestas" class="content">
-          <div class="widget-container">
-            <form class="form-search cf" action="">
-             <input type="text" placeholder="Introduzca ID de Contrato">
-            </form>
-           </div>
+            
+            <div class="dashboard-content"> 
+                <div class="btn-search">
+                    <a class="icon-search" href="#">
+                        <i class="fa fa-search fa-2x" style="color:#444;"></i>
+                    </a>
+                    <div class="txt-search">
+                        <form method="post" action="#">
+                            <input class="txt-search" type="text" placeholder="Introduzca ID de Contrato">
+                        </form>
+                    </div>
+                </div>
+            </div>	                     
+           
             <div id="tabla-encuestas" class="table-container">
               <div class="table-header"> Encuestas realizadas </div>
                 <table class="admin-table">

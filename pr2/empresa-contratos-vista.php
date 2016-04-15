@@ -6,10 +6,9 @@
 	<?php include ('empresa-menu.html'); ?>
 	<?php include ('empresa-titlebar.html'); ?>
 	<div id="content-contratos-ver" class="content">
-        <div id="tabla-contratos-ver">
-            <div id="cuerpo">
+        <div id="tabla-contratos-ver" class="table-container">
+            <div class="table-header"> Contrato de prácticas </div>
                 <table class="empresa-table">
-                <thead>CONTRATO DE PRACTICAS</thead>
                 <tr>
                     <td>Empresa</td>
                     <td>Intel</td>
@@ -35,7 +34,7 @@
                     <td>20</td>
                 </tr>
 
-        		-<tr>
+        		<tr>
                     <td>Fecha de inicio del contrato</td>
                     <td>12/03/2014</td>
                 </tr>

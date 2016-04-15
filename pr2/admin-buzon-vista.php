@@ -6,10 +6,9 @@
 	<?php include ('admin-menu.html'); ?>
 	<?php include ('admin-titlebar.html'); ?>
 	<div id="content-ofertas-ver" class="content">
-        <div id="tabla-ofertas-ver">
-            <div id="cuerpo">
+        <div id="tabla-ofertas-ver" class="table-container">
+        <div class="table-header"> Mensaje </div>
                 <table class="admin-table">
-                <thead>MENSAJE</thead>
                 <tr></tr> <!-- Para dar bonito, no borrar -->
                 <tr>
                     <td>Tipo</td>
@@ -33,7 +32,6 @@
 
                 </table>
             </div>
-        </div>
 	</div>
     <?php include ('admin-footer.html'); ?>
   </div>

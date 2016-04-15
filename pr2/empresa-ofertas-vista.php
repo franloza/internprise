@@ -6,10 +6,9 @@
 	<?php include ('empresa-menu.html'); ?>
 	<?php include ('empresa-titlebar.html'); ?>
 	<div id="content-ofertas-ver2" class="content">
-        <div id="tabla-ofertas-ver2">
-            <div id="cuerpo">
-                <table class="empresa-table">
-                <thead>OFERTA DE PRACTICAS</thead>
+        <div id="tabla-ofertas-ver2" class="table-container">
+            <div class="table-header"> Oferta de prácticas </div>
+             <table class="empresa-table">
                 <tr>
                     <td>Empresa</td>
                     <td>Rediris</td>
@@ -30,14 +29,14 @@
                     <td>Plazas</td>
                     <td>2</td>
                 </tr>
-        		-<tr>
+        		<tr>
                     <td>Duracion</td>
                     <td>4 meses</td>
                 </tr>
                 <tr>
                     <td>Disponibilidad</td>
                     <td>mañana</td>
-        		</tr>ºº
+        		</tr>
                 <tr>
                     <td>Funciones</td>
                     <td>Creacion y mantenimiento de scripts que evaluen la seguridad de las ip's consultadas a traves de los routers establecidos</td>

@@ -18,32 +18,32 @@
                 <tr>
                     <td>1</td>
                     <td>Especialista IT</td>
-                    <td><a href="estudiante-perfil.php">Alejandro Martin</a> </td>
-                    <td><a href="">Aceptar / Rechazar</a></td>
+                    <td><a href="empresa-solicitudes-vista.php">Alejandro Martin</a> </td>
+                    <td><a href="#">Aceptar</a> / <a href="#"> Rechazar</a></td>
                 </tr>
 				<tr>
                     <td>1</td>
                     <td>Especialista IT</td>
-                    <td><a href="estudiante-perfil.php">Antonio Recio</a> </td>
-                    <td><a href="">Aceptar / Rechazar</a></td>
+                    <td><a href="empresa-solicitudes-vista.php">Antonio Recio</a> </td>
+                    <td><a href="#">Aceptar</a> / <a href="#"> Rechazar</a></td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>Analista de datos</td>
-                    <td><a href="estudiante-perfil.php">Enrique Pastor</a></td>
-                    <td><a href="">Aceptar / Rechazar</a></td>
+                    <td><a href="empresa-solicitudes-vista.php">Enrique Pastor</a></td>
+                    <td><a href="#">Aceptar</a> / <a href="#"> Rechazar</a></td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>Analista de datos</td>
-                    <td><a href="estudiante-perfil.php">Juan Cuesta</a></td>
-                    <td><a href="">Aceptar / Rechazar</a></td>
+                    <td><a href="empresa-solicitudes-vista.php">Juan Cuesta</a></td>
+                    <td><a href="#">Aceptar</a> / <a href="#"> Rechazar</a></td>
                 </tr>				
                 <tr>
                     <td>2</td>
                     <td>Analista de datos</td>
-                    <td><a href="estudiante-perfil.php">Amador Rivas</a></td>
-                    <td><a href="">Aceptar / Rechazar</a></td>
+                    <td><a href="empresa-solicitudes-vista.php">Amador Rivas</a></td>
+                    <td><a href="#">Aceptar</a> / <a href="#"> Rechazar</a></td>
                 </tr>
             </table>
         </div>

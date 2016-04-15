@@ -73,7 +73,7 @@ body {
 
 .dashboard-content .btn-search {
 	border: 1px solid #ccc;
-	background: #fff;
+	background:  #737373;;
 	font-size: 12px;
 	padding: 6px 10px;
 	margin-left: 30px;
@@ -315,13 +315,13 @@ body {
 }
 
 .empresa-table td, th {
-    border-top: 1px solid #448AFF;
+    border-top: 1px solid #ECF0F1;;
     padding: 10px;
 }
 
 .empresa-table td{
-    border-left: 1px solid #448AFF;
-    border-right: 1px solid #448AFF;
+    border-left: 1px solid #ECF0F1;;
+    border-right: 1px solid #ECF0F1;;
   }
 
 .empresa-table  th{
@@ -396,6 +396,10 @@ background: rgba(22,160,133,50);
 background: rgba(180,4,4,50);
 }
 
+#content-perfil #empresa-aptitudes li.li2{
+background: rgba(68,138,255,50);
+}
+
 
 #content-perfil #admin-aptitudes li.li2:nth-child(2n){
    background: #2C614B;
@@ -404,6 +408,7 @@ background: rgba(180,4,4,50);
 #content-perfil #estudiante-aptitudes li.li2:nth-child(2n){
    background: #B40404;
 }
+
 #content-perfil img{
   float: left;
   margin-right: 30px;
@@ -446,6 +451,7 @@ background: rgba(180,4,4,50);
   min-width: 100%;
   padding: 0;
   width: 100%;
+  text-align: left;
 }
 
 .form-buzon textarea {
@@ -487,13 +493,14 @@ background: rgba(180,4,4,50);
   height: 756px;
 }
 .perfil-empresa-content .titulo-perfil {
-  /*background: #448aff;*/
   background: #67a2b9;
   width: 900px;
   height: 195px;
   padding-top: 20px;
   position: relative;
 }
+
+
 .perfil-empresa-content .logo-perfil {
   border: 2px solid #444;
   background-image: url("img/rediris.jpg");
@@ -557,5 +564,24 @@ background: rgba(180,4,4,50);
 .Buscador-talentos{
 	float:left;
 }
+
+/*Ofertas empresa*/
+#add-oferta {
+    width: 100px;
+    height: 25px;
+    background: #448AFF;
+    color: #fff;
+    border: none;
+    margin: auto 10px auto 25px;
+    box-shadow: 0 4px 0 #444DFF;
+    -webkit-transition: .1s ease-in-out;
+    transition: .1s ease-in-out;
+    border-radius: 3px;
+ }
+ 
+ fieldset {
+     width:40%;
+     border: 0px;
+ }
 
 /*==============================================================*/
