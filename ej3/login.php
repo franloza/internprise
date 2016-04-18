@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,6 @@
 
 <div id="contenedor">
 <?php include ("cabecera.php") ?>
-	
 <?php include ("sidebarIzq.php") ?>
 
 
@@ -20,14 +20,14 @@
 		<fieldset>
 		<legend>Usuario y contraseña</legend>
 		<p>
-		<label>Usuario: </label>
+		<label for ="usuario">Usuario: </label>
 		<input name = "usuario" type = "text" ></input></br>
 		</p>
 		<p>
-		<label>Contraseña: </label>
+		<label for ="contraseña">Contraseña: </label>
 		<input name = "contraseña" type = "password" ></input></br>
 		</p>
-		<input type = "submit" value = "Aceptar"></input>
+		<input type = "submit" name = "form" value = "Aceptar"></input>
 		</fieldset>	
 	</form>
 	</div>
