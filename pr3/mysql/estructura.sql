@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `aptitudes` (
   `nombre_aptitud` varchar(20) NOT NULL,
   `id_estudiante` int(6) NOT NULL,
   PRIMARY KEY (`id_aptitud`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS `aptitudes_ofertas` (
   `id_oferta` int(6) NOT NULL,
   `aptitud` varchar(30) NOT NULL,
   PRIMARY KEY (`id_oferta`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE IF NOT EXISTS `demandas` (
   `id_estudiante` int(6) NOT NULL,
   `estado` varchar(20) NOT NULL,
   PRIMARY KEY (`id_demanda`,`id_oferta`,`id_estudiante`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -98,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `pais` varchar(20) NOT NULL,
   `telefono` varchar(12) NOT NULL,
   `web` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -123,7 +123,7 @@ CREATE TABLE IF NOT EXISTS `estudiantes` (
   `telefono` varchar(12) NOT NULL,
   `web` varchar(20) NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='direccion';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='direccion';
 
 -- --------------------------------------------------------
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `grados` (
   `id_usuario_admin` int(6) NOT NULL,
   `nombre_grado` int(30) NOT NULL,
   PRIMARY KEY (`id_usuario_admin`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
