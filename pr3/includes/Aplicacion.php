@@ -57,14 +57,14 @@ class Aplicacion {
 
   public function login(Usuario $user) {
     $_SESSION['login'] = true;
-    $_SESSION['nombre'] = $user->username();
+    $_SESSION['email'] = $user->email();
     $_SESSION['rol'] = $user->rol();
   }
 
   public function logout() {
     //Doble seguridad: unset + destroy
     unset($_SESSION["login"]);
-    unset($_SESSION["nombre"]);
+    unset($_SESSION["email"]);
     unset($_SESSION["rol"]);
 
 
@@ -76,8 +76,8 @@ class Aplicacion {
     return isset($_SESSION["login"]) && ($_SESSION["login"]===true);
   }
 
-  public function nombreUsuario() {
-    return isset($_SESSION['nombre']) ? $_SESSION['nombre'] : '';
+  public function emailUsuario() {
+    return isset($_SESSION['email']) ? $_SESSION['email'] : '';
   }
 
   public function conexionBd() {

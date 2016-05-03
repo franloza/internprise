@@ -1,12 +1,12 @@
 <?php
 	
-	if ($_SESSION["rol"] == "admin"){
+	if ($_SESSION["rol"] == "Admin"){
 		$titulo = "Internprise - Portal Administracion";
 		$imagen = "img/favicon-admin.png";
-	}elseif ($_SESSION["rol"] == "estudiante") {
+	}elseif ($_SESSION["rol"] == "Estudiante") {
 		$titulo = "Internprise - Portal Estudiante";
 		$imagen = "img/favicon-estudiante.png";
-	}elseif ($_SESSION["rol"] == "empresa") {
+	}elseif ($_SESSION["rol"] == "Empresa") {
 		$titulo = "Internprise - Portal Empresa";
 		$imagen = "img/favicon-empresa.png";
 	}

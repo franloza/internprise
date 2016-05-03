@@ -11,10 +11,7 @@
   </head>
   <body>   
   <div id="index-contenedor">      
-    <a href="dashboard.php?rol=admin" class="action-button shadow animate green">Internprise Administracion</a>
-    <a href="dashboard.php?rol=empresa" class="action-button shadow animate blue">Internprise Empresa</a>
-    <a href="dashboard.php?rol=estudiante" class="action-button shadow animate red">Internprise Estudiante</a>
+    <a href="login.php" class="action-button shadow animate green">Log In</a>
   </div>
-  
   </body>
 </html>

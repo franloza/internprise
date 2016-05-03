@@ -44,10 +44,10 @@ $bloqueAdminSideBar = <<<EOF
 </div>
 EOF;
 
-if ($_SESSION["rol"] == "admin"){
+if ($_SESSION["rol"] == "Admin"){
 		echo "$bloqueAdminSideBar";
-	}elseif ($_SESSION["rol"] == "estudiante") {
-		echo "bloqueEstudianteSideBar";
-	}elseif ($_SESSION["rol"] == "empresa") {
-		echo "bloqueEmpresaSideBar";
+	}elseif ($_SESSION["rol"] == "Estudiante") {
+		echo "$bloqueEstudianteSideBar";
+	}elseif ($_SESSION["rol"] == "Empresa") {
+		echo "$bloqueEmpresaSideBar";
 	}

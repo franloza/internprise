@@ -3,11 +3,11 @@
 
 <!DOCTYPE html>
 <html>
-<?php include('head.php'); ?>
+<?php include('includes/comun/head.php'); ?>
   <body>
 	<div id="container-dashboard" class="container">   
-        <?php include ('menu.php'); ?>
-        <?php include ('estudiante-titlebar.html'); ?>
+        <?php include ('includes/comun/menu.php'); ?>
+        <?php include ('includes/comun/titlebar.php'); ?>
         <div class="content">
             <div class="dashboard-content" class="estudiante-content">
                 
@@ -185,8 +185,8 @@
             <!-- FIN Contenedor widgets superior -->     
 		</div>   
 		</div>
-            
-                
-    <?php include ('estudiante-footer.html'); ?>
+
+
+        <?php include ('includes/comun/footer.php'); ?>
   </body>
 </html>

@@ -11,9 +11,10 @@ class Usuario {
     if ($user && $user->compruebaPassword($password)) {
       $app = App::getSingleton();
       $conn = $app->conexionBd();
-      $query = sprintf("SELECT rol FROM usuarios WHERE usuario_id=%s", $conn->real_escape_string($user->id));
+      $query = sprintf("SELECT rol FROM usuarios WHERE id_usuario=%s", $conn->real_escape_string($user->id));
       $rs = $conn->query($query);
       if ($rs) {
+        $fila = $rs->fetch_assoc();
         $user->setRol($fila['rol']);
         $rs->free();
       }
@@ -29,7 +30,7 @@ class Usuario {
     $rs = $conn->query($query);
     if ($rs && $rs->num_rows == 1) {
       $fila = $rs->fetch_assoc();
-      $user = new Usuario($fila['usuario_id'], $fila['email'], $fila['password']);
+      $user = new Usuario($fila['id_usuario'], $fila['email'], $fila['password']);
       $rs->free();
 
       return $user;
