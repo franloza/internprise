@@ -1,7 +1,8 @@
-<?php session_start();
-  $_SESSION["rol"] = "admin";
-?>
-<!DOCTYPE html>
+<?php
+
+require_once __DIR__.'/includes/config.php';
+
+?><!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">

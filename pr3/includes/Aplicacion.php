@@ -80,6 +80,10 @@ class Aplicacion {
     return isset($_SESSION['email']) ? $_SESSION['email'] : '';
   }
 
+  public function rolUsuario() {
+    return isset($_SESSION['rol']) ? $_SESSION['rol'] : '';
+  }
+
   public function conexionBd() {
     if (! $this->conn ) {
       $bdHost = $this->bdDatosConexion['host'];
@@ -100,18 +104,10 @@ class Aplicacion {
     return $this->conn;
   }
 
-  public function tieneRol($rol, $cabeceraError='', $mensajeError='') {
-    if (!isset($_SESSION['rol']) || ! in_array($rol, $_SESSION['rol'])) {
-
-      $bloqueContenido=<<<EOF
-        <h1>$cabeceraError!</h1>
-        <p>$mensajeError.</p>
-EOF;
-
-      echo $bloqueContenido;
+  public function tieneRol($rol) {
+    if (!isset($_SESSION['rol'])) {
       return false;
     }
-
     return true;
   }
 }

@@ -14,10 +14,7 @@ class Form {
    */
   const CSRF_PARAM = 'csrf';
 
-  /**
-   * Cadena utilizada como valor del atributo "id" de la etiqueta &lt;form&gt; asociada al formulario y como parámetro a comprobar para verificar que el usuario ha enviado el formulario.
-   */
-  private $formId;
+  
 
   private $ajax;
 
