@@ -73,7 +73,7 @@ EOF;
             <link rel="stylesheet" href="css/menu.css" type="text/css">
             <link rel="stylesheet" href="css/content.css" type="text/css">
             <link rel="stylesheet" href="css/titlebar&footer.css" type="text/css">
-            <link rel="stylesheet" href="font-awesome-4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
             <!-- css solo para los colores-->
             <link rel="stylesheet" href="css.php">
             <link rel="icon" type="image/png" href="$imagen">
@@ -103,8 +103,8 @@ EOF;
             </label>
         </div>
         <div id="icons-titlebar">
-            <a id="bell" class="fa fa-bell fa-lg" href="notifications.php"></a>
-            <a id="settings" class="fa fa-cog fa-lg" href="settings.php"></a>
+            <a id="bell" class="fa fa-bell fa-lg" href="#"></a>
+            <a id="settings" class="fa fa-cog fa-lg" href="#"></a>
             <a class="fa fa-power-off fa-lg" href="index.html"></a>
         </div>
     </div>
