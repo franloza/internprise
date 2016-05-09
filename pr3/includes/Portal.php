@@ -59,11 +59,11 @@ EOF;
         return $bloqueFooter;
 
     }
-
+	
     /**
      * Función que genera los encabezados de la página.
      */
-    public function generaHead($titulo,$imagen)
+    protected function generaHeadParam($titulo,$imagen)
     {
         $bloqueHead = <<<EOF
         <!-- Fragmento para incluir CSS -->
@@ -85,7 +85,7 @@ EOF;
     /**
      * Función que genera la barra de iconos del portal.
      */
-    public function generaTitlebar($titulo)
+    protected function generaTitlebarParam($titulo)
     {
         $rol = strtolower($this->rol);
         //TODO: Implementar correctamente los enlaces

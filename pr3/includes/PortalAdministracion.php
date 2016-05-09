@@ -37,9 +37,9 @@ EOF;
     {
         $titulo = "Internprise - Portal Administracion";
         $imagen = "img/favicon-admin.png";
-        return parent::generaHead($titulo,$imagen);
+        return parent::generaHeadParam($titulo,$imagen);
     }
-
+	
     /**
      * Función que genera el contenido de la página principal del portal.
      * El resto de contenido debe generarse por medio de peticiones AJAX.
@@ -506,6 +506,6 @@ EOF;
 
     public function generaTitlebar()
     {
-        return parent::generaTitlebar("Internprise Administracion");
+        return parent::generaTitlebarParam("Internprise Administracion");
     }
 }

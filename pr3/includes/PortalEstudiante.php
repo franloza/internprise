@@ -41,7 +41,7 @@ EOF;
     {
         $titulo = "Internprise - Portal Estudiante";
         $imagen = "img/favicon-estudiante.png";
-        return parent::generaHead($titulo, $imagen);
+        return parent::generaHeadParam($titulo, $imagen);
     }
 
     /**
@@ -55,7 +55,7 @@ EOF;
 
     public function generaTitlebar()
     {
-        return parent::generaTitlebar("Internprise Estudiante");
+        return parent::generaTitlebarParam("Internprise Estudiante");
 
     }
 

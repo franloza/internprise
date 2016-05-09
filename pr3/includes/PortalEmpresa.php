@@ -47,7 +47,7 @@ EOF;
     {
         $titulo = "Internprise - Portal Empresa";
         $imagen = "img/favicon-empresa.png";;
-        return parent::generaHead($titulo,$imagen);
+        return parent::generaHeadParam($titulo,$imagen);
     }
 
     /**
@@ -61,7 +61,7 @@ EOF;
 
     public function generaTitlebar()
     {
-        return parent::generaTitlebar("Internprise Empresa");
+        return parent::generaTitlebarParam("Internprise Empresa");
     }
 
 }
