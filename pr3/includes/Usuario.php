@@ -6,6 +6,8 @@ use es\ucm\aw\internprise\Aplicacion as App;
 
 class Usuario {
 
+  const HTML5_EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
+
   public static function login($email, $password) {
     $user = self::buscaUsuario($email);
     if ($user && $user->compruebaPassword($password)) {
@@ -37,6 +39,31 @@ class Usuario {
     }
     return false;
   }
+    protected static function validateUsuario($datos)
+    {
+        $ok = true;
+        if (!isset($datos['email'])) {
+            $ok = false;
+        }
+        if (!mb_ereg_match(self::HTML5_EMAIL_REGEXP, $datos['email'])) {
+            $ok = false;
+        }
+        if (!$ok) {
+            $result[] = 'El email introducido no es válido';
+            return $result;
+        }
+        if (!isset($datos['password'])) {
+            $ok = false;
+        }
+        if ((strlen($datos['password']) < 4) || (strlen($datos['password']) > 12)) {
+            $ok = false;
+        }
+        if (!$ok) {
+            $result[] = 'La contraseña no tiene entre 4 y 12 caracteres';
+            return $result;
+        }
+        return $ok;
+    }
 
   private $id;
 
@@ -46,7 +73,7 @@ class Usuario {
 
   private $rol;
 
-  private function __construct($id, $email, $password) {
+  protected function __construct($id, $email, $password) {
     $this->id = $id;
     $this->email = $email;
     $this->password = $password;
