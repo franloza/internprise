@@ -21,15 +21,29 @@ class PortalEmpresa extends Portal
      */
     public function generaMenu()
     {
-        //TODO:Peticiones AJAX para coonseguir contenido
+        //TODO:Peticiones AJAX para conseguir contenido
         $bloqueEmpresaSideBar = <<<EOF
+        <script>
+        function loadMenu(value) {
+            var request = new XMLHttpRequest();
+            request.onreadystatechange = function() {
+                if (request.readyState == 4 && request.status == 200) {
+                     document.getElementById("content").innerHTML = request.responseText;
+                }
+            };
+            request.open("GET", "includes/ajaxRequest.php?val=" + value, true);
+            request.send();
+            return false;
+        }
+        </script>
+
         <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
                 <img src="img/empresa-avatar.png" alt="Avatar image" height="200" width="200"></img>
             </div>
             <ul>
-                <li><a href="#">PERFIL</a></li>
+                <li><a onclick="return loadMenu('PERFIL')" href="#">PERFIL</a></li>
                 <li><a href="#">OFERTAS</a></li>
                 <li><a href="#">SOLICITUDES</a></li>
                 <li><a href="#">CONTRATOS</a></li>
