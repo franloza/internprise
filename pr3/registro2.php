@@ -137,7 +137,7 @@ EOF;
 				 		$sexo = '';
 				 		$nacionalidad = '';
 				 		$direccion = '';
-				 		$fecha_nacimiento = '':
+				 		$fecha_nacimiento = '';
 				 		$cp = '';
 				 		$localidad = '';
 				 		$provincia = '';
