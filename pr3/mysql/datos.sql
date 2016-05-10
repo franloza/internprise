@@ -21,39 +21,22 @@ SET time_zone = "+00:00";
 --
 
 --
+-- Volcado de datos para la tabla `usuarios`
+--
+
+INSERT INTO `usuarios` (`id_usuario`, `email`, `password`, `rol`) VALUES
+(1, 'superuser@internprise.com', 'aprobamos2016', 'Admin'),
+(2, 'usuario@ucm.es', 'aprobamos2016', 'Estudiante'),
+(3, 'rrhh@everis.com', 'aprobamos2016', 'Empresa'),
+(4, 'empleo@oracle.com', 'aprobamos2016', 'Empresa');
+
+
+--
 -- Volcado de datos para la tabla `administradores`
 --
 
 INSERT INTO `administradores` (`id_usuario`, `nombre`, `apellidos`, `nombre_universidad`, `sexo`, `dirección`, `cp`, `localidad`, `provincia`, `pais`, `web`, `telefono`) VALUES
 (1, 'Pedro ', 'De la Rosa', 'Universidad Complutense de Madrid', 'Hombre', 'Av. Séneca, 2', 28040, 'Madrid', 'Madrid', 'España', 'www.ucm.es', '914520400');
-
---
--- Volcado de datos para la tabla `aptitudes`
---
-
-INSERT INTO `aptitudes` (`id_aptitud`, `nombre_aptitud`) VALUES
-(1, 'Java'),
-(2, 'C++'),
-(3, 'Linux'),
-(4, 'PHP'),
-(5, 'Solaris');
-
---
--- Volcado de datos para la tabla `aptitudes_estudiantes`
---
-
-INSERT INTO `aptitudes_estudiantes` (`id_estudiante`, `id_aptitud`) VALUES
-(2, 1),
-(2, 2),
-(2, 3);
-
---
--- Volcado de datos para la tabla `aptitudes_ofertas`
---
-
-INSERT INTO `aptitudes_ofertas` (`id_oferta`, `id_aptitud`) VALUES
-(1, 3),
-(1, 5);
 
 --
 -- Volcado de datos para la tabla `empresas`
@@ -81,15 +64,15 @@ INSERT INTO `grados` (`id_grado`, `nombre_grado`) VALUES
 (4, 'Doble grado en Ingeniería Informática-Matemáticas');
 
 --
--- Volcado de datos para la tabla `grados_ofertas`
+-- Volcado de datos para la tabla `aptitudes`
 --
 
-INSERT INTO `grados_ofertas` (`id_oferta`, `id_grado`) VALUES
-(1, 1),
-(1, 2),
-(1, 3),
-(1, 4),
-(2, 1);
+INSERT INTO `aptitudes` (`id_aptitud`, `nombre_aptitud`) VALUES
+(1, 'Java'),
+(2, 'C++'),
+(3, 'Linux'),
+(4, 'PHP'),
+(5, 'Solaris');
 
 --
 -- Volcado de datos para la tabla `ofertas`
@@ -100,14 +83,34 @@ INSERT INTO `ofertas` (`id_oferta`, `id_empresa`, `puesto`, `sueldo`, `fecha_inc
 (2, 3, 'Desarrollador Java Junior', '400', '2016-06-01', '2016-09-01', 5, 4, 'Requisitos mínimos:\r\n- No se necesita experiencia laboral previa\r\n- Motivación por aprender y crecer dentro de una compañía con un gran plan de carrera profesional\r\n- Pasión por la programación\r\n- Team Player\r\n\r\nValorable experiencia en:\r\n- Servidor de aplicaciones Tomcat o JBOSS\r\n- Control de versiones SVN o GIT\r\n- JQuery, Servicios Web Axis 2.0, Axis\r\n- Delphi 7', 'Pendiente');
 
 --
--- Volcado de datos para la tabla `usuarios`
+-- Volcado de datos para la tabla `aptitudes_estudiantes`
 --
 
-INSERT INTO `usuarios` (`id_usuario`, `email`, `password`, `rol`) VALUES
-(1, 'superuser@internprise.com', 'aprobamos2016', 'Admin'),
-(2, 'usuario@ucm.es', 'aprobamos2016', 'Estudiante'),
-(3, 'rrhh@everis.com', 'aprobamos2016', 'Empresa'),
-(4, 'empleo@oracle.com', 'aprobamos2016', 'Empresa');
+INSERT INTO `aptitudes_estudiantes` (`id_estudiante`, `id_aptitud`) VALUES
+(2, 1),
+(2, 2),
+(2, 3);
+
+--
+-- Volcado de datos para la tabla `aptitudes_ofertas`
+--
+
+INSERT INTO `aptitudes_ofertas` (`id_oferta`, `id_aptitud`) VALUES
+(1, 3),
+(1, 5);
+
+
+--
+-- Volcado de datos para la tabla `grados_ofertas`
+--
+
+INSERT INTO `grados_ofertas` (`id_oferta`, `id_grado`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(2, 1);
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
