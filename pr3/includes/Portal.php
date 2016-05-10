@@ -95,7 +95,6 @@ EOF;
                     </p>
                 </div>
 EOF;
-
         for ($i = 0; i < $numItems; $i++)
         {
             $bloqueContent = <<<EOF
