@@ -8,7 +8,7 @@ Meter también diagramas de flujo entre los scripts.
 - ```index.php```: Muestra la pantalla de login si el usuario no ha iniciado sesión, si no redirige a ```dashboard.php```.
 - ```dashboard.php```: Se encarga de mostrar la pantalla principal de cada usuario, dependiendo del rol que tenga el usuario logeado se mostrará un portal u otro.
 
-- ```login.php```:
+- ```login.php```: Muestra el login.??
 - ```Portal.php```: Clase abstracta que se encarga de generar los distintos elementos HTML de la aplicación.
 - ```PortalAdminstracion.php```: Hereda de Portal, genera los contenidos especificos para el rol administrador.
 - ```PortalEstudiante.php```: Hereda de Portal, genera los contenidos especificos para el rol estudiante.
