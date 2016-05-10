@@ -9,37 +9,14 @@ class Usuario {
   const HTML5_EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
 
   public static function login($email, $password) {
-    $user = self::buscaUsuario($email);
+    $user = UsuarioDAO::buscaUsuario($email);
     if ($user && $user->compruebaPassword($password)) {
-      $app = App::getSingleton();
-      $conn = $app->conexionBd();
-      $query = sprintf("SELECT rol FROM usuarios WHERE id_usuario=%s", $conn->real_escape_string($user->id));
-      $rs = $conn->query($query);
-      if ($rs) {
-        $fila = $rs->fetch_assoc();
-        $user->setRol($fila['rol']);
-        $rs->free();
-      }
-      return $user;
+      return UsuarioDAO::cargaUsuario($email);
     }    
     return false;
   }
 
-  private static function buscaUsuario($email) {
-    $app = App::getSingleton();
-    $conn = $app->conexionBd();
-    $query = sprintf("SELECT * FROM Usuarios WHERE email='%s'", $conn->real_escape_string($email));
-    $rs = $conn->query($query);
-    if ($rs && $rs->num_rows == 1) {
-      $fila = $rs->fetch_assoc();
-      $user = new Usuario($fila['id_usuario'], $fila['email'], $fila['password']);
-      $rs->free();
-
-      return $user;
-    }
-    return false;
-  }
-    protected static function validateUsuario($datos)
+  protected static function validateUsuario($datos)
     {
         $ok = true;
         if (!isset($datos['email'])) {
@@ -84,6 +61,10 @@ class Usuario {
     $this->rol = $role;
   }
 
+  public function id() {
+    return $this->id;
+  }  
+
   public function rol() {
     return $this->rol;
   }
@@ -94,5 +75,20 @@ class Usuario {
 
   public function compruebaPassword($password) {
     return $this->password === $password;
+  }
+
+  public function factory() {
+      $id =$this->id;
+      $email = $this->email;
+      $password = $this ->password;        
+
+      if ($this->rol === "Admin"){
+          return new \es\ucm\aw\internprise\Administrador($id,$email,$password);
+      }elseif ($this->rol === "Estudiante") {
+          return new \es\ucm\aw\internprise\Estudiante($id,$email,$password);
+      }elseif ($this->rol === "Empresa") {
+          return new \es\ucm\aw\internprise\Empresa($id,$email,$password));
+      }
+      return false;
   }
 }

@@ -114,11 +114,11 @@ EOF;
     }
 
     public static function factory($rol) {
-        if ($rol == "Admin"){
+        if ($rol === "Admin"){
             return new \es\ucm\aw\internprise\PortalAdministracion();
-        }elseif ($rol == "Estudiante") {
+        }elseif ($rol === "Estudiante") {
             return new \es\ucm\aw\internprise\PortalEstudiante();
-        }elseif ($rol == "Empresa") {
+        }elseif ($rol === "Empresa") {
             return new \es\ucm\aw\internprise\PortalEmpresa();
         }
         return false;
