@@ -19,7 +19,7 @@ class PortalEstudiante extends Portal
 
         //TODO:Peticiones AJAX para conseguir contenido
         $bloqueEstudianteSideBar = <<<EOF
-        <!-- Fragmento para definir el menú de administrador-->
+        <!-- Fragmento para definir el menú de estudiante-->
         <div id="estudiante-sidebar" class="sidebar">
             <div id="estudiante-menu-avatar" class="menu-avatar">
                 <img src="img/estudiante-avatar.png" alt="Avatar image" height="200" width="200"></img>

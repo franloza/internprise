@@ -25,7 +25,7 @@ else {
             echo '<div id="container-dashboard" class="container">';
             echo $portal->generaMenu();
             echo $portal->generaTitlebar();
-            echo '<div class="content">';
+            echo '<div id="content" class="content">';
             echo $portal->generaDashboard();
             echo '</div>';
             echo $portal->generaFooter();
