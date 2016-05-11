@@ -1,5 +1,5 @@
 #Memoria Práctica 3 Internprise
-![alt text](https://dl.dropboxusercontent.com/u/38801465/favicon-admin.png "Logo Internprise")
+![alt text](https://github.com/franloza/AW/blob/master/resources/favicon-admin.png?raw=true "Logo Internprise")
 
 ##Scripts de vista
 
@@ -15,7 +15,7 @@ Meter también diagramas de flujo entre los scripts.
 - ```PortalEmpresa.php```: Hereda de Portal, genera los contenidos especificos para el rol empresa.
 - **Diagrama de Flujo**:
 
-![alt text](https://dl.dropboxusercontent.com/u/38801465/DiagramaFlujo_P3.png "Logo Internprise")
+![alt text](https://github.com/franloza/AW/blob/master/resources/DiagramaFlujo_P3.png?raw=true "Diagrama de flujo")
 
 ##Scripts adicionales
  como configuración, clases, lógica de la aplicación, base de datos...<br>
