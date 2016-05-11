@@ -21,7 +21,6 @@ class PortalEmpresa extends Portal
      */
     public function generaMenu()
     {
-        //TODO:Peticiones AJAX para conseguir contenido
         $bloqueEmpresaSideBar = <<<EOF
         <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
@@ -46,7 +45,7 @@ EOF;
     public function generaHead()
     {
         $titulo = "Internprise - Portal Empresa";
-        $imagen = "img/favicon-empresa.png";;
+        $imagen = "img/favicon-empresa.png";
         return parent::generaHeadParam($titulo,$imagen);
     }
 
@@ -62,6 +61,27 @@ EOF;
     public function generaTitlebar()
     {
         return parent::generaTitlebarParam("Internprise Empresa");
+    }
+
+    public function generaPerfil(){
+        // TODO: Implement generaPerfil() method.
+    }
+
+    public function generaOfertas(){
+        // TODO: Implement generaOfertas() method.
+    }
+
+    public function generaSolicitudes(){
+        // TODO: Implement generaSolicitudes() method.
+    }
+
+
+    public function generaContratos(){
+        // TODO: Implement generaContratos() method.
+    }
+
+    public function generaBuzon(){
+        // TODO: Implement generaBuzon() method.
     }
 
 }

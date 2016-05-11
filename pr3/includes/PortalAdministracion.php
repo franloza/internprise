@@ -493,4 +493,24 @@ EOF;
         return $content;
 
     }
+
+    public function generaDemandas(){
+        // TODO: Implement generaDemandas() method.
+    }
+
+    public function generaContratos(){
+        // TODO: Implement generaContratos() method.
+    }
+
+    public function generaHistorial(){
+        // TODO: Implement generaHistorial() method.
+    }
+
+    public function generaEncuestas(){
+        // TODO: Implement generaEncuestas() method.
+    }
+
+    public function generaBuzon(){
+        // TODO: Implement generaBuzon() method.
+    }
 }
