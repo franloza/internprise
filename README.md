@@ -13,6 +13,9 @@ Meter también diagramas de flujo entre los scripts.
 - ```PortalAdminstracion.php```: Hereda de Portal, genera los contenidos especificos para el rol administrador.
 - ```PortalEstudiante.php```: Hereda de Portal, genera los contenidos especificos para el rol estudiante.
 - ```PortalEmpresa.php```: Hereda de Portal, genera los contenidos especificos para el rol empresa.
+- **Diagrama de Flujo**:
+
+![alt text](https://dl.dropboxusercontent.com/u/38801465/DiagramaFlujo_P3.png "Logo Internprise")
 
 ##Scripts adicionales
  como configuración, clases, lógica de la aplicación, base de datos...<br>
