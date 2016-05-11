@@ -15,12 +15,14 @@ class OfertaDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM internprise.ofertas");
+        $query = sprintf("SELECT o.*,em.razon_social as empresa
+                          FROM internprise.ofertas o 
+                          INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario");
         $rs = $conn->query($query);
         if ($rs) {
-            $ofertas = array();
+            $ofertas =  array();
             while ($fila = $rs->fetch_assoc()) {
-                $ofertas.array_push($ofertas,self::createOferta($fila)) ;
+                array_push($ofertas,self::createOferta($fila));
             }
             $rs->free();
             return $ofertas;
@@ -35,7 +37,8 @@ class OfertaDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT DISTINCT o.* FROM internprise.grados_ofertas go
+        $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa FROM internprise.grados_ofertas go
+                          INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
                           INNER JOIN internprise.ofertas o ON o.id_oferta = go.id_oferta
                           INNER JOIN internprise.grados g ON g.id_grado= go.id_grado
                           WHERE  g.nombre_grado LIKE '%s'", $conn->real_escape_string($grado));
@@ -43,7 +46,7 @@ class OfertaDAO
         if ($rs) {
             $ofertas = array();
             while ($fila = $rs->fetch_assoc()) {
-                $ofertas.array_push($ofertas,self::createOferta($fila)) ;
+                array_push($ofertas,self::createOferta($fila)) ;
             }
             $rs->free();
             return $ofertas;
@@ -58,7 +61,9 @@ class OfertaDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM internprise.ofertas ORDER BY fecha_creacion DESC LIMIT $numOfertas");
+        $query = sprintf("SELECT o.*,em.razon_social as empresa FROM internprise.ofertas o
+        INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
+        ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
             $ofertas = array();
@@ -80,16 +85,17 @@ class OfertaDAO
         $app = App::getSingleton();
         $conn = $app->conexionBd();
         $id_usuario = $app->idUsuario();
-        $query = sprintf("SELECT o.* FROM internprise.ofertas o
-                          JOIN internprise.grados_ofertas go ON o.id_oferta = go.id_oferta
-                          JOIN internprise.estudiantes e ON e.id_grado = go.id_grado
+        $query = sprintf("SELECT o.*,em.razon_social as empresa FROM internprise.ofertas o
+                          INNER JOIN internprise.grados_ofertas go ON o.id_oferta = go.id_oferta
+                          INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
+                          INNER JOIN internprise.estudiantes e ON e.id_grado = go.id_grado
                           WHERE id_usuario = $id_usuario 
                           ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
             $ofertas = array();
             while ($fila = $rs->fetch_assoc()) {
-                $ofertas.array_push($ofertas,self::createOferta($fila)) ;
+                array_push($ofertas,self::createOferta($fila));
             }
             $rs->free();
             return $ofertas;
@@ -100,13 +106,14 @@ class OfertaDAO
 
     private static function createOferta($fila) {
         $idOferta = $fila['id_oferta'];
-        $idEmpresa = $fila['id_empresa'];
-        $oferta = new Oferta($idOferta,$idEmpresa);
+        $empresa = $fila['empresa'];
+        $oferta = new Oferta($idOferta,$empresa);
         $oferta->setEstado($fila['estado']);
         $oferta->setFechaFin($fila['fecha_fin']);
         $oferta->setFechaIncio($fila['fecha_incio']);
         $oferta->setPlazas($fila['plazas']);
         $oferta->setEstado($fila['estado']);
+        $oferta->setPuesto($fila['puesto']);
         $oferta->setHoras($fila['horas']);
         $oferta->setSueldo($fila['sueldo']);
         $oferta->setDescripcion($fila['descripcion']);

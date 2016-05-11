@@ -9,7 +9,7 @@ class Oferta
      * Atributos
      */
     private $id_oferta;
-    private $id_empresa;
+    private $empresa;
     private $puesto;
     private $sueldo;
     private $fecha_incio;
@@ -24,10 +24,10 @@ class Oferta
     /**
      * Constructor.
      */
-    public function __construct($id_oferta,$id_empresa)
+    public function __construct($id_oferta,$empresa)
     {
         $this->id_oferta = $id_oferta;
-        $this->id_empresa = $id_empresa;
+        $this->empresa = $empresa;
     }
 
     /**
@@ -38,9 +38,9 @@ class Oferta
         return $this->id_oferta;
     }
 
-    public function getIdEmpresa()
+    public function getEmpresa()
     {
-        return $this->id_empresa;
+        return $this->empresa;
     }
 
     public function getPuesto()
@@ -131,9 +131,9 @@ class Oferta
 
     public function setDiasDesdeCreacion($fechaCreacion)
     {
-        $date = date('M j Y g:i A', strtotime($fechaCreacion));
-        $now = time();
+        $date = date('d', strtotime($fechaCreacion));
+        $now = date('d',time());
         $datediff = $now - $date;
-        $this->diasDesdeCreacion = floor($datediff/(60*60*24));
+        $this->diasDesdeCreacion = $datediff;
     }
 }

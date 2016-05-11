@@ -95,9 +95,12 @@ EOF;
         return $bloqueHead;
     }
 
-    protected function generarWidget($titulo, $numItems)
+    protected function generarWidget($titulo, $lista,$typeIcon,$colorIcon )
     {
-        $contenido = "";
+        $numItems = count($lista);
+        $typeIcon = "envelope";
+        $colorIcon = "blue";
+
         $widgetHeader = <<<EOF
             <div class="widget">
                 <!-- HEADER -->
@@ -110,26 +113,30 @@ EOF;
 EOF;
         $contenido = $widgetHeader . '<div class="content-widget">';
 
-        for ($i = 0; $i < $numItems; $i++) {
+        foreach($lista as $item) {
+            $itemTitle = $item[0];
+            $itemSubtitle = $item[1];
+            $itemDescription= $item[2];
+
             $widgetContent = <<<EOF
                     <div class="media">
                         <div class="media-left">
-                            <i class="fa fa-envelope-o" style="color:blue;"></i>
+                            <i class="fa fa-$typeIcon" style="color:$colorIcon;"></i>
                         </div>
                         <div class="media-body">
                             <div class="media-header">
-                                <strong>Coritel</strong>
-                                Programador Junior C++
+                                <strong>$itemTitle</strong>
+                                $itemSubtitle
                             </div>
                             <div class="text-muted">
-                                <small>Justo ahora</small>
+                                <small>$itemDescription</small>
                             </div>
                         </div>
                     </div>
 EOF;
             $contenido = $contenido . $widgetContent;
         }
-        $contenido = $contenido + "</div></div>";
+        $contenido = $contenido . "</div></div>";
 
         return $contenido;
     }
