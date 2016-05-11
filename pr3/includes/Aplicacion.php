@@ -105,9 +105,8 @@ class Aplicacion {
   }
 
   public function tieneRol($rol) {
-    if (!isset($_SESSION['rol'])) {
-      return false;
-    }
-    return true;
+    if (!isset($_SESSION['rol'])) {return false;}
+    else if ($_SESSION['rol'] !=$rol) {return false;}
+    else return true;
   }
 }

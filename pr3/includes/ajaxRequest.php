@@ -1,12 +1,11 @@
 <?php
+namespace es\ucm\aw\internprise;
+require_once __DIR__.'/config.php';
 /**
  * Script para manejar las peticiones asíncronas AJAX.
  */
-namespace es\ucm\aw\internprise;
 
-
-use Aplicacion as App;
-
+use es\ucm\aw\internprise\Aplicacion as App;
 $app = App::getSingleton();
 $content = '';
 
@@ -35,7 +34,7 @@ echo $content;
 
 function handle_adminRequest($req){
 	global $app, $content;
-	if($app ->checkRol() && $app -> rolUsuario() === 'Admin'){
+	if( $_SESSION['rol'] ==='Admin'){
 		$portalAdmin = Portal::factory($app->rolUsuario());
 		switch($req){
 			case 'OFERTAS_ADMIN': $content = $portalAdmin -> generaOfertas(); break;
@@ -50,7 +49,7 @@ function handle_adminRequest($req){
 
 function handle_studentRequest($req) {
 	global $app, $content;
-	if($app ->checkRol() && $app -> rolUsuario() === 'Estudiante'){
+	if($_SESSION['rol'] ==='Estudiante'){
 		$portalEstudiante = Portal::factory($app->rolUsuario());
 		switch($req){
 			case 'PERFIL_ESTUDIANTE': $content = $portalEstudiante -> generaPerfil(); break;
@@ -62,7 +61,7 @@ function handle_studentRequest($req) {
 
 function handle_empresaRequest($req) {
 	global $app, $content;
-	if($app ->checkRol() && $app -> rolUsuario() === 'Empresa'){
+	if($_SESSION['rol'] ==='Empresa'){
 		$portalEmpresa = Portal::factory($app->rolUsuario());
 		switch($req){
 			case 'PERFIL_EMPRESA': $content = $portalEmpresa -> generaPerfil(); break;
@@ -72,6 +71,7 @@ function handle_empresaRequest($req) {
 			case 'BUZON_EMPRESA': $content = $portalEmpresa -> generaBuzon(); break;
 		}
 	}
+    else return false;
 }
 
 ?>
