@@ -57,7 +57,6 @@ abstract class Portal
         </div>
 EOF;
         return $bloqueFooter;
-
     }
 	
     /**
@@ -96,8 +95,9 @@ EOF;
         return $bloqueHead;
     }
 
-    protected function generarWidget($titulo, $numItems, $arrayItems)
+    protected function generarWidget($titulo, $numItems)
     {
+        $contenido = "";
         $widgetHeader = <<<EOF
             <div class="widget">
                 <!-- HEADER -->
@@ -108,8 +108,8 @@ EOF;
                     </p>
                 </div>
 EOF;
-        print $widgetHeader;
-        print '<div class="content-widget">';
+        $contenido = $widgetHeader . '<div class="content-widget">';
+
         for ($i = 0; $i < $numItems; $i++) {
             $widgetContent = <<<EOF
                     <div class="media">
@@ -127,10 +127,11 @@ EOF;
                         </div>
                     </div>
 EOF;
-            print $widgetContent;
+            $contenido = $contenido . $widgetContent;
         }
-        print "</div></div>";
+        $contenido = $contenido + "</div></div>";
 
+        return $contenido;
     }
 
     /**
