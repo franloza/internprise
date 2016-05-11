@@ -139,6 +139,7 @@ EOF;
      */
     protected function generaTitlebarParam($titulo)
     {
+        $urlLogout = $_SERVER['PHP_SELF'] . '?logout';
         $rol = strtolower($this->rol);
         //TODO: Implementar correctamente los enlaces
         $bloqueTitleBar = <<<EOF
@@ -157,7 +158,7 @@ EOF;
         <div id="icons-titlebar">
             <a id="bell" class="fa fa-bell fa-lg" href="#"></a>
             <a id="settings" class="fa fa-cog fa-lg" href="#"></a>
-            <a class="fa fa-power-off fa-lg" href="logout.php"></a>
+            <a class="fa fa-power-off fa-lg" href=$urlLogout></a>
         </div>
     </div>
 EOF;

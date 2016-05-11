@@ -59,6 +59,7 @@ class Aplicacion {
     $_SESSION['login'] = true;
     $_SESSION['email'] = $user->email();
     $_SESSION['rol'] = $user->rol();
+    $_SESSION['id_usuario'] = $user->id();
   }
 
   public function logout() {
@@ -66,8 +67,7 @@ class Aplicacion {
     unset($_SESSION["login"]);
     unset($_SESSION["email"]);
     unset($_SESSION["rol"]);
-
-
+    unset($_SESSION["id_usuario"]);
     session_destroy();
     session_start();
   }
@@ -75,6 +75,10 @@ class Aplicacion {
   public function usuarioLogueado() {
     return isset($_SESSION["login"]) && ($_SESSION["login"]===true);
   }
+
+   public function idUsuario() {
+     return isset($_SESSION["id_usuario"]) ? ($_SESSION["id_usuario"]) : 0;
+   }
 
   public function emailUsuario() {
     return isset($_SESSION['email']) ? $_SESSION['email'] : '';

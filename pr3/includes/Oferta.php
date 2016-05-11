@@ -18,6 +18,8 @@ class Oferta
     private $plazas;
     private $descripcion;
     private $estado;
+    private $diasDesdeCreacion;
+
 
     /**
      * Constructor.
@@ -122,6 +124,16 @@ class Oferta
         $this->estado = $estado;
     }
 
+    public function getDiasDesdeCreacion()
+    {
+        return $this->diasDesdeCreacion;
+    }
 
-
+    public function setDiasDesdeCreacion($fechaCreacion)
+    {
+        $date = date('M j Y g:i A', strtotime($fechaCreacion));
+        $now = time();
+        $datediff = $now - $date;
+        $this->diasDesdeCreacion = floor($datediff/(60*60*24));
+    }
 }

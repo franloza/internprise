@@ -3,6 +3,7 @@ namespace  es\ucm\aw\internprise;
 require_once __DIR__.'/includes/config.php';
 
 $app = Aplicacion::getSingleton();
+$app->doInclude('comun/Error.php');
 $error = false; $errorMsg = '';$portal = false;
 if(!$app->usuarioLogueado()) {
     $error = true;
@@ -14,6 +15,12 @@ else {
         $error = true;
         $errorMsg = Error::generaErrorPermisos();
     }
+}
+
+/*Logout*/
+if (isset($_GET['logout'])) {
+    $app->logout();
+    header('Location: ' . $app->resuelve('/index.php'));
 }
 ?>
 <!DOCTYPE html>

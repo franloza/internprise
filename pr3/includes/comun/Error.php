@@ -7,8 +7,8 @@ class Error {
 public static function generaErrorPermisos()
     {
         $errorPage = <<<EOF
-                <h1> Error de permisos </h1>
-                 <p> No tiene permisos para acceder a esta página. Puede volver a la página principal clickando <a href="index.php">aquí</a> </p>
+        <h1> Error de permisos </h1>
+        <p> No tiene permisos para acceder a esta página. Puede volver a la página principal clickando <a href="index.php">aquí</a> </p>
 EOF;
         return $errorPage;
     }
@@ -19,7 +19,7 @@ public static function generaErrorHead()
      <head>
         <meta charset=\"UTF-8\">
         <title>Error</title>
-    </head>";
+    </head>
 EOF;
     return $errorPage;
 }

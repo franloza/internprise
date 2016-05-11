@@ -8,6 +8,9 @@ use es\ucm\aw\internprise\Aplicacion as App;
 class OfertaDAO
 {
 
+    /**
+     * Función que carga todas las ofertas de la BBDD
+     * */
     public static function cargaTodasOfertas()
     {
         $app = App::getSingleton();
@@ -25,6 +28,9 @@ class OfertaDAO
         return false;
     }
 
+    /**
+     * Función que permite filtrar las ofertas por grado
+     * */
     public static function cargaOfertasPorGrado($grado)
     {
         $app = App::getSingleton();
@@ -45,6 +51,53 @@ class OfertaDAO
         return false;
     }
 
+    /**
+     * Función que recupera el número de últimas ofertas aceptadas indicado
+     */
+    public static function cargaUltimasOfertas($numOfertas)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM internprise.ofertas ORDER BY fecha_creacion DESC LIMIT $numOfertas");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $ofertas = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $ofertas.array_push($ofertas,self::createOferta($fila)) ;
+            }
+            $rs->free();
+            return $ofertas;
+        }
+        return false;
+    }
+
+
+    /**
+     * Función que recupera el número de últimas ofertas aceptadas indicado dirigidas al grado del Estudiante
+     */
+    public static function cargaUltimasOfertasEstudiante($numOfertas)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $id_usuario = $app->idUsuario();
+        $query = sprintf("SELECT o.* FROM internprise.ofertas o
+                          JOIN internprise.grados_ofertas go ON o.id_oferta = go.id_oferta
+                          JOIN internprise.estudiantes e ON e.id_grado = go.id_grado
+                          WHERE id_usuario = $id_usuario 
+                          ORDER BY fecha_creacion DESC LIMIT $numOfertas");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $ofertas = array();
+            while ($fila = $rs->fetch_assoc()) {
+                $ofertas.array_push($ofertas,self::createOferta($fila)) ;
+            }
+            $rs->free();
+            return $ofertas;
+        }
+        return false;
+    }
+
+
     private static function createOferta($fila) {
         $idOferta = $fila['id_oferta'];
         $idEmpresa = $fila['id_empresa'];
@@ -57,6 +110,7 @@ class OfertaDAO
         $oferta->setHoras($fila['horas']);
         $oferta->setSueldo($fila['sueldo']);
         $oferta->setDescripcion($fila['descripcion']);
+        $oferta->setDiasDesdeCreacion($fila['fecha_creacion']);
         return $oferta;
     }
 

@@ -68,8 +68,8 @@ class Form {
       // Valida el token CSRF si es necesario (hay un token en la sesión asociada al formulario)
       $tokenRecibido = isset($_POST['CSRFToken']) ? $_POST['CSRFToken'] : FALSE;
       
-      if ( ($errores = $this->csrfguard_ValidateToken($this->formId, $tokenRecibido)) !== TRUE ) { 
-          if ( ! $ajax ) {
+      if ( ($errores = $this->csrfguard_ValidateToken($this->formId, $tokenRecibido)) !== TRUE ) {
+          if ( !$this->ajax ) {
             echo $this->generaFormulario($errores, $_POST);
           } else {
             echo $this->generaHtmlErrores($errores);

@@ -72,6 +72,11 @@ class Usuario {
     return $this->email;
   }
 
+    public function id()
+    {
+        return $this->id;
+    }
+
     //TODO:Hashear contraseña
   public function compruebaPassword($password) {
     return $this->password === $password;
