@@ -57,7 +57,6 @@ abstract class Portal
         </div>
 EOF;
         return $bloqueFooter;
-
     }
 	
     /**

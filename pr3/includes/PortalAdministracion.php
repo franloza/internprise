@@ -46,6 +46,7 @@ EOF;
      */
     public function generaDashboard()
     {
+        
         // ***************************************************************************************************
         // TODO: NECESITO QUERY PARA TRAER ULTIMAS OFERTAS
         //       datos que necesito:
