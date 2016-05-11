@@ -46,9 +46,16 @@ EOF;
      */
     public function generaDashboard()
     {
+        // ***************************************************************************************************
+        // TODO: NECESITO QUERY PARA TRAER ULTIMAS OFERTAS
+        //       datos que necesito:
+        //                          - Nombre empresa
+        //                          - Descripcion
+        //                          - Tiempo desde que se creo o simplemente la hora y ya lo calculo yo
+        // ***************************************************************************************************
 
-        //TODO: Generar contenido dinámico para todos los portales
-        $content = <<<EOF
+        $contenido="";
+        $buscador = <<<EOF
         <div class="dashboard-content">
 
 			<!-- INI Contenedor busqueda dashboard -->
@@ -63,163 +70,56 @@ EOF;
 				</div>
 			</div>	            
 			<!-- FIN Contenedor busqueda dashboard -->
+			
+			<!-- INI Contenedor Widgets superior -->
+			<div class="widget-content">
+EOF;
 
- 
-            <!-- INI Contenedor widgets superior -->    
-            <div class="widget-content">
-                <!-- INI Widget Nuevas ofertas -->  
-                <div class="widget">
-                    <!-- Header widget -->
-                    <div class="widget-header">
-                        <p class="title">Nuevas ofertas</p>
-                        <p class="title-items">
-                            <a class="square" href="#">7</a>
-                        </p>
+        $ofertas = generarWidget("Ofertas", 5);
+        $widgets = <<<EOF
+            <!-- FIN Widget Nuevas ofertas -->  
+
+            
+            <!-- INI Widget Contratos activos -->   
+            <div class="widget">
+                <!-- Header widget -->
+                <div class="widget-header">
+                    <p class="title">Contratos activos</p>
+                    <p class="title-items">
+                        <a class="square" href="#">6</a>
+                    </p>
+                </div>
+                <!-- Content widget -->
+                <div class="content-widget">
+                    <div class="media">
+                        <div class="media-left">
+                            <i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body">
+                            <div class="media-header">
+                                <strong>Ubisoft</strong>
+                                Jos&eacute; Miguel Maldonado
+                            </div>
+                            <div class="text-muted">
+                                <small>Hace 5 dias</small>
+                            </div>
+                        </div>
                     </div>
-                    <!-- Content widget -->
-                    <div class="content-widget">
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-envelope-o" style="color:blue;"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>Coritel</strong>
-    Programador Junior C++
-                                </div>
-                                <div class="text-muted">
-                                    <small>Justo ahora</small>
-                                </div>
-                            </div>
+                <div class="media">
+                    <div class="media-left">
+                        <i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i>
+                    </div>
+                    <div class="media-body">
+                        <div class="media-header">
+                            <strong>Seltime</strong>
+                            Francisco Jos&eacute; Lozano
                         </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-envelope-o" style="color:blue;"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>Ubisoft</strong>
-    Desarrollador de videojuegos
-    </div>
-                                <div class="text-muted">
-                                    <small>Hace 4 minutos</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-envelope-o" style="color:blue;"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>Seltime</strong>
-    Analista Programador Java/J2EE
-    </div>
-                                <div class="text-muted">
-                                	<small>Hace 43 minutos</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-envelope-o" style="color:blue;"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>Cpl</strong>
-    Android Developers
-    </div>
-                                <div class="text-muted">
-                                    <small>Hace 4 horas</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-envelope-o" style="color:blue;"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>Ecinsa</strong>
-    Programador PHP Senior
-    </div>
-                                <div class="text-muted">
-                                    <small>Hace 1 dia</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-envelope-o" style="color:blue;"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>VASS</strong>
-    Analista Programador .NET
-    </div>
-                                <div class="text-muted">
-                                    <small>Hace 2 dias</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-envelope-o" style="color:blue;"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>ICES</strong>
-    Desarrollador Oracle forms reports
-    </div>
-                                <div class="text-muted">
-                                    <small>Hace 3 dias</small>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="text-muted">
+                        <small>Hace 6 dias</small>
                     </div>
                 </div>
-                <!-- FIN Widget Nuevas ofertas -->  
-
-                <!-- INI Widget Contratos activos -->   
-                <div class="widget">
-                    <!-- Header widget -->
-                    <div class="widget-header">
-                        <p class="title">Contratos activos</p>
-                        <p class="title-items">
-                            <a class="square" href="#">6</a>
-                        </p>
-                    </div>
-                    <!-- Content widget -->
-                    <div class="content-widget">
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>Ubisoft</strong>
-    Jos&eacute; Miguel Maldonado
-    </div>
-                                <div class="text-muted">
-                                    <small>Hace 5 dias</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <div class="media-left">
-                                <i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i>
-                            </div>
-                            <div class="media-body">
-                                <div class="media-header">
-                                    <strong>Seltime</strong>
-    Francisco Jos&eacute; Lozano
-    </div>
-                                <div class="text-muted">
-                                	<small>Hace 6 dias</small>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="media">
+            </div>
+            <div class="media">
                             <div class="media-left">
                                 <i class="fa fa-check-circle" style="color:green;" aria-hidden="true"></i>
                             </div>
@@ -501,7 +401,9 @@ EOF;
             <!-- FIN Contenedor widgets inferior -->    
 		</div>   
 EOF;
-        return $content;
+        $contenido = $buscador . $ofertas . $widgets;
+
+        return $contenido;
     }
 
     public function generaTitlebar()
