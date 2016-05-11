@@ -1,58 +1,77 @@
 <?php
-$val = $_REQUEST["val"];
-echo $val;
-if($val == "PERFIL"){
-	$content = <<<EOF
-		<div class="perfil-empresa-content">
-			<div class="titulo-perfil">
-			<div class="logo-perfil">
-			<img src="img/rediris.jpg" width="200" height="180"></img>
-			</div>
-			<div class="datos-logo-perfil">
-				<div class="text-datos-logo">
-					<h3 id="nombre-empresa">RedIRIS</h3>
-					<p class="text-muted">Investigacion</p>
-					<p class="text-muted">De 11 a 50 empleados</p>
-				</div>
-			</div>
-		</div>
-		<div class="descripcion-perfil">
-			<p>RedIRIS es la red académica y de investigación española y proporciona servicios avanzados de comunicaciones a la comunidad científica y universitaria nacional. Está financiada por el Ministerio de Economía y Competitividad, e incluida en su mapa de Instalaciones Científico-Técnicas Singulares (ICTS). Se hace cargo de su gestión la entidad pública empresarial Red.es, del Ministerio de Industria, Energía y Turismo.
-			</p>
-			<p>RedIRIS cuenta con más de 500 instituciones afiliadas, principalmente universidades y centros públicos de investigación, que llegan a formar parte de esta comunidad mediante la firma de un acuerdo de afiliación.
-			</p>
-			<p>Se puede consultar información de detalle sobre RedIRIS y sus principales líneas de actuación en: 
-			</p>
-		</div>
-		<div class="datos-interes-perfil">
-			<div class="bloque">
-				<strong>Sitio web</strong>
-				<p class="text-muted">http://www.rediris.es/</p>
-				<strong>Sede</strong>
-				<p class="text-muted">
-					Madrid Edificio Bronce Plaza
-					Manuel Gomez Moreno, s/n - 2ª
-					planta Madrid, Madrid 28020
-					España
-				</p>
-			</div>		
-			<div class="bloque">
-				<strong>Sector</strong>
-				<p class="text-muted">Investigacion</p>
-				<strong>Tamaño de empresa</strong>
-				<p class="text-muted">De 11 a 50 empleados</p>
-			</div>		
-			<div class="bloque">
-				<strong>Tipo</strong>
-				<p class="text-muted">Empresa publica</p>
-				<strong>Fundacion</strong>
-				<p class="text-muted">1998</p>
-			</div>		
-			<div class="clear"></div>
-		</div>
-		</div>
+/**
+ * Script para manejar las peticiones asíncronas AJAX.
+ */
+namespace es\ucm\aw\internprise;
 
-EOF;
+
+use Aplicacion as App;
+
+$app = App::getSingleton();
+$content = '';
+
+if($app -> usuarioLogueado()){
+	$req = $_REQUEST['val'];
+	switch($req){
+		case 'OFERTAS_ADMIN': handle_adminRequest($req); break;
+		case 'DEMANDAS_ADMIN': handle_adminRequest($req); break;
+		case 'CONTRATOS_ADMIN': handle_adminRequest($req); break;
+		case 'HISTORIAL_ADMIN': handle_adminRequest($req); break;
+		case 'ENCUESTAS_ADMIN': handle_adminRequest($req); break;
+		case 'BUZON_ADMIN': handle_adminRequest($req); break;
+		case 'PERFIL_ESTUDIANTE': handle_studentRequest($req); break;
+		case 'OFERTAS_ESTUDIANTE': handle_studentRequest($req); break;
+		case 'BUZON_ESTUDIANTE': handle_studentRequest($req); break;
+		case 'PERFIL_EMPRESA': handle_empresaRequest($req); break;
+		case 'OFERTAS_EMPRESA': handle_empresaRequest($req); break;
+		case 'SOLICITUDES_EMPRESA': handle_empresaRequest($req); break;
+		case 'CONTRATOS_EMPRESA': handle_empresaRequest($req); break;
+		case 'BUZON_EMPRESA': handle_empresaRequest($req); break;
+		default : $content = Error::generaErrorPermisos();
+	}
 }
-echo $content;	
+
+echo $content;
+
+function handle_adminRequest($req){
+	global $app, $content;
+	if($app ->checkRol() && $app -> rolUsuario() === 'Admin'){
+		$portalAdmin = Portal::factory($app->rolUsuario());
+		switch($req){
+			case 'OFERTAS_ADMIN': $content = $portalAdmin -> generaOfertas(); break;
+			case 'DEMANDAS_ADMIN': $content = $portalAdmin -> generaDemandas(); break;
+			case 'CONTRATOS_ADMIN': $content = $portalAdmin -> generaContratos(); break;
+			case 'HISTORIAL_ADMIN': $content = $portalAdmin -> generaHistorial(); break;
+			case 'ENCUESTAS_ADMIN': $content = $portalAdmin -> generaEncuestas(); break;
+			case 'BUZON_ADMIN': $content = $portalAdmin -> generaBuzon(); break;
+		}		
+	}
+}
+
+function handle_studentRequest($req) {
+	global $app, $content;
+	if($app ->checkRol() && $app -> rolUsuario() === 'Estudiante'){
+		$portalEstudiante = Portal::factory($app->rolUsuario());
+		switch($req){
+			case 'PERFIL_ESTUDIANTE': $content = $portalEstudiante -> generaPerfil(); break;
+			case 'OFERTAS_ESTUDIANTE': $content = $portalEstudiante -> generaEstudiante(); break;
+			case 'BUZON_ESTUDIANTE': $content = $portalEstudiante -> generaBuzon(); break;
+		}
+	}
+}
+
+function handle_empresaRequest($req) {
+	global $app, $content;
+	if($app ->checkRol() && $app -> rolUsuario() === 'Empresa'){
+		$portalEmpresa = Portal::factory($app->rolUsuario());
+		switch($req){
+			case 'PERFIL_EMPRESA': $content = $portalEmpresa -> generaPerfil(); break;
+			case 'OFERTAS_EMPRESA': $content = $portalEmpresa -> generaOfertas(); break;
+			case 'SOLICITUDES_EMPRESA': $content = $portalEmpresa -> generaSolicitudes(); break;
+			case 'CONTRATOS_EMPRESA': $content = $portalEmpresa -> generaContratos(); break;
+			case 'BUZON_EMPRESA': $content = $portalEmpresa -> generaBuzon(); break;
+		}
+	}
+}
+
 ?>

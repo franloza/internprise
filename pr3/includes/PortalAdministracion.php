@@ -17,12 +17,12 @@ class PortalAdministracion extends Portal
         <!-- Fragmento para definir el menú de administrador-->
         <div id="admin-sidebar" class="sidebar">
                 <ul>
-                    <li><a href="#">ADMIN OFERTAS</a></li>
-                    <li><a href="#">ADMIN DEMANDAS</a></li>
-                    <li><a href="#">VER CONTRATOS</a></li>
-                    <li><a href="#">HISTORIAL</a></li>
-                    <li><a href="#">ENCUESTAS</a></li>
-                    <li><a href="#">ADMIN BUZON</a></li>
+                    <li><a onclick="return loadContent('OFERTAS_ADMIN')" href="#">OFERTAS</a></li>
+                    <li><a onclick="return loadContent('DEMANDAS_ADMIN')" href="#">DEMANDAS</a></li>
+                    <li><a onclick="return loadContent('CONTRATOS_ADMIN')" href="#">VER CONTRATOS</a></li>
+                    <li><a onclick="return loadContent('HISTORIAL_ADMIN')" href="#">HISTORIAL</a></li>
+                    <li><a onclick="return loadContent('ENCUESTAS_ADMIN')" href="#">ENCUESTAS</a></li>
+                    <li><a onclick="return loadContent('BUZON_ADMIN')" href="#">BUZON</a></li>
                 </ul>
         </div>
 EOF;
@@ -507,5 +507,86 @@ EOF;
     public function generaTitlebar()
     {
         return parent::generaTitlebarParam("Internprise Administracion");
+    }
+
+    public function generaOfertas(){
+        $content = <<<EOF
+        <div id="content-ofertas-ver" class="content">
+        <div id="tabla-ofertas-ver" class="table-container">
+           <div class="table-header"> Oferta de prácticas </div>
+                <table class="admin-table">
+                    <tr>
+                        <td>Empresa</td>
+                        <td>Intel</td>
+                    </tr>
+                    <tr>
+                        <td>Puesto</td>
+                        <td>Especialista IT</td>
+                    </tr>
+                    <tr>
+                        <td>Sueldo</td>
+                        <td>400€</td>
+                    </tr>
+                    <tr>
+                        <td>Carrera</td>
+                        <td><p>Grado Ingenieria Informática</p>
+                            <p>Grado Ingenieria Software</p>
+                            <p>Grado Ingenieria Computadores</p>
+                    </tr>
+                    <tr>
+                        <td>Horas</td>
+                        <td>20</td>
+                    </tr>
+                    <tr>
+                        <td>Plazas</td>
+                        <td>2</td>
+                    </tr>
+                    <tr>
+                        <td>Duracion</td>
+                        <td>6 meses</td>
+                    </tr>
+                    <tr>
+                        <td>Disponibilidad</td>
+                        <td>mañana</td>
+                    </tr>
+                    <tr>
+                        <td>Funciones</td>
+                        <td>Mantenimiento de la red y de las conexiones de la empresa, como a su vez dar soporte de ayuda a las diferentes
+                            estructuras dentro de la red empresarial con sus colaboradores</td>
+                    </tr>
+                    <tr>
+                        <td>Aptitudes</td>
+                        <td><p>Ingles</p>
+                            <p>Python</p>
+                            <p>Estudiante</p>
+                            <p>Linux</p>
+                            <p>Red</p>
+                            <p>Seguridad</p></td>
+                    </tr>
+                    <tr>
+                        <td>Requisitos minimos</td>
+                        <td><p>Estar en ultimo año de carrera</p>
+                            <p>Nivel B2 de ingles</p>
+                            <p>Conocimientos avanzados de PYTHON</p></td>
+
+                    </tr>
+                    <tr>
+                        <td>Aconsejable</td>
+                        <td><p>Buen manejo con sistema operativo Linux</p>
+                            <p>Facilidad para trabajar en grupo</p>
+                            <p>Conocimientos basicos de protocolos de red</p></td>
+                    </tr>
+                    <tr>
+                        <td colspan =2>
+                        <button type="submit">Aceptar</button>
+                        <button type="submit">Rechazar</button>
+                        </td>
+                    </tr>
+                </table>
+        </div>
+    </div>
+EOF;
+        return $content;
+
     }
 }

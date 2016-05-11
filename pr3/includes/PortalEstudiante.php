@@ -25,9 +25,9 @@ class PortalEstudiante extends Portal
                 <img src="img/estudiante-avatar.png" alt="Avatar image" height="200" width="200"></img>
             </div>
                 <ul>
-                    <li><a href="#">PERFIL</a></li>
-                    <li><a href="#">OFERTAS</a></li>
-                    <li><a href="#">BUZON</a></li>
+                    <li><a onclick="return loadContent('PERFIL_ESTUDIANTE')" href="#">PERFIL</a></li>
+                    <li><a onclick="return loadContent('OFERTAS_ESTUDIANTE')" href="#">OFERTAS</a></li>
+                    <li><a onclick="return loadContent('BUZON_ESTUDIANTE')" href="#">BUZON</a></li>
                 </ul>
         </div>
 EOF;

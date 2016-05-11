@@ -6,6 +6,44 @@ namespace es\ucm\aw\internprise;
 
 class Estudiante extends Usuario
 {
+    /*Atributos*/
+    private $dni;
+    private $nombre;
+    private $apellidos;
+    private $grado;
+    private $nombre_universidad;
+    private $sexo;
+    private $nacionalidad;
+    private $direccion;
+    private $fecha_nacimiento;
+    private $cp;
+    private $localidad;
+    private $provincia;
+    private $pais;
+    private $web;
+    private $telefono;
+
+    protected function __construct($datos) {
+        parent::__construct(null, $datos['email'],$datos['password']);
+        parent::setRol("Estudiante");
+        $this->dni = $datos['dni'];
+        $this->nombre = $datos['nombre'];
+        $this->apellidos = $datos['apellidos'];
+        $this->grado = $datos['grado'];
+        $this->nombre_universidad = $datos['nombre_universidad'];
+        $this->sexo = $datos['sexo'];
+        $this->nacionalidad = $datos['nacionalidad'];
+        $this->direccion = $datos['direccion'];
+        $this->cp = $datos['cp'];
+        $this->fecha_nacimiento = $datos['fecha_nacimiento'];
+        $this->localidad = $datos['localidad'];
+        $this->provincia = $datos['provincia'];
+        $this->pais = $datos['pais'];
+        $this->web = $datos['web'];
+        $this->telefono = $datos['telefono'];
+    }
+
+
     public static function register($datos) {
         $datos = self::sanitizeData($datos);
         $result = self::validateData($datos);
@@ -66,40 +104,5 @@ class Estudiante extends Usuario
         return $sanitizedData;
     }
 
-    /*Atributos*/
-    private $dni;
-    private $nombre;
-    private $apellidos;
-    private $grado;
-    private $nombre_universidad;
-    private $sexo;
-    private $nacionalidad;
-    private $direccion;
-    private $fecha_nacimiento;
-    private $cp;
-    private $localidad;
-    private $provincia;
-    private $pais;
-    private $web;
-    private $telefono;
-
-    protected function __construct($datos) {
-        parent::__construct(null, $datos['email'],$datos['password']);
-        parent::setRol("Estudiante");
-        $this->dni = $datos['dni'];
-        $this->nombre = $datos['nombre'];
-        $this->apellidos = $datos['apellidos'];
-        $this->grado = $datos['grado'];
-        $this->nombre_universidad = $datos['nombre_universidad'];
-        $this->sexo = $datos['sexo'];
-        $this->nacionalidad = $datos['nacionalidad'];
-        $this->direccion = $datos['direccion'];
-        $this->cp = $datos['cp'];
-        $this->fecha_nacimiento = $datos['fecha_nacimiento'];
-        $this->localidad = $datos['localidad'];
-        $this->provincia = $datos['provincia'];
-        $this->pais = $datos['pais'];
-        $this->web = $datos['web'];
-        $this->telefono = $datos['telefono'];
-    }
+ 
 }

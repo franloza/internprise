@@ -6,6 +6,36 @@ namespace es\ucm\aw\internprise;
 
 class Administrador extends Usuario
 {
+    /*Atributos*/
+    private $nombre;
+    private $apellidos;
+    private $nombre_universidad;
+    private $sexo;
+    private $direccion;
+    private $cp;
+    private $localidad;
+    private $provincia;
+    private $pais;
+    private $web;
+    private $telefono;
+
+    protected function __construct($datos) {
+        parent::__construct(null, $datos['email'],$datos['password']);
+        parent::setRol("Admin");
+        $this->nombre = $datos['nombre'];
+        $this->apellidos = $datos['apellidos'];
+        $this->nombre_universidad = $datos['nombre_universidad'];
+        $this->sexo = $datos['sexo'];
+        $this->direccion = $datos['direccion'];
+        $this->cp = $datos['cp'];
+        $this->localidad = $datos['localidad'];
+        $this->provincia = $datos['provincia'];
+        $this->pais = $datos['pais'];
+        $this->web = $datos['web'];
+        $this->telefono = $datos['telefono'];
+    }
+
+    
     public static function register($datos) {
         $datos = self::sanitizeData($datos);
         $result = self::validateData($datos);
@@ -56,32 +86,5 @@ class Administrador extends Usuario
         return $sanitizedData;
     }
 
-    /*Atributos*/
-    private $nombre;
-    private $apellidos;
-    private $nombre_universidad;
-    private $sexo;
-    private $direccion;
-    private $cp;
-    private $localidad;
-    private $provincia;
-    private $pais;
-    private $web;
-    private $telefono;
-
-    protected function __construct($datos) {
-        parent::__construct(null, $datos['email'],$datos['password']);
-        parent::setRol("Admin");
-        $this->nombre = $datos['nombre'];
-        $this->apellidos = $datos['apellidos'];
-        $this->nombre_universidad = $datos['nombre_universidad'];
-        $this->sexo = $datos['sexo'];
-        $this->direccion = $datos['direccion'];
-        $this->cp = $datos['cp'];
-        $this->localidad = $datos['localidad'];
-        $this->provincia = $datos['provincia'];
-        $this->pais = $datos['pais'];
-        $this->web = $datos['web'];
-        $this->telefono = $datos['telefono'];
-    }
+    
 }

@@ -6,6 +6,33 @@ namespace es\ucm\aw\internprise;
 
 class Empresa extends Usuario
 {
+
+    /*Atributos*/
+    private $cif;
+    private $razon_social;
+    private $direccion;
+    private $localidad;
+    private $provincia;
+    private $cp;
+    private $pais;
+    private $telefono;
+    private $web;
+
+    protected function __construct($datos) {
+        parent::__construct(null, $datos['email'],$datos['password']);
+        parent::setRol("Empresa");
+        $this->cif = $datos['cif'];
+        $this->razon_social = $datos['razon_social'];
+        $this->direccion = $datos['direccion'];
+        $this->cp = $datos['cp'];
+        $this->localidad = $datos['localidad'];
+        $this->provincia = $datos['provincia'];
+        $this->pais = $datos['pais'];
+        $this->web = $datos['web'];
+        $this->telefono = $datos['telefono'];
+    }
+
+    
     public static function register($datos) {
         $datos = self::sanitizeData($datos);
         $result = self::validateData($datos);
@@ -53,28 +80,6 @@ class Empresa extends Usuario
         return $sanitizedData;
     }
 
-    /*Atributos*/
-    private $cif;
-    private $razon_social;
-    private $direccion;
-    private $localidad;
-    private $provincia;
-    private $cp;
-    private $pais;
-    private $telefono;
-    private $web;
 
-    protected function __construct($datos) {
-        parent::__construct(null, $datos['email'],$datos['password']);
-        parent::setRol("Empresa");
-        $this->cif = $datos['cif'];
-        $this->razon_social = $datos['razon_social'];
-        $this->direccion = $datos['direccion'];
-        $this->cp = $datos['cp'];
-        $this->localidad = $datos['localidad'];
-        $this->provincia = $datos['provincia'];
-        $this->pais = $datos['pais'];
-        $this->web = $datos['web'];
-        $this->telefono = $datos['telefono'];
-    }
+    
 }

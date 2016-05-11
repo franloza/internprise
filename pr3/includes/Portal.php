@@ -77,6 +77,20 @@ EOF;
             <!-- css solo para los colores-->
             <link rel="stylesheet" href="css.php">
             <link rel="icon" type="image/png" href="$imagen">
+            <!-- script para peticiones asíncronas AJAX -->
+            <script>
+                function loadContent(value) {
+                    request = new XMLHttpRequest();
+                    request.open("GET", "includes/ajaxRequest.php?val=" + value, true);
+                    request.onreadystatechange = function() {
+                    if (request.readyState == 4 && request.status == 200) {
+                        document.getElementById("content").innerHTML = request.responseText;
+                    }
+                    };
+                    request.send();
+                    return false;
+                }
+            </script>
         </head>
 EOF;
         return $bloqueHead;
@@ -142,7 +156,7 @@ EOF;
         <div id="icons-titlebar">
             <a id="bell" class="fa fa-bell fa-lg" href="#"></a>
             <a id="settings" class="fa fa-cog fa-lg" href="#"></a>
-            <a class="fa fa-power-off fa-lg" href="index.html"></a>
+            <a class="fa fa-power-off fa-lg" href="logout.php"></a>
         </div>
     </div>
 EOF;
