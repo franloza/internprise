@@ -35,6 +35,8 @@ Meter también diagramas de flujo entre los scripts.
  Tablas, campos y relaciones.
  Explicar cada tabla y su propósito...
  Diagrama de entidad relación.
+![alt text](https://raw.githubusercontent.com/franloza/AW/master/resources/bd_diagram.png?raw=true "Logo Internprise")
+
  
 ##Prototipo funcional del proyecto
 Login y una funcionalidad completa.
