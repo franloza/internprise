@@ -6,12 +6,13 @@ require_once __DIR__.'/config.php';
  */
 
 use es\ucm\aw\internprise\Aplicacion as App;
+//use es\ucm\aw\internprise\Aplicacion\Error as Err;
 $app = App::getSingleton();
+$app -> doInclude('comun/Error.php');
 $content = '';
 
 if($app -> usuarioLogueado()){
 	$req = $_REQUEST['val'];
-
 	switch($req){
 		case 'OFERTAS_ADMIN': handle_adminRequest($req); break;
 		case 'DEMANDAS_ADMIN': handle_adminRequest($req); break;
@@ -30,48 +31,51 @@ if($app -> usuarioLogueado()){
 		default : $content = Error::generaErrorPermisos();
 	}
 }
+else
+	$content = Error::generaErrorPermisos();
 
 echo $content;
 
 function handle_adminRequest($req){
 	global $app, $content;
-	if( $_SESSION['rol'] ==='Admin'){
+	if( $app -> tieneRol('Admin')){
 		$portalAdmin = Portal::factory($app->rolUsuario());
 		switch($req){
 			case 'OFERTAS_ADMIN': $content = $portalAdmin -> generaOfertas(); break;
-			//case 'DEMANDAS_ADMIN': $content = $portalAdmin -> generaDemandas(); break;
-			//case 'CONTRATOS_ADMIN': $content = $portalAdmin -> generaContratos(); break;
-			//case 'HISTORIAL_ADMIN': $content = $portalAdmin -> generaHistorial(); break;
-			//case 'ENCUESTAS_ADMIN': $content = $portalAdmin -> generaEncuestas(); break;
-			//case 'BUZON_ADMIN': $content = $portalAdmin -> generaBuzon(); break;
+			case 'DEMANDAS_ADMIN': $content = $portalAdmin -> generaDemandas(); break;
+			case 'CONTRATOS_ADMIN': $content = $portalAdmin -> generaContratos(); break;
+			case 'HISTORIAL_ADMIN': $content = $portalAdmin -> generaHistorial(); break;
+			case 'ENCUESTAS_ADMIN': $content = $portalAdmin -> generaEncuestas(); break;
+			case 'BUZON_ADMIN': $content = $portalAdmin -> generaBuzon(); break;
 		}		
 	}
 }
 
 function handle_studentRequest($req) {
-    //global $app, $content;
-	if($_SESSION['rol'] ==='Estudiante'){
-		//$portalEstudiante = Portal::factory($app->rolUsuario());
+	global $app, $content;
+	if($app -> tieneRol('Estudiante')){
+		$portalEstudiante = Portal::factory($app->rolUsuario());
 		switch($req){
-			//case 'PERFIL_ESTUDIANTE': $content = $portalEstudiante -> generaPerfil(); break;
-			//case 'OFERTAS_ESTUDIANTE': $content = $portalEstudiante -> generaEstudiante(); break;
-			//case 'BUZON_ESTUDIANTE': $content = $portalEstudiante -> generaBuzon(); break;
+			case 'PERFIL_ESTUDIANTE': $content = $portalEstudiante -> generaPerfil(); break;
+			case 'OFERTAS_ESTUDIANTE': $content = $portalEstudiante -> generaOfertas(); break;
+			case 'BUZON_ESTUDIANTE': $content = $portalEstudiante -> generaBuzon(); break;
 		}
 	}
 }
 
 function handle_empresaRequest($req) {
-    //global $app, $content;
-	if($_SESSION['rol'] ==='Empresa'){
-		//$portalEmpresa = Portal::factory($app->rolUsuario());
+	global $app, $content;
+	if($app -> tieneRol('Empresa')){
+		$portalEmpresa = Portal::factory($app->rolUsuario());
 		switch($req){
-			//case 'PERFIL_EMPRESA': $content = $portalEmpresa -> generaPerfil(); break;
-			//case 'OFERTAS_EMPRESA': $content = $portalEmpresa -> generaOfertas(); break;
-			//case 'SOLICITUDES_EMPRESA': $content = $portalEmpresa -> generaSolicitudes(); break;
-			//case 'CONTRATOS_EMPRESA': $content = $portalEmpresa -> generaContratos(); break;
-			//case 'BUZON_EMPRESA': $content = $portalEmpresa -> generaBuzon(); break;
+			case 'PERFIL_EMPRESA': $content = $portalEmpresa -> generaPerfil(); break;
+			case 'OFERTAS_EMPRESA': $content = $portalEmpresa -> generaOfertas(); break;
+			case 'SOLICITUDES_EMPRESA': $content = $portalEmpresa -> generaSolicitudes(); break;
+			case 'CONTRATOS_EMPRESA': $content = $portalEmpresa -> generaContratos(); break;
+			case 'BUZON_EMPRESA': $content = $portalEmpresa -> generaBuzon(); break;
 		}
 	}
+    else return false;
 }
 
 ?>

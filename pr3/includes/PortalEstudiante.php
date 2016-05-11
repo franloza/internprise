@@ -16,8 +16,6 @@ class PortalEstudiante extends Portal
      */
     public function generaMenu()
     {
-
-        //TODO:Peticiones AJAX para conseguir contenido
         $bloqueEstudianteSideBar = <<<EOF
         <!-- Fragmento para definir el menú de estudiante-->
         <div id="estudiante-sidebar" class="sidebar">
@@ -57,6 +55,18 @@ EOF;
     {
         return parent::generaTitlebarParam("Internprise Estudiante");
 
+    }
+
+    public function generaPerfil(){
+        // TODO: Implement generaPerfil() method.
+    }
+
+    public function generaOfertas(){
+        // TODO: Implement generaOfertas() method.
+    }
+
+    public function generaBuzon(){
+        // TODO: Implement generaBuzon() method.
     }
 
 }
