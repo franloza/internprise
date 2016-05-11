@@ -84,45 +84,38 @@ EOF;
 
     protected function generarWidget($titulo, $numItems, $arrayItems)
     {
-        $bloqueWidget = <<<EOF
-        <!-- INI Widget Nuevas ofertas -->  
-        <div class="widget">
-            <!-- Header widget -->
-            <div class="widget-header">
-                <p class="title">$titulo</p>
-                <p class="title-items">
-                    <a class="square" href="#">$numItems</a>
+        $widgetHeader = <<<EOF
+            <div class="widget">
+                <!-- HEADER -->
+                <div class="widget-header">
+                    <p class="title">$titulo</p>
+                    <p class="title-items">
+                        <a class="square" href="#">$numItems</a>
                     </p>
                 </div>
 EOF;
-        for ($i = 0; i < $numItems; $i++)
-        {
-            $bloqueContent = <<<EOF
-            <!-- Content widget -->
-                <div class="content-widget">
+        print $widgetHeader;
+        print '<div class="content-widget">';
+        for ($i = 0; $i < $numItems; $i++) {
+            $widgetContent = <<<EOF
                     <div class="media">
                         <div class="media-left">
                             <i class="fa fa-envelope-o" style="color:blue;"></i>
                         </div>
-                    <div class="media-body">
-                        <div class="media-header">
-                            <strong>$arrayItems[$i]->Empresa</strong>
-                            $arrayItems[$i]->Oferta;
-                        </div>
-                        <div class="text-muted">
-                            <small>$arrayItems[$i]->Hora</small>
+                        <div class="media-body">
+                            <div class="media-header">
+                                <strong>Coritel</strong>
+                                Programador Junior C++
+                            </div>
+                            <div class="text-muted">
+                                <small>Justo ahora</small>
+                            </div>
                         </div>
                     </div>
-                </div>
 EOF;
+            print $widgetContent;
         }
-        $bloqueFin = <<<EOF
-            </div>
-        </div>
-    <!-- FIN Widget Nuevas ofertas -->
-EOF;
-
-        return $bloqueWidget . $bloqueContent . $bloqueFin;
+        print "</div></div>";
 
     }
 
