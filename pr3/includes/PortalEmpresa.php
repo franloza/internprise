@@ -69,6 +69,25 @@ EOF;
 
     public function generaOfertas(){
         // TODO: Implement generaOfertas() method.
+        $ofertas = OfertaDAO::cargaOfertasPorEstado(30, 'Aceptada');
+        $listaOfertas = array();
+        foreach ( $ofertas as $oferta) {
+            $idOferta = $oferta->getIdOferta();
+            $empresa = $oferta->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $fila = array($idOferta, $empresa,$puesto,$sueldo, $horas, $plazas);
+            array_push($listaOfertas,$fila);
+        }
+
+
+        $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Accion");
+        $content = parent::generaTabla("tabla-ofertas", "empresa-table",
+                                        "Ofertas disponibles", $titulosColumnas, $listaOfertas);
+
+        return $content;
     }
 
     public function generaSolicitudes(){

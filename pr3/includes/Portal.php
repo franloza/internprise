@@ -141,6 +141,46 @@ EOF;
         return $contenido;
     }
 
+    protected function generaTabla($idTabla, $classTable,
+                                   $tituloTabla, $titulosColumnas, $arrayFilas){
+        /*if($numFilas > arrayFilas.count())
+            Error::generaErrorContenido();
+        else*/
+
+        $tabla = <<<EOF
+        <!-- Tabla de $tituloTabla -->
+        <div id="$idTabla" class="table-container">
+            <div class="table-header"> $tituloTabla </div>
+             <table class="$classTable">
+                <tr>
+EOF;
+        foreach ($titulosColumnas as $titulos){
+            $tabla .= "<th>";
+            $tabla .= array_pop($titulos);
+            $tabla .= "<th>\n";
+        }
+        $tabla .= "</tr>\n";
+
+        foreach($arrayFilas as $filas){
+            $tabla .= "<tr>\n";
+            $fila = array_pop($filas);
+            foreach($fila as $f){
+                $tabla .= "<td>";
+                $tabla .= array_pop($fila);
+                $tabla .= "<td>\n";
+            }
+            // TODO: Implement generaDialogoModal() for each oferta
+            $tabla .= "<td><a href=\"#\">Ver</a></td>\n";
+            //$tabla .= "<td><a onclick=\"return loadContent('OFERTAS_ADMIN')\" href='dashboard.php'>Ver</a></td>";
+            $tabla .= "</tr>\n";
+        }
+        $tabla .= "</table>\n";
+        $tabla .= "</div>\n";
+        $tabla .= "</div>\n";
+
+        return $tabla;
+    }
+
     /**
      * Función que genera la barra de iconos del portal.
      */
