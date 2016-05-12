@@ -48,7 +48,7 @@ EOF;
        $widgets="";
        $buscador = <<<EOF
        <div class="dashboard-content">
-
+       		
            <!-- INI Contenedor busqueda dashboard -->
            <div class="btn-search">
                <a class="icon-search" href="#">
@@ -90,7 +90,6 @@ EOF;
         $contratos = array();
         $listaContratos = array();
         foreach ( $contratos as $contrato) {
-
         }
         $widgets .= parent::generarWidget("Contratos", $listaContratos,"check-circle","green");
         $widgets .= "<!-- FIN Widget Contratos activos -->\n<!-- FIN Contenedor widgets superior -->";

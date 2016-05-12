@@ -107,7 +107,6 @@ EOF;
         $demandas = array();
         $listaDemandas = array();
         foreach ( $demandas as $demanda) {
-
         }
         $widgets .= parent::generarWidget("Demandas", $listaContratos," fa-caret-square-o-down","#FF800D");
         $widgets .= "<!-- FIN Widget Nuevas demandas -->";

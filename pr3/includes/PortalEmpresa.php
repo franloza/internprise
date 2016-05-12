@@ -120,7 +120,6 @@ EOF;
         $sugerencias = array();
         $listaSugerencias = array();
         foreach ( $sugerencias as $sugerencia) {
-
         }
         $widgets .= parent::generarWidget("Dudas y sugerencias", $listaContratos," fa-commenting-o","#B9264F");
         $widgets .= "<!-- FIN Widget Nuevas demandas -->";
