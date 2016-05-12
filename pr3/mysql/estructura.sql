@@ -169,7 +169,7 @@ CREATE TABLE `ofertas` (
   `plazas` int(4) NOT NULL,
   `descripcion` mediumtext CHARACTER SET latin1 NOT NULL,
   `estado` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
-  `fecha_creacion` TIMESTAMP DEFAULT 'CURRENT_TIMESTAMP'
+  `fecha_creacion` DATETIME DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 -- --------------------------------------------------------

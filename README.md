@@ -3,17 +3,15 @@
 
 ##Scripts de vista
 
-Meter también diagramas de flujo entre los scripts.
-
 - ```index.php```: Muestra la pantalla de login si el usuario no ha iniciado sesión, si no redirige a ```dashboard.php```.
 - ```dashboard.php```: Se encarga de mostrar la pantalla principal de cada usuario, dependiendo del rol que tenga el usuario logeado se mostrará un portal u otro.
 
-- ```login.php```: Muestra el login.??
+- ```login.php```: Muestra el formulario de login para acceder al portal.
 - ```Portal.php```: Clase abstracta que se encarga de generar los distintos elementos HTML de la aplicación.
 - ```PortalAdminstracion.php```: Hereda de Portal, genera los contenidos especificos para el rol administrador.
 - ```PortalEstudiante.php```: Hereda de Portal, genera los contenidos especificos para el rol estudiante.
 - ```PortalEmpresa.php```: Hereda de Portal, genera los contenidos especificos para el rol empresa.
-- **Diagrama de Flujo**:
+- Diagrama de Flujo:
 
 ![alt text](https://github.com/franloza/AW/blob/master/resources/DiagramaFlujo_P3.png?raw=true "Diagrama de flujo")
 
@@ -35,7 +33,7 @@ Meter también diagramas de flujo entre los scripts.
  Tablas, campos y relaciones.
  Explicar cada tabla y su propósito...
  Diagrama de entidad relación.
-![alt text](https://raw.githubusercontent.com/franloza/AW/master/resources/bd_diagram.png?raw=true "Logo Internprise")
+![alt text](https://raw.githubusercontent.com/franloza/AW/master/resources/bd_diagram.png?raw=true "Diagrama entidad relación")
 
  
 ##Prototipo funcional del proyecto

@@ -155,7 +155,7 @@ EOF;
         <img src="img/favicon-$rol.png" alt="Internprise icon" height="70" width="70"></img>
         <div id="label-titlebar">
             <label>
-                <a id="title-site" href="$rol-dashboard.php">$titulo</a>
+                <a id="title-site" href="dashboard.php">$titulo</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                 <a id="previous-page" href="$rol-dashboard.php">Anterior</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
