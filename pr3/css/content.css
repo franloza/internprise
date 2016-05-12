@@ -1,8 +1,15 @@
 /*Index page*/
 /*==============================================================*/
+body, html{
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: #f5f7fa;
+}
 
-body {
-   background: #f5f7fa;
+.container {
+    height: 100%;
+    width: 100%;
 }
 
 #index-contenedor
@@ -59,12 +66,15 @@ body {
 
 /*==============================================================*/
 .content {
-	position: relative;
+	position: fixed;
 	top: 50px;
 	left: 200px;
 	padding: 15px;
-	min-width: 800px;
+	width: calc(100% - 200px);
+    height: calc(100% - 70px);
   background: #f5f7fa;
+    text-align: center;
+    overflow: scroll;
 }
 /*CSS correspondiente a la sección contenido*/
 /*==============================================================*/
@@ -73,12 +83,10 @@ body {
 
 .dashboard-content .btn-search {
 	border: 1px solid #ccc;
-	background:  #737373;;
+	background:  #737373;
 	font-size: 12px;
-	padding: 6px 10px;
-	margin-left: 30px;
-	margin-top: 20px;
-	width: 820px;
+    padding-bottom: 5px;
+	width: 80%;
 }
 
 .dashboard-content .icon-search {
@@ -108,13 +116,18 @@ body {
 
 .dashboard-content {
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    height: 100%;
+    width: 100%;
+    text-align: inherit;
 }
 
 .dashboard-content .widget-content {
   padding-top: 35px;
-  width: 900px;
-  height: 300px;
+  width: 100%;
+  height: 100%;
   text-align: center;
+    display: flex;
+    flex-wrap:wrap;
 }
 
 .dashboard-content .widget {
@@ -223,6 +236,7 @@ body {
 /*Tabla genérica content*/
 
 .table-container {
+    width: 100%;
   margin-top: 10px;
   margin-bottom: 20px;
 }

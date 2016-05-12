@@ -146,10 +146,6 @@ EOF;
      */
     protected function generaTabla($idTabla, $classTable,
                                    $tituloTabla, $titulosColumnas, $arrayFilas){
-        /*if($numFilas > arrayFilas.count())
-            Error::generaErrorContenido();
-        else*/
-
         $tabla = <<<EOF
         <!-- Tabla de $tituloTabla -->
         <div id="$idTabla" class="table-container">
