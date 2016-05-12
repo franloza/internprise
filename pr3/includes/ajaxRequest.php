@@ -12,31 +12,21 @@ $app -> doInclude('comun/Error.php');
 $content = '';
 
 if($app -> usuarioLogueado()){
+	$rol = $app->rolUsuario();
 	$req = $_REQUEST['val'];
-	switch($req){
-		case 'DASHBOARD_ADMIN':
-		case 'OFERTAS_ADMIN':
-		case 'DEMANDAS_ADMIN':
-		case 'CONTRATOS_ADMIN':
-		case 'HISTORIAL_ADMIN':
-		case 'ENCUESTAS_ADMIN':
-		case 'BUZON_ADMIN': handle_adminRequest($req); break;
-		case 'DASHBOARD_ESTUDIANTE':
-		case 'PERFIL_ESTUDIANTE':
-		case 'OFERTAS_ESTUDIANTE':
-		case 'BUZON_ESTUDIANTE':handle_studentRequest($req); break;
-		case 'DASHBOARD_EMPRESA':
-		case 'PERFIL_EMPRESA':
-		case 'OFERTAS_EMPRESA':
-		case 'SOLICITUDES_EMPRESA':
-		case 'CONTRATOS_EMPRESA': handle_empresaRequest($req); break;
-		case 'BUZON_EMPRESA': handle_empresaRequest($req); break;
+	switch($rol){
+		case 'Admin': handle_adminRequest($req); break;
+		case 'Estudiante':handle_studentRequest($req); break;
+		case 'Empresa': handle_empresaRequest($req); break;
 		default : $content = Error::generaErrorPermisos();
 	}
+    /*Save active section*/
+    $app->saveSection($req);
 }
 else
 	$content = Error::generaErrorPermisos();
 
+/*Save active section*/
 echo $content;
 
 function handle_adminRequest($req){
@@ -44,13 +34,13 @@ function handle_adminRequest($req){
 	if( $app -> tieneRol('Admin')){
 		$portalAdmin = Portal::factory($app->rolUsuario());
 		switch($req){
-			case 'DASHBOARD_ADMIN': $content = $portalAdmin -> generaDashboard(); break;
-			case 'OFERTAS_ADMIN': $content = $portalAdmin -> generaOfertas(); break;
-			case 'DEMANDAS_ADMIN': $content = $portalAdmin -> generaDemandas(); break;
-			case 'CONTRATOS_ADMIN': $content = $portalAdmin -> generaContratos(); break;
-			case 'HISTORIAL_ADMIN': $content = $portalAdmin -> generaHistorial(); break;
-			case 'ENCUESTAS_ADMIN': $content = $portalAdmin -> generaEncuestas(); break;
-			case 'BUZON_ADMIN': $content = $portalAdmin -> generaBuzon(); break;
+			case 'DASHBOARD': $content = $portalAdmin -> generaDashboard(); break;
+			case 'OFERTAS': $content = $portalAdmin -> generaOfertas(); break;
+			case 'DEMANDAS': $content = $portalAdmin -> generaDemandas(); break;
+			case 'CONTRATOS': $content = $portalAdmin -> generaContratos(); break;
+			case 'HISTORIAL': $content = $portalAdmin -> generaHistorial(); break;
+			case 'ENCUESTAS': $content = $portalAdmin -> generaEncuestas(); break;
+			case 'BUZON': $content = $portalAdmin -> generaBuzon(); break;
 		}		
 	}
 }
@@ -60,10 +50,10 @@ function handle_studentRequest($req) {
 	if($app -> tieneRol('Estudiante')){
 		$portalEstudiante = Portal::factory($app->rolUsuario());
 		switch($req){
-			case 'DASHBOARD_ESTUDIANTE': $content = $portalEstudiante -> generaDashboard(); break;
-			case 'PERFIL_ESTUDIANTE': $content = $portalEstudiante -> generaPerfil(); break;
-			case 'OFERTAS_ESTUDIANTE': $content = $portalEstudiante -> generaOfertas(); break;
-			case 'BUZON_ESTUDIANTE': $content = $portalEstudiante -> generaBuzon(); break;
+			case 'DASHBOARD': $content = $portalEstudiante -> generaDashboard(); break;
+			case 'PERFIL': $content = $portalEstudiante -> generaPerfil(); break;
+			case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
+			case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
 		}
 	}
 }
@@ -73,12 +63,12 @@ function handle_empresaRequest($req) {
 	if($app -> tieneRol('Empresa')){
 		$portalEmpresa = Portal::factory($app->rolUsuario());
 		switch($req){
-			case 'DASHBOARD_EMPRESA': $content = $portalEmpresa -> generaDashboard(); break;
-			case 'PERFIL_EMPRESA': $content = $portalEmpresa -> generaPerfil(); break;
-			case 'OFERTAS_EMPRESA': $content = $portalEmpresa -> generaOfertas(); break;
-			case 'SOLICITUDES_EMPRESA': $content = $portalEmpresa -> generaSolicitudes(); break;
-			case 'CONTRATOS_EMPRESA': $content = $portalEmpresa -> generaContratos(); break;
-			case 'BUZON_EMPRESA': $content = $portalEmpresa -> generaBuzon(); break;
+			case 'DASHBOARD': $content = $portalEmpresa -> generaDashboard(); break;
+			case 'PERFIL': $content = $portalEmpresa -> generaPerfil(); break;
+			case 'OFERTAS': $content = $portalEmpresa -> generaOfertas(); break;
+			case 'SOLICITUDES': $content = $portalEmpresa -> generaSolicitudes(); break;
+			case 'CONTRATOS': $content = $portalEmpresa -> generaContratos(); break;
+			case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
 		}
 	}
     else return false;

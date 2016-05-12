@@ -60,6 +60,7 @@ class Aplicacion {
     $_SESSION['email'] = $user->email();
     $_SESSION['rol'] = $user->rol();
     $_SESSION['id_usuario'] = $user->id();
+    $_SESSION['section'] = 'DASHBOARD';
   }
 
   public function logout() {
@@ -112,5 +113,15 @@ class Aplicacion {
     if (!isset($_SESSION['rol'])) {return false;}
     else if ($_SESSION['rol'] !=$rol) {return false;}
     else return true;
+  }
+
+  public function saveSection($section)
+  {
+    $_SESSION['section'] = $section;
+  }
+
+  public function section()
+  {
+    return $_SESSION['section'];
   }
 }

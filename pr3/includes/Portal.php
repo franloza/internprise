@@ -73,21 +73,15 @@ EOF;
             <link rel="stylesheet" href="css/content.css" type="text/css">
             <link rel="stylesheet" href="css/titlebar&footer.css" type="text/css">
             <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
+            <script src="js/jquery-2.2.3.js"></script>
             <!-- css solo para los colores-->
-            <link rel="stylesheet" href="css.php">
             <link rel="icon" type="image/png" href="$imagen">
             <!-- script para peticiones asíncronas AJAX -->
             <script>
-                function loadContent(value) {
-                    request = new XMLHttpRequest();
-                    request.open("GET", "includes/ajaxRequest.php?val=" + value, true);
-                    request.onreadystatechange = function() {
-                    if (request.readyState == 4 && request.status == 200) {
-                        document.getElementById("content").innerHTML = request.responseText;
-                    }
-                    };
-                    request.send();
-                    return false;
+                function loadContent(value) { 
+                     $.get("includes/ajaxRequest.php?val=" + value, function(data, status){
+                        $('#content').html(data);
+                      });     
                 }
             </script>
         </head>
@@ -198,7 +192,8 @@ EOF;
         <img src="img/favicon-$rol.png" alt="Internprise icon" height="70" width="70"></img>
         <div id="label-titlebar">
             <label>
-                <a id="title-site" href="dashboard.php">$titulo</a>
+                <a 
+                <a id="title-site" onclick="return loadContent('DASHBOARD')" href="#">$titulo</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                 <a id="previous-page" href="$rol-dashboard.php">Anterior</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>

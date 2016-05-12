@@ -22,11 +22,11 @@ class PortalEmpresa extends Portal
                 <img src="img/empresa-avatar.png" alt="Avatar image" height="200" width="200"></img>
             </div>
             <ul>
-                <li><a onclick="return loadContent('PERFIL_EMPRESA')" href="#">PERFIL</a></li>
-                <li><a onclick="return loadContent('OFERTAS_EMPRESA')" href="#">OFERTAS</a></li>
-                <li><a onclick="return loadContent('SOLICITUDES_EMPRESA')" href="#">SOLICITUDES</a></li>
-                <li><a onclick="return loadContent('CONTRATOS_EMPRESA')" href="#">CONTRATOS</a></li>
-                <li><a onclick="return loadContent('BUZON_EMPRESA')" href="#">BUZÓN</a></li>
+                <li><a onclick="return loadContent('PERFIL')" href="#">PERFIL</a></li>
+                <li><a onclick="return loadContent('OFERTAS')" href="#">OFERTAS</a></li>
+                <li><a onclick="return loadContent('SOLICITUDES')" href="#">SOLICITUDES</a></li>
+                <li><a onclick="return loadContent('CONTRATOS')" href="#">CONTRATOS</a></li>
+                <li><a onclick="return loadContent('BUZON')" href="#">BUZÓN</a></li>
             </ul>
         </div>
 EOF;
