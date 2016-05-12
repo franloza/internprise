@@ -70,7 +70,7 @@ EOF;
 
         /*Generar contenido widget Ofertas */
         $widgets .= "<!-- INI Widget Ofertas activos -->";
-        $ofertas = OfertaDAO::cargaTodasOfertas();
+        $ofertas = OfertaDAO::cargaOfertasNoClasificadas(null,null);
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
             $titleItem = $oferta->getEmpresa();
@@ -80,7 +80,7 @@ EOF;
             $item = array($titleItem,$subtitleItem,$description);
             array_push($listaOfertas,$item);
         }
-        $widgets .= parent::generarWidget("Ofertas", $listaOfertas,"envelope-o","blue");
+        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue");
         $widgets .= "<!-- FIN Widget Ofertas activos -->";
 
         /*Generar contenido widget Contratos */

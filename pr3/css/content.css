@@ -268,13 +268,18 @@ body {
   font-size: 16px;
 }
 
-.admin-table .cell-status .pass{
+ .cell-status .pass{
   color:green;
 }
 
-.admin-table .cell-status .fail{
+ .cell-status .fail{
   color:red;
 }
+
+ .cell-status .warning{
+    color:darkgoldenrod;
+}
+
 
 /*Tablas estudiante*/
 

@@ -8,16 +8,26 @@ use es\ucm\aw\internprise\Aplicacion as App;
 class OfertaDAO
 {
 
-    /**
-     * Función que carga todas las ofertas de la BBDD
-     * */
-    public static function cargaTodasOfertas()
+    /*FUNCIONES PARA ADMINISTRADOR*/
+
+    /*
+     * Función que carga todas últimas ofertas clasificadas (Aceptadas o rechazadas) de la BBDD.
+     * Permite filtrar por grado. (Por defecto: TODOS)
+     * Ordena por fecha de creación (Por defecto: 20)
+     */
+    public static function cargaOfertasClasificadas($numOfertas,$grado)
     {
+        $numOfertas = isset($numOfertas)? $numOfertas : 20;
+        $whereGrado = isset($grado)? 'WHERE nombre_grado LIKE $grado' : '';
+
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT o.*,em.razon_social as empresa
-                          FROM internprise.ofertas o 
-                          INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario");
+        $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa
+                            FROM internprise.ofertas o
+                              INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
+                              INNER JOIN internprise.grados_ofertas go ON go.id_oferta = o.id_oferta
+                              INNER JOIN internprise.grados g ON g.id_grado = go.id_grado $whereGrado AND  AND estado IN ('Aceptada', 'Rechazada')
+                              ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
             $ofertas =  array();
@@ -30,23 +40,29 @@ class OfertaDAO
         return false;
     }
 
-    /**
-     * Función que permite filtrar las ofertas por grado
-     * */
-    public static function cargaOfertasPorGrado($grado)
+    /*
+     * Función que carga todas las 20 últimas ofertas no clasificadas (Pendientes) de la BBDD.
+     * Permite filtrar por grado. (Por defecto: TODOS)
+     * Ordena por fecha de creación (Por defecto: 20)
+     */
+    public static function cargaOfertasNoClasificadas($numOfertas,$grado)
     {
+        $numOfertas = isset($numOfertas)? $numOfertas : 20;
+        $whereGrado = isset($grado)? 'WHERE nombre_grado LIKE $grado' : '';
+
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa FROM internprise.grados_ofertas go
-                          INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
-                          INNER JOIN internprise.ofertas o ON o.id_oferta = go.id_oferta
-                          INNER JOIN internprise.grados g ON g.id_grado= go.id_grado
-                          WHERE  g.nombre_grado LIKE '%s'", $conn->real_escape_string($grado));
+        $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa
+                            FROM internprise.ofertas o
+                              INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
+                              INNER JOIN internprise.grados_ofertas go ON go.id_oferta = o.id_oferta
+                              INNER JOIN internprise.grados g ON g.id_grado = go.id_grado $whereGrado AND estado LIKE 'Pendiente'
+                              ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
-            $ofertas = array();
+            $ofertas =  array();
             while ($fila = $rs->fetch_assoc()) {
-                array_push($ofertas,self::createOferta($fila)) ;
+                array_push($ofertas,self::createOferta($fila));
             }
             $rs->free();
             return $ofertas;
@@ -54,34 +70,15 @@ class OfertaDAO
         return false;
     }
 
-    /**
-     * Función que recupera el número de últimas ofertas aceptadas indicado
-     */
-    public static function cargaUltimasOfertas($numOfertas)
-    {
-        $app = App::getSingleton();
-        $conn = $app->conexionBd();
-        $query = sprintf("SELECT o.*,em.razon_social as empresa FROM internprise.ofertas o
-        INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
-        ORDER BY fecha_creacion DESC LIMIT $numOfertas");
-        $rs = $conn->query($query);
-        if ($rs) {
-            $ofertas = array();
-            while ($fila = $rs->fetch_assoc()) {
-                $ofertas.array_push($ofertas,self::createOferta($fila)) ;
-            }
-            $rs->free();
-            return $ofertas;
-        }
-        return false;
-    }
+    /*FUNCIONES PARA ESTUDIANTE*/
 
-
-    /**
-     * Función que recupera el número de últimas ofertas aceptadas indicado dirigidas al grado del Estudiante
+    /*
+     * Ordena por fecha de creación (Por defecto: 20)
      */
-    public static function cargaUltimasOfertasEstudiante($numOfertas)
+    public static function cargasOfertasEstudiante($numOfertas)
     {
+        $numOfertas = isset($numOfertas)? $numOfertas : 20;
+
         $app = App::getSingleton();
         $conn = $app->conexionBd();
         $id_usuario = $app->idUsuario();
@@ -89,7 +86,7 @@ class OfertaDAO
                           INNER JOIN internprise.grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
                           INNER JOIN internprise.estudiantes e ON e.id_grado = go.id_grado
-                          WHERE id_usuario = $id_usuario 
+                          WHERE e.id_usuario = $id_usuario
                           ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
@@ -103,7 +100,36 @@ class OfertaDAO
         return false;
     }
 
-    /**
+    /*FUNCIONES PARA EMPRESA*/
+
+    /*
+     * Función que recupera el número de ofertas (Aceptadas, rechazadas o pendientes) indicado creadas por la empresa
+     * Ordena por fecha de creación (Por defecto: 20)
+     */
+    public static function cargaOfertasEmpresa($numOfertas)
+    {
+        $numOfertas = isset($numOfertas)? $numOfertas : 20;
+
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $id_empresa = $app->idUsuario();
+        $query = sprintf("SELECT o.*,em.razon_social as empresa FROM internprise.ofertas o
+                          INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
+                          WHERE id_empresa = $id_empresa
+                          ORDER BY fecha_creacion DESC LIMIT $numOfertas");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $ofertas = array();
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($ofertas,self::createOferta($fila));
+            }
+            $rs->free();
+            return $ofertas;
+        }
+        return false;
+    }
+
+    /*
      * Función que recupera las ofertas activas de una empresa
      */
 

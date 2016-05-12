@@ -14,18 +14,21 @@ $content = '';
 if($app -> usuarioLogueado()){
 	$req = $_REQUEST['val'];
 	switch($req){
-		case 'OFERTAS_ADMIN': handle_adminRequest($req); break;
-		case 'DEMANDAS_ADMIN': handle_adminRequest($req); break;
-		case 'CONTRATOS_ADMIN': handle_adminRequest($req); break;
-		case 'HISTORIAL_ADMIN': handle_adminRequest($req); break;
-		case 'ENCUESTAS_ADMIN': handle_adminRequest($req); break;
+		case 'DASHBOARD_ADMIN':
+		case 'OFERTAS_ADMIN':
+		case 'DEMANDAS_ADMIN':
+		case 'CONTRATOS_ADMIN':
+		case 'HISTORIAL_ADMIN':
+		case 'ENCUESTAS_ADMIN':
 		case 'BUZON_ADMIN': handle_adminRequest($req); break;
-		case 'PERFIL_ESTUDIANTE': handle_studentRequest($req); break;
-		case 'OFERTAS_ESTUDIANTE': handle_studentRequest($req); break;
-		case 'BUZON_ESTUDIANTE': handle_studentRequest($req); break;
-		case 'PERFIL_EMPRESA': handle_empresaRequest($req); break;
-		case 'OFERTAS_EMPRESA': handle_empresaRequest($req); break;
-		case 'SOLICITUDES_EMPRESA': handle_empresaRequest($req); break;
+		case 'DASHBOARD_ESTUDIANTE':
+		case 'PERFIL_ESTUDIANTE':
+		case 'OFERTAS_ESTUDIANTE':
+		case 'BUZON_ESTUDIANTE':handle_studentRequest($req); break;
+		case 'DASHBOARD_EMPRESA':
+		case 'PERFIL_EMPRESA':
+		case 'OFERTAS_EMPRESA':
+		case 'SOLICITUDES_EMPRESA':
 		case 'CONTRATOS_EMPRESA': handle_empresaRequest($req); break;
 		case 'BUZON_EMPRESA': handle_empresaRequest($req); break;
 		default : $content = Error::generaErrorPermisos();
@@ -41,6 +44,7 @@ function handle_adminRequest($req){
 	if( $app -> tieneRol('Admin')){
 		$portalAdmin = Portal::factory($app->rolUsuario());
 		switch($req){
+			case 'DASHBOARD_ADMIN': $content = $portalAdmin -> generaDashboard(); break;
 			case 'OFERTAS_ADMIN': $content = $portalAdmin -> generaOfertas(); break;
 			case 'DEMANDAS_ADMIN': $content = $portalAdmin -> generaDemandas(); break;
 			case 'CONTRATOS_ADMIN': $content = $portalAdmin -> generaContratos(); break;
@@ -56,6 +60,7 @@ function handle_studentRequest($req) {
 	if($app -> tieneRol('Estudiante')){
 		$portalEstudiante = Portal::factory($app->rolUsuario());
 		switch($req){
+			case 'DASHBOARD_ESTUDIANTE': $content = $portalEstudiante -> generaDashboard(); break;
 			case 'PERFIL_ESTUDIANTE': $content = $portalEstudiante -> generaPerfil(); break;
 			case 'OFERTAS_ESTUDIANTE': $content = $portalEstudiante -> generaOfertas(); break;
 			case 'BUZON_ESTUDIANTE': $content = $portalEstudiante -> generaBuzon(); break;
@@ -68,6 +73,7 @@ function handle_empresaRequest($req) {
 	if($app -> tieneRol('Empresa')){
 		$portalEmpresa = Portal::factory($app->rolUsuario());
 		switch($req){
+			case 'DASHBOARD_EMPRESA': $content = $portalEmpresa -> generaDashboard(); break;
 			case 'PERFIL_EMPRESA': $content = $portalEmpresa -> generaPerfil(); break;
 			case 'OFERTAS_EMPRESA': $content = $portalEmpresa -> generaOfertas(); break;
 			case 'SOLICITUDES_EMPRESA': $content = $portalEmpresa -> generaSolicitudes(); break;

@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Fran Lozano
- * Date: 08/05/2016
- * Time: 18:07
- */
 
 namespace es\ucm\aw\internprise;
 
@@ -69,23 +63,21 @@ EOF;
 
     public function generaOfertas(){
         // TODO: Implement generaOfertas() method.
-        $ofertas = OfertaDAO::cargaOfertasPorEstado(30, 'Aceptada');
+        $ofertas = OfertaDAO::cargaOfertasEmpresa(30);
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
-            $idOferta = $oferta->getIdOferta();
-            $empresa = $oferta->getEmpresa();
             $puesto = $oferta->getPuesto();
             $sueldo = $oferta->getSueldo();
             $horas = $oferta->getHoras();
             $plazas = $oferta->getPlazas();
-            $fila = array($idOferta, $empresa,$puesto,$sueldo, $horas, $plazas);
+            $estado = $oferta->getEstado();
+            $fila = array($puesto,$sueldo, $horas, $plazas,$estado);
             array_push($listaOfertas,$fila);
         }
 
-
-        $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Accion");
-        $content = parent::generaTabla("tabla-ofertas", "empresa-table",
-                                        "Ofertas disponibles", $titulosColumnas, $listaOfertas);
+        $titulosColumnas = array("Puesto", "Sueldo", "Horas", "Plazas", "Estado","Accion");
+        $content = self::generaTabla("tabla-ofertas", "empresa-table",
+                                        "Tus ofertas disponibles", $titulosColumnas, $listaOfertas);
 
         return $content;
     }
@@ -102,7 +94,6 @@ EOF;
     public function generaBuzon(){
         // TODO: Implement generaBuzon() method.
     }
-
 }
 
 

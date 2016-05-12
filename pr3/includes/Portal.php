@@ -98,8 +98,8 @@ EOF;
     protected function generarWidget($titulo, $lista,$typeIcon,$colorIcon )
     {
         $numItems = count($lista);
-        $typeIcon = "envelope";
-        $colorIcon = "blue";
+        $typeIcon = isset($typeIcon)?$typeIcon:"envelope";
+        $colorIcon = isset($colorIcon)?$colorIcon: "blue";
 
         $widgetHeader = <<<EOF
             <div class="widget">
@@ -141,6 +141,9 @@ EOF;
         return $contenido;
     }
 
+    /**
+     * Función que genera una tabla.
+     */
     protected function generaTabla($idTabla, $classTable,
                                    $tituloTabla, $titulosColumnas, $arrayFilas){
         /*if($numFilas > arrayFilas.count())
@@ -154,20 +157,24 @@ EOF;
              <table class="$classTable">
                 <tr>
 EOF;
-        foreach ($titulosColumnas as $titulos){
+        foreach ($titulosColumnas as $titulo){
             $tabla .= "<th>";
-            $tabla .= array_pop($titulos);
-            $tabla .= "<th>\n";
+            $tabla .= $titulo;
+            $tabla .= "</th>\n";
         }
         $tabla .= "</tr>\n";
 
-        foreach($arrayFilas as $filas){
+        foreach($arrayFilas as $fila){
             $tabla .= "<tr>\n";
-            $fila = array_pop($filas);
-            foreach($fila as $f){
-                $tabla .= "<td>";
-                $tabla .= array_pop($fila);
-                $tabla .= "<td>\n";
+            foreach($fila as $celda){
+                //Colorear estado
+                switch ($celda) {
+                    case 'Aceptada':{$tabla .= "<td class='cell-status'>\n\t<label class='pass'>Aceptada</label>";break;}
+                    case 'Rechazada':{$tabla .= "<td class='cell-status'>\n\t<label class='fail'>Rechazada</label>";break;}
+                    case 'Pendiente':{$tabla .= "<td class='cell-status'>\n\t<label class='warning'>Pendiente</label>";break;}
+                    default: { $tabla .= "<td>"; $tabla .= $celda;}
+                }
+                $tabla .= "</td>\n";
             }
             // TODO: Implement generaDialogoModal() for each oferta
             $tabla .= "<td><a href=\"#\">Ver</a></td>\n";
@@ -180,7 +187,7 @@ EOF;
 
         return $tabla;
     }
-
+    
     /**
      * Función que genera la barra de iconos del portal.
      */
@@ -215,11 +222,11 @@ EOF;
 
     public static function factory($rol) {
         if ($rol === "Admin"){
-            return new \es\ucm\aw\internprise\PortalAdministracion();
+            return new PortalAdministracion();
         }elseif ($rol === "Estudiante") {
-            return new \es\ucm\aw\internprise\PortalEstudiante();
+            return new PortalEstudiante();
         }elseif ($rol === "Empresa") {
-            return new \es\ucm\aw\internprise\PortalEmpresa();
+            return new PortalEmpresa();
         }
         return false;
     }
