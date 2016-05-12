@@ -75,14 +75,13 @@ EOF;
             <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
             <script src="js/jquery-2.2.3.js"></script>
             <!-- css solo para los colores-->
-            <link rel="stylesheet" href="css.php">
             <link rel="icon" type="image/png" href="$imagen">
             <!-- script para peticiones asíncronas AJAX -->
             <script>
-                function loadContent(value) {     
-                    $.ajax({url: "includes/ajaxRequest.php?val=" + value", success: function(result){
-                       $('#content').html(result);
-                    }});        
+                function loadContent(value) { 
+                     $.get("includes/ajaxRequest.php?val=" + value, function(data, status){
+                        $('#content').html(data);
+                      });     
                 }
             </script>
         </head>
@@ -182,7 +181,7 @@ EOF;
     /**
      * Función que genera la barra de iconos del portal.
      */
-    protected function generaTitlebarParam($titulo,$valDashboard)
+    protected function generaTitlebarParam($titulo)
     {
         $urlLogout = $_SERVER['PHP_SELF'] . '?logout';
         $rol = strtolower($this->rol);
@@ -194,7 +193,7 @@ EOF;
         <div id="label-titlebar">
             <label>
                 <a 
-                <a id="title-site" onclick="return loadContent('$valDashboard')" href="#">$titulo</a>
+                <a id="title-site" onclick="return loadContent('DASHBOARD')" href="#">$titulo</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                 <a id="previous-page" href="$rol-dashboard.php">Anterior</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>

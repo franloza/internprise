@@ -28,7 +28,7 @@ if (isset($_GET['logout'])) {
     <?php if($error) {echo Error::generaErrorHead();} else { echo $portal->generaHead();}?>
     <script>
         $( document ).ready(function() {
-            // Handler for .ready() called.
+            loadContent('<?php echo $app->section()?>');
         });
     </script>
     <body>

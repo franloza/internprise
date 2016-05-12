@@ -16,12 +16,12 @@ class PortalAdministracion extends Portal
         <!-- Fragmento para definir el menú de administrador-->
         <div id="admin-sidebar" class="sidebar">
                 <ul>
-                    <li><a onclick="return loadContent('OFERTAS_ADMIN')" href="#">OFERTAS</a></li>
-                    <li><a onclick="return loadContent('DEMANDAS_ADMIN')" href="#">DEMANDAS</a></li>
-                    <li><a onclick="return loadContent('CONTRATOS_ADMIN')" href="#">VER CONTRATOS</a></li>
-                    <li><a onclick="return loadContent('HISTORIAL_ADMIN')" href="#">HISTORIAL</a></li>
-                    <li><a onclick="return loadContent('ENCUESTAS_ADMIN')" href="#">ENCUESTAS</a></li>
-                    <li><a onclick="return loadContent('BUZON_ADMIN')" href="#">BUZON</a></li>
+                    <li><a onclick="return loadContent('OFERTAS')" href="#">OFERTAS</a></li>
+                    <li><a onclick="return loadContent('DEMANDAS')" href="#">DEMANDAS</a></li>
+                    <li><a onclick="return loadContent('CONTRATOSN')" href="#">VER CONTRATOS</a></li>
+                    <li><a onclick="return loadContent('HISTORIAL')" href="#">HISTORIAL</a></li>
+                    <li><a onclick="return loadContent('ENCUESTAS')" href="#">ENCUESTAS</a></li>
+                    <li><a onclick="return loadContent('BUZON')" href="#">BUZON</a></li>
                 </ul>
         </div>
 EOF;
@@ -129,7 +129,7 @@ EOF;
 
     public function generaTitlebar()
     {
-        return parent::generaTitlebarParam("Internprise Administracion",'DASHBOARD_ADMIN');
+        return parent::generaTitlebarParam("Internprise Administracion");
     }
 
     public function generaOfertas(){
