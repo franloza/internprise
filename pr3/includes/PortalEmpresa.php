@@ -54,7 +54,7 @@ EOF;
 
     public function generaTitlebar()
     {
-        return parent::generaTitlebarParam("Internprise Empresa");
+        return parent::generaTitlebarParam("Internprise Empresa",'DASHBOARD_EMPRESA');
     }
 
     public function generaPerfil(){

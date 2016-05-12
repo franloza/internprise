@@ -129,7 +129,7 @@ EOF;
 
     public function generaTitlebar()
     {
-        return parent::generaTitlebarParam("Internprise Administracion");
+        return parent::generaTitlebarParam("Internprise Administracion",'DASHBOARD_ADMIN');
     }
 
     public function generaOfertas(){

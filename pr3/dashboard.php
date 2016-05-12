@@ -26,6 +26,11 @@ if (isset($_GET['logout'])) {
 <!DOCTYPE html>
 <html>
     <?php if($error) {echo Error::generaErrorHead();} else { echo $portal->generaHead();}?>
+    <script>
+        $( document ).ready(function() {
+            // Handler for .ready() called.
+        });
+    </script>
     <body>
         <?php
         if($error) { echo $errorMsg;} else {

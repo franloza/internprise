@@ -53,7 +53,7 @@ EOF;
 
     public function generaTitlebar()
     {
-        return parent::generaTitlebarParam("Internprise Estudiante");
+        return parent::generaTitlebarParam("Internprise Estudiante",'DASHBOARD_ESTUDIANTE');
 
     }
 
