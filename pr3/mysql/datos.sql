@@ -45,13 +45,13 @@ INSERT INTO `administradores` (`id_usuario`, `nombre`, `apellidos`, `nombre_univ
 
 INSERT INTO `empresas` (`id_usuario`, `cif`, `razon_social`, `direccion`, `localidad`, `provincia`, `cp`, `pais`, `telefono`, `web`) VALUES
 (3, 'B-82387770', 'Everis Spain S.L', 'Av. de Manoteras, 52', 'Madrid', 'Madrid', 28050, 'España', '917 49 00 00', 'http://www.everis.com/spain/'),
-(4, 'B-78361482', 'Oracle Ibérica SRL', 'Calle José Echegaray, 6B', 'Las Rozas', 'Madrid ', 28232, 'España', '902 30 23 02', 'https://www.oracle.com/es/'),
+(4, 'B-78361482', 'Oracle SRL', 'Calle José Echegaray, 6B', 'Las Rozas', 'Madrid ', 28232, 'España', '902 30 23 02', 'https://www.oracle.com/es/'),
 (5, 'B-12345121', 'Accenture S.L.', 'Calle Fray Luis, 3D', 'Getafe', 'Madrid ', 28034, 'España', '902 20 23 12', 'https://www.accenture.com/es-es/'),
 (6, 'B-32225122', 'Indra S.L.', 'Calle Fernando, 1A', 'Alcala de Henares', 'Madrid ', 28031, 'España', '902 12 32 15', 'http://www.indracompany.com'),
 (7, 'B-56345123', 'Coritel S.L.', 'Av Romero, 4I', 'Alcobendas', 'Madrid ', 28123, 'España', '902 94 32 63', 'https://www.coritel.es'),
-(8, 'B-95345124', 'Esprinet Iberica S.L.', 'Calle Ponferrada, 5B', 'Parla', 'Madrid ', 28016, 'España', '902 42 31 55', 'http://www.esprinet.com'),
+(8, 'B-95345124', 'Esprinet S.L.', 'Calle Ponferrada, 5B', 'Parla', 'Madrid ', 28016, 'España', '902 42 31 55', 'http://www.esprinet.com'),
 (9, 'B-83345125', 'Lenovo S.L.', 'Calle Trueba, 4A', 'Madrid', 'Madrid ', 28012, 'España', '902 65 62 23', 'http://www.lenovo.com'),
-(10,'B-23345126', 'Hewlett Packard S.L.', 'Av Santo Domingo, 4H', 'Getafe', 'Madrid ', 28010, 'España', '902 12 52 68', 'http://www8.hp.com/es/es/home.html');
+(10,'B-23345126', 'HP S.L.', 'Av Santo Domingo, 4H', 'Getafe', 'Madrid ', 28010, 'España', '902 12 52 68', 'http://www8.hp.com/es/es/home.html');
 
 --
 -- Volcado de datos para la tabla `estudiantes`
