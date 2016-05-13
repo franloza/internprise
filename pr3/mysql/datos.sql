@@ -28,8 +28,17 @@ INSERT INTO `usuarios` (`id_usuario`, `email`, `password`, `rol`) VALUES
 (1, 'superuser@internprise.com', 'aprobamos2016', 'Admin'),
 (2, 'usuario@ucm.es', 'aprobamos2016', 'Estudiante'),
 (3, 'rrhh@everis.com', 'aprobamos2016', 'Empresa'),
-(4, 'empleo@oracle.com', 'aprobamos2016', 'Empresa');
-
+(4, 'empleo@oracle.com', 'aprobamos2016', 'Empresa'),
+(5, 'usuario1@ucm.es', 'aprobamos2016', 'Estudiante'),
+(6, 'usuario2@ucm.es', 'aprobamos2016', 'Estudiante'),
+(7, 'usuario3@ucm.es', 'aprobamos2016', 'Estudiante'),
+(8, 'usuario4@ucm.es', 'aprobamos2016', 'Estudiante'),
+(9, 'usuario5@ucm.es', 'aprobamos2016', 'Estudiante'),
+(10, 'usuario6@ucm.es', 'aprobamos2016', 'Estudiante'),
+(11, 'empleo@oracle.com', 'aprobamos2016', 'Empresa'),
+(12, 'empleo@coritel.com', 'aprobamos2016', 'Empresa'),
+(13, 'empleo@accenture.com', 'aprobamos2016', 'Empresa'),
+(14, 'empleo@hp.com', 'aprobamos2016', 'Empresa');
 
 --
 -- Volcado de datos para la tabla `administradores`
@@ -39,6 +48,7 @@ INSERT INTO `administradores` (`id_usuario`, `nombre`, `apellidos`, `nombre_univ
 (1, 'Pedro ', 'De la Rosa', 'Universidad Complutense de Madrid', 'Hombre', 'Av. Séneca, 2', 28040, 'Madrid', 'Madrid', 'España', 'www.ucm.es', '914520400'),
 (2, 'Luis', 'Fernandez', 'Universidad Autonoma de Madrid', 'Hombre', 'Calle Barcelona, 22', 28015, 'Madrid', 'Madrid', 'España', 'www.uam.es', '913320201'),
 (3, 'Sonia', 'Garcia', 'Universidad Rey Juan Carlos', 'Mujer', 'Calle Brasil, 4', 28032, 'Madrid', 'Madrid', 'España', 'www.urjc.es', '914202122');
+
 --
 -- Volcado de datos para la tabla `empresas`
 --
@@ -52,6 +62,7 @@ INSERT INTO `empresas` (`id_usuario`, `cif`, `razon_social`, `direccion`, `local
 (8, 'B-95345124', 'Esprinet S.L.', 'Calle Ponferrada, 5B', 'Parla', 'Madrid ', 28016, 'España', '902 42 31 55', 'http://www.esprinet.com'),
 (9, 'B-83345125', 'Lenovo S.L.', 'Calle Trueba, 4A', 'Madrid', 'Madrid ', 28012, 'España', '902 65 62 23', 'http://www.lenovo.com'),
 (10,'B-23345126', 'HP S.L.', 'Av Santo Domingo, 4H', 'Getafe', 'Madrid ', 28010, 'España', '902 12 52 68', 'http://www8.hp.com/es/es/home.html');
+
 
 --
 -- Volcado de datos para la tabla `estudiantes`
@@ -97,7 +108,7 @@ INSERT INTO `aptitudes` (`id_aptitud`, `nombre_aptitud`) VALUES
 
 INSERT INTO `ofertas` (`id_oferta`, `id_empresa`, `puesto`, `sueldo`, `fecha_incio`, `fecha_fin`, `horas`, `plazas`, `descripcion`, `estado`, `fecha_creacion`) VALUES
 (1, 4, 'Administrador de sistemas Solaris', '650', '2016-05-15', '2016-11-15', 6, 2, 'Precisamos incorporar un perfil Administrador seniorde sistemas Unix con alto conocimiento en Solaris y especialista en Almacenamiento & Backup.\r\n\r\nRequisitos:\r\n· Solvencia técnica contrastable\r\no Conocimientos avanzados en equipos Sun/Oracle Solaris e IBM AIX tanto e nivel hardware como software\r\no Conocimientos avanzados en equipos Intel y/o power a nivel de Red Hat Enterprise Linux y/o similar\r\no Conocimientos de administración en equipamiento de sistemas de almacenamiento y backup de EMC\r\no Conocimientos de administración de software de automatización y orquestación de sistemas operativos, ya sean maquinas físicas, virtuales o contenedores\r\no Conocimientos de administración de productos Cloud de tipo IaaS como por ejemplo AWS (Amazon), GCE (Google) y Azure (Microsoft)\r\no Experiencia en soporte, mantenimiento y evolución de los sistemas indicados anteriormente', 'Aceptada', '2016-05-02 23:26:48'),
-(2, 3, 'Desarrollador Java Junior', '400', '2016-06-01', '2016-09-01', 5, 4, 'Requisitos mínimos:\r\n- No se necesita experiencia laboral previa\r\n- Motivación por aprender y crecer dentro de una compañía con un gran plan de carrera profesional\r\n- Pasión por la programación\r\n- Team Player\r\n\r\nValorable experiencia en:\r\n- Servidor de aplicaciones Tomcat o JBOSS\r\n- Control de versiones SVN o GIT\r\n- JQuery, Servicios Web Axis 2.0, Axis\r\n- Delphi 7', 'Pendiente', '2016-05-03 23:26:48');
+(2, 3, 'Desarrollador Java Junior', '400', '2016-06-01', '2016-09-01', 5, 4, 'Requisitos mínimos:\r\n- No se necesita experiencia laboral previa\r\n- Motivación por aprender y crecer dentro de una compañía con un gran plan de carrera profesional\r\n- Pasión por la programación\r\n- Team Player\r\n\r\nValorable experiencia en:\r\n- Servidor de aplicaciones Tomcat o JBOSS\r\n- Control de versiones SVN o GIT\r\n- JQuery, Servicios Web Axis 2.0, Axis\r\n- Delphi 7', 'Pendiente', '2016-05-03 23:26:48'),
 (3, 3, 'Programador Web', '550', '2016-05-19', '2016-05-30', 4, 5, 'Programador web con experiencia en Ajax', 'Aceptada', '2016-05-13 00:00:00'),
 (4, 3, 'Programador C++', '700', '2016-05-24', '2016-05-30', 2, 8, 'Programador c++ con POO', 'Pendiente', '2016-05-13 00:00:00'),
 (5, 3, 'Programador Python', '600', '2016-05-14', '2016-05-29', 3, 7, 'Programador Python 2.7 y 3.5 con disponibilidad inmediata', 'Pendiente', '2016-05-13 00:00:00');
