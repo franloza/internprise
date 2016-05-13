@@ -55,8 +55,8 @@ EOF;
                    <i class="fa fa-search fa-2x" style="color:#444;"></i>
                </a>
                <div class="txt-search">
-                   <form method="post" action="#">
-                       <input class="txt-search" type="text" placeholder="Buscador de estudiantes / empresas">
+                   <form method="post" action="#" accept-charset="utf-8">
+                       <input id="busqueda" name="busqueda" value="" autocomplete="off" maxlength="30" class="txt-search" type="text" placeholder="Buscador de estudiantes / empresas">
                    </form>
                </div>
            </div>
