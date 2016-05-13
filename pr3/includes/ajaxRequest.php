@@ -26,7 +26,7 @@ if($app -> usuarioLogueado()){
 else
 	$content = Error::generaErrorPermisos();
 
-/*Save active section*/
+/*Returns the content to dashboard by ajax*/
 echo $content;
 
 function handle_adminRequest($req){
@@ -69,6 +69,11 @@ function handle_empresaRequest($req) {
 			case 'SOLICITUDES': $content = $portalEmpresa -> generaSolicitudes(); break;
 			case 'CONTRATOS': $content = $portalEmpresa -> generaContratos(); break;
 			case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
+			//case 'CREAR_OFERTA': $content = $portalEmpresa -> generaCrearOferta(); break;
+			case 'CREAR_OFERTA':
+				$form = new \es\ucm\aw\internprise\FormularioCrearOferta();
+				$form->gestiona();
+				break;
 		}
 	}
     else return false;

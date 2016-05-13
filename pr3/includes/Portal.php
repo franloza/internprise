@@ -83,6 +83,12 @@ EOF;
                         $('#content').html(data);
                       });     
                 }
+                function subMenu(showHide, id){
+                    if(showHide)
+                        $('#'+id).slideDown(200);
+                    else
+                        $('#'+id).slideUp(200);
+                }
             </script>
         </head>
 EOF;

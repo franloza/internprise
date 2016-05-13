@@ -3,7 +3,7 @@
 
 .sidebar {
   font-family: "Open Sans", arial;
-	height: 100%;
+	height: calc(100% - (50px + 20px));/* el total del 100% menos la altura del titlebar y footer*/
 	width: 200px;
 	position: fixed;
 	top: 50px;
@@ -14,19 +14,19 @@
 	background: #444;
 }
 
-#admin-sidebar ul li :hover{
+#admin-sidebar > ul > li :hover{
     color: #16a085;
 }
 
-#estudiante-sidebar ul li :hover{
+#estudiante-sidebar > ul > li :hover{
   color: #B40404;
 }
-#empresa-sidebar ul li :hover{
+#empresa-sidebar > ul > li :hover{
   color: #3498BB;
 }
 
 
-.sidebar ul {
+.sidebar > ul {
   list-style: none;
   background: #444;
   overflow: hidden;
@@ -36,24 +36,53 @@
   height: 100%;
   width: 100%;
 }
-.sidebar ul li{
+
+.sidebar > ul > li{
   border-bottom: thin solid #555;
 }
 
-.sidebar ul :first-child {
+.sidebar > ul :first-child {
   border-top: thin solid #555;
 }
 
-.sidebar ul li :hover{
+.sidebar > ul > li :hover{
   background: #555;
   transition-duration: 0.5s;
 }
 
-.sidebar ul li a {
+.sidebar > ul > li > a {
 	text-align: center;
   padding: 20px 0px 20px 0px;
   width: 100%;
   display: table;
   text-decoration: none;
   color: #fff;
+}
+
+.sidebar .sub-menu{
+    display:none;
+    background: #555;
+}
+
+.sidebar .sub-menu > ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+.sidebar .sub-menu > ul > li{
+    border-top: thin solid #555;
+}
+
+.sidebar .sub-menu > ul > li > a {
+    text-align: center;
+    padding: 10px 0px 10px 0px;
+    width: 100%;
+    display: table;
+    text-decoration: none;
+    color: #fff;
+    font-size: .85em;
+}
+
+.sidebar .sub-menu > ul > li :hover{
+    background: #777;
 }

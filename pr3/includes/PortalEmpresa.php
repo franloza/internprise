@@ -23,10 +23,30 @@ class PortalEmpresa extends Portal
             </div>
             <ul>
                 <li><a onclick="return loadContent('PERFIL')" href="#">PERFIL</a></li>
-                <li><a onclick="return loadContent('OFERTAS')" href="#">OFERTAS</a></li>
-                <li><a onclick="return loadContent('SOLICITUDES')" href="#">SOLICITUDES</a></li>
-                <li><a onclick="return loadContent('CONTRATOS')" href="#">CONTRATOS</a></li>
-                <li><a onclick="return loadContent('BUZON')" href="#">BUZÓN</a></li>
+                <li onmouseenter="subMenu(true, 'sub-menu-ofertas')" onmouseleave="subMenu(false, 'sub-menu-ofertas')" >
+                    <a onclick="subMenu(true, 'sub-menu-ofertas')" href="#">OFERTAS</a>
+                    <div id="sub-menu-ofertas" class="sub-menu">
+                        <ul>
+                            <li><a onclick="return loadContent('CREAR_OFERTA')" href="#">Crear oferta</a></li>
+                            <li><a onclick="return loadContent('OFERTAS')" href="#">Ver ofertas</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a onclick="return loadContent('SOLICITUDES')" href="#">SOLICITUDES</a>
+                </li>
+                <li onmouseenter="subMenu(true, 'sub-menu-contratos')" onmouseleave="subMenu(false, 'sub-menu-contratos')" >
+                    <a onclick="subMenu(true, 'sub-menu-contratos')" href="#">CONTRATOS</a>
+                    <div id="sub-menu-contratos" class="sub-menu">
+                        <ul>
+                            <li><a onclick="return loadContent('CONTRATOS')" href="#">En vigor</a></li>
+                            <li><a href="#">Finalizados</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <a onclick="return loadContent('BUZON')" href="#">BUZÓN</a>
+                </li>
             </ul>
         </div>
 EOF;
@@ -172,6 +192,42 @@ EOF;
 
     public function generaBuzon(){
         // TODO: Implement generaBuzon() method.
+    }
+
+    public function generaCrearOferta(){
+        $content = <<<EOF
+            <div id="form-crear-oferta" class="form">
+                <h2>Rellena los campos de la nueva oferta:</h2>
+                <form action="includes/ajaxRequest.php" method="post">
+                    <fieldset>
+                        <label for="name">Puesto</label>
+                        <input type="text" name="puesto">
+                        <br>
+                        <label for="sueldo">Sueldo</label>
+                        <input type="number" name="sueldo">
+                        <br>
+                        <label for="horas">Horas</label>
+                        <input type="number" min="0" max="20" name="horas">
+                        <br>
+                        <label for="plazas">Plazas</label>
+                        <input type="number" name="plazas">
+                        <br>
+                        <label for="fecha-inicio">Fecha inicio</label>
+                        <input type="date" name="fecha-inicio">
+                        <br>
+                        <label for="fecha-fin">Fecha fin</label>
+                        <input type="date" name="fecha-fin">
+                        <br>
+                        <label for="horas">Descripción</label>
+                        <textarea type="text" name="fecha-inicio"></textarea>
+                        <br>
+                        <input type="submit" tabindex="-1">
+                    </fieldset>
+                </form>
+            </div>
+EOF;
+        return $content;
+
     }
 }
 
