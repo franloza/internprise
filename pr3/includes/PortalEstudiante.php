@@ -73,7 +73,7 @@ EOF;
 
         /*Generar contenido widget Ofertas */
         $widgets .= "<!-- INI Widget Ofertas activos -->";
-        $ofertas = OfertaDAO::cargaOfertasNoClasificadas(null,null);
+        $ofertas = OfertaDAO::cargasOfertasEstudiante(null,null);
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
             $titleItem = $oferta->getEmpresa();
