@@ -35,7 +35,7 @@ INSERT INTO `usuarios` (`id_usuario`, `email`, `password`, `rol`) VALUES
 (8, 'usuario4@ucm.es', 'aprobamos2016', 'Estudiante'),
 (9, 'usuario5@ucm.es', 'aprobamos2016', 'Estudiante'),
 (10, 'usuario6@ucm.es', 'aprobamos2016', 'Estudiante'),
-(11, 'empleo@oracle.com', 'aprobamos2016', 'Empresa'),
+(11, 'empleo1@oracle.com', 'aprobamos2016', 'Empresa'),
 (12, 'empleo@coritel.com', 'aprobamos2016', 'Empresa'),
 (13, 'empleo@accenture.com', 'aprobamos2016', 'Empresa'),
 (14, 'empleo@hp.com', 'aprobamos2016', 'Empresa');
