@@ -23,7 +23,7 @@ class Estudiante extends Usuario
     private $web;
     private $telefono;
 
-    protected function __construct($datos) {
+    public function __construct($datos) {
         parent::__construct(null, $datos['email'],$datos['password']);
         parent::setRol("Estudiante");
         $this->dni = $datos['dni'];
@@ -49,8 +49,7 @@ class Estudiante extends Usuario
         $result = self::validateData($datos);
         if(!is_array($result)) {
             //Los datos son correctos y han sido sanitizados
-            $user = new Estudiante($datos);
-            $result = UsuarioDAO::registerEstudiante($user);
+            $result = UsuarioDAO::registerEstudiante($datos);
         }
         return $result;
     }
@@ -101,6 +100,7 @@ class Estudiante extends Usuario
         $sanitizedData['pais'] = isset($datos['pais']) ? filter_var($datos['pais'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['web'] = isset($datos['web']) ? filter_var($datos['web'], FILTER_SANITIZE_URL) : null ;
         $sanitizedData['telefono'] = isset($datos['telefono']) ? filter_var($datos['telefono'], FILTER_SANITIZE_STRING) : null ;
+        $sanitizedData['rol'] = 'Estudiante';
         return $sanitizedData;
     }
 

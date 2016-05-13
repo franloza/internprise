@@ -18,7 +18,7 @@ class Empresa extends Usuario
     private $telefono;
     private $web;
 
-    protected function __construct($datos) {
+    public function __construct($datos) {
         parent::__construct(null, $datos['email'],$datos['password']);
         parent::setRol("Empresa");
         $this->cif = $datos['cif'];
@@ -38,7 +38,6 @@ class Empresa extends Usuario
         $result = self::validateData($datos);
         if(!is_array($result)) {
             //Los datos son correctos y han sido sanitizados
-            $user = new Empresa($datos);
             $result = UsuarioDAO::registerEmpresa($user);
         }
         return $result;
@@ -77,6 +76,7 @@ class Empresa extends Usuario
         $sanitizedData['pais'] = isset($datos['pais']) ? filter_var($datos['pais'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['web'] = isset($datos['web']) ? filter_var($datos['web'], FILTER_SANITIZE_URL) : null ;
         $sanitizedData['telefono'] = isset($datos['telefono']) ? filter_var($datos['telefono'], FILTER_SANITIZE_STRING) : null ;
+        $sanitizedData['rol'] = 'Empresa';
         return $sanitizedData;
     }
 

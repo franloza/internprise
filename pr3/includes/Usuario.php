@@ -35,11 +35,11 @@ class Usuario {
         if (!isset($datos['password'])) {
             $ok = false;
         }
-        if ((strlen($datos['password']) < 4) || (strlen($datos['password']) > 12)) {
+        if ((strlen($datos['password']) < 4) || (strlen($datos['password']) > 14)) {
             $ok = false;
         }
         if (!$ok) {
-            $result[] = 'La contraseña no tiene entre 4 y 12 caracteres';
+            $result[] = 'La contraseña no tiene entre 4 y 14 caracteres';
             return $result;
         }
         return $ok;

@@ -11,17 +11,17 @@ class FormularioLogin extends Form {
   }
   
   protected function generaCamposFormulario ($datos) {
-    $username = 'user@example.org';
+    $email = 'user@example.org';
     $password = '12345';
     if ($datos) {
-      $username = isset($datos['username']) ? $datos['username'] : $username;
+      $email = isset($datos['email']) ? $datos['email'] : $email;
       $password = isset($datos['password']) ? $datos['password'] : $password;
     }
 
     $camposFormulario=<<<EOF
 		<fieldset>
 		  <legend>Usuario y contraseña</legend>
-		  <p><label>Name:</label> <input type="text" name="username" value="$username"/></p>
+		  <p><label>Name:</label> <input type="text" name="email" value="$email"/></p>
 		  <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
 		  <button type="submit">Entrar</button>
 		</fieldset>
@@ -35,8 +35,8 @@ EOF;
   protected function procesaFormulario($datos) {
     $result = array();
     $ok = true;
-    $username = isset($datos['username']) ? $datos['username'] : null ;
-    if ( !$username || ! mb_ereg_match(self::HTML5_EMAIL_REGEXP, $username) ) {
+    $email = isset($datos['email']) ? $datos['email'] : null ;
+    if ( !$email || ! mb_ereg_match(self::HTML5_EMAIL_REGEXP, $email) ) {
       $result[] = 'El nombre de usuario no es válido';
       $ok = false;
     }
@@ -48,7 +48,7 @@ EOF;
     }
 
     if ( $ok ) {
-      $user = Usuario::login($username, $password);
+      $user = Usuario::login($email, $password);
       if ( $user ) {
         // SEGURIDAD: Forzamos que se genere una nueva cookie de sesión por si la han capturado antes de hacer login
         session_regenerate_id(true);

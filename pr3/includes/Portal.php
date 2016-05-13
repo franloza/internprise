@@ -135,7 +135,7 @@ EOF;
         return $contenido;
     }
 
-    /**
+    /*
      * Función que genera una tabla.
      */
     protected function generaTabla($idTabla, $classTable,
@@ -178,7 +178,7 @@ EOF;
         return $tabla;
     }
     
-    /**
+    /*
      * Función que genera la barra de iconos del portal.
      */
     protected function generaTitlebarParam($titulo)

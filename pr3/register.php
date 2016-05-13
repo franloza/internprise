@@ -1,59 +1,62 @@
+<?php
+
+require_once __DIR__.'/includes/config.php';
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content Type" content="text/html; charset=utf-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
-<title>Registro</title>
+    <meta content="text/html; charset=utf-8">
+    <script src="js/jquery-2.2.3.js"></script>
+    <title>Registro</title>
 </head>
 <body>
-	<div id="contenedor">
-		<div id="contenido">
-			<select id="regSelect">
-				<option value="empresa">Empresa</option>
-				<option value="estudiante" selected="selected">Estudiante</option>
-				<option value="admin">Administrador</option>
-			</select>	
-			<script>
-				$(document).ready(function(){
-					$("#regSelect").change(function(){
-    					if ($("#regSelect option:selected").val() == "empresa") {
-    						$("#formEstudiante").hide();
-    						$("#formEmp").show();
-    						$("#formAdministrador").hide();
-    					}
-    					if ($("#regSelect option:selected").val() == "estudiante") {
-    						$("#formEstudiante").show();
-    						$("#formEmp").hide();
-    						$("#formAdministrador").hide();
-    					}
-    					if ($("#regSelect option:selected").val() == "admin") {
-    						$("#formEstudiante").hide();
-    						$("#formEmp").hide();
-    						$("#formAdministrador").show();
-    					}
-    				});
-    			});
-			</script>
+<div id="contenedor">
+    <div id="contenido">
+        <select id="regSelect">
+            <option value="empresa">Empresa</option>
+            <option value="estudiante" selected="selected">Estudiante</option>
+            <option value="admin">Administrador</option>
+        </select>
+        <?php $formLogin =  new \es\ucm\aw\internprise\FormularioRegister();$formLogin->gestiona(); ?>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#regSelect").val("estudiante");
+        $( "input:hidden#rolHidden").val("estudiante");
+    });
 
-			<div id="">
-				<form action="formAdministrador">
-				 <?php $formLogin = new \es\ucm\aw\internprise\FormularioAdmin(); $formLogin->gestiona(); ?>
-				</form>
-			</div>
-
-			<div id="formEstudiante">
-				<form action="">
-				<?php $formLogin = new \es\ucm\aw\internprise\FormularioEstudiante(); $formLogin->gestiona(); ?>
-				</form>
-			</div>
-
-				<div id="formEmpresa">
-				<form action="">
-				<?php $formLogin = new \es\ucm\aw\internprise\FormularioEmpresa(); $formLogin->gestiona(); ?>
-				</form>
-			</div>
-		</div>
-	</div>
+    $( "#regSelect").change(function () {
+        var valueSelected = this.value;
+        switch (valueSelected) {
+            case "empresa":
+            {
+                $('fieldset#estudiante').hide();
+                $('fieldset#empresa').show();
+                $("fieldset#admin").hide();
+                $( "input:hidden#rolHidden").val("empresa");
+                break;
+            }
+            case "estudiante":
+            {
+                $('fieldset#estudiante').show();
+                $('fieldset#empresa').hide();
+                $('fieldset#admin').hide();
+                $( "input:hidden#rolHidden").val("estudiante");
+                break;
+            }
+            case "admin":
+            {
+                $('fieldset#estudiante').hide();
+                $('fieldset#empresa').hide();
+                $('fieldset#admin').show();
+                $( "input:hidden#rolHidden").val("admin");
+                break;
+            }
+        }
+    }).change();
+</script>
 </body>
 </html>
 
