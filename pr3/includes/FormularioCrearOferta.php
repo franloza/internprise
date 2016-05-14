@@ -6,8 +6,8 @@ class FormularioCrearOferta extends Form
 {
     public function __construct() {
         $opciones = array(
-          "ajax" => true,
-            "action" => "dashboard.php",
+          "ajax" => false,
+            "action" => "includes/ajaxRequest.php?val=CREAR_OFERTA",
             "class" => null,
             "enctype" => null
         );
@@ -15,23 +15,9 @@ class FormularioCrearOferta extends Form
     }
 
     protected function generaCamposFormulario ($datos) {
-        $username = 'user@example.org';
-        $password = '12345';
-        if ($datos) {
-            $username = isset($datos['username']) ? $datos['username'] : $username;
-            $password = isset($datos['password']) ? $datos['password'] : $password;
-        }
-
-        /*<fieldset>
-		  <legend>Usuario y contraseña</legend>
-		  <p><label>Name:</label> <input type="text" name="username" placeholder="$username"/></p>
-		  <p><label>Password:</label> <input type="password" name="password" placeholder="$password"/><br /></p>
-		  <button type="submit">Entrar</button>
-		</fieldset>*/
-
         $camposFormulario=<<<EOF
-        <fieldset>
-            <h2>Introduce los datos de la nueva oferta</h2>
+        <fieldset id="fieldset-crear-oferta">
+            <h2>Introduce los datos de la nueva oferta:</h2>
             <label for="name">Puesto:</label>
             <input type="text" name="puesto">
             <br>
@@ -44,11 +30,11 @@ class FormularioCrearOferta extends Form
             <label for="plazas">Plazas:</label>
             <input type="number" name="plazas">
             <br>
-            <label for="fecha-inicio">Fecha inicio:</label>
-            <input type="date" name="fecha-inicio">
+            <label for="fecha_inicio">Fecha inicio:</label>
+            <input type="date" name="fecha_inicio">
             <br>
-            <label for="fecha-fin">Fecha fin:</label>
-            <input type="date" name="fecha-fin">
+            <label for="fecha_fin">Fecha fin:</label>
+            <input type="date" name="fecha_fin">
             <br>
             <label for="descripcion">Descripción:</label>
             <textarea type="text" name="descripcion"></textarea>
@@ -64,7 +50,12 @@ EOF;
      */
     protected function procesaFormulario($datos) {
         // ToDo: Validar los datos recibidos para crear una nueva oferta
-        
+        $result = Oferta::creaOferta($datos);
+        if (!is_array($result)) {
+            $result[] = 'La oferta no es válida';
+        }
+        else
+            $result = \es\ucm\aw\internprise\Aplicacion::getSingleton()->resuelve('/dashboard.php');
         return $result;
     }
 }

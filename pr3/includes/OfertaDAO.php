@@ -154,13 +154,53 @@ class OfertaDAO
         return false;
     }
 
+    public static function creaOferta($datos){
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $id_usuario = $app->idUsuario();
+        /*$datos['id_oferta'] = '';
+        $datos['empresa'] = '';
+        $datos['estado'] = '';
+        $datos['id_oferta'] = '';
+        $datos['fecha_creacion'] = '';
+        $datos['fecha_inicio'] = 'g';
+
+        $oferta = self::createOferta($datos);
+        $puesto = $oferta->getPuesto();
+        $sueldo = $oferta->getSueldo();
+        $fechaInicio = $oferta->getFechaIncio();
+        $fechaFin = $oferta->getFechaFin();
+        $horas = $oferta->getHoras();
+        $plazas = $oferta->getPlazas();
+        $descripcion = $oferta->getDescripcion();*/
+
+        $puesto = $datos['puesto'];
+        $sueldo = $datos['sueldo'];
+        $fechaInicio = $datos['fecha_inicio'];
+        $fechaFin = $datos['fecha_fin'];
+        $horas = $datos['horas'];
+        $plazas = $datos['plazas'];
+        $descripcion = $datos['descripcion'];
+
+
+
+        $query = sprintf("INSERT INTO ofertas (id_empresa, 
+                          puesto, sueldo, fecha_incio, fecha_fin, horas, 
+                          plazas, descripcion) 
+                          VALUES ('$id_usuario', '$puesto', '$sueldo', '$fechaInicio', '$fechaFin', '$horas','$plazas', '$descripcion')");
+        $rs = $conn->query($query);
+        if ($rs)
+            return array($puesto, $sueldo, $fechaInicio, $fechaFin, $horas, $plazas, $descripcion);
+        return false;
+    }
+
     private static function createOferta($fila) {
         $idOferta = $fila['id_oferta'];
         $empresa = $fila['empresa'];
         $oferta = new Oferta($idOferta,$empresa);
         $oferta->setEstado($fila['estado']);
         $oferta->setFechaFin($fila['fecha_fin']);
-        $oferta->setFechaIncio($fila['fecha_incio']);
+        $oferta->setFechaInicio($fila['fecha_incio']);//Si se pone fecha_inicio da problemas :( ??
         $oferta->setPlazas($fila['plazas']);
         $oferta->setEstado($fila['estado']);
         $oferta->setPuesto($fila['puesto']);

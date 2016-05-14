@@ -15,10 +15,11 @@
 
 #admin-titlebar {
 	background: #16a085;
+
 }
 
 #empresa-titlebar {
-	background: #448AFF;
+    background: #448AFF;
 }
 
 #estudiante-titlebar{ 
@@ -117,21 +118,25 @@
   }
 }
 
-#icons-titlebar a:link {
+#icons-titlebar > a {
+    height:100%;
+}
+
+#icons-titlebar > a:link {
     text-decoration: none;
     color: white;
 }
-#icons-titlebar a:visited {
+#icons-titlebar > a:visited {
     text-decoration: none;
     color: white;
 }
 
-#icons-titlebar a:hover {
+#icons-titlebar > a:hover {
     text-decoration: none;
     color: #444;
 }
 
-#icons-titlebar a:active {
+#icons-titlebar > a:active {
     text-decoration: none;
 }
 /*==============================================================*/
@@ -157,7 +162,7 @@
 }
 
 #empresa-footer {
-	background: #448AFF;
+    background: linear-gradient(#448AFF, #3524ff);
 }
 
 #estudiante-footer {

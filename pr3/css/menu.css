@@ -51,7 +51,7 @@
 }
 
 .sidebar > ul > li > a {
-	text-align: center;
+  text-align: center;
   padding: 20px 0px 20px 0px;
   width: 100%;
   display: table;
@@ -84,5 +84,5 @@
 }
 
 .sidebar .sub-menu > ul > li :hover{
-    background: #777;
+    background: #666;
 }

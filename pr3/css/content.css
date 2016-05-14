@@ -69,9 +69,9 @@ body, html{
 	position: fixed;
 	top: 50px;
 	left: 200px;
-	padding: 30px;
-	width: calc(100% - 200px);
-    height: calc(100% - 70px);
+	padding: 20px;
+	width: calc(100% - 200px - 40px);
+    height: calc(100% - 70px - 40px);
   background: #f5f7fa;
     text-align: center;
     overflow: scroll;
@@ -83,20 +83,27 @@ body, html{
 
 .dashboard-content .btn-search {
 	border: 1px solid #ccc;
-	background:  #737373;
-	font-size: 12px;
-    padding-bottom: 5px;
-	width: 80%;
+	width: 50%;
+    display: inline-block;
+    border: 2px solid #a1a1a1;
+    border-radius: 25px;
+
+    padding: .8% 2% .8% 2%;
+
 }
 
 .dashboard-content .icon-search {
+    float: right;
 	padding-left: 2px;
 	display: inline-block;
+    height: 100%;
+    display: none;
 }
 .dashboard-content .txt-search {
-	padding-left: 17px;
-	width: 94%;
-	display: inline-block;
+    height: 50px;
+    font-size: 25px;
+    border: none;
+    width: 98%;
 }
 
 
@@ -122,33 +129,29 @@ body, html{
 }
 
 .dashboard-content .widget-content {
-  padding-top: 35px;
+  padding-top: 1%;
   width: 100%;
   height: 100%;
-  text-align: center;
     display: flex;
     flex-wrap:wrap;
 }
 
 .dashboard-content .widget {
-  border: 1px solid #ccc;
-  background: #f5f7fa;
-  margin-right: 15px;
-  margin-left: 15px;
-  width: 400px;
-  height: 280px;
-  display: inline-block;
-
-  -webkit-box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
-  -moz-box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
-  box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
+    border: 1px solid #ccc;
+    background: #f5f7fa;
+    margin : 2%;
+    height: 35%;
+    width: 40%;
+    min-width: 385px;
+    overflow: hidden;
+    -webkit-box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
+    -moz-box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
+    box-shadow: -6px 6px 5px -3px rgba(150,135,150,1);
 }
 
 .dashboard-content .widget-header {
   background: #fff;
   color: #000;
-  width: 370px;
-  height: 50px;
   padding-left: 15px;
   padding-right: 15px;
   text-align: left;
@@ -157,13 +160,9 @@ body, html{
 
 .dashboard-content .content-widget {
   background: #fff;
-  width: 385px;
-  height: 225px;
-  padding-left: 15px;
+    height: calc(100% - 60px);
   text-align: left;
-  display: inline-block;
   overflow-y: scroll;
-  overflow-x: hidden;
 }
 
 .dashboard-content .title {
@@ -193,8 +192,12 @@ body, html{
 }
 
 .dashboard-content .media {
-  margin-top: 12px;
-  margin-right: 12px;
+    padding: 10px;
+    width: calc(100% - 20px);
+}
+
+.dashboard-content .media:hover {
+    background: #E0E0E0;
 }
 
 .dashboard-content .media-left {
@@ -203,8 +206,8 @@ body, html{
 }
 
 .dashboard-content .media-body {
-  margin-left: 10px;
-  margin-right: 5px;
+  margin-left: 5%;
+  margin-right: 5%;
   display: inline-block;
   font-size: 15px;
 }
@@ -585,22 +588,26 @@ background: rgba(68,138,255,50);
 }
 
 /*Ofertas empresa*/
-#add-oferta {
-    width: 100px;
-    height: 25px;
-    background: #448AFF;
-    color: #fff;
-    border: none;
-    margin: auto 10px auto 25px;
-    box-shadow: 0 4px 0 #444DFF;
-    -webkit-transition: .1s ease-in-out;
-    transition: .1s ease-in-out;
-    border-radius: 3px;
- }
 
- fieldset {
-     width:40%;
-     border: 0px;
- }
+.content #fieldset-crear-oferta {
+    background-color: #3498BB;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+}
+
+.content #fieldset-crear-oferta > input{
+
+    width: 200px;
+}
+
+.content #fieldset-crear-oferta > label,h2 {
+    color: #FFFFFF;
+}
+
+
+.content #fieldset-crear-oferta > textarea{
+    width: 100%;
+    min-height: 100px;
+}
 
 /*==============================================================*/
