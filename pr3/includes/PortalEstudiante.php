@@ -141,7 +141,23 @@ EOF;
     }
 
     public function generaOfertas(){
-        // TODO: Implement generaOfertas() method.
+        $ofertas = OfertaDAO::cargasOfertasEstudiante(20);
+        $listaOfertas = array();
+        foreach ( $ofertas as $oferta) {
+            $empresa = $oferta ->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $fila = array($empresa,$puesto,$sueldo, $horas, $plazas);
+            array_push($listaOfertas,$fila);
+        }
+
+        $titulosColumnas = array("Empresa","Puesto", "Sueldo", "Horas", "Plazas","Accion");
+        $content = self::generaTabla("tabla-ofertas", "estudiante-table",
+            "Ofertas disponibles", $titulosColumnas, $listaOfertas);
+
+        return $content;
     }
 
     public function generaBuzon(){

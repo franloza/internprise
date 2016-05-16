@@ -161,7 +161,6 @@ EOF;
     }
 
     public function generaOfertas(){
-        // TODO: Implement generaOfertas() method.
         $ofertas = OfertaDAO::cargaOfertasEmpresa(30);
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
