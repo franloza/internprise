@@ -8,22 +8,21 @@
     font-family: "helvitica", arial;
     height: 50px;
     width: 100%;
-    min-width: 800px;
+    min-width: 440px;
     position: fixed; /*Hace que la posición no varie ni haciendo scroll, siempre se mantiene en el mismo lugar*/
     z-index: 10; /*Necesario para que el titlebar se muestre encima de otros elementos*/
 }
 
 #admin-titlebar {
-	background: #16a085;
-
+	background: linear-gradient(#004D40, #16a085);
 }
 
 #empresa-titlebar {
-    background: #448AFF;
+	background: linear-gradient(#01579B, #3498BB);
 }
 
-#estudiante-titlebar{ 
-    background: #B40404;   
+#estudiante-titlebar{
+	background: linear-gradient(#B40404, #E53935);
 }
 
 .titlebar img { /*favicon*/
@@ -149,7 +148,7 @@
 	position: fixed;
 	bottom: 0;
 	width: 100%;
-	min-width: 800px;
+    min-width: 440px;
 	height: 20px;
 	color: white;
 	text-align: center;
@@ -158,15 +157,15 @@
 }
 
 #admin-footer {
-	background: #16a085;
+	background: #004D40;
 }
 
 #empresa-footer {
-    background: linear-gradient(#448AFF, #3524ff);
+    background: #01579B;
 }
 
 #estudiante-footer {
-    background: #B40404;
+	background: #B40404;
 }
 
 .footer-icons {
@@ -189,3 +188,23 @@
     color: white;
 }
 /*==============================================================*/
+
+@media only screen and (max-width: 768px) {
+	/* For mobile phones: */
+
+	.content {
+		position: absolute;
+		top: 50px;
+		left: 0;
+		width: 100%;
+	}
+
+	.titlebar > img {
+		display: none;
+	}
+
+    .titlebar > #label-titlebar i,#current-page,#previous-page {
+        display:none;
+    }
+
+}

@@ -95,15 +95,14 @@ body, html{
 .dashboard-content .icon-search {
     float: right;
 	padding-left: 2px;
-	display: inline-block;
     height: 100%;
-    display: none;
 }
 .dashboard-content .txt-search {
     height: 50px;
     font-size: 25px;
     border: none;
-    width: 98%;
+    width: 92%;
+    float:left;
 }
 
 
@@ -141,6 +140,7 @@ body, html{
     background: #f5f7fa;
     margin : 2%;
     height: 35%;
+    min-height: 200px;
     width: 40%;
     min-width: 385px;
     overflow: hidden;

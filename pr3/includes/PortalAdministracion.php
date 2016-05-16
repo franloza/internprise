@@ -16,12 +16,28 @@ class PortalAdministracion extends Portal
         <!-- Fragmento para definir el menú de administrador-->
         <div id="admin-sidebar" class="sidebar">
                 <ul>
-                    <li><a onclick="return loadContent('OFERTAS')" href="#">OFERTAS</a></li>
-                    <li><a onclick="return loadContent('DEMANDAS')" href="#">DEMANDAS</a></li>
+                    <li onmouseenter="subMenu(true, 'sub-menu-ofertas')" onmouseleave="subMenu(false, 'sub-menu-ofertas')">
+                        <a onclick="subMenu(true, 'sub-menu-ofertas')" href="#">OFERTAS</a>
+                        <div id="sub-menu-ofertas" class="sub-menu">
+                            <ul>
+                                <li><a onclick="return loadContent('OFERTAS')" href="#">Clasificadas</a></li>
+                                <li><a onclick="return loadContent('OFERTAS')" href="#">No clasificadas</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li onmouseenter="subMenu(true, 'sub-menu-demandas')" onmouseleave="subMenu(false, 'sub-menu-demandas')">
+                        <a onclick="subMenu(true, 'sub-menu-demandas')" href="#">DEMANDAS</a>
+                        <div id="sub-menu-demandas" class="sub-menu">
+                            <ul>
+                                <li><a onclick="return loadContent('DEMANDAS_CLASIFICADAS')" href="#">Clasificadas</a></li>
+                                <li><a onclick="return loadContent('DEMANDAS_NO_CLASIFICADAS')" href="#">No clasificadas</a></li>
+                            </ul>
+                        </div>
+                    </li>
                     <li><a onclick="return loadContent('CONTRATOSN')" href="#">VER CONTRATOS</a></li>
                     <li><a onclick="return loadContent('HISTORIAL')" href="#">HISTORIAL</a></li>
                     <li><a onclick="return loadContent('ENCUESTAS')" href="#">ENCUESTAS</a></li>
-                    <li><a onclick="return loadContent('BUZON')" href="#">BUZON</a></li>
+                    <li><a onclick="return loadContent('BUZON')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
 EOF;
@@ -128,13 +144,25 @@ EOF;
 
     public function generaTitlebar()
     {
-        return parent::generaTitlebarParam("Internprise Administracion");
+        return parent::generaTitlebarParam("Internprise Administración");
     }
 
     public function generaOfertas(){
-        $content = <<<EOF
-        
-EOF;
+        $ofertas = OfertaDAO::cargaOfertasClasificadas(30,null);
+        $listaOfertas = array();
+        foreach ( $ofertas as $oferta) {
+            $empresa = $oferta ->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $estado = $oferta->getEstado();
+            $fila = array($empresa, $puesto,$sueldo, $horas, $plazas,$estado);
+            array_push($listaOfertas,$fila);
+        }
+        $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado", "Accion");
+        $content = self::generaTabla("tabla-oferta","admin-table" ,"Todas las ofertas" , $titulosColumnas, $listaOfertas);
+
         return $content;
 
     }

@@ -26,7 +26,7 @@ class OfertaDAO
                             FROM internprise.ofertas o
                               INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
                               INNER JOIN internprise.grados_ofertas go ON go.id_oferta = o.id_oferta
-                              INNER JOIN internprise.grados g ON g.id_grado = go.id_grado $whereGrado AND  AND estado IN ('Aceptada', 'Rechazada')
+                              INNER JOIN internprise.grados g ON g.id_grado = go.id_grado $whereGrado AND estado IN ('Aceptada', 'Rechazada')
                               ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
