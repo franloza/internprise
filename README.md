@@ -13,7 +13,7 @@
 - ```PortalEmpresa.php```: Hereda de Portal, genera los contenidos especificos para el rol empresa.
 - Diagrama de Flujo:
 
-![alt text](https://github.com/franloza/AW/blob/master/resources/DiagramaFlujo_P3.png?raw=true "Diagrama de flujo")
+![alt text](https://github.com/franloza/AW/blob/master/resources/DiagramaFlujo.png?raw=true "Diagrama de flujo")
 
 ##Scripts adicionales
  como configuración, clases, lógica de la aplicación, base de datos...<br>
