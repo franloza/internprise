@@ -137,7 +137,7 @@ class Oferta
         $this->diasDesdeCreacion = $datediff;
     }
 
-    public function creaOferta($datos){
+    public static function creaOferta($datos){
         $datos = self::sanitizeData($datos);
         $result = self::validateData($datos);
         if(!is_array($result)) {

@@ -55,8 +55,8 @@ class OfertaDAO
         $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa
                             FROM internprise.ofertas o
                               INNER JOIN internprise.empresas em ON o.id_empresa = em.id_usuario
-                              INNER JOIN internprise.grados_ofertas go ON go.id_oferta = o.id_oferta
-                              INNER JOIN internprise.grados g ON g.id_grado = go.id_grado $whereGrado AND estado LIKE 'Pendiente'
+                              LEFT JOIN internprise.grados_ofertas go ON go.id_oferta = o.id_oferta
+                              LEFT JOIN internprise.grados g ON g.id_grado = go.id_grado $whereGrado AND estado LIKE 'Pendiente'
                               ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
@@ -175,23 +175,26 @@ class OfertaDAO
         $descripcion = $oferta->getDescripcion();*/
 
         $puesto = $datos['puesto'];
-        $sueldo = $datos['sueldo'];
+        $sueldo = intval($datos['sueldo']);
         $fechaInicio = $datos['fecha_inicio'];
         $fechaFin = $datos['fecha_fin'];
-        $horas = $datos['horas'];
-        $plazas = $datos['plazas'];
+        $horas = intval($datos['horas']);
+        $plazas = intval($datos['plazas']);
         $descripcion = $datos['descripcion'];
+        $estado = 'Pendiente';
 
 
-
-        $query = sprintf("INSERT INTO ofertas (id_empresa, 
+        $stmt = $conn->prepare('INSERT INTO internprise.ofertas (id_empresa, 
                           puesto, sueldo, fecha_incio, fecha_fin, horas, 
-                          plazas, descripcion) 
-                          VALUES ('$id_usuario', '$puesto', '$sueldo', '$fechaInicio', '$fechaFin', '$horas','$plazas', '$descripcion')");
-        $rs = $conn->query($query);
-        if ($rs)
-            return array($puesto, $sueldo, $fechaInicio, $fechaFin, $horas, $plazas, $descripcion);
-        return false;
+                          plazas, descripcion,estado) VALUES (?,?,?,?,?,?,?,?,?)');
+        $stmt->bind_param("isissiiss", $id_usuario, $puesto, $sueldo,$fechaInicio,
+            $fechaFin, $horas, $plazas, $descripcion, $estado);
+
+        if (!$stmt->execute()) {
+            $result [] = $stmt->error;
+            return $result;
+        }
+        return true;
     }
 
     private static function createOferta($fila) {

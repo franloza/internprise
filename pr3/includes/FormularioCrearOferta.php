@@ -21,11 +21,11 @@ class FormularioCrearOferta extends Form
             <label for="name">Puesto:</label>
             <input type="text" name="puesto">
             <br>
-            <label for="sueldo">Sueldo:</label>
+            <label for="sueldo">Sueldo (Mes):</label>
             <input type="number" name="sueldo">
             <br>
-            <label for="horas">Horas:</label>
-            <input type="number" min="0" max="20" name="horas">
+            <label for="horas">Horas (Semana):</label>
+            <input type="number" min="0" max="40" name="horas">
             <br>
             <label for="plazas">Plazas:</label>
             <input type="number" name="plazas">
@@ -51,7 +51,8 @@ EOF;
     protected function procesaFormulario($datos) {
         // ToDo: Validar los datos recibidos para crear una nueva oferta
         $result = Oferta::creaOferta($datos);
-        if (!is_array($result)) {
+        if (is_array($result)) {
+            $result[] = array();
             $result[] = 'La oferta no es válida';
         }
         else
