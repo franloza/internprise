@@ -20,8 +20,8 @@ class PortalAdministracion extends Portal
                         <a onclick="subMenu(true, 'sub-menu-ofertas')" href="#">OFERTAS</a>
                         <div id="sub-menu-ofertas" class="sub-menu">
                             <ul>
-                                <li><a onclick="return loadContent('OFERTAS')" href="#">Clasificadas</a></li>
-                                <li><a onclick="return loadContent('OFERTAS')" href="#">No clasificadas</a></li>
+                                <li><a onclick="return loadContent('OFERTAS_CLASIFICADAS')" href="#">Clasificadas</a></li>
+                                <li><a onclick="return loadContent('OFERTAS_NO_CLASIFICADAS')" href="#">No clasificadas</a></li>
                             </ul>
                         </div>
                     </li>
@@ -147,8 +147,13 @@ EOF;
         return parent::generaTitlebarParam("Internprise Administración");
     }
 
-    public function generaOfertas(){
-        $ofertas = OfertaDAO::cargaOfertasClasificadas(30,null);
+    public function generaOfertas($clasificadas){
+        if ($clasificadas) {
+            $ofertas = OfertaDAO::cargaOfertasClasificadas(30, null);
+        }
+        else {
+            $ofertas = OfertaDAO::cargaOfertasNoClasificadas(30, null);
+        }
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
             $empresa = $oferta ->getEmpresa();
@@ -161,7 +166,7 @@ EOF;
             array_push($listaOfertas,$fila);
         }
         $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado", "Accion");
-        $content = self::generaTabla("tabla-oferta","admin-table" ,"Todas las ofertas" , $titulosColumnas, $listaOfertas);
+        $content = self::generaTabla("tabla-oferta","admin-table" ,"Ofertas" . (($clasificadas)? ' ' : ' no ') . 'clasificadas', $titulosColumnas, $listaOfertas);
 
         return $content;
 

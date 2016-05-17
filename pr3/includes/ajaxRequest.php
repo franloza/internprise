@@ -35,7 +35,8 @@ function handle_adminRequest($req){
 		$portalAdmin = Portal::factory($app->rolUsuario());
 		switch($req){
 			case 'DASHBOARD': $content = $portalAdmin -> generaDashboard(); break;
-			case 'OFERTAS': $content = $portalAdmin -> generaOfertas(); break;
+			case 'OFERTAS_CLASIFICADAS': $content = $portalAdmin -> generaOfertas(true); break;
+			case 'OFERTAS_NO_CLASIFICADAS': $content = $portalAdmin -> generaOfertas(false); break;
 			case 'DEMANDAS': $content = $portalAdmin -> generaDemandas(); break;
 			case 'CONTRATOS': $content = $portalAdmin -> generaContratos(); break;
 			case 'HISTORIAL': $content = $portalAdmin -> generaHistorial(); break;
