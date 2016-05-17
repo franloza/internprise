@@ -74,8 +74,8 @@ class UsuarioDAO
     private function registerUsuario ($email,$password,$rol) {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $stmt = $conn->prepare("INSERT INTO internprise.usuarios VALUES (?,?,?,?)");
-        $stmt->bind_param('DEFAULT',$email, $password, $rol);
+        $stmt = $conn->prepare("INSERT INTO internprise.usuarios (email,password,rol) VALUES (?,?,?)");
+        $stmt->bind_param($email, $password, $rol);
         if (!$stmt->execute()) {
             $result [] = "Hubo un problema en la inserción en la BBDD";
             return $result;

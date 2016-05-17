@@ -13,7 +13,7 @@ require_once __DIR__.'/includes/config.php';
   <body>   
   <div id="index-contenedor">      
     <a href="login.php" class="action-button shadow animate green">Log In</a>
-    <a href="register.php" class="action-button shadow animate blue">Register</a>
+    <!--<a href="register.php" class="action-button shadow animate blue">Register</a>-->
   </div>
   </body>
 </html>
