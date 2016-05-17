@@ -1,8 +1,7 @@
 <?php
 
-
 namespace es\ucm\aw\internprise;
-
+use DateTime;
 
 class Estudiante extends Usuario
 {
@@ -69,15 +68,19 @@ class Estudiante extends Usuario
             (!isset($datos['nombre_universidad']))||  (!isset($datos['sexo'])) ||  (!isset($datos['direccion']))
             || (!isset($datos['cp'])) ||  (!isset($datos['fecha_nacimiento'])) ||  (!isset($datos['localidad']))
             ||  (!isset($datos['provincia'])) ||  (!isset($datos['pais'])) ) {
+            $result = array();
             $result[] = 'No se ha introducido un campo obligatorio';
             return $result;
         }
 
         /*Comprobar fecha de nacimiento*/
-        $datos['fecha_nacimiento'] = date_format ($datos['fecha_nacimiento'],'Y/m/d');
-        if(!$datos['fecha_nacimiento']) {
+
+        $fechaNacimiento = date_format (new DateTime($datos['fecha_nacimiento']),'Y-m-d');
+        if(!$fechaNacimiento) {
             $result[] = 'La fecha de nacimiento introducida no es válida';
             return $result;
+        } else {
+            $datos['fecha_nacimiento'] = $fechaNacimiento;
         }
         return true;
     }
@@ -92,6 +95,7 @@ class Estudiante extends Usuario
         $sanitizedData['grado'] = isset($datos['grado']) ? filter_var($datos['grado'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['nombre_universidad'] = isset($datos['nombre_universidad']) ? filter_var($datos['nombre_universidad'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['sexo'] = isset($datos['sexo']) ? filter_var($datos['sexo'], FILTER_SANITIZE_STRING) : null ;
+        $sanitizedData['nacionalidad'] = isset($datos['nacionalidad']) ? filter_var($datos['nacionalidad'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['direccion'] = isset($datos['direccion']) ? filter_var($datos['direccion'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['cp'] = isset($datos['cp']) ? filter_var($datos['cp'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['fecha_nacimiento'] = isset($datos['fecha_nacimiento']) ? filter_var($datos['fecha_nacimiento'], FILTER_SANITIZE_STRING) : null ;

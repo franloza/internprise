@@ -2,7 +2,7 @@
 
 
 namespace es\ucm\aw\internprise;
-
+use DateTime;
 
 class Empresa extends Usuario
 {
@@ -38,7 +38,7 @@ class Empresa extends Usuario
         $result = self::validateData($datos);
         if(!is_array($result)) {
             //Los datos son correctos y han sido sanitizados
-            $result = UsuarioDAO::registerEmpresa($user);
+            $result = UsuarioDAO::registerEmpresa($datos);
         }
         return $result;
     }
@@ -56,6 +56,7 @@ class Empresa extends Usuario
         /*Comprobar campos obligatorios*/
         if((!isset($datos['cif']))|| (!isset($datos['razon_social']))  ||  (!isset($datos['direccion'])) ||  (!isset($datos['cp'])) ||  (!isset($datos['localidad']))
             ||  (!isset($datos['provincia'])) ||  (!isset($datos['pais'])) ) {
+            $result = array();
             $result[] = 'No se ha introducido un campo obligatorio';
             return $result;
         }
@@ -70,7 +71,7 @@ class Empresa extends Usuario
         $sanitizedData['cif'] = isset($datos['cif']) ? str_replace(' ', '', filter_var($datos['cif'], FILTER_SANITIZE_STRING)) : null ;
         $sanitizedData['razon_social'] = isset($datos['razon_social']) ? filter_var($datos['razon_social'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['direccion'] = isset($datos['direccion']) ? filter_var($datos['direccion'], FILTER_SANITIZE_STRING) : null ;
-        $sanitizedData['cp'] = isset($datos['cp']) ? filter_var($datos['cp'], FILTER_SANITIZE_STRING) : null ;
+        $sanitizedData['cp'] = isset($datos['cp']) ? intval($datos['cp']) : null ;
         $sanitizedData['localidad'] = isset($datos['localidad']) ? filter_var($datos['localidad'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['provincia'] = isset($datos['provincia']) ? filter_var($datos['provincia'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['pais'] = isset($datos['pais']) ? filter_var($datos['pais'], FILTER_SANITIZE_STRING) : null ;

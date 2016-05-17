@@ -11,12 +11,7 @@ class FormularioRegister extends Form{
     }
 
     protected function generaCamposFormulario ($datos) {
-
-
-        $hidden = '<input id="rolHidden" type="hidden" name="rol">';
-        $campos = self::generaCamposFormularioAdmin($datos) . self::generaCamposFormularioEmpresa($datos) .
-            self::generaCamposFormularioEstudiante($datos) . $hidden;
-      return $campos;
+      return self::generaCamposFormularioAdmin($datos) . self::generaCamposFormularioEmpresa($datos) . self::generaCamposFormularioEstudiante($datos);
     }
 
     private function generaCamposFormularioAdmin ($datos) {
@@ -66,7 +61,7 @@ class FormularioRegister extends Form{
         <p><label>Pais:</label> <input type="text" name="pais" value=""/>$pais</p>
         <p><label>Web:</label> <input type="text" name="web" value=""/><br />$web</p>
         <p><label>Telefono:</label> <input type="text" name="telefono" value=""/>$telefono</p>
-        <button type="submit">Entrar</button>
+        <button type="submit" disabled>Registrarse (No disponible)</button>
       </fieldset>
 EOF;
       return $camposForm;
@@ -112,6 +107,10 @@ EOF;
             $telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
         }
 
+        $hChecked = (isset($sexo) == 'Hombre') ? "checked" : "";
+        $mChecked = (isset($sexo) == 'Mujer') ? "checked" : "";
+        $birth = (isset($fecha_nacimiento)) ? date($fecha_nacimiento) : "";
+
       $camposForm=<<<EOF
        <fieldset id='estudiante'>
         <legend>Registro para Estudiantes</legend>
@@ -121,18 +120,20 @@ EOF;
         <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
         <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/><br /></p>
         <p><label>Grado:</label> <input type="text" name="grado" value="$grado"/><br/></p>
-        <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value="$nombre_universidad"/></p>
-        <p><label>Sexo:</label> <input type="radio" name="sexo" value="hombre"/>Hombre<input type="radio" name="$sexo" value="mujer"/>Mujer<br /></p>
+        <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value="$nombre_universidad"/></p> 
+        <p><label>Sexo:</label> 
+             <input type="radio" name="sexo" value="Hombre" $hChecked >Hombre 
+             <input type="radio" name="sexo" value="Mujer" $mChecked > Mujer <br></p>
         <p><label>Nacionalidad:</label> <input type="text" name="nacionalidad" value="$nacionalidad"/><br /></p>
         <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
-        <p><label>Fecha Nacimiento:</label> <input type="date" name="fecha_nacimiento" value=" $fecha_nacimiento"/><br /></p>
+        <p><label>Fecha Nacimiento:</label> <input type="date" name="fecha_nacimiento" value="$birth"/><br /></p>
         <p><label>Codigo Postal:</label> <input type="text" name="cp" value="$cp"/><br /></p>
         <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
         <p><label>Provincia:</label> <input type="text" name="provincia" value="$provincia"/><br /></p>
         <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
         <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
         <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
-        <button type="submit">Entrar</button>
+        <button type="submit">Registrarse</button>
       </fieldset>
 EOF;
       return $camposForm;
@@ -180,7 +181,7 @@ EOF;
       <p><label>Pais:</label> <input type="text" name="pais" value=""/>$pais</p>
       <p><label>Web:</label> <input type="text" name="web" value=""/><br />$web</p>
       <p><label>Telefono:</label> <input type="text" name="telefono" value=""/>$telefono</p>
-      <button type="submit">Entrar</button>
+      <button type="submit" disabled>Registrarse (No disponible)</button>
     </fieldset>
 
 EOF;
@@ -202,8 +203,7 @@ EOF;
             // SEGURIDAD: Forzamos que se genere una nueva cookie de sesión por si la han capturado antes de hacer login
             $user = Usuario::login($datos['email'], $datos['password']);
             session_regenerate_id(true);
-            Aplicacion::getSingleton()->login($user);
-            $result = \es\ucm\aw\internprise\Aplicacion::getSingleton()->resuelve('/dashboard.php');
+            $result = \es\ucm\aw\internprise\Aplicacion::getSingleton()->resuelve('/login.php');
         }
         return $result;
     }

@@ -21,7 +21,7 @@ class FormularioLogin extends Form {
     $camposFormulario=<<<EOF
 		<fieldset>
 		  <legend>Usuario y contraseña</legend>
-		  <p><label>Name:</label> <input type="text" name="email" value="$email"/></p>
+		  <p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
 		  <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
 		  <button type="submit">Entrar</button>
 		</fieldset>

@@ -59,7 +59,7 @@ EOF;
                </a>
                <div class="txt-search">
                    <form method="post" action="#">
-                       <input class="txt-search" type="text" placeholder="Buscador de estudiantes / empresas">
+                       <input class="txt-search" type="text" placeholder="Buscador de empresas">
                    </form>
                </div>
            </div>
@@ -73,7 +73,7 @@ EOF;
 
         /*Generar contenido widget Ofertas */
         $widgets .= "<!-- INI Widget Ofertas activos -->";
-        $ofertas = OfertaDAO::cargasOfertasEstudiante(null,null);
+        $ofertas = OfertaDAO::cargasOfertasEstudiante(null);
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
             $titleItem = $oferta->getEmpresa();
