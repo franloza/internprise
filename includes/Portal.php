@@ -79,7 +79,7 @@ EOF;
             <!-- script para peticiones asíncronas AJAX -->
             <script>
                 function loadContent(value) { 
-                     $.get("includes/ajaxRequest.php?val=" + value, function(data, status){
+                     $.get("ajaxRequest.php?val=" + value, function(data, status){
                         $('#content').html(data);
                       });     
                 }
