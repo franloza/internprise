@@ -1,3 +1,0 @@
-Funcionalidades completas:
-- Login
-- Crear y ver ofertas
