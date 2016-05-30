@@ -18,13 +18,22 @@ require_once __DIR__ . '/includes/config.php';
             <option value="estudiante" selected="selected">Estudiante</option>
             <option value="admin">Administrador</option>
         </select>
-        <?php $formLogin =  new \es\ucm\aw\internprise\FormularioRegister();$formLogin->gestiona(); ?>
+        <div id="formAdmin">
+            <?php $formAdmin =  new \es\ucm\aw\internprise\FormularioRegister('admin');$formAdmin->gestiona(); ?>
+        </div>
+        <div id="formEstudiante">
+            <?php $formEstudiante =  new \es\ucm\aw\internprise\FormularioRegister('estudiante');$formEstudiante->gestiona(); ?>
+        </div>
+        <div id="formEmpresa">
+            <?php $formEmpresa =  new \es\ucm\aw\internprise\FormularioRegister('empresa');$formEmpresa->gestiona(); ?>
+        </div>
+
     </div>
 </div>
 <script>
     $(document).ready(function () {
         $("#regSelect").val("estudiante");
-        $( "input:hidden#rolHidden").val("estudiante");
+        $( "#formEstudiante").find("input:hidden#rolHidden").val("estudiante");
     });
 
     $( "#regSelect").change(function () {
@@ -32,26 +41,26 @@ require_once __DIR__ . '/includes/config.php';
         switch (valueSelected) {
             case "empresa":
             {
-                $('fieldset#estudiante').hide();
-                $('fieldset#empresa').show();
-                $("fieldset#admin").hide();
-                $( "input:hidden#rolHidden").val("empresa");
+                $('#formEstudiante').hide();
+                $('#formEmpresa').show();
+                $("#formAdmin").hide();
+                $( "#formEmpresa").find("input:hidden#rolHidden").val("empresa");
                 break;
             }
             case "estudiante":
             {
-                $('fieldset#estudiante').show();
-                $('fieldset#empresa').hide();
-                $('fieldset#admin').hide();
-                $( "input:hidden#rolHidden").val("estudiante");
+                $('#formEstudiante').show();
+                $('#formEmpresa').hide();
+                $('#formAdmin').hide();
+                $( "#formEstudiante").find("input:hidden#rolHidden").val("estudiante");
                 break;
             }
             case "admin":
             {
-                $('fieldset#estudiante').hide();
-                $('fieldset#empresa').hide();
-                $('fieldset#admin').show();
-                $( "input:hidden#rolHidden").val("admin");
+                $('#formEstudiante').hide();
+                $('#formEmpresa').hide();
+                $('#formAdmin').show();
+                $( "#formAdmin").find("input:hidden#rolHidden").val("admin");
                 break;
             }
         }

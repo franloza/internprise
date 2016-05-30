@@ -54,7 +54,7 @@ class Empresa extends Usuario
         }
 
         /*Comprobar campos obligatorios*/
-        if((!isset($datos['cif']))|| (!isset($datos['razon_social']))  ||  (!isset($datos['direccion'])) ||  (!isset($datos['cp'])) ||  (!isset($datos['localidad']))
+        if((!isset($datos['cif']))|| (!isset($datos['razonSocial']))  ||  (!isset($datos['direccion'])) ||  (!isset($datos['cp'])) ||  (!isset($datos['localidad']))
             ||  (!isset($datos['provincia'])) ||  (!isset($datos['pais'])) ) {
             $result = array();
             $result[] = 'No se ha introducido un campo obligatorio';
@@ -69,7 +69,7 @@ class Empresa extends Usuario
         $sanitizedData['email'] = isset($datos['email']) ? filter_var($datos['email'], FILTER_SANITIZE_EMAIL) : null;
         $sanitizedData['password'] = isset($datos['password']) ? filter_var($datos['password'], FILTER_SANITIZE_STRING) : null;
         $sanitizedData['cif'] = isset($datos['cif']) ? str_replace(' ', '', filter_var($datos['cif'], FILTER_SANITIZE_STRING)) : null ;
-        $sanitizedData['razon_social'] = isset($datos['razon_social']) ? filter_var($datos['razon_social'], FILTER_SANITIZE_STRING) : null ;
+        $sanitizedData['razonSocial'] = isset($datos['razonSocial']) ? filter_var($datos['razonSocial'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['direccion'] = isset($datos['direccion']) ? filter_var($datos['direccion'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['cp'] = isset($datos['cp']) ? intval($datos['cp']) : null ;
         $sanitizedData['localidad'] = isset($datos['localidad']) ? filter_var($datos['localidad'], FILTER_SANITIZE_STRING) : null ;

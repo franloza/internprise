@@ -92,8 +92,26 @@ class UsuarioDAO
 
             $stmt = $conn->prepare('INSERT INTO empresas(id_usuario ,cif ,razon_social ,direccion ,localidad ,provincia ,cp ,
                                     pais ,telefono , web ) VALUES (?,?,?,?,?,?,?,?,?,?)');
-            $stmt->bind_param("isssssisss", $id, $datos['cif'], $datos['razon_social'],$datos['direccion'],
+            $stmt->bind_param("isssssisss", $id, $datos['cif'], $datos['razonSocial'],$datos['direccion'],
                 $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web']);
+            if (!$stmt->execute()) {
+                $result [] = $stmt->error;
+                return $result;
+            }
+        }
+        return true;
+    }
+
+    public static function registerAdmin($datos) {
+        $id = self::registerUsuario ($datos['email'],$datos['password'],$datos['rol']);
+        if (!is_array($id)) {
+            $app = App::getSingleton();
+            $conn = $app->conexionBd();
+            $stmt = $conn->prepare('INSERT INTO administradores(id_usuario,nombre,apellidos,nombre_universidad,sexo,dirección,cp,localidad,
+                provincia,pais,web,telefono) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
+            $stmt->bind_param("isssssssssss", $id, $datos['nombre'], $datos['apellidos'],$datos['nombre_universidad'],
+                $datos['sexo'],$datos['direccion'],$datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'],
+                $datos['telefono'], $datos['web']);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
                 return $result;

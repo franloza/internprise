@@ -6,12 +6,21 @@ class FormularioRegister extends Form{
 
     const HTML5_EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
 
-    public function __construct() {
-      parent::__construct('formRegister');
+    private $tipo;
+
+    public function __construct($tipo) {
+      parent::__construct('formRegister'.'_'.$tipo);
+      $this->tipo = $tipo;
     }
 
     protected function generaCamposFormulario ($datos) {
-      return self::generaCamposFormularioAdmin($datos) . self::generaCamposFormularioEmpresa($datos) . self::generaCamposFormularioEstudiante($datos);
+        $campos = '<input id="rolHidden" type="hidden" name="rol">';
+        switch ($this->tipo) {
+            case 'admin': {$campos .= self::generaCamposFormularioAdmin($datos);break;}
+            case 'estudiante': {$campos .= self::generaCamposFormularioEstudiante($datos);break;}
+            case 'empresa': {$campos .= self::generaCamposFormularioEmpresa($datos);break;}
+        }
+        return $campos;
     }
 
     private function generaCamposFormularioAdmin ($datos) {
@@ -45,15 +54,19 @@ class FormularioRegister extends Form{
         $telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
       }
 
+        $hChecked = (isset($sexo) == 'Hombre') ? "checked" : "";
+        $mChecked = (isset($sexo) == 'Mujer') ? "checked" : "";
+
       $camposForm=<<<EOF
-      <fieldset id='admin'>
         <legend>Registro para Administradores</legend>
         <p><label>eMail:</label> <input type="text" name="email" value="$email"/></p>
         <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
         <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
         <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/><br /></p>
         <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value="$nombre_universidad"/></p>
-        <p><label>Sexo:</label> <input type="radio" name="sexo" value="hombre"/>Hombre<input type="radio" name="sexo" value="$sexo"/>Mujer<br /></p>
+        <p><label>Sexo:</label> 
+             <input type="radio" name="sexo" value="Hombre" $hChecked >Hombre 
+             <input type="radio" name="sexo" value="Mujer" $mChecked > Mujer <br></p>
         <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value=""/>$direccion</p>
         <p><label>Codigo Postal:</label> <input type="text" name="cp" value=""/><br />$cp</p>
         <p><label>Localidad:</label> <input type="text" name="localidad" value=""/>$localidad</p>
@@ -61,8 +74,7 @@ class FormularioRegister extends Form{
         <p><label>Pais:</label> <input type="text" name="pais" value=""/>$pais</p>
         <p><label>Web:</label> <input type="text" name="web" value=""/><br />$web</p>
         <p><label>Telefono:</label> <input type="text" name="telefono" value=""/>$telefono</p>
-        <button type="submit" disabled>Registrarse (No disponible)</button>
-      </fieldset>
+        <button type="submit">Registrarse</button>
 EOF;
       return $camposForm;
     }
@@ -112,7 +124,6 @@ EOF;
         $birth = (isset($fecha_nacimiento)) ? date($fecha_nacimiento) : "";
 
       $camposForm=<<<EOF
-       <fieldset id='estudiante'>
         <legend>Registro para Estudiantes</legend>
         <p><label>Email:</label> <input type="text" name="email" value="$email"/><br /></p>
         <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
@@ -134,7 +145,6 @@ EOF;
         <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
         <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
         <button type="submit">Registrarse</button>
-      </fieldset>
 EOF;
       return $camposForm;
    }
@@ -168,7 +178,6 @@ EOF;
     }
 
     $camposForm=<<<EOF
-     <fieldset id='empresa'>
       <legend>Registro para Empresa</legend>
       <p><label>eMail:</label> <input type="text" name="email" value="$email"/></p>
       <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
@@ -181,9 +190,7 @@ EOF;
       <p><label>Pais:</label> <input type="text" name="pais" value=""/>$pais</p>
       <p><label>Web:</label> <input type="text" name="web" value=""/><br />$web</p>
       <p><label>Telefono:</label> <input type="text" name="telefono" value=""/>$telefono</p>
-      <button type="submit" disabled>Registrarse (No disponible)</button>
-    </fieldset>
-
+      <button type="submit">Registrarse</button>
 EOF;
     return $camposForm;
     }

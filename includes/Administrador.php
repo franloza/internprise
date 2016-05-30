@@ -41,7 +41,7 @@ class Administrador extends Usuario
         $result = self::validateData($datos);
         if(!is_array($result)) {
             //Los datos son correctos y han sido sanitizados
-            $result = UsuarioDAO::registerAdministrador($user);
+            $result = UsuarioDAO::registerAdmin($datos);
         }
         return $result;
     }
