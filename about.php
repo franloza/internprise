@@ -8,16 +8,15 @@
 <body>
 	<main>
 		<section id="left"></section>
-		<article id="main">
-			<aside id="logo">
-				<img src="img/favicon-admin.png" alt="Internprise icon" />
-			</aside>
-			<header>
-				<span>Internprise</span>
-				<span>
-					Pr&aacute;cticas en empresa 
-					<a href="https://www.ucm.es"/>Universidad Complutense Madrid</a>
-				</span>
+		<article id="artabout">
+			<header id="about">
+				<h1>Team Internprise</h1>
+				<section class="box a"></section>
+				<section class="box b"></section>
+				<section class="box c"></section>
+				<section class="box d"></section>
+				<section class="box e"></section>
+				<section class="box f"></section>
 			</header>
 		</article>
 		<section id="right"></section>

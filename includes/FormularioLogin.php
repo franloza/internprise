@@ -19,13 +19,19 @@ class FormularioLogin extends Form {
     }
 
     $camposFormulario=<<<EOF
-		<fieldset>
-		  <legend>Usuario y contraseña</legend>
-		  <p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
-		  <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
-		  <button type="submit">Entrar</button>
-		</fieldset>
+		<form method="post" action="#">
+			<input type="text" name="email" placeholder="Email" required="required" />
+			<input type="password" name="password" placeholder="Password" required="required" />
+			<button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
+		</form>
 EOF;
+		//<fieldset>
+		  //<legend>Usuario y contraseña</legend>
+		  //<p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
+		  //<p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
+		  //<button type="submit">Entrar</button>
+		//</fieldset>
+
     return $camposFormulario;
   }
 

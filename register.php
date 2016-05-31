@@ -1,73 +1,95 @@
 <?php
-
-require_once __DIR__ . '/includes/config.php';
-
+//require_once __DIR__.'/includes/config.php';
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta content="text/html; charset=utf-8">
-    <script src="js/jquery-2.2.3.js"></script>
-    <title>Registro</title>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/estilo_index.css" />
+	<title>Internprise</title>
 </head>
+
 <body>
-<div id="contenedor">
-    <div id="contenido">
-        <select id="regSelect">
-            <option value="empresa">Empresa</option>
-            <option value="estudiante" selected="selected">Estudiante</option>
-            <option value="admin">Administrador</option>
-        </select>
-        <div id="formAdmin">
-            <?php $formAdmin =  new \es\ucm\aw\internprise\FormularioRegister('admin');$formAdmin->gestiona(); ?>
-        </div>
-        <div id="formEstudiante">
-            <?php $formEstudiante =  new \es\ucm\aw\internprise\FormularioRegister('estudiante');$formEstudiante->gestiona(); ?>
-        </div>
-        <div id="formEmpresa">
-            <?php $formEmpresa =  new \es\ucm\aw\internprise\FormularioRegister('empresa');$formEmpresa->gestiona(); ?>
-        </div>
+	<main>
+		<section id="left"></section>
+		<article id="main_register">
+			<header id="register_fields">
+				<h1>Register</h1>
+				<select id="regSelect">
+					<option placeholder="empresa">Empresa</option>
+					<option value="estudiante" selected="selected">Estudiante</option>
+					<option value="admin">Administrador</option>
+				</select>
+				<fieldset id='admin'>
+					<legend>Registro para Administradores</legend>
+					<input type="text" name="email" placeholder="Email">
+					<input type="password" name="password" placeholder="Password"/>
+					<input type="text" name="nombre" placeholder="Name"/>
+					<input type="text" name="apellidos" placeholder="Surname"/>
+					<input type="text" name="nombre_universidad" placeholder="University"/>
+					Man <input type="radio" name="sexo" placeholder="Man" checked/>
+					Woman <input type="radio" name="sexo" placeholder="Woman"/></br /></br />
+					<input type="text" size="50" name="direccion" placeholder="Address"/>
+					<input type="text" name="cp" placeholder="CP"/>
+					<input type="text" name="localidad" placeholder="City"/>
+					<input type="text" name="provincia" placeholder="State"/>
+					<input type="text" name="pais" placeholder="Country"/>
+					<input type="text" name="web" placeholder="Web"/>
+					<input type="text" name="telefono" placeholder="Phone"/>
+					<button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
+				</fieldset>
+			</header>
+		</article>
+		<section id="right"></section>
+	</main>
+	</section>
+	<nav>
+		<ul>
+			<li><a href="index.php">Home</a></li>
+			<li><a href="about.php">About us</a></li>
+			<li><a href="login.php">Login</a></li>
+			<li><a href="register.php">Register</a></li>
+			<li><a href="contact.php">Contact</a></li>
+			<li class="slide"></li>
+		</ul>
+	</nav>
 
-    </div>
-</div>
-<script>
-    $(document).ready(function () {
-        $("#regSelect").val("estudiante");
-        $( "#formEstudiante").find("input:hidden#rolHidden").val("estudiante");
-    });
+	<script>
+		$(document).ready(function () {
+			$("#regSelect").val("estudiante");
+			$("input:hidden#rolHidden").val("estudiante");
+		});
 
-    $( "#regSelect").change(function () {
-        var valueSelected = this.value;
-        switch (valueSelected) {
-            case "empresa":
-            {
-                $('#formEstudiante').hide();
-                $('#formEmpresa').show();
-                $("#formAdmin").hide();
-                $( "#formEmpresa").find("input:hidden#rolHidden").val("empresa");
-                break;
-            }
-            case "estudiante":
-            {
-                $('#formEstudiante').show();
-                $('#formEmpresa').hide();
-                $('#formAdmin').hide();
-                $( "#formEstudiante").find("input:hidden#rolHidden").val("estudiante");
-                break;
-            }
-            case "admin":
-            {
-                $('#formEstudiante').hide();
-                $('#formEmpresa').hide();
-                $('#formAdmin').show();
-                $( "#formAdmin").find("input:hidden#rolHidden").val("admin");
-                break;
-            }
-        }
-    }).change();
-</script>
+		$("#regSelect").change(function () {
+			var valueSelected = this.value;
+			switch (valueSelected) {
+				case "empresa":
+				{
+					$('fieldset#estudiante').hide();
+					$('fieldset#empresa').show();
+					$("fieldset#admin").hide();
+					$("input:hidden#rolHidden").val("empresa");
+					break;
+				}
+				case "estudiante":
+				{
+					$('fieldset#estudiante').show();
+					$('fieldset#empresa').hide();
+					$('fieldset#admin').hide();
+					$("input:hidden#rolHidden").val("estudiante");
+					break;
+				}
+				case "admin":
+				{
+					$('fieldset#estudiante').hide();
+					$('fieldset#empresa').hide();
+					$('fieldset#admin').show();
+					$("input:hidden#rolHidden").val("admin");
+					break;
+				}
+			}
+		}).change();
+	</script>
 </body>
 </html>
-
-
-
