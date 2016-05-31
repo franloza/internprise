@@ -4,7 +4,7 @@ require_once __DIR__ . '/includes/config.php';
     
 ?><!DOCTYPE html>
 <html>
-<head>
+<head> 
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <link rel="stylesheet" type="text/css" href="<?= $app->resuelve('/css/login.css') ?>" />
   <title>Login</title>
