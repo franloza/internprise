@@ -186,11 +186,11 @@ article#main, article#artabout, article#main_login {
 
 #register_fields {
 	position: absolute;
-	top: 46%;
+	top: 35%;
 	left: 50%;
 	margin: -200px 0 0 -150px;
 	width:370px;
-	height: 616px;
+	height: 525px;
 	overflow-y: auto;
 }
 
@@ -198,14 +198,43 @@ select#regSelect {
     margin: 10px 0px;
     padding: 6px;
 }
+#regSelect {
+    width: 350px;
+    background:#fff;
+    display: inline-block;
+    margin: 0.55em 0.5em 0.25em 0.25em;
+    border: 0.0625em solid rgb(192,192,192);
+    border-radius: 0.25em;
+    background: rgb(224,224,224);
+    vertical-align: bottom;
+
+}
 
 fieldset#admin {
-	color: #fff;
-	margin-top: 5px;
-	padding: 5px;
-	border: 1px solid #4D7DC1;
-	height: 100%;
-	border: 0px;
+    color: #fff;
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #4D7DC1;
+    height: 100%;
+    border: 0px;
+}
+
+fieldset#estudiante {
+    color: #fff;
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #4D7DC1;
+    height: 100%;
+    border: 0px;
+}
+
+fieldset#empresa {
+    color: #fff;
+    margin-top: 5px;
+    padding: 5px;
+    border: 1px solid #4D7DC1;
+    height: 100%;
+    border: 0px;
 }
 
 input[type="radio"] {
@@ -244,7 +273,7 @@ header#login h1 {
 	text-shadow: 0 0 10px rgba(0,0,0,0.3); 
 	letter-spacing:1px; 
 	margin-bottom: 18px;
-} 
+}
 
 input {
 	width: 92%; 

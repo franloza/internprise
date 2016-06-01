@@ -17,7 +17,7 @@
 			<header id="register_fields">
 				<h1>Register</h1>
 				<select id="regSelect">
-					<option placeholder="empresa">Empresa</option>
+					<option value="empresa">Empresa</option>
 					<option value="estudiante" selected="selected">Estudiante</option>
 					<option value="admin">Administrador</option>
 				</select>
@@ -30,6 +30,42 @@
 					<input type="text" name="nombre_universidad" placeholder="University"/>
 					Man <input type="radio" name="sexo" placeholder="Man" checked/>
 					Woman <input type="radio" name="sexo" placeholder="Woman"/></br /></br />
+					<input type="text" size="50" name="direccion" placeholder="Address"/>
+					<input type="text" name="cp" placeholder="CP"/>
+					<input type="text" name="localidad" placeholder="City"/>
+					<input type="text" name="provincia" placeholder="State"/>
+					<input type="text" name="pais" placeholder="Country"/>
+					<input type="text" name="web" placeholder="Web"/>
+					<input type="text" name="telefono" placeholder="Phone"/>
+					<button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
+				</fieldset>
+				<fieldset id='estudiante'>
+					<legend>Registro para Estudiantes</legend>
+					<input type="text" name="dni" placeholder="DNI">
+					<input type="text" name="email" placeholder="Email">
+					<input type="password" name="password" placeholder="Password"/>
+					<input type="text" name="nombre" placeholder="Name"/>
+					<input type="text" name="apellidos" placeholder="Surname"/>
+					<input type="date" name="fecha_nacimiento" value="AAAA-MM-DD" placeholder="Fecha de nacimiento"/>
+					<input type="text" name="nombre_universidad" placeholder="University"/>
+					<input type="text" name="id_grado" placeholder="ID Grade"/>
+					Man <input type="radio" name="sexo" placeholder="Man" checked/>
+					Woman <input type="radio" name="sexo" placeholder="Woman"/></br /></br />
+					<input type="text" name="nacionalidad" placeholder="Nationality"/>
+					<input type="text" size="50" name="direccion" placeholder="Address"/>
+					<input type="text" name="localidad" placeholder="City"/>
+					<input type="text" name="provincia" placeholder="State"/>
+					<input type="text" name="pais" placeholder="Country"/>
+					<input type="text" name="web" placeholder="Web"/>
+					<input type="text" name="telefono" placeholder="Phone"/>
+					<button type="submit" class="btn btn-primary btn-block btn-large">Register</button>
+				</fieldset>
+				<fieldset id='empresa'>
+					<legend>Registro para Empresas</legend>
+					<input type="text" name="email" placeholder="Email">
+					<input type="password" name="password" placeholder="Password"/>
+					<input type="text" name="cif" placeholder="CIF">
+					<input type="text" name="razon_social" placeholder="Social reason">
 					<input type="text" size="50" name="direccion" placeholder="Address"/>
 					<input type="text" name="cp" placeholder="CP"/>
 					<input type="text" name="localidad" placeholder="City"/>
