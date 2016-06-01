@@ -228,6 +228,42 @@ EOF;
         return $content;
 
     }
+
+    public function generaSettings(){
+
+        $app = Aplicacion::getSingleton();
+        $id_empresa = $app->idUsuario();
+        $user = UsuarioDAO::cargaEmpresa($id_empresa);
+
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+        $cif = $user->getCif();
+        $razonSocial = $user->getRazonSocial();
+        $direccion = $user->getDireccion();
+        $localidad = $user->getLocalidad();
+        $provincia = $user->getProvincia();
+        $pais = $user->getPais();
+        $web = $user->getWeb();
+        $telefono = $user->getTelefono();
+        $cp = $user->getCp();
+
+        $content = <<<EOF
+       <legend>Cambios en el perfil: </legend>
+      <p><label>eMail:</label> <input type="text" name="email" value="$email"/></p>
+      <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
+      <p><label>CIF:</label> <input type="text" name="cif" value="$cif"/></p>
+      <p><label>Razon Social:</label> <input type="text" name="razonSocial" value="$razonSocial"/><br /></p>
+      <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
+      <p><label>Codigo Postal:</label> <input type="text" name="cp" value="$cp"/><br /></p>
+      <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
+      <p><label>Provincia:</label> <input type="text" name="provincia" value="$provincia"/><br /></p>
+      <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
+      <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
+      <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
+        <button type="submit">Confirmar cambios</button>
+EOF;
+        return $content;
+    }
 }
 
 
