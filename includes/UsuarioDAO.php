@@ -63,7 +63,7 @@ class UsuarioDAO
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
-            $user = new Estudiante($fila);
+            $user = new Administrador($fila);
             $rs->free();
             return $user;
         }

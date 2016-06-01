@@ -252,10 +252,10 @@ EOF;
                         <i id="bell" class="fa fa-bell fa-lg"></i>
                     </a>
                 </li>
-                <li>
+                <li onclick="return loadContent('SETTINGS')">
                     <a href="#">
                         <i id="settings" class="fa fa-cog fa-lg"></i>
-                    </a>
+                    </a>                        
                 </li>
                 <li>
                     <a href=$urlLogout>

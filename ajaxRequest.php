@@ -42,6 +42,7 @@ function handle_adminRequest($req){
 			case 'HISTORIAL': $content = $portalAdmin -> generaHistorial(); break;
 			case 'ENCUESTAS': $content = $portalAdmin -> generaEncuestas(); break;
 			case 'BUZON': $content = $portalAdmin -> generaBuzon(); break;
+			case 'SETTINGS': $content = $portalAdmin -> generaSettings(); break;
 		}
 		if(isset($_GET['table'])){
 			$reqTable = $_GET['table'];
@@ -80,6 +81,7 @@ function handle_empresaRequest($req) {
 				$form = new \es\ucm\aw\internprise\FormularioCrearOferta();
 				$form->gestiona();
 				break;
+			case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
 		}
 	}
     else return false;
