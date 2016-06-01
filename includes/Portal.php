@@ -165,9 +165,15 @@ EOF;
             foreach($fila as $celda){
                 //Colorear estado
                 switch ($celda) {
+                    /*Estados oferta*/
                     case 'Aceptada':{$tabla .= "<td class='cell-status'>\n\t<label class='pass'>Aceptada</label>";break;}
                     case 'Rechazada':{$tabla .= "<td class='cell-status'>\n\t<label class='fail'>Rechazada</label>";break;}
                     case 'Pendiente':{$tabla .= "<td class='cell-status'>\n\t<label class='warning'>Pendiente</label>";break;}
+                    /*Estados demanda*/
+                    case 'Pendiente de Universidad':{$tabla .= "<td class='cell-status'>\n\t<label class='warning'>Pendiente de Universidad</label>";break;}
+                    case 'Pendiente de Empresa':{$tabla .= "<td class='cell-status'>\n\t<label class='warning'>Pendiente de Empresa</label>";break;}
+                    case 'Rechazada por Universidad':{$tabla .= "<td class='cell-status'>\n\t<label class='fail'>Rechazada por Universidad</label>";break;}
+                    case 'Rechazada por Empresa':{$tabla .= "<td class='cell-status'>\n\t<label class='fail'>Rechazada por Empresa</label>";break;}
                     default: { $tabla .= "<td>"; $tabla .= $celda;}
                 }
                 $tabla .= "</td>\n";

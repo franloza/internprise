@@ -18,7 +18,7 @@ class OfertaDAO
     public static function cargaOfertasClasificadas($numOfertas,$grado)
     {
         $numOfertas = isset($numOfertas)? $numOfertas : 20;
-        $whereGrado = isset($grado)? 'WHERE nombre_grado LIKE $grado' : '';
+        $whereGrado = isset($grado)? 'WHERE nombre_grado LIKE $grado AND ' : 'WHERE ';
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
@@ -26,13 +26,13 @@ class OfertaDAO
                             FROM ofertas o
                               INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                               INNER JOIN grados_ofertas go ON go.id_oferta = o.id_oferta
-                              INNER JOIN grados g ON g.id_grado = go.id_grado $whereGrado AND estado IN ('Aceptada', 'Rechazada')
+                              INNER JOIN grados g ON g.id_grado = go.id_grado $whereGrado estado IN ('Aceptada', 'Rechazada')
                               ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
             $ofertas =  array();
             while ($fila = $rs->fetch_assoc()) {
-                array_push($ofertas,self::createOferta($fila));
+                array_push($ofertas,self::constructOferta($fila));
             }
             $rs->free();
             return $ofertas;
@@ -48,7 +48,7 @@ class OfertaDAO
     public static function cargaOfertasNoClasificadas($numOfertas,$grado)
     {
         $numOfertas = isset($numOfertas)? $numOfertas : 20;
-        $whereGrado = isset($grado)? 'WHERE nombre_grado LIKE $grado' : '';
+        $whereGrado = isset($grado)? 'WHERE nombre_grado LIKE $grado AND' : 'WHERE';
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
@@ -56,13 +56,13 @@ class OfertaDAO
                             FROM ofertas o
                               INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                               LEFT JOIN grados_ofertas go ON go.id_oferta = o.id_oferta
-                              LEFT JOIN grados g ON g.id_grado = go.id_grado $whereGrado AND estado LIKE 'Pendiente'
+                              LEFT JOIN grados g ON g.id_grado = go.id_grado $whereGrado estado LIKE 'Pendiente'
                               ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
             $ofertas =  array();
             while ($fila = $rs->fetch_assoc()) {
-                array_push($ofertas,self::createOferta($fila));
+                array_push($ofertas,self::constructOferta($fila));
             }
             $rs->free();
             return $ofertas;
@@ -92,7 +92,7 @@ class OfertaDAO
         if ($rs) {
             $ofertas = array();
             while ($fila = $rs->fetch_assoc()) {
-                array_push($ofertas,self::createOferta($fila));
+                array_push($ofertas,self::constructOferta($fila));
             }
             $rs->free();
             return $ofertas;
@@ -121,7 +121,7 @@ class OfertaDAO
         if ($rs) {
             $ofertas = array();
             while ($fila = $rs->fetch_assoc()) {
-                array_push($ofertas,self::createOferta($fila));
+                array_push($ofertas,self::constructOferta($fila));
             }
             $rs->free();
             return $ofertas;
@@ -146,7 +146,7 @@ class OfertaDAO
         if ($rs) {
             $ofertas = array();
             while ($fila = $rs->fetch_assoc()) {
-                array_push($ofertas,self::createOferta($fila));
+                array_push($ofertas,self::constructOferta($fila));
             }
             $rs->free();
             return $ofertas;
@@ -158,23 +158,7 @@ class OfertaDAO
         $app = App::getSingleton();
         $conn = $app->conexionBd();
         $id_usuario = $app->idUsuario();
-        /*$datos['id_oferta'] = '';
-        $datos['empresa'] = '';
-        $datos['estado'] = '';
-        $datos['id_oferta'] = '';
-        $datos['fecha_creacion'] = '';
-        $datos['fecha_inicio'] = 'g';
-
-        $oferta = self::createOferta($datos);
-        $puesto = $oferta->getPuesto();
-        $sueldo = $oferta->getSueldo();
-        $fechaInicio = $oferta->getFechaIncio();
-        $fechaFin = $oferta->getFechaFin();
-        $horas = $oferta->getHoras();
-        $plazas = $oferta->getPlazas();
-        $descripcion = $oferta->getDescripcion();*/
-
-        $puesto = $datos['puesto'];
+                $puesto = $datos['puesto'];
         $sueldo = intval($datos['sueldo']);
         $fechaInicio = $datos['fecha_inicio'];
         $fechaFin = $datos['fecha_fin'];
@@ -182,7 +166,6 @@ class OfertaDAO
         $plazas = intval($datos['plazas']);
         $descripcion = $datos['descripcion'];
         $estado = 'Pendiente';
-
 
         $stmt = $conn->prepare('INSERT INTO ofertas (id_empresa, 
                           puesto, sueldo, fecha_incio, fecha_fin, horas, 
@@ -196,14 +179,14 @@ class OfertaDAO
         }
         return true;
     }
-
-    private static function createOferta($fila) {
+    
+    private static function constructOferta($fila) {
         $idOferta = $fila['id_oferta'];
         $empresa = $fila['empresa'];
         $oferta = new Oferta($idOferta,$empresa);
         $oferta->setEstado($fila['estado']);
         $oferta->setFechaFin($fila['fecha_fin']);
-        $oferta->setFechaInicio($fila['fecha_incio']);//Si se pone fecha_inicio da problemas :( ??
+        $oferta->setFechaInicio($fila['fecha_incio']);
         $oferta->setPlazas($fila['plazas']);
         $oferta->setEstado($fila['estado']);
         $oferta->setPuesto($fila['puesto']);
@@ -213,7 +196,4 @@ class OfertaDAO
         $oferta->setDiasDesdeCreacion($fila['fecha_creacion']);
         return $oferta;
     }
-
-
-
 }

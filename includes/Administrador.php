@@ -20,7 +20,7 @@ class Administrador extends Usuario
     private $telefono;
 
     public function __construct($datos) {
-        parent::__construct(null, $datos['email'],$datos['password']);
+        parent::__construct($datos['id_usuario'], $datos['email'],$datos['password']);
         parent::setRol("Admin");
         $this->nombre = $datos['nombre'];
         $this->apellidos = $datos['apellidos'];

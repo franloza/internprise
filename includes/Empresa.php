@@ -19,7 +19,7 @@ class Empresa extends Usuario
     private $web;
 
     public function __construct($datos) {
-        parent::__construct(null, $datos['email'],$datos['password']);
+        parent::__construct($datos['id_usuario'], $datos['email'],$datos['password']);
         parent::setRol("Empresa");
         $this->cif = $datos['cif'];
         $this->razon_social = $datos['razon_social'];

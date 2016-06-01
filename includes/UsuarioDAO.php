@@ -24,6 +24,54 @@ class UsuarioDAO
         return false;
     }
 
+    public static function cargaEstudiante($id_estudiante)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN estudiantes e ON e.id_usuario = u.id_usuario
+                          WHERE e.id_usuario='%i'", intval($id_estudiante));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $user = new Estudiante($fila);
+            $rs->free();
+            return $user;
+        }
+        return false;
+    }
+
+    public static function cargaEmpresa($id_empresa)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN empresas e ON e.id_usuario = u.id_usuario
+                          WHERE e.id_usuario='%i'", intval($id_empresa));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $user = new Empresa($fila);
+            $rs->free();
+            return $user;
+        }
+        return false;
+    }
+
+    public static function cargaAdministrador($id_administrador)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN administradores a ON a.id_usuario = u.id_usuario
+                          WHERE a.id_usuario='%i'", intval($id_administrador));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $user = new Estudiante($fila);
+            $rs->free();
+            return $user;
+        }
+        return false;
+    }
+
     /**
      * @param $datos
      * @return array|bool|mixed
@@ -118,5 +166,32 @@ class UsuarioDAO
             }
         }
         return true;
+    }
+
+    public static function increaseDemandasPendientes($id_estudiante) {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $stmt = $conn->prepare('UPDATE estudiantes SET demandas_pendientes = demandas_pendientes + 1 WHERE id_estudiante = ?');
+        $stmt->bind_param("i", intval($id_estudiante));
+        if (!$stmt->execute()) {
+            $result [] = $stmt->error;
+            return $result;
+        }
+        return true;
+    }
+
+    public static function getDemandasPendientes($id_estudiante)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $demandas_pendientes = 0;
+        $query = sprintf("SELECT demandas_pendientes FROM estudiantes WHERE id_estudiante = '%i'", intval($id_estudiante));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $demandas_pendientes = $fila['demandas_pendientes'];
+            $rs->free();
+        }
+        return $demandas_pendientes;
     }
 }
