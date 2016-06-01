@@ -168,24 +168,13 @@ class UsuarioDAO
         return true;
     }
 
-    public static function increaseDemandasPendientes($id_estudiante) {
-        $app = App::getSingleton();
-        $conn = $app->conexionBd();
-        $stmt = $conn->prepare('UPDATE estudiantes SET demandas_pendientes = demandas_pendientes + 1 WHERE id_estudiante = ?');
-        $stmt->bind_param("i", intval($id_estudiante));
-        if (!$stmt->execute()) {
-            $result [] = $stmt->error;
-            return $result;
-        }
-        return true;
-    }
-
     public static function getDemandasPendientes($id_estudiante)
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
         $demandas_pendientes = 0;
-        $query = sprintf("SELECT demandas_pendientes FROM estudiantes WHERE id_estudiante = '%i'", intval($id_estudiante));
+        $query = sprintf("SELECT COUNT(*) AS demandas_pendientes FROM demandas WHERE id_estudiante = '%i' AND ESTADO LIKE 'Pendiente%'",
+            intval($id_estudiante));
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
