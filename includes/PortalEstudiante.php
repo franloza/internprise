@@ -144,28 +144,48 @@ EOF;
         $app = Aplicacion::getSingleton();
         $id_estudiante = $app->idUsuario();
         $user = UsuarioDAO::cargaEstudiante($id_estudiante);
-        $email = $user['email'];
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+         $dni = $user->getDni();
+         $nombre = $user->getNombre();
+         $apellidos = $user->getApellidos();
+         $grado = $user->getGrado();
+         $nombre_universidad = $user->getNombreUniversidad();
+         $sexo = $user->getSexo();
+         $nacionalidad = $user->getNacionalidad();
+         $direccion = $user->getDireccion();
+         $fecha_nacimiento = $user->getFechaNacimiento();
+         $localidad = $user->getLocalidad();
+         $provincia = $user->getProvincia();
+         $pais = $user->getPais();
+         $web = $user->getWeb();
+         $telefono = $user->getTelefono();
+
+
+        $hChecked = ($sexo == 'Hombre') ? "checked" : "";
+        $mChecked = ($sexo == 'Mujer') ? "checked" : "";
+
         $content = <<<EOF
        <legend>Registro para Estudiantes</legend>
         <p><label>Email:</label> <input type="text" name="email" value="$email"/><br /></p>
-        <p><label>Password:</label> <input type="password" name="password" value=""/><br /></p>
-        <p><label>DNI:</label> <input type="text" name="dni" value=""/></p>
-        <p><label>Nombre:</label> <input type="text" name="nombre" value=""/></p>
-        <p><label>Apellidos:</label> <input type="text" name="apellidos" value=""/><br /></p>
-        <p><label>Grado:</label> <input type="text" name="grado" value=""/><br/></p>
-        <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value=""/></p> 
+        <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
+        <p><label>DNI:</label> <input type="text" name="dni" value="$dni"/></p>
+        <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
+        <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/><br /></p>
+        <p><label>Grado:</label> <input type="text" name="grado" value="$grado"/><br/></p>
+        <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value="$nombre_universidad"/></p> 
         <p><label>Sexo:</label> 
-             <input type="radio" name="sexo" value="Hombre"  >Hombre 
-             <input type="radio" name="sexo" value="Mujer"  > Mujer <br></p>
-        <p><label>Nacionalidad:</label> <input type="text" name="nacionalidad" value=""/><br /></p>
-        <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value=""/></p>
-        <p><label>Fecha Nacimiento:</label> <input type="date" name="fecha_nacimiento" value=""/><br /></p>
-        <p><label>Codigo Postal:</label> <input type="text" name="cp" value=""/><br /></p>
-        <p><label>Localidad:</label> <input type="text" name="localidad" value=""/></p>
-        <p><label>Provincia:</label> <input type="text" name="provincia" value=""/><br /></p>
-        <p><label>Pais:</label> <input type="text" name="pais" value=""/></p>
-        <p><label>Web:</label> <input type="text" name="web" value=""/><br /></p>
-        <p><label>Telefono:</label> <input type="text" name="telefono" value=""/></p>
+             <input type="radio" name="sexo" value="Hombre" $hChecked >Hombre 
+             <input type="radio" name="sexo" value="Mujer" $mChecked > Mujer <br></p>
+        <p><label>Nacionalidad:</label> <input type="text" name="nacionalidad" value="$nacionalidad"/><br /></p>
+        <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
+        <p><label>Fecha Nacimiento:</label> <input type="date" name="fecha_nacimiento" value="$fecha_nacimiento"/><br /></p>
+        <p><label>Codigo Postal:</label> <input type="text" name="cp" value="TODO:Incluir en BBDD"/><br /></p>
+        <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
+        <p><label>Provincia:</label> <input type="text" name="provincia" value="$provincia"/><br /></p>
+        <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
+        <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
+        <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
         <button type="submit">Registrarse</button>
 EOF;
         return $content;

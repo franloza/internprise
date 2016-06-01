@@ -11,7 +11,7 @@ class UsuarioDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM usuarios WHERE email='%s'", $conn->real_escape_string($email));
+        $query = sprintf("SELECT * FROM usuarios WHERE email='%d'", $conn->real_escape_string($email));
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
@@ -26,10 +26,10 @@ class UsuarioDAO
 
     public static function cargaEstudiante($id_estudiante)
     {
+        $id_estudiante = intval($id_estudiante);
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM usuarios u INNER JOIN estudiantes e ON e.id_usuario = u.id_usuario
-                          WHERE e.id_usuario='%i'", intval($id_estudiante));
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN estudiantes e ON e.id_usuario = u.id_usuario INNER JOIN grados g ON g.id_grado = e.id_grado WHERE e.id_usuario='%d'", $id_estudiante);
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
@@ -60,8 +60,7 @@ class UsuarioDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM usuarios u INNER JOIN administradores a ON a.id_usuario = u.id_usuario
-                          WHERE a.id_usuario='%i'", intval($id_administrador));
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN administradores a ON a.id_usuario = u.id_usuario WHERE a.id_usuario='%d'", intval($id_administrador));
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();

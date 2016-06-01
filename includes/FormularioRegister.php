@@ -54,8 +54,8 @@ class FormularioRegister extends Form{
         $telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
       }
 
-        $hChecked = (isset($sexo) == 'Hombre') ? "checked" : "";
-        $mChecked = (isset($sexo) == 'Mujer') ? "checked" : "";
+        $hChecked = ($sexo == 'Hombre') ? "checked" : "";
+        $mChecked = ($sexo == 'Mujer') ? "checked" : "";
 
       $camposForm=<<<EOF
         <legend>Registro para Administradores</legend>
