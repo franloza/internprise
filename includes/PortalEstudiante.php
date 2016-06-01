@@ -139,6 +139,15 @@ EOF;
         // TODO: Implement generaBuzon() method.
     }
 
+    public function generaSettings(){
+
+        $content = "Estamos trabajando en ello";
+        $content .= " hehehehe";
+
+
+        return $content;
+    }
+
 }
 
 

@@ -55,6 +55,7 @@ function handle_studentRequest($req) {
 			case 'PERFIL': $content = $portalEstudiante -> generaPerfil(); break;
 			case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
 			case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
+			case 'SETTINGS': $content = $portalEstudiante -> generaSettings(); break;
 		}
 	}
 }

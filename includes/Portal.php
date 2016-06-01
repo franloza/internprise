@@ -208,7 +208,7 @@ EOF;
         </div>
         <div id="icons-titlebar">
             <a id="bell" class="fa fa-bell fa-lg" href="#"></a>
-            <a id="settings" class="fa fa-cog fa-lg" href="#"></a>
+            <a id="settings" class="fa fa-cog fa-lg" onclick="return loadContent('SETTINGS')" href="#"></a>
             <a class="fa fa-power-off fa-lg" href=$urlLogout></a>
         </div>
     </div>
