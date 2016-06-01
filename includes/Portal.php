@@ -52,7 +52,7 @@ abstract class Portal
         <div id="$rol-footer" class ="footer">
             Internprise
             <div class="footer-icons">
-                <a class="fa fa-github" href="https://github.com/franloza/aw"></a>
+                <a class="fa fa-github" href="https://github.com/franloza/internprise"></a>
             </div>
         </div>
 EOF;
@@ -62,7 +62,7 @@ EOF;
     /**
      * Función que genera los encabezados de la página.
      */
-    protected function generaHeadParam($titulo,$imagen)
+    protected function generaHeadParam($titulo, $imagen)
     {
         $bloqueHead = <<<EOF
         <!-- Fragmento para incluir CSS -->
@@ -73,14 +73,17 @@ EOF;
             <link rel="stylesheet" href="css/content.css" type="text/css">
             <link rel="stylesheet" href="css/titlebar&footer.css" type="text/css">
             <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
             <script src="js/jquery-2.2.3.js"></script>
+            <script type="text/javascript" src="js/datatables/datatables.min.js"></script>
             <!-- css solo para los colores-->
             <link rel="icon" type="image/png" href="$imagen">
             <!-- script para peticiones asíncronas AJAX -->
             <script>
-                function loadContent(value) { 
+                function loadContent(value, currentPage) { 
                      $.get("ajaxRequest.php?val=" + value, function(data, status){
-                        $('#content').html(data);
+                        $('#dashboard-content').html(data);
+                        $('#current-page').text(currentPage);
                       });     
                 }
                 function subMenu(showHide, id){
@@ -119,12 +122,12 @@ EOF;
             $itemDescription= $item[2];
 
             $widgetContent = <<<EOF
-                    <div class="media">
-                        <div class="media-left">
+                    <div class="widget-media">
+                        <div class="widget-media-left">
                             <i class="fa fa-$typeIcon" style="color:$colorIcon;"></i>
                         </div>
-                        <div class="media-body">
-                            <div class="media-header">
+                        <div class="widget-media-body">
+                            <div class="widget-media-header">
                                 <strong>$itemTitle</strong>
                                 $itemSubtitle
                             </div>
@@ -149,9 +152,9 @@ EOF;
         $tabla = <<<EOF
         <!-- Tabla de $tituloTabla -->
         <div id="$idTabla" class="table-container">
-            <div class="table-header"> $tituloTabla </div>
-             <table class="$classTable">
-                <tr>
+             <table class="$classTable table table-striped table-bordered table-hover">
+                <thead>
+                    <tr>
 EOF;
         foreach ($titulosColumnas as $titulo){
             $tabla .= "<th>";
@@ -159,7 +162,9 @@ EOF;
             $tabla .= "</th>\n";
         }
         $tabla .= "</tr>\n";
+        $tabla .= "</thead>\n";
 
+        $tabla .= "<tbody>\n";
         foreach($arrayFilas as $fila){
             $tabla .= "<tr>\n";
             foreach($fila as $celda){
@@ -179,14 +184,43 @@ EOF;
                 $tabla .= "</td>\n";
             }
             // TODO: Implement generaDialogoModal() for each oferta
-            $tabla .= "<td><a href=\"#\">Ver</a></td>\n";
+            //$tabla .= "<td><a href=\"#\">Ver</a></td>\n";
             //$tabla .= "<td><a onclick=\"return loadContent('OFERTAS_ADMIN')\" href='dashboard.php'>Ver</a></td>";
             $tabla .= "</tr>\n";
         }
+        $tabla .= "<tbody>\n";
         $tabla .= "</table>\n";
         $tabla .= "</div>\n";
-        $tabla .= "</div>\n";
-
+        $tabla .= <<<EOF
+        <script>
+            $('.table').DataTable( {
+                "language": {
+                    "url": "js/datatables/Spanish.json"
+                },
+                "processing": true,
+                "pagingType": "full_numbers",
+                deferRender: true,
+                fixedHeader: true,
+                colReorder: true,
+                select: true,
+                "dom": 'Blfrtip',
+                buttons: [
+                    'pdf',
+                    {
+                        text: 'Borrar filas seleccionadas',
+                        action: function (e, dt, node, config){
+                        }
+                    },
+                    {
+                        text: 'Recargar',
+                        action: function (e, dt, node, config){
+                            dt.ajax.reload();
+                        }
+                    }
+                ]
+            } );
+        </script>
+EOF;
         return $tabla;
     }
     
@@ -204,19 +238,32 @@ EOF;
         <img src="img/favicon-$rol.png" alt="Internprise icon" height="70" width="70"></img>
         <div id="label-titlebar">
             <label>
-                <a 
                 <a id="title-site" onclick="return loadContent('DASHBOARD')" href="#">$titulo</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
                 <a id="previous-page" href="$rol-dashboard.php">Anterior</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                <a id="current-page" href="$rol-dashboard.php">Actual</a>
+                <a id="current-page" href="dashboard.php">Actual</a>
             </label>
         </div>
-        <div id="icons-titlebar">
-            <a id="bell" class="fa fa-bell fa-lg" href="#"></a>
-            <a id="settings" class="fa fa-cog fa-lg" onclick="return loadContent('SETTINGS')" href="#"></a>
-            <a class="fa fa-power-off fa-lg" href=$urlLogout></a>
-        </div>
+        <nav id="icons-titlebar">
+            <ul>
+                <li onclick="return loadContent('NOTIFICATIONS')" >
+                    <a href="#">
+                        <i id="bell" class="fa fa-bell fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i id="settings" class="fa fa-cog fa-lg"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href=$urlLogout>
+                        <i class="fa fa-power-off fa-lg"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 EOF;
 

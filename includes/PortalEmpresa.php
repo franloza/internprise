@@ -19,33 +19,33 @@ class PortalEmpresa extends Portal
         <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
-                <img src="img/empresa-avatar.png" alt="Avatar image" height="200" width="200"></img>
+                <img src="img/empresa-avatar.png" alt="Avatar image" width="100%"></img>
             </div>
             <ul>
-                <li><a onclick="return loadContent('PERFIL')" href="#">PERFIL</a></li>
+                <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
                 <li onmouseenter="subMenu(true, 'sub-menu-ofertas')" onmouseleave="subMenu(false, 'sub-menu-ofertas')" >
                     <a onclick="subMenu(true, 'sub-menu-ofertas')" href="#">OFERTAS</a>
                     <div id="sub-menu-ofertas" class="sub-menu">
                         <ul>
-                            <li><a onclick="return loadContent('CREAR_OFERTA')" href="#">Crear oferta</a></li>
-                            <li><a onclick="return loadContent('OFERTAS')" href="#">Ver ofertas</a></li>
+                            <li><a onclick="return loadContent('CREAR_OFERTA', 'Crear oferta')" href="#">Crear oferta</a></li>
+                            <li><a onclick="return loadContent('OFERTAS', 'Ofertas')" href="#">Ver ofertas</a></li>
                         </ul>
                     </div>
                 </li>
                 <li>
-                    <a onclick="return loadContent('SOLICITUDES')" href="#">SOLICITUDES</a>
+                    <a onclick="return loadContent('SOLICITUDES', 'Solicitudes')" href="#">SOLICITUDES</a>
                 </li>
                 <li onmouseenter="subMenu(true, 'sub-menu-contratos')" onmouseleave="subMenu(false, 'sub-menu-contratos')" >
                     <a onclick="subMenu(true, 'sub-menu-contratos')" href="#">CONTRATOS</a>
                     <div id="sub-menu-contratos" class="sub-menu">
                         <ul>
-                            <li><a onclick="return loadContent('CONTRATOS')" href="#">En vigor</a></li>
-                            <li><a href="#">Finalizados</a></li>
+                            <li><a onclick="return loadContent('CONTRATOS_VIGOR', 'Contratos en vigor')" href="#">En vigor</a></li>
+                            <li><a onclick="return loadContent('CONTRATOS_FIN', 'Contratos finalizados')" href="#">Finalizados</a></li>
                         </ul>
                     </div>
                 </li>
                 <li>
-                    <a onclick="return loadContent('BUZON')" href="#">BUZÓN</a>
+                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a>
                 </li>
             </ul>
         </div>
@@ -173,7 +173,7 @@ EOF;
             array_push($listaOfertas,$fila);
         }
 
-        $titulosColumnas = array("Puesto", "Sueldo", "Horas", "Plazas", "Estado","Accion");
+        $titulosColumnas = array("Puesto", "Sueldo", "Horas", "Plazas", "Estado");
         $content = self::generaTabla("tabla-ofertas", "empresa-table",
                                         "Tus ofertas disponibles", $titulosColumnas, $listaOfertas);
 

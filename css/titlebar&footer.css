@@ -6,11 +6,13 @@
 .titlebar {
   	color: #fff;
     font-family: "helvitica", arial;
+	font-size: 1.5em;
     height: 50px;
     width: 100%;
     min-width: 440px;
     position: fixed; /*Hace que la posición no varie ni haciendo scroll, siempre se mantiene en el mismo lugar*/
     z-index: 10; /*Necesario para que el titlebar se muestre encima de otros elementos*/
+	padding: 0 10px 0 10px;
 }
 
 #admin-titlebar {
@@ -27,7 +29,6 @@
 
 .titlebar img { /*favicon*/
 	float: left;
-	padding-left: 10px;
 	animation-name: faviconAnimation;
 	animation-duration: 0.4s;
 	animation-delay: 0.09s;
@@ -41,19 +42,27 @@
 	100%{transform: scale(1,1);}
 }
 #label-titlebar {
-    padding: 8px 0 8px 20px;
     float: left;
+	margin: 0 2% 0 2%;
+	height: 100%;
 }
 
-#label-titlebar label i{
-	padding-right: 20px;
-	padding-left: 20px;
+#label-titlebar > label {
+	height: 100%;
+	margin: 0;
+	vertical-align: center;
+}
+
+#label-titlebar > label > i{
+	padding-right: 10px;
+	padding-left: 10px;
 }
 
 #label-titlebar #title-site {
 	font-family: 'Satisfy', cursive;
-	font-size: 27px;
+	font-size: 1.5em;
 	text-shadow: 5px 5px 8px #000000;
+	height: 100%;
 }
 
 #label-titlebar #title-site:hover{
@@ -66,19 +75,59 @@
 }
 
 #label-titlebar a {
+	font-size: 0.8em;
 	text-decoration: none;
 	color: white;
 }
 
 #icons-titlebar {
+	height: 100%;
 	float: right;
-	padding: 15px 0 15px 0;
 }
 
-#icons-titlebar a {
-	margin-left: 15px;
-	margin-right: 20px;
+#icons-titlebar > ul {
+	height: 100%;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
+
+#icons-titlebar > ul > li {
+	display: inline-block;
+	height: 100%;
+}
+
+#icons-titlebar > ul > li:hover {
+	background: rgba(0, 0, 0, 0.3);
+}
+
+#icons-titlebar > ul > li > a {
+	padding: 0 20px 0 20px;
     text-decoration: none;
+	display: block;
+	height: 100%;
+	width: 100%;
+}
+#icons-titlebar > ul > li > a > i {
+	vertical-align: -70%;
+	font-size: 1.1em;
+}
+
+#icons-titlebar > ul > li > a:link {
+	text-decoration: none;
+	color: white;
+}
+#icons-titlebar > ul > li > a:visited {
+	text-decoration: none;
+	color: white;
+}
+
+#icons-titlebar > ul > li > a:hover {
+	text-decoration: none;
+}
+
+#icons-titlebar > ul > li > a:active {
+	text-decoration: none;
 }
 
 #icons-titlebar #bell:hover { /*animación para campana*/
@@ -115,28 +164,6 @@
   to{
   	transform: rotate(360deg);
   }
-}
-
-#icons-titlebar > a {
-    height:100%;
-}
-
-#icons-titlebar > a:link {
-    text-decoration: none;
-    color: white;
-}
-#icons-titlebar > a:visited {
-    text-decoration: none;
-    color: white;
-}
-
-#icons-titlebar > a:hover {
-    text-decoration: none;
-    color: #444;
-}
-
-#icons-titlebar > a:active {
-    text-decoration: none;
 }
 /*==============================================================*/
 
@@ -192,7 +219,7 @@
 @media only screen and (max-width: 768px) {
 	/* For mobile phones: */
 
-	.content {
+	#dashboard-content {
 		position: absolute;
 		top: 50px;
 		left: 0;

@@ -20,8 +20,8 @@ class PortalAdministracion extends Portal
                         <a onclick="subMenu(true, 'sub-menu-ofertas')" href="#">OFERTAS</a>
                         <div id="sub-menu-ofertas" class="sub-menu">
                             <ul>
-                                <li><a onclick="return loadContent('OFERTAS_CLASIFICADAS')" href="#">Clasificadas</a></li>
-                                <li><a onclick="return loadContent('OFERTAS_NO_CLASIFICADAS')" href="#">No clasificadas</a></li>
+                                <li><a onclick="return loadContent('OFERTAS_CLASIFICADAS', 'Ofertas clasificadas')" href="#">Clasificadas</a></li>
+                                <li><a onclick="return loadContent('OFERTAS_NO_CLASIFICADAS', 'Ofertas no clasificadas')" href="#">No clasificadas</a></li>
                             </ul>
                         </div>
                     </li>
@@ -29,15 +29,15 @@ class PortalAdministracion extends Portal
                         <a onclick="subMenu(true, 'sub-menu-demandas')" href="#">DEMANDAS</a>
                         <div id="sub-menu-demandas" class="sub-menu">
                             <ul>
-                                <li><a onclick="return loadContent('DEMANDAS_CLASIFICADAS')" href="#">Clasificadas</a></li>
-                                <li><a onclick="return loadContent('DEMANDAS_NO_CLASIFICADAS')" href="#">No clasificadas</a></li>
+                                <li><a onclick="return loadContent('DEMANDAS_CLASIFICADAS', 'Demandas clasificadas')" href="#">Clasificadas</a></li>
+                                <li><a onclick="return loadContent('DEMANDAS_NO_CLASIFICADAS', 'Demandas no clasfificadas')" href="#">No clasificadas</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li><a onclick="return loadContent('CONTRATOSN')" href="#">VER CONTRATOS</a></li>
-                    <li><a onclick="return loadContent('HISTORIAL')" href="#">HISTORIAL</a></li>
-                    <li><a onclick="return loadContent('ENCUESTAS')" href="#">ENCUESTAS</a></li>
-                    <li><a onclick="return loadContent('BUZON')" href="#">BUZÓN</a></li>
+                    <li><a onclick="return loadContent('CONTRATOS', 'Contratos')" href="#">VER CONTRATOS</a></li>
+                    <li><a onclick="return loadContent('HISTORIAL', 'Historial')" href="#">HISTORIAL</a></li>
+                    <li><a onclick="return loadContent('ENCUESTAS', 'Encuestas')" href="#">ENCUESTAS</a></li>
+                    <li><a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
 EOF;
@@ -150,9 +150,11 @@ EOF;
     public function generaOfertas($clasificadas){
         if ($clasificadas) {
             $ofertas = OfertaDAO::cargaOfertasClasificadas(30, null);
+            $ajaxTableContent = 'OFERTAS_CLASIFICADAS';
         }
         else {
             $ofertas = OfertaDAO::cargaOfertasNoClasificadas(30, null);
+            $ajaxTableContent = 'OFERTAS_NO_CLASIFICADAS';
         }
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
@@ -162,12 +164,59 @@ EOF;
             $horas = $oferta->getHoras();
             $plazas = $oferta->getPlazas();
             $estado = $oferta->getEstado();
-            $fila = array($empresa, $puesto,$sueldo, $horas, $plazas,$estado);
+            $fila = array($empresa, $puesto,$sueldo, $horas, $plazas, $estado);
             array_push($listaOfertas,$fila);
         }
-        $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado", "Accion");
+        $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado");
         $content = self::generaTabla("tabla-oferta","admin-table" ,"Ofertas" . (($clasificadas)? ' ' : ' no ') . 'clasificadas', $titulosColumnas, $listaOfertas);
 
+        //Inicialización de DataTable y cambio de la página actual
+        /*$content .= <<<EOF
+        <script>
+            $('.table').DataTable( {
+                serverSide: true,
+                "ajax": {
+                    "url": "ajaxRequest.php?table=$ajaxTableContent",
+                    "type": "POST"
+                },
+                "columns":[
+                    {"data": "id" },
+                    {"data": "empresa" },
+                    {"data": "puesto" },
+                    {"data": "sueldo" },
+                    {"data": "horas" },
+                    {"data": "plazas" },
+                    {"data": "estado" }
+                    ],
+                "language": {
+                    "url": "js/datatables/Spanish.json"
+                },
+                "processing": true,
+                "pagingType": "full_numbers",
+                deferRender: true,
+                fixedHeader: true,
+                colReorder: true,
+                select: true,
+                "dom": 'Blfrtip',
+                buttons: [
+                    'pdf',
+                    {
+                        text: 'Borrar filas seleccionadas',
+                        action: function (e, dt, node, config){
+                            dt.ajax.reload();
+                        }
+                    },
+                    {
+                        text: 'Recargar',
+                        action: function (e, dt, node, config){
+                            dt.ajax.reload();
+                        }
+                    }
+                ]
+            } );
+        </script>
+EOF;
+        */
         return $content;
 
     }
@@ -190,5 +239,43 @@ EOF;
 
     public function generaBuzon(){
         // TODO: Implement generaBuzon() method.
+    }
+
+    public function returnTableData($table){
+        //require (__DIR__ . '/includes/ssp.class.php');
+        //$app = App::getSingleton();
+        //$conn = $app->conexionBd();
+        $sql_details = array(
+            'user' => 'internprise',
+            'pass' => 'aprobamos2016',
+            'db'   => 'internprise',
+            'host' => 'localhost'
+        );
+        $table = 'ofertas';
+        $primaryKey = 'id_oferta';
+        $columns = array(
+            array( 'db' => 'id_oferta', 'dt' => 'id_oferta' ),
+            array( 'db' => 'id_empresa',  'dt' => 'last_name' ),
+            array( 'db' => 'position',   'dt' => 'position' ),
+            array( 'db' => 'office',     'dt' => 'office' ),
+            array(
+                'db'        => 'start_date',
+                'dt'        => 'start_date',
+                'formatter' => function( $d, $row ) {
+                    return date( 'jS M y', strtotime($d));
+                }
+            ),
+            array(
+                'db'        => 'salary',
+                'dt'        => 'salary',
+                'formatter' => function( $d, $row ) {
+                    return '$'.number_format($d);
+                }
+            )
+        );
+
+        echo json_encode(
+            SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )
+        );
     }
 }

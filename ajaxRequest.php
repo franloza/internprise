@@ -13,7 +13,7 @@ $content = '';
 
 if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
-	$req = $_REQUEST['val'];
+	$req = $_GET['val'];
 	switch($rol){
 		case 'Admin': handle_adminRequest($req); break;
 		case 'Estudiante':handle_studentRequest($req); break;
@@ -42,7 +42,11 @@ function handle_adminRequest($req){
 			case 'HISTORIAL': $content = $portalAdmin -> generaHistorial(); break;
 			case 'ENCUESTAS': $content = $portalAdmin -> generaEncuestas(); break;
 			case 'BUZON': $content = $portalAdmin -> generaBuzon(); break;
-		}		
+		}
+		if(isset($_GET['table'])){
+			$reqTable = $_GET['table'];
+			$portalAdmin -> returnTableData($reqTable);
+		}
 	}
 }
 

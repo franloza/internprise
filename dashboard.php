@@ -34,10 +34,10 @@ if (isset($_GET['logout'])) {
     <body>
         <?php
         if($error) { echo $errorMsg;} else {
-            echo '<div id="container-dashboard" class="container">';
+            echo '<div id="container-dashboard">';
             echo $portal->generaMenu();
             echo $portal->generaTitlebar();
-            echo '<div id="content" class="content">';
+            echo '<div id="dashboard-content">';
             echo $portal->generaDashboard();
             echo '</div>';
             echo $portal->generaFooter();

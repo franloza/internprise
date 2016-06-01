@@ -20,12 +20,12 @@ class PortalEstudiante extends Portal
         <!-- Fragmento para definir el menú de estudiante-->
         <div id="estudiante-sidebar" class="sidebar">
             <div id="estudiante-menu-avatar" class="menu-avatar">
-                <img src="img/estudiante-avatar.png" alt="Avatar image" height="200" width="200"></img>
+                <img src="img/estudiante-avatar.png" alt="Avatar image" width="100%"></img>
             </div>
                 <ul>
-                    <li><a onclick="return loadContent('PERFIL')" href="#">PERFIL</a></li>
-                    <li><a onclick="return loadContent('OFERTAS')" href="#">OFERTAS</a></li>
-                    <li><a onclick="return loadContent('BUZON')" href="#">BUZÓN</a></li>
+                    <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
+                    <li><a onclick="return loadContent('OFERTAS', 'Ofertas')" href="#">OFERTAS</a></li>
+                    <li><a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
 EOF;
@@ -128,7 +128,7 @@ EOF;
             array_push($listaOfertas,$fila);
         }
 
-        $titulosColumnas = array("Empresa","Puesto", "Sueldo", "Horas", "Plazas","Accion");
+        $titulosColumnas = array("Empresa","Puesto", "Sueldo", "Horas", "Plazas");
         $content = self::generaTabla("tabla-ofertas", "estudiante-table",
             "Ofertas disponibles", $titulosColumnas, $listaOfertas);
 
