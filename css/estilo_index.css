@@ -16,14 +16,19 @@ main {
 	width: 100%;
 	min-width: 600px;
 	height: 89vh;
-	background-color: #1B1B1B;
-	opacity: 0.9;
+	/*background-color: #1B1B1B;*/
+	opacity: 0.7;
+    pointer-events: none;
 }
 
 header {
 	overflow: hidden; 
 	width: 80%;
 	float: left;
+}
+
+#canvas{
+    position: absolute;
 }
 
 p.name input {
@@ -97,6 +102,8 @@ header span a {
     margin-left: 0.5rem;
     text-decoration: none;
     color: #f7ca18;
+    pointer-events: auto;
+    z-index: 2;
 }
 
 header#about {
@@ -150,7 +157,7 @@ section.box.f {
 	float: left;
 	width: 20%;
 	height: 89vh;
-	background-color: #1B1B1B;
+	/*background-color: #1B1B1B;*/
 }
 
 #left {
@@ -318,11 +325,13 @@ aside#logo {
 }
 nav {
     width: 100%;
-    background-color: #0b0b0b;
+    /*background-color: #0b0b0b;*/
     position: fixed;
     bottom: 0;
     height: 100px;
     overflow: hidden;
+    background: transparent;
+    z-index: 2;
 }
 nav ul {
     position: absolute;

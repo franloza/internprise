@@ -197,6 +197,9 @@ body, html{
     float: left;
 }
 
+.table > thead > tr > th{
+    text-align: center;
+}
 /*Tablas administrador*/
 
 .admin-table th{
