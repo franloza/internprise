@@ -29,6 +29,7 @@ header {
 
 #canvas{
     position: absolute;
+    background: transparent;
 }
 
 p.name input {
@@ -201,6 +202,10 @@ article#main, article#artabout, article#main_login {
 	overflow-y: auto;
 }
 
+#register_fields > fieldset{
+    pointer-events: auto;
+}
+
 select#regSelect {
     margin: 10px 0px;
     padding: 6px;
@@ -214,8 +219,9 @@ select#regSelect {
     border-radius: 0.25em;
     background: rgb(224,224,224);
     vertical-align: bottom;
-
+    pointer-events: auto;
 }
+
 
 fieldset#admin {
     color: #fff;
@@ -264,6 +270,7 @@ header#login {
 	margin: -150px 0 0 -150px;
 	width:300px;
 	height:500px;
+    pointer-events: auto;
 }
 header#register_fields h1 {
 	font-size: 50px;
