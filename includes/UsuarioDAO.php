@@ -44,7 +44,7 @@ class UsuarioDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM usuarios u INNER JOIN empresas e ON e.id_usuario = u.id_usuario WHERE e.id_usuario='%d'", intval($id_empresa));
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN empresas e ON e.id_usuario = u.id_usuario WHERE e.id_usuario='%d'", $id_empresa);
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();

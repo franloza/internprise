@@ -166,7 +166,7 @@ EOF;
         $mChecked = ($sexo == 'Mujer') ? "checked" : "";
 
         $content = <<<EOF
-       <legend>Registro para Estudiantes</legend>
+       <legend>Cambios en el perfil: </legend>
         <p><label>Email:</label> <input type="text" name="email" value="$email"/><br /></p>
         <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
         <p><label>DNI:</label> <input type="text" name="dni" value="$dni"/></p>
@@ -186,7 +186,7 @@ EOF;
         <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
         <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
         <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
-        <button type="submit">Registrarse</button>
+        <button type="submit">Confirmar cambios</button>
 EOF;
         return $content;
     }
