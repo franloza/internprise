@@ -112,7 +112,7 @@ EOF;
     }
 
     public function generaPerfil(){
-        // TODO: Implement generaPerfil() method.
+        //TODO; Genera perfil
     }
 
     public function generaOfertas(){

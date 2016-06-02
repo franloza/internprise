@@ -272,7 +272,7 @@ EOF;
 
     protected function generaPerfil($id_usuario)
     {
-
+        
     
     }
 
