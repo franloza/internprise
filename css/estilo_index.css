@@ -225,6 +225,7 @@ select#regSelect {
     padding: 6px;
 }
 
+<<<<<<< HEAD
 #regSelect {
     width: 350px;
     background:#fff;
@@ -237,6 +238,8 @@ select#regSelect {
 
 }
 
+=======
+>>>>>>> f9e95c74256d5fc6d457166626ea2f2c6d774c42
 fieldset#admin, fieldset#estudiante, fieldset#empresa {
 	color: #fff;
 	margin-top: 5px;
