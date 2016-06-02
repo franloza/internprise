@@ -271,7 +271,7 @@ class UsuarioDAO
         $app = App::getSingleton();
         $conn = $app->conexionBd();
         $demandas_pendientes = 0;
-        $query = sprintf("SELECT COUNT(*) AS demandas_pendientes FROM demandas WHERE id_estudiante = '%i' AND ESTADO LIKE 'Pendiente%'",
+        $query = sprintf("SELECT COUNT(*) AS demandas_pendientes FROM demandas WHERE id_estudiante = '%d' AND ESTADO LIKE 'Pendiente%'",
             intval($id_estudiante));
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {

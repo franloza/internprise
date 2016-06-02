@@ -7,7 +7,6 @@ use es\ucm\aw\internprise\Aplicacion as App;
 
 class OfertaDAO
 {
-
     /*FUNCIONES PARA ADMINISTRADOR*/
 
     /*
@@ -150,6 +149,25 @@ class OfertaDAO
             }
             $rs->free();
             return $ofertas;
+        }
+        return false;
+    }
+
+    /*FUNCIONES GENÉRICAS*/
+    public static function cargaOferta($idOferta)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT o.*,em.razon_social as empresa FROM ofertas o
+                          INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
+                          INNER JOIN empresas em ON o.id_empresa = em.id_usuario
+                          WHERE o.id_oferta = '%d'",intval($idOferta));
+        $rs = $conn->query($query);
+        if ($rs &&$rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $oferta =  self::constructOferta($fila);
+            $rs->free();
+            return $oferta;
         }
         return false;
     }
