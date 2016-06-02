@@ -9,7 +9,8 @@ class FormularioSettings extends Form{
     private $tipo;
 
     public function __construct($tipo) {
-        parent::__construct('formSettings'.'_'.$tipo);
+        $opciones = array('action'=>'ajaxRequest.php?val=SETTINGS');
+        parent::__construct('formSettings'.'_'.$tipo, $opciones);
         $this->tipo = $tipo;
     }
 
@@ -171,7 +172,7 @@ EOF;
             // SEGURIDAD: Forzamos que se genere una nueva cookie de sesión por si la han capturado antes de hacer login
             $user = Usuario::login($datos['email'], $datos['password']);
             session_regenerate_id(true);
-            $result = \es\ucm\aw\internprise\Aplicacion::getSingleton()->resuelve('/login.php');
+            $result = \es\ucm\aw\internprise\Aplicacion::getSingleton()->resuelve('/dashboard.php');
         }
         return $result;
     }
