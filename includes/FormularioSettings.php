@@ -49,7 +49,8 @@ class FormularioSettings extends Form{
         $mChecked = ($sexo == 'Mujer') ? "checked" : "";
 
         $content = <<<EOF
-       <legend>Cambios en el perfil: </legend>
+       <legend id= "formSettings">Cambios en el perfil: </legend>
+        <div id = "formSettingsLeft">
         <p><label>eMail:</label> <input type="text" name="email" value="$email" disabled/></p>
         <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
         <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
@@ -59,13 +60,19 @@ class FormularioSettings extends Form{
              <input type="radio" name="sexo" value="Hombre" $hChecked >Hombre 
              <input type="radio" name="sexo" value="Mujer" $mChecked > Mujer <br></p>
         <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
+        </div>
+        <div id = "formSettingsRight">
         <p><label>Codigo Postal:</label> <input type="text" name="cp" value="$cp"/><br /></p>
         <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
         <p><label>Provincia:</label> <input type="text" name="provincia" value="$provincia"/><br /></p>
         <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
         <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
         <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
-        <button type="submit">Confirmar cambios</button>
+        </div>
+        <legend id= "formSettingsSubmit">
+        <button class="btn btn-default" type="submit" id="formSettingsBotton">Confirmar cambios</button>
+        </legend>
+        
 EOF;
         return $content;
     }

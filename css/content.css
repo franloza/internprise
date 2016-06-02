@@ -511,3 +511,23 @@ background: rgba(68,138,255,50);
 }
 
 /*==============================================================*/
+
+#formSettings{
+    margin-top: 70px;
+    font-size: xx-large;
+}
+#formSettingsLeft {
+    margin-left: 150px;
+    margin-bottom: 50px;
+    float: left;
+    text-align: left;
+}
+#formSettingsRight{
+    margin-right: 150px;
+    margin-bottom: 50px;
+    float: left;
+    text-align: left;
+}
+#formSettingsBotton{
+    background-color: #9d9d9d;
+}
