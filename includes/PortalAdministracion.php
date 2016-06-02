@@ -43,8 +43,7 @@ class PortalAdministracion extends Portal
 EOF;
         return $bloqueAdminSideBar;
     }
-
-
+    
     /**
      * Función que genera los encabezados de la página.
      */
@@ -280,7 +279,6 @@ EOF;
     }
 
     public function generaSettings(){
-
         $formAdmin =  new \es\ucm\aw\internprise\FormularioSettings('admin');
         $formAdmin->gestiona();
     }

@@ -166,6 +166,106 @@ class UsuarioDAO
         return true;
     }
 
+    /**
+     * @param $datos
+     * @return array|bool|mixed
+     */
+    public static function updateEstudiante($datos) {
+        self::updateUsuario ($datos['password']);
+        $app = App::getSingleton();
+        $id = $app->idUsuario();
+        if (!is_array($id)){
+            $app = App::getSingleton();
+            $conn = $app->conexionBd();
+            $grado = $datos['grado'];
+
+            //Conseguir id del grado o crearlo si no existe
+            $query = sprintf("SELECT id_grado FROM grados WHERE nombre_grado LIKE '%s'", $conn->real_escape_string($grado));
+            $rs = $conn->query($query);
+            if ($rs) {
+                //Se ha encontrado el grado
+                $fila = $rs->fetch_assoc();
+                $idGrado = intval($fila['id_grado']);
+                $rs->free();
+            } else {
+                //No se ha encontrado el grado -> Se inserta
+                $stmt = $conn->prepare('INSERT INTO grados(nombre_grado) VALUES (?)');
+                $stmt->bind_param("s",$grado);
+                $idGrado = $conn->insert_id;
+                if (!$stmt->execute()) {
+                    $result [] = "Hubo un problema en la inserción en la BBDD";
+                    return $result;
+                }
+            }
+            $stmt = $conn->prepare('UPDATE estudiantes SET dni = ?,nombre_universidad = ?,id_Grado = ?,
+                                        nombre = ?,apellidos = ?,direccion = ?,sexo = ?, nacionalidad = ?,fecha_nacimiento = ?,localidad = ?, provincia = ?,
+                                        pais = ?,telefono = ?,web = ? WHERE id_usuario = ?');
+            $stmt->bind_param("ssisssssssssssi",$datos['dni'],$datos['nombre_universidad'],$idGrado,
+                $datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['sexo'], $datos['nacionalidad'],
+                $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'],$datos['pais'],$datos['telefono'],
+                $datos['web'],$id);
+            if (!$stmt->execute()) {
+                $result [] = $stmt->error;
+                return $result;
+            }
+        }
+        else {
+            //There was an error in the insertion
+            return $id;
+        }
+        return true;
+    }
+    private function updateUsuario ($password) {
+        $app = App::getSingleton();
+        $id = $app->idUsuario();
+        $conn = $app->conexionBd();
+        $stmt = $conn->prepare("UPDATE usuarios SET password = ? WHERE id_usuario = ?");
+        $stmt->bind_param("si",$password,$id);
+        if (!$stmt->execute()) {
+            $result [] = "Hubo un problema en la actualización de la BBDD";
+            return $result;
+        }
+        return $conn->insert_id;
+    }
+
+    public static function updateEmpresa($datos) {
+        self::updateUsuario ($datos['password']);
+        $app = App::getSingleton();
+        $id = $app->idUsuario();
+        if (!is_array($id)) {
+            $conn = $app->conexionBd();
+            $stmt = $conn->prepare('UPDATE empresas SET cif = ?,razon_social= ? ,direccion = ?,
+                                    localidad = ?,provincia = ?,cp = ?,pais = ?,telefono = ?, web= ?  WHERE id_usuario = ?');
+            $stmt->bind_param("sssssisssi",  $datos['cif'], $datos['razonSocial'],$datos['direccion'],
+                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web'],$id);
+            if (!$stmt->execute()) {
+                $result [] = $stmt->error;
+                return $result;
+            }
+        }
+        return true;
+    }
+
+    public static function updateAdmin($datos) {
+        self::updateUsuario ($datos['password']);
+        $app = App::getSingleton();
+        $id = $app->idUsuario();
+        if (!is_array($id)) {
+            $conn = $app->conexionBd();
+            $stmt = $conn->prepare('UPDATE administradores SET nombre = ?,apellidos = ?,nombre_universidad = ?,sexo = ?,
+                                  dirección = ?,cp = ?,localidad = ?,provincia = ?,pais = ?,web = ?,telefono = ? WHERE id_usuario = ?');
+            $stmt->bind_param("sssssssssssi", $datos['nombre'], $datos['apellidos'],$datos['nombre_universidad'],
+                $datos['sexo'],$datos['direccion'],$datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'],
+                $datos['telefono'], $datos['web'],$id);
+            if (!$stmt->execute()) {
+                $result [] = $stmt->error;
+                return $result;
+            }
+        }
+        return true;
+    }
+
+
     public static function getDemandasPendientes($id_estudiante)
     {
         $app = App::getSingleton();

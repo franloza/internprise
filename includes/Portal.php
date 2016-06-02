@@ -270,6 +270,12 @@ EOF;
         return$bloqueTitleBar;
     }
 
+    protected function generaPerfil($id_usuario)
+    {
+
+    
+    }
+
     public static function factory($rol) {
         if ($rol === "Admin"){
             return new PortalAdministracion();

@@ -53,6 +53,18 @@ class Estudiante extends Usuario
         return $result;
     }
 
+    public static function update($datos)
+    {
+        $datos = self::sanitizeData($datos);
+        $result = self::validateData($datos);
+        if(!is_array($result)) {
+            //Los datos son correctos y han sido sanitizados
+            $result = UsuarioDAO::updateEstudiante($datos);
+        }
+        return $result;
+    }
+
+
     private static function validateData ($datos) {
 
         /*Comprobar usuario y contraseña*/

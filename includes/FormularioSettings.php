@@ -2,6 +2,8 @@
 
 namespace es\ucm\aw\internprise;
 
+use es\ucm\aw\internprise\Aplicacion as App;
+
 class FormularioSettings extends Form{
 
     const HTML5_EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
@@ -15,13 +17,11 @@ class FormularioSettings extends Form{
     }
 
     protected function generaCamposFormulario ($datos) {
-        $campos = '<input id="rolHidden" type="hidden" name="rol">';
         switch ($this->tipo) {
-            case 'admin': {$campos .= self::generaCamposFormularioAdmin();break;}
-            case 'estudiante': {$campos .= self::generaCamposFormularioEstudiante();break;}
-            case 'empresa': {$campos .= self::generaCamposFormularioEmpresa();break;}
+            case 'admin': {return self::generaCamposFormularioAdmin();break;}
+            case 'estudiante': {return self::generaCamposFormularioEstudiante();break;}
+            case 'empresa': {return self::generaCamposFormularioEmpresa();break;}
         }
-        return $campos;
     }
 
     private function generaCamposFormularioAdmin () {
@@ -50,7 +50,7 @@ class FormularioSettings extends Form{
 
         $content = <<<EOF
        <legend>Cambios en el perfil: </legend>
-        <p><label>eMail:</label> <input type="text" name="email" value="$email"/></p>
+        <p><label>eMail:</label> <input type="text" name="email" value="$email" disabled/></p>
         <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
         <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
         <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/><br /></p>
@@ -98,7 +98,7 @@ EOF;
 
         $content = <<<EOF
        <legend>Cambios en el perfil: </legend>
-        <p><label>Email:</label> <input type="text" name="email" value="$email"/><br /></p>
+        <p><label>Email:</label> <input type="text" name="email" value="$email" disabled/><br /></p>
         <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
         <p><label>DNI:</label> <input type="text" name="dni" value="$dni"/></p>
         <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
@@ -141,7 +141,7 @@ EOF;
 
         $content = <<<EOF
        <legend>Cambios en el perfil: </legend>
-      <p><label>eMail:</label> <input type="text" name="email" value="$email"/></p>
+      <p><label>eMail:</label> <input type="text" name="email" value="$email" disabled/></p>
       <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
       <p><label>CIF:</label> <input type="text" name="cif" value="$cif"/></p>
       <p><label>Razon Social:</label> <input type="text" name="razonSocial" value="$razonSocial"/><br /></p>
@@ -161,19 +161,20 @@ EOF;
      * Procesa los datos del formulario.
      */
     protected function procesaFormulario($datos) {
+        $app = App::getSingleton();
+        $rol = $app->rolUsuario();
+        $email = $app->emailUsuario();
+        $datos['email'] = $email;
 
-        switch ($datos['rol']) {
-            case 'admin': {$result = Administrador::register($datos);break;}
-            case 'estudiante': {$result = Estudiante::register($datos);break;}
-            case 'empresa': {$result = Empresa::register($datos);break;}
+        switch ($rol) {
+            case 'Admin': {$result = Administrador::update($datos);break;}
+            case 'Estudiante': {$result = Estudiante::update($datos);break;}
+            case 'Empresa': {$result = Empresa::update($datos);break;}
             default:    $result='Hubo un problema con el envío. Envíe el formulario de nuevo';
         }
-        if (!is_array($result)) {
-            // SEGURIDAD: Forzamos que se genere una nueva cookie de sesión por si la han capturado antes de hacer login
-            $user = Usuario::login($datos['email'], $datos['password']);
-            session_regenerate_id(true);
-            $result = \es\ucm\aw\internprise\Aplicacion::getSingleton()->resuelve('/dashboard.php');
-        }
+
+        $result = \es\ucm\aw\internprise\Aplicacion::getSingleton()->resuelve('/dashboard.php');
+
         return $result;
     }
 }
