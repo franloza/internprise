@@ -19,7 +19,7 @@ class Empresa extends Usuario
     private $web;
 
     public function __construct($datos) {
-        parent::__construct(null, $datos['email'],$datos['password']);
+        parent::__construct($datos['id_usuario'], $datos['email'],$datos['password']);
         parent::setRol("Empresa");
         $this->cif = $datos['cif'];
         $this->razon_social = $datos['razon_social'];
@@ -81,6 +81,76 @@ class Empresa extends Usuario
         return $sanitizedData;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getCif()
+    {
+        return $this->cif;
+    }
 
+    /**
+     * @return mixed
+     */
+    public function getRazonSocial()
+    {
+        return $this->razon_social;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProvincia()
+    {
+        return $this->provincia;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCp()
+    {
+        return $this->cp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPais()
+    {
+        return $this->pais;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWeb()
+    {
+        return $this->web;
+    }
     
 }

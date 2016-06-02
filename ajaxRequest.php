@@ -13,7 +13,7 @@ $content = '';
 
 if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
-	$req = $_REQUEST['val'];
+	$req = $_GET['val'];
 	switch($rol){
 		case 'Admin': handle_adminRequest($req); break;
 		case 'Estudiante':handle_studentRequest($req); break;
@@ -42,7 +42,12 @@ function handle_adminRequest($req){
 			case 'HISTORIAL': $content = $portalAdmin -> generaHistorial(); break;
 			case 'ENCUESTAS': $content = $portalAdmin -> generaEncuestas(); break;
 			case 'BUZON': $content = $portalAdmin -> generaBuzon(); break;
-		}		
+			case 'SETTINGS': $content = $portalAdmin -> generaSettings(); break;
+		}
+		if(isset($_GET['table'])){
+			$reqTable = $_GET['table'];
+			$portalAdmin -> returnTableData($reqTable);
+		}
 	}
 }
 
@@ -55,6 +60,7 @@ function handle_studentRequest($req) {
 			case 'PERFIL': $content = $portalEstudiante -> generaPerfil(); break;
 			case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
 			case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
+			case 'SETTINGS': $content = $portalEstudiante -> generaSettings(); break;
 		}
 	}
 }
@@ -75,6 +81,7 @@ function handle_empresaRequest($req) {
 				$form = new \es\ucm\aw\internprise\FormularioCrearOferta();
 				$form->gestiona();
 				break;
+			case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
 		}
 	}
     else return false;

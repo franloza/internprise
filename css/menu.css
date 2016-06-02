@@ -4,7 +4,7 @@
 .sidebar {
   font-family: "Open Sans", arial;
 	height: calc(100% - (50px + 20px));/* el total del 100% menos la altura del titlebar y footer*/
-	width: 200px;
+	width: 12%;
 	position: fixed;
 	top: 50px;
 	box-shadow: 5px 0px grey;

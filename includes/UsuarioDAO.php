@@ -24,6 +24,52 @@ class UsuarioDAO
         return false;
     }
 
+    public static function cargaEstudiante($id_estudiante)
+    {
+        $id_estudiante = intval($id_estudiante);
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN estudiantes e ON e.id_usuario = u.id_usuario INNER JOIN grados g ON g.id_grado = e.id_grado WHERE e.id_usuario='%d'", $id_estudiante);
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $user = new Estudiante($fila);
+            $rs->free();
+            return $user;
+        }
+        return false;
+    }
+
+    public static function cargaEmpresa($id_empresa)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN empresas e ON e.id_usuario = u.id_usuario WHERE e.id_usuario='%d'", $id_empresa);
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $user = new Empresa($fila);
+            $rs->free();
+            return $user;
+        }
+        return false;
+    }
+
+    public static function cargaAdministrador($id_administrador)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN administradores a ON a.id_usuario = u.id_usuario WHERE a.id_usuario='%d'", intval($id_administrador));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $user = new Administrador($fila);
+            $rs->free();
+            return $user;
+        }
+        return false;
+    }
+
     /**
      * @param $datos
      * @return array|bool|mixed
@@ -118,5 +164,21 @@ class UsuarioDAO
             }
         }
         return true;
+    }
+
+    public static function getDemandasPendientes($id_estudiante)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $demandas_pendientes = 0;
+        $query = sprintf("SELECT COUNT(*) AS demandas_pendientes FROM demandas WHERE id_estudiante = '%i' AND ESTADO LIKE 'Pendiente%'",
+            intval($id_estudiante));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $demandas_pendientes = $fila['demandas_pendientes'];
+            $rs->free();
+        }
+        return $demandas_pendientes;
     }
 }

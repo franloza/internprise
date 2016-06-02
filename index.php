@@ -3,6 +3,7 @@
 <head>
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/estilo_index.css" />
+	<script src="js/jquery-2.2.3.js"></script>
 	<title>Inicio</title>
 </head>
 <body>
@@ -33,4 +34,5 @@
 		</ul>
 	</nav>
 </body>
+<script src="js/bckgEffect.js"></script>
 </html>

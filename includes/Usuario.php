@@ -68,11 +68,19 @@ class Usuario {
     return $this->rol;
   }
 
-  public function email() {
+  public function getEmail() {
     return $this->email;
   }
 
-    public function id()
+    public function email() {
+        return $this->email;
+    }
+
+    public function getPassword() {
+        return $this->password;
+    }
+
+    public function getId()
     {
         return $this->id;
     }

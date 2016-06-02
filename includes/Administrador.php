@@ -20,13 +20,13 @@ class Administrador extends Usuario
     private $telefono;
 
     public function __construct($datos) {
-        parent::__construct(null, $datos['email'],$datos['password']);
+        parent::__construct($datos['id_usuario'], $datos['email'],$datos['password']);
         parent::setRol("Admin");
         $this->nombre = $datos['nombre'];
         $this->apellidos = $datos['apellidos'];
         $this->nombre_universidad = $datos['nombre_universidad'];
         $this->sexo = $datos['sexo'];
-        $this->direccion = $datos['direccion'];
+        $this->direccion = $datos['dirección'];
         $this->cp = $datos['cp'];
         $this->localidad = $datos['localidad'];
         $this->provincia = $datos['provincia'];
@@ -86,5 +86,91 @@ class Administrador extends Usuario
         return $sanitizedData;
     }
 
-    
+    /**
+     * @return mixed
+     */
+    public function getNombre()
+    {
+        return $this->nombre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getApellidos()
+    {
+        return $this->apellidos;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getNombreUniversidad()
+    {
+        return $this->nombre_universidad;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSexo()
+    {
+        return $this->sexo;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDireccion()
+    {
+        return $this->direccion;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCp()
+    {
+        return $this->cp;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocalidad()
+    {
+        return $this->localidad;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProvincia()
+    {
+        return $this->provincia;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPais()
+    {
+        return $this->pais;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWeb()
+    {
+        return $this->web;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTelefono()
+    {
+        return $this->telefono;
+    }
 }

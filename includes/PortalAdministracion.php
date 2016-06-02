@@ -20,8 +20,8 @@ class PortalAdministracion extends Portal
                         <a onclick="subMenu(true, 'sub-menu-ofertas')" href="#">OFERTAS</a>
                         <div id="sub-menu-ofertas" class="sub-menu">
                             <ul>
-                                <li><a onclick="return loadContent('OFERTAS_CLASIFICADAS')" href="#">Clasificadas</a></li>
-                                <li><a onclick="return loadContent('OFERTAS_NO_CLASIFICADAS')" href="#">No clasificadas</a></li>
+                                <li><a onclick="return loadContent('OFERTAS_CLASIFICADAS', 'Ofertas clasificadas')" href="#">Clasificadas</a></li>
+                                <li><a onclick="return loadContent('OFERTAS_NO_CLASIFICADAS', 'Ofertas no clasificadas')" href="#">No clasificadas</a></li>
                             </ul>
                         </div>
                     </li>
@@ -29,15 +29,15 @@ class PortalAdministracion extends Portal
                         <a onclick="subMenu(true, 'sub-menu-demandas')" href="#">DEMANDAS</a>
                         <div id="sub-menu-demandas" class="sub-menu">
                             <ul>
-                                <li><a onclick="return loadContent('DEMANDAS_CLASIFICADAS')" href="#">Clasificadas</a></li>
-                                <li><a onclick="return loadContent('DEMANDAS_NO_CLASIFICADAS')" href="#">No clasificadas</a></li>
+                                <li><a onclick="return loadContent('DEMANDAS_CLASIFICADAS', 'Demandas clasificadas')" href="#">Clasificadas</a></li>
+                                <li><a onclick="return loadContent('DEMANDAS_NO_CLASIFICADAS', 'Demandas no clasfificadas')" href="#">No clasificadas</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li><a onclick="return loadContent('CONTRATOSN')" href="#">VER CONTRATOS</a></li>
-                    <li><a onclick="return loadContent('HISTORIAL')" href="#">HISTORIAL</a></li>
-                    <li><a onclick="return loadContent('ENCUESTAS')" href="#">ENCUESTAS</a></li>
-                    <li><a onclick="return loadContent('BUZON')" href="#">BUZÓN</a></li>
+                    <li><a onclick="return loadContent('CONTRATOS', 'Contratos')" href="#">VER CONTRATOS</a></li>
+                    <li><a onclick="return loadContent('HISTORIAL', 'Historial')" href="#">HISTORIAL</a></li>
+                    <li><a onclick="return loadContent('ENCUESTAS', 'Encuestas')" href="#">ENCUESTAS</a></li>
+                    <li><a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
 EOF;
@@ -150,9 +150,11 @@ EOF;
     public function generaOfertas($clasificadas){
         if ($clasificadas) {
             $ofertas = OfertaDAO::cargaOfertasClasificadas(30, null);
+            $ajaxTableContent = 'OFERTAS_CLASIFICADAS';
         }
         else {
             $ofertas = OfertaDAO::cargaOfertasNoClasificadas(30, null);
+            $ajaxTableContent = 'OFERTAS_NO_CLASIFICADAS';
         }
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
@@ -162,12 +164,59 @@ EOF;
             $horas = $oferta->getHoras();
             $plazas = $oferta->getPlazas();
             $estado = $oferta->getEstado();
-            $fila = array($empresa, $puesto,$sueldo, $horas, $plazas,$estado);
+            $fila = array($empresa, $puesto,$sueldo, $horas, $plazas, $estado);
             array_push($listaOfertas,$fila);
         }
-        $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado", "Accion");
+        $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado");
         $content = self::generaTabla("tabla-oferta","admin-table" ,"Ofertas" . (($clasificadas)? ' ' : ' no ') . 'clasificadas', $titulosColumnas, $listaOfertas);
 
+        //Inicialización de DataTable y cambio de la página actual
+        /*$content .= <<<EOF
+        <script>
+            $('.table').DataTable( {
+                serverSide: true,
+                "ajax": {
+                    "url": "ajaxRequest.php?table=$ajaxTableContent",
+                    "type": "POST"
+                },
+                "columns":[
+                    {"data": "id" },
+                    {"data": "empresa" },
+                    {"data": "puesto" },
+                    {"data": "sueldo" },
+                    {"data": "horas" },
+                    {"data": "plazas" },
+                    {"data": "estado" }
+                    ],
+                "language": {
+                    "url": "js/datatables/Spanish.json"
+                },
+                "processing": true,
+                "pagingType": "full_numbers",
+                deferRender: true,
+                fixedHeader: true,
+                colReorder: true,
+                select: true,
+                "dom": 'Blfrtip',
+                buttons: [
+                    'pdf',
+                    {
+                        text: 'Borrar filas seleccionadas',
+                        action: function (e, dt, node, config){
+                            dt.ajax.reload();
+                        }
+                    },
+                    {
+                        text: 'Recargar',
+                        action: function (e, dt, node, config){
+                            dt.ajax.reload();
+                        }
+                    }
+                ]
+            } );
+        </script>
+EOF;
+        */
         return $content;
 
     }
@@ -190,5 +239,89 @@ EOF;
 
     public function generaBuzon(){
         // TODO: Implement generaBuzon() method.
+    }
+
+    public function returnTableData($table){
+        //require (__DIR__ . '/includes/ssp.class.php');
+        //$app = App::getSingleton();
+        //$conn = $app->conexionBd();
+        $sql_details = array(
+            'user' => 'internprise',
+            'pass' => 'aprobamos2016',
+            'db'   => 'internprise',
+            'host' => 'localhost'
+        );
+        $table = 'ofertas';
+        $primaryKey = 'id_oferta';
+        $columns = array(
+            array( 'db' => 'id_oferta', 'dt' => 'id_oferta' ),
+            array( 'db' => 'id_empresa',  'dt' => 'last_name' ),
+            array( 'db' => 'position',   'dt' => 'position' ),
+            array( 'db' => 'office',     'dt' => 'office' ),
+            array(
+                'db'        => 'start_date',
+                'dt'        => 'start_date',
+                'formatter' => function( $d, $row ) {
+                    return date( 'jS M y', strtotime($d));
+                }
+            ),
+            array(
+                'db'        => 'salary',
+                'dt'        => 'salary',
+                'formatter' => function( $d, $row ) {
+                    return '$'.number_format($d);
+                }
+            )
+        );
+
+        echo json_encode(
+            SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )
+        );
+    }
+
+    public function generaSettings(){
+
+        $app = Aplicacion::getSingleton();
+        $id_administrador = $app->idUsuario();
+        $user = UsuarioDAO::cargaAdministrador($id_administrador);
+        
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+        $nombre = $user->getNombre();
+        $apellidos = $user->getApellidos();
+        $nombre_universidad = $user->getNombreUniversidad();
+        $sexo = $user->getSexo();
+        $direccion = $user->getDireccion();
+        $localidad = $user->getLocalidad();
+        $provincia = $user->getProvincia();
+        $pais = $user->getPais();
+        $web = $user->getWeb();
+        $telefono = $user->getTelefono();
+        $cp = $user->getCp();
+
+
+        $hChecked = ($sexo == 'Hombre') ? "checked" : "";
+        $mChecked = ($sexo == 'Mujer') ? "checked" : "";
+
+        $content = <<<EOF
+       <legend>Cambios en el perfil: </legend>
+        <p><label>eMail:</label> <input type="text" name="email" value="$email"/></p>
+        <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
+        <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
+        <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/><br /></p>
+        <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value="$nombre_universidad"/></p>
+        <p><label>Sexo:</label> 
+             <input type="radio" name="sexo" value="Hombre" $hChecked >Hombre 
+             <input type="radio" name="sexo" value="Mujer" $mChecked > Mujer <br></p>
+        <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
+        <p><label>Codigo Postal:</label> <input type="text" name="cp" value="$cp"/><br /></p>
+        <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
+        <p><label>Provincia:</label> <input type="text" name="provincia" value="$provincia"/><br /></p>
+        <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
+        <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
+        <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
+        <button type="submit">Confirmar cambios</button>
+EOF;
+        return $content;
     }
 }
