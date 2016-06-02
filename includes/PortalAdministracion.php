@@ -147,16 +147,14 @@ EOF;
     }
 
     public function generaOfertas($clasificadas){
-        if ($clasificadas) {
+        if ($clasificadas)
             $ofertas = OfertaDAO::cargaOfertasClasificadas(30, null);
-            $ajaxTableContent = 'OFERTAS_CLASIFICADAS';
-        }
-        else {
+        else
             $ofertas = OfertaDAO::cargaOfertasNoClasificadas(30, null);
-            $ajaxTableContent = 'OFERTAS_NO_CLASIFICADAS';
-        }
         $listaOfertas = array();
+        $listaIds = array();
         foreach ( $ofertas as $oferta) {
+            $id = $oferta->getIdOferta();
             $empresa = $oferta ->getEmpresa();
             $puesto = $oferta->getPuesto();
             $sueldo = $oferta->getSueldo();
@@ -165,57 +163,12 @@ EOF;
             $estado = $oferta->getEstado();
             $fila = array($empresa, $puesto,$sueldo, $horas, $plazas, $estado);
             array_push($listaOfertas,$fila);
+            array_push($listaIds, $id);
         }
         $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado");
-        $content = self::generaTabla("tabla-oferta","admin-table" ,"Ofertas" . (($clasificadas)? ' ' : ' no ') . 'clasificadas', $titulosColumnas, $listaOfertas);
-
-        //Inicialización de DataTable y cambio de la página actual
-        /*$content .= <<<EOF
-        <script>
-            $('.table').DataTable( {
-                serverSide: true,
-                "ajax": {
-                    "url": "ajaxRequest.php?table=$ajaxTableContent",
-                    "type": "POST"
-                },
-                "columns":[
-                    {"data": "id" },
-                    {"data": "empresa" },
-                    {"data": "puesto" },
-                    {"data": "sueldo" },
-                    {"data": "horas" },
-                    {"data": "plazas" },
-                    {"data": "estado" }
-                    ],
-                "language": {
-                    "url": "js/datatables/Spanish.json"
-                },
-                "processing": true,
-                "pagingType": "full_numbers",
-                deferRender: true,
-                fixedHeader: true,
-                colReorder: true,
-                select: true,
-                "dom": 'Blfrtip',
-                buttons: [
-                    'pdf',
-                    {
-                        text: 'Borrar filas seleccionadas',
-                        action: function (e, dt, node, config){
-                            dt.ajax.reload();
-                        }
-                    },
-                    {
-                        text: 'Recargar',
-                        action: function (e, dt, node, config){
-                            dt.ajax.reload();
-                        }
-                    }
-                ]
-            } );
-        </script>
-EOF;
-        */
+        $content = self::generaTabla("tabla-oferta","admin-table" ,
+            "Ofertas" . (($clasificadas)? ' ' : ' no ') . 'clasificadas',
+                $titulosColumnas, $listaOfertas, $listaIds, 'oferta');
         return $content;
 
     }
@@ -240,42 +193,54 @@ EOF;
         // TODO: Implement generaBuzon() method.
     }
 
-    public function returnTableData($table){
-        //require (__DIR__ . '/includes/ssp.class.php');
-        //$app = App::getSingleton();
-        //$conn = $app->conexionBd();
-        $sql_details = array(
-            'user' => 'internprise',
-            'pass' => 'aprobamos2016',
-            'db'   => 'internprise',
-            'host' => 'localhost'
-        );
-        $table = 'ofertas';
-        $primaryKey = 'id_oferta';
-        $columns = array(
-            array( 'db' => 'id_oferta', 'dt' => 'id_oferta' ),
-            array( 'db' => 'id_empresa',  'dt' => 'last_name' ),
-            array( 'db' => 'position',   'dt' => 'position' ),
-            array( 'db' => 'office',     'dt' => 'office' ),
-            array(
-                'db'        => 'start_date',
-                'dt'        => 'start_date',
-                'formatter' => function( $d, $row ) {
-                    return date( 'jS M y', strtotime($d));
-                }
-            ),
-            array(
-                'db'        => 'salary',
-                'dt'        => 'salary',
-                'formatter' => function( $d, $row ) {
-                    return '$'.number_format($d);
-                }
-            )
-        );
+    public function generaDialogoOferta($idOferta){
+        $oferta = OfertaDAO::cargaOferta($idOferta);
+        if($oferta) {
+            $id = $oferta->getIdOferta();
+            $empresa = $oferta->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $fecha_inicio = $oferta->getFechaIncio();
+            $fecha_fin = $oferta->getFechaFin();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $descripcion = $oferta->getDescripcion();
+            $estado = $oferta->getEstado();
+            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
+            $content = <<<EOF
+    <!-- Modal dialog oferta -->
+        <div id= 'oferta-model-content' class="dialogo-modal-content">
+            <div class="dialogo-modal-header">
+                <span class="close">×</span>
+                <h2>Modal Header</h2>
+            </div>
+            <div class="dialogo-modal-body">
+                <p>Id: $id</p>
+                <p>Empresa: $empresa</p>
+                <p>Puesto: $puesto</p>
+                <p>Sueldo: $sueldo</p>
+                <p>Fecha inicio: $fecha_inicio</p>
+                <p>Fecha fin: $fecha_fin </p>
+                <p>Horas: $horas</p>
+                <p>Plazas: $plazas</p>
+                <p>Descripción: $descripcion</p>
+                <p>Estado: $estado</p>
+                <p>Días desde la creación: $diasDesdeCreacion</p>
+            </div>
+            <div class="dialogo-modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
+        </div>
+EOF;
+        }
+        else{
+            $content = <<<EOF
+            <h1>Fallo al cargar la oferta</h1>
+EOF;
 
-        echo json_encode(
-            SSP::simple( $_POST, $sql_details, $table, $primaryKey, $columns )
-        );
+        }
+
+    return $content;
     }
 
     public function generaSettings(){

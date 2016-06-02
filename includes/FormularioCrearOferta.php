@@ -7,7 +7,7 @@ class FormularioCrearOferta extends Form
     public function __construct() {
         $opciones = array(
           "ajax" => false,
-            "action" => "includes/ajaxRequest.php?val=CREAR_OFERTA",
+            "action" => "ajaxRequest.php?val=CREAR_OFERTA",
             "class" => null,
             "enctype" => null
         );

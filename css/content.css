@@ -200,6 +200,7 @@ body, html{
 .table > thead > tr > th{
     text-align: center;
 }
+
 /*Tablas administrador*/
 
 .admin-table th{
@@ -208,12 +209,59 @@ body, html{
   }
 
 .admin-table tr:nth-of-type(even) td{
-    background-color: rgba(22, 160, 133, 0.3);
+    background-color: rgba(22, 160, 133, 0.3) !important;
 }
 
 .admin-table > tbody > tr.selected{
     background-color: rgba(22, 160, 133, 0.85) !important;
 }
+
+.admin-table > tbody > tr:hover{
+    background-color: #16a085 !important;
+    color: white;
+}
+
+/*Tablas estudiante*/
+
+.estudiante-table th{
+    background-color: #B40404;
+    color : white;
+}
+
+.estudiante-table tr:nth-of-type(even) td{
+    background-color: rgba(180,4,4,0.3);
+}
+
+.estudiante-table > tbody > tr.selected{
+    background-color: rgba(180,4,4,0.85) !important;
+}
+
+.estudiante-table > tbody > tr:hover{
+    background-color: #B40404 !important;
+    color: white;
+}
+
+/*Tablas empresa*/
+
+.empresa-table th{
+    background-color: #448AFF;
+    color : white;
+}
+
+.empresa-table tr:nth-of-type(even) td{
+    background-color: rgba(70,150,250,0.3);
+}
+
+.empresa-table > tbody > tr.selected{
+    background-color: rgba(70,150,250,0.85) !important;
+}
+
+.empresa-table > tbody > tr:hover{
+    background-color: #448AFF !important;
+    color: white;
+}
+
+/*Estado*/
 
  .cell-status .pass{
   color:green;
@@ -225,35 +273,6 @@ body, html{
 
  .cell-status .warning{
     color:darkgoldenrod;
-}
-
-/*Tablas estudiante*/
-
-.estudiante-table th{
-    background-color: #B40404;
-    color : white;
-  }
-
-.estudiante-table tr:nth-of-type(even) td{
-    background-color: rgba(180,4,4,0.3);
-}
-
-.estudiante-table > tbody > tr.selected{
-    background-color: rgba(180,4,4,0.85) !important;
-}
-
-/*Tablas empresa*/
-.empresa-table th{
-    background-color: #448AFF;
-    color : white;
-  }
-
-.empresa-table tr:nth-of-type(even) td{
-    background-color: rgba(70,150,250,0.3);
-}
-
-.empresa-table > tbody > tr.selected{
-    background-color: rgba(70,150,250,0.85) !important;
 }
 
 /*==============================================================*/

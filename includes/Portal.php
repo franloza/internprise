@@ -72,6 +72,7 @@ EOF;
             <link rel="stylesheet" href="css/menu.css" type="text/css">
             <link rel="stylesheet" href="css/content.css" type="text/css">
             <link rel="stylesheet" href="css/titlebar&footer.css" type="text/css">
+            <link rel="stylesheet" href="css/modal.css" type="text/css">
             <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
             <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
             <script src="js/jquery-2.2.3.js"></script>
@@ -84,7 +85,7 @@ EOF;
                      $.get("ajaxRequest.php?val=" + value, function(data, status){
                         $('#dashboard-content').html(data);
                         $('#current-page').text(currentPage);
-                      });     
+                     });     
                 }
                 function subMenu(showHide, id){
                     if(showHide)
@@ -148,7 +149,21 @@ EOF;
      * Función que genera una tabla.
      */
     protected function generaTabla($idTabla, $classTable,
-                                   $tituloTabla, $titulosColumnas, $arrayFilas){
+                                   $tituloTabla, $titulosColumnas, $arrayFilas, $arrayIds = NULL, $data = NULL){
+        //Para evaluar si cada fila de la tabla tiene un atributo data-* para poder clickarla
+        $ids = false;
+        //Guarda el atributo de la fila, ya sea de ofertas, demandas, contratos...
+        $dataAttribute = 'data-id';
+        if($arrayIds != NULL && count($arrayFilas) === count($arrayIds)) {
+            $ids = true;
+            if($data === 'oferta')
+                $dataAttribute .= '-oferta';
+            else if ($data === 'demanda')
+                $dataAttribute .= '-demanda';
+            else if ($data === 'contrato')
+                $dataAttribute .= '-contrato';
+        }
+
         $tabla = <<<EOF
         <!-- Tabla de $tituloTabla -->
         <div id="$idTabla" class="table-container">
@@ -165,8 +180,11 @@ EOF;
         $tabla .= "</thead>\n";
 
         $tabla .= "<tbody>\n";
-        foreach($arrayFilas as $fila){
-            $tabla .= "<tr>\n";
+        foreach($arrayFilas as $fila_key => $fila){
+            if($ids)
+                $tabla .= "<tr $dataAttribute='$arrayIds[$fila_key]' onclick='showDialog(this, \"$dataAttribute\")'>\n";
+            else
+                $tabla .= "<tr>\n";
             foreach($fila as $celda){
                 //Colorear estado
                 switch ($celda) {
@@ -192,6 +210,21 @@ EOF;
         $tabla .= "</table>\n";
         $tabla .= "</div>\n";
         $tabla .= <<<EOF
+        <!-- Modal dialog oferta -->
+    <div id="oferta-modal-dialog" class="dialogo-modal">
+        <div class="dialogo-modal-content">
+            <div class="dialogo-modal-header">
+                <span class="close">×</span>
+                <h2>Modal Header</h2>
+            </div>
+            <div class="dialogo-modal-body">
+                <p>Id: </p>
+            </div>
+            <div class="dialogo-modal-footer">
+                <h3>Modal Footer</h3>
+            </div>
+        </div>
+    </div>
         <script>
             $('.table').DataTable( {
                 "language": {
@@ -200,12 +233,19 @@ EOF;
                 "processing": true,
                 "pagingType": "full_numbers",
                 deferRender: true,
-                fixedHeader: true,
+                "fixedHeader": true,
+                "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "Todos"] ],
+                "pageLength": 25,
                 colReorder: true,
                 select: true,
+                select: {
+                    style: 'api',
+                    blurable: true
+                },
                 "dom": 'Blfrtip',
                 buttons: [
                     'pdf',
+                    'print',
                     {
                         text: 'Borrar filas seleccionadas',
                         action: function (e, dt, node, config){
@@ -219,6 +259,34 @@ EOF;
                     }
                 ]
             } );
+            function showDialog(row, rowType) {
+                var value, id;
+                if(rowType == 'data-id-oferta')
+                    value = 'OFERTA';
+                else if (rowType == 'data-id-demanda')
+                    value = 'DEMANDA';
+                else if (rowType == 'data-id-contrato')
+                    value = 'CONTRATO';
+                id = row.getAttribute(rowType);
+                //Petición ajax para cargar los datos de la oferta
+                $.get("ajaxRequest.php?val=" + value + '_' + id, function(data, status){
+                    //$("body").append(data);
+                    //$('head').append('<link rel="stylesheet" href="css/modal.css" type="text/css">');
+                    $('.dialogo-modal').html(data);
+                    $('.dialogo-modal').css('display','block');
+                    
+                    // Cuando el usuario pulsa en la X para cerrar el dialogo
+                    $(".close").click (function() {
+                        $(".dialogo-modal").css('display', 'none');
+                    });
+                    // When the user clicks anywhere outside of the modal, close it
+                    window.onclick = function(event) {
+                        if (event.target != $(".dialogo-modal")) {
+                            $(".dialogo-modal").css('display', 'none');
+                        }
+                    }
+                });
+            }
         </script>
 EOF;
         return $tabla;
@@ -247,12 +315,12 @@ EOF;
         </div>
         <nav id="icons-titlebar">
             <ul>
-                <li onclick="return loadContent('NOTIFICATIONS')" >
+                <li onclick="return loadContent('NOTIFICATIONS', 'Notifications')" >
                     <a href="#">
                         <i id="bell" class="fa fa-bell fa-lg"></i>
                     </a>
                 </li>
-                <li onclick="return loadContent('SETTINGS')">
+                <li onclick="return loadContent('SETTINGS', 'Modificar perfil')">
                     <a href="#">
                         <i id="settings" class="fa fa-cog fa-lg"></i>
                     </a>                        
