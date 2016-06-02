@@ -281,4 +281,42 @@ class UsuarioDAO
         }
         return $demandas_pendientes;
     }
+    public static function getGradosLike($patron) {
+        $patron = '%' . $patron . '%';
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT nombre_grado FROM grados WHERE nombre_grado LIKE '%s'",$conn->real_escape_string($patron));
+        $rs = $conn->query($query);
+        $grados = array();
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($grados,$fila['nombre_grado']);
+            }
+            $rs->free();
+        }
+        return $grados;
+    }
+
+    public static function getUniversidadesLike($patron) {
+        $patron = '%' . $patron . '%';
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT DISTINCT nombre_universidad FROM estudiantes WHERE nombre_universidad LIKE'%s'",$conn->real_escape_string($patron));
+        $rs = $conn->query($query);
+        $universidades = array();
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($universidades,$fila['nombre_universidad']);
+            }
+            $rs->free();
+        }
+        return $universidades;
+    }
+
+
+
+
+
+
+
 }
