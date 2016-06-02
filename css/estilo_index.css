@@ -100,10 +100,31 @@ header span a {
 }
 
 header#about {
-	width: 100%;
+	width: 99%;
 	color: #fff;
-	border: 1px solid #000;
+	border: 1px solid #3B3B3B;
 	display: inline-block;
+	text-align: center;
+	padding: 20px 0px;
+	background: #191919;
+}
+
+header#about h1 {
+	margin-bottom: 10px;
+}
+
+div span {
+	display: none; 
+	position: absolute; 
+	color: #fff; 
+	background: #000; 
+	padding: 5px;
+}
+.box {
+	position: relative;
+}
+div.box:hover span {
+	display: block; 
 	text-align: center;
 }
 
@@ -122,28 +143,32 @@ header#about {
 	color: #fff;
 }
 
-section.box.a {
+div.box.a {
 	background: url('../img/4.png') no-repeat;
 }
 
-section.box.b {
+div.box.b {
 	background: url('../img/2.png') no-repeat;
 }
 
-section.box.c {
+div.box.c {
 	background: url('../img/3.png') no-repeat;
 }
 
-section.box.d {
+div.box.d {
 	background: url('../img/1.png') no-repeat;
 }
 
-section.box.e {
+div.box.e {
 	background: url('../img/5.png') no-repeat;
 }
 
-section.box.f {
+div.box.f {
 	background: url('../img/6.png') no-repeat;
+}
+
+legend {
+	color: #fff;
 }
 
 #left, #right {
@@ -192,6 +217,7 @@ article#main, article#artabout, article#main_login {
 	width:370px;
 	height: 616px;
 	overflow-y: auto;
+	color: #fff;
 }
 
 select#regSelect {

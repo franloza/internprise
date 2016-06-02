@@ -58,23 +58,22 @@ class FormularioRegister extends Form{
         $mChecked = (isset($sexo) == 'Mujer') ? "checked" : "";
 
       $camposForm=<<<EOF
-        <legend>Registro para Administradores</legend>
-        <p><label>eMail:</label> <input type="text" name="email" value="$email"/></p>
-        <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
-        <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
-        <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/><br /></p>
-        <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value="$nombre_universidad"/></p>
-        <p><label>Sexo:</label> 
-             <input type="radio" name="sexo" value="Hombre" $hChecked >Hombre 
-             <input type="radio" name="sexo" value="Mujer" $mChecked > Mujer <br></p>
-        <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value=""/>$direccion</p>
-        <p><label>Codigo Postal:</label> <input type="text" name="cp" value=""/><br />$cp</p>
-        <p><label>Localidad:</label> <input type="text" name="localidad" value=""/>$localidad</p>
-        <p><label>Provincia:</label> <input type="text" name="provincia" value=""/><br />$provincia</p>
-        <p><label>Pais:</label> <input type="text" name="pais" value=""/>$pais</p>
-        <p><label>Web:</label> <input type="text" name="web" value=""/><br />$web</p>
-        <p><label>Telefono:</label> <input type="text" name="telefono" value=""/>$telefono</p>
-        <button type="submit">Registrarse</button>
+			<legend>Registro para Administradores</legend>
+			<input type="text" name="email" placeholder="Email">
+			<input type="password" name="password" placeholder="Password"/>
+			<input type="text" name="nombre" placeholder="Nombre"/>
+			<input type="text" name="apellidos" placeholder="Apellidos"/>
+			<input type="text" name="nombre_universidad" placeholder="Universidad"/>
+			Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
+			Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
+			<input type="text" size="50" name="direccion" placeholder="Direccion"/>
+			<input type="text" name="cp" placeholder="Codigo Postal"/>
+			<input type="text" name="localidad" placeholder="Localidad"/>
+			<input type="text" name="provincia" placeholder="Provincia"/>
+			<input type="text" name="pais" placeholder="Pais"/>
+			<input type="text" name="web" placeholder="Web"/>
+			<input type="text" name="telefono" placeholder="Telefono"/>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
       return $camposForm;
     }
@@ -124,28 +123,28 @@ EOF;
         $birth = (isset($fecha_nacimiento)) ? date($fecha_nacimiento) : "";
 
       $camposForm=<<<EOF
-        <legend>Registro para Estudiantes</legend>
-        <p><label>Email:</label> <input type="text" name="email" value="$email"/><br /></p>
-        <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
-        <p><label>DNI:</label> <input type="text" name="dni" value="$dni"/></p>
-        <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
-        <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/><br /></p>
-        <p><label>Grado:</label> <input type="text" name="grado" value="$grado"/><br/></p>
-        <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value="$nombre_universidad"/></p> 
-        <p><label>Sexo:</label> 
-             <input type="radio" name="sexo" value="Hombre" $hChecked >Hombre 
-             <input type="radio" name="sexo" value="Mujer" $mChecked > Mujer <br></p>
-        <p><label>Nacionalidad:</label> <input type="text" name="nacionalidad" value="$nacionalidad"/><br /></p>
-        <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
-        <p><label>Fecha Nacimiento:</label> <input type="date" name="fecha_nacimiento" value="$birth"/><br /></p>
-        <p><label>Codigo Postal:</label> <input type="text" name="cp" value="$cp"/><br /></p>
-        <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
-        <p><label>Provincia:</label> <input type="text" name="provincia" value="$provincia"/><br /></p>
-        <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
-        <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
-        <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
-        <button type="submit">Registrarse</button>
+			<legend>Registro para Estudiantes</legend>
+			<input type="text" name="email" placeholder="Email">
+			<input type="password" name="password" placeholder="Password"/>
+			<input type="text" name="dni" placeholder="DNI"/>
+			<input type="text" name="nombre" placeholder="Nombre"/>
+			<input type="text" name="apellidos" placeholder="Apellidos"/>
+			<input type="text" name="grado" placeholder="Grado"/>
+			<input type="text" name="nombre_universidad" placeholder="Universidad"/>
+			Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
+			Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
+			<input type="text" name="nacionalidad" placeholder="Nacionalidad"/>
+			<input type="text" size="50" name="direccion" placeholder="Direccion"/>
+			<input type="date" name="fecha_nacimiento" value="Fecha nacimiento"/>
+			<input type="text" name="cp" placeholder="Codigo Postal"/>
+			<input type="text" name="localidad" placeholder="Ciudad"/>
+			<input type="text" name="provincia" placeholder="Provincia"/>
+			<input type="text" name="pais" placeholder="Country"/>
+			<input type="text" name="web" placeholder="Web"/>
+			<input type="text" name="telefono" placeholder="Telefono"/>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
+
       return $camposForm;
    }
 
@@ -164,35 +163,35 @@ EOF;
 
 
     if($datos){
-      $email = isset($datos['email']) ? $datos['email'] : $email;
-      $password = isset($datos['password']) ? $datos['password'] : $password;
-      $cif = isset($datos['cif']) ? $datos['cif'] : $cif;
-      $razonSocial = isset($datos['razonSocial']) ? $datos['razonSocial'] : $razonSocial;
-      $direccion = isset($datos['direccion']) ? $datos['direccion'] : $direccion;
-      $cp = isset($datos['cp']) ? $datos['cp'] : $cp;
-      $localidad = isset($datos['localidad']) ? $datos['localidad'] : $localidad;
-      $provincia = isset($datos['provincia']) ? $datos['provincia'] : $provincia;
-      $pais = isset($datos['pais']) ? $datos['pais'] : $pais;
-      $web = isset($datos['web']) ? $datos['web'] : $web;
-      $telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
+		$email = isset($datos['email']) ? $datos['email'] : $email;
+		$password = isset($datos['password']) ? $datos['password'] : $password;
+		$cif = isset($datos['cif']) ? $datos['cif'] : $cif;
+		$razonSocial = isset($datos['razonSocial']) ? $datos['razonSocial'] : $razonSocial;
+		$direccion = isset($datos['direccion']) ? $datos['direccion'] : $direccion;
+		$cp = isset($datos['cp']) ? $datos['cp'] : $cp;
+		$localidad = isset($datos['localidad']) ? $datos['localidad'] : $localidad;
+		$provincia = isset($datos['provincia']) ? $datos['provincia'] : $provincia;
+		$pais = isset($datos['pais']) ? $datos['pais'] : $pais;
+		$web = isset($datos['web']) ? $datos['web'] : $web;
+		$telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
     }
 
     $camposForm=<<<EOF
-      <legend>Registro para Empresa</legend>
-      <p><label>eMail:</label> <input type="text" name="email" value="$email"/></p>
-      <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
-      <p><label>CIF:</label> <input type="text" name="cif" value="$cif"/></p>
-      <p><label>Razon Social:</label> <input type="text" name="razonSocial" value="$razonSocial"/><br /></p>
-      <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
-      <p><label>Codigo Postal:</label> <input type="text" name="cp" value="$cp"/><br /></p>
-      <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
-      <p><label>Provincia:</label> <input type="text" name="provincia" value=""/><br />$provincia</p>
-      <p><label>Pais:</label> <input type="text" name="pais" value=""/>$pais</p>
-      <p><label>Web:</label> <input type="text" name="web" value=""/><br />$web</p>
-      <p><label>Telefono:</label> <input type="text" name="telefono" value=""/>$telefono</p>
-      <button type="submit">Registrarse</button>
+		<legend>Registro para Empresa</legend>
+		<input type="text" name="email" placeholder"Email"/></p>
+		<input type="password" name="password" placeholder="Password"/>
+		<input type="text" name="cif" placeholder="CIF"/>
+		<input type="text" name="razonSocial" placeholder="Razon social"/>
+		<input type="text" size="50" name="direccion" placeholder="Direccion"/>
+		<input type="text" name="cp" placeholder="Codigo postal"/>
+		<input type="text" name="localidad" placeholder="Localidad"/>
+		<input type="text" name="provincia" placeholder="Provincia"/>
+		<input type="text" name="pais" placeholder="Pais"/>
+		<input type="text" name="web" placeholder="Web"/>
+		<input type="text" name="telefono" placeholder="Telefono"/>
+		<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
-    return $camposForm;
+		return $camposForm;
     }
 
     /**

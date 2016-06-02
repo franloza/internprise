@@ -25,12 +25,6 @@ class FormularioLogin extends Form {
 			<button type="submit" class="btn btn-primary btn-block btn-large">Login</button>
 		</form>
 EOF;
-		//<fieldset>
-		  //<legend>Usuario y contraseña</legend>
-		  //<p><label>Email:</label> <input type="text" name="email" value="$email"/></p>
-		  //<p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
-		  //<button type="submit">Entrar</button>
-		//</fieldset>
 
     return $camposFormulario;
   }
