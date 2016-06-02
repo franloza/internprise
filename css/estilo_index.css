@@ -225,7 +225,7 @@ select#regSelect {
     padding: 6px;
 }
 
-fieldset#admin {
+fieldset#admin, fieldset#estudiante, fieldset#empresa {
 	color: #fff;
 	margin-top: 5px;
 	padding: 5px;
