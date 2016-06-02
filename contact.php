@@ -1,6 +1,3 @@
-<?php
-//require_once __DIR__.'/includes/config.php';
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,13 +11,13 @@
 		<article id="main_login">
 			<header id="login">
 				<h1>Contact</h1>
-				<form class="form" method="post" action="#">
+				<form class="form" method="post" action="mailto:admin@internprise.com?subject=ContactUs">
 					<p class="name">
-						<input name="name" type="text" placeholder="Name" />
+						<input type="text" placeholder="Name" />
 					</p>
 					  
 					<p class="email">
-						<input name="email" type="text" placeholder="Email" />
+						<input type="text" placeholder="Email" />
 					</p>
 					  
 					<p class="text">
@@ -48,4 +45,3 @@
 	</nav>
 </body>
 </html>
-

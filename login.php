@@ -5,12 +5,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	<script src="js/jquery-2.2.3.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/estilo_index.css" />
 	<title>Internprise</title>
 </head>
-
 <body>
+	<canvas id="canvas"></canvas>
 	<main>
 		<section id="left"></section>
 		<article id="main_login">
@@ -33,4 +33,5 @@
 		</ul>
 	</nav>
 </body>
+<script src="js/bckgEffect.js"></script>
 </html>
