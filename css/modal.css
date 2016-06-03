@@ -1,21 +1,19 @@
-/* The Modal (background) */
+/* Dialogo modal*/
 .dialogo-modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
     z-index: 10; /* Sit on top */
-    padding-top: 100px; /* Location of the box */
+    padding-top: 10%; /* Location of the box */
     left: 0;
     top: 0;
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
 }
 
-/* Modal Content */
+/* Dialogo modal content */
 .dialogo-modal-content {
-    position: relative;
     background-color: #fefefe;
     margin: auto;
     padding: 0;
@@ -26,6 +24,14 @@
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
     animation-duration: 0.4s;
+}
+
+/* Dialogo modal para administrador*/
+#admin-modal-content > .dialogo-modal-footer > #modificar-btn {
+    background-color: #3c763d;
+}
+
+#admin-modal-content > .dialogo-modal-footer > #eliminar-btn {
 }
 
 /* Add Animation */
@@ -58,12 +64,25 @@
     padding: 2px 16px;
     background-color: #5cb85c;
     color: white;
+    height: 5%;
 }
 
 .dialogo-modal-body {padding: 2px 16px;}
 
 .dialogo-modal-footer {
     padding: 2px 16px;
-    background-color: #5cb85c;
     color: white;
+    height: 3%;
+}
+
+#admin-modal-footer, #admin-modal-header {
+    background-color: #16a085;
+}
+
+#empresa-modal-footer, #empresa-modal-header {
+    background-color: #448AFF;
+}
+
+#estudiante-modal-footer, #estudiante-modal-header{
+    background-color: #B40404;
 }

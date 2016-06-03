@@ -122,6 +122,6 @@ class Aplicacion {
 
   public function section()
   {
-    return $_SESSION['section'];
+    return ($_SESSION['section']) ? $_SESSION['section'] : 'DASHBOARD' ;
   }
 }

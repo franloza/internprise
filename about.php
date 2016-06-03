@@ -43,7 +43,5 @@
 			<li class="slide"></li>
 		</ul>
 	</nav>
-
-	</script>
 </body>
 </html>
