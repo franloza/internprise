@@ -200,7 +200,7 @@ EOF;
             $empresa = $oferta->getEmpresa();
             $puesto = $oferta->getPuesto();
             $sueldo = $oferta->getSueldo();
-            $fecha_inicio = $oferta->getFechaIncio();
+            $fecha_inicio = $oferta->getFechaInicio();
             $fecha_fin = $oferta->getFechaFin();
             $horas = $oferta->getHoras();
             $plazas = $oferta->getPlazas();

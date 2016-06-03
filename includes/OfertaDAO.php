@@ -158,7 +158,7 @@ class OfertaDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT o.*,em.razon_social as empresa FROM ofertas o
+        $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa FROM ofertas o
                           INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                           WHERE o.id_oferta = '%d'",intval($idOferta));
