@@ -8,7 +8,6 @@
 	<script src="js/jquery-2.2.3.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/estilo_index.css" />
 	<title>Internprise</title>
-
 </head>
 
 <body>

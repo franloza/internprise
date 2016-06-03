@@ -23,9 +23,11 @@ if($app -> usuarioLogueado()){
     /*Save active section*/
     $app->saveSection($req);
 }
-else
+else if(isset($_GET['email'])) {
+	$email = $_GET['email']; 
+	handle_emailValidation($email);
+} else
 	$content = Error::generaErrorPermisos();
-
 /*Returns the content to dashboard by ajax*/
 echo $content;
 
@@ -83,6 +85,14 @@ function handle_empresaRequest($req) {
 		}
 	}
     else return false;
+}
+
+function handle_emailValidation($email) {
+	$ok = false;
+	if (!Usuario::cargaUsuario($email))
+		$ok = true;
+      
+	return json_encode(array("result"=>$ok));
 }
 
 ?>
