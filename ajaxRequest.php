@@ -14,14 +14,18 @@ $content = '';
 if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
 	$req = $_GET['val'];
+	$modalDialogReq = false;
+	if(substr($req, 0, 2) === 'MD')
+		$modalDialogReq = true;
 	switch($rol){
 		case 'Admin': handle_adminRequest($req); break;
 		case 'Estudiante':handle_studentRequest($req); break;
 		case 'Empresa': handle_empresaRequest($req); break;
 		default : $content = Error::generaErrorPermisos();
 	}
-    /*Save active section*/
-    $app->saveSection($req);
+    /*Save active section if its not a modal dialog request*/
+	if(!$modalDialogReq)
+    	$app->saveSection($req);
 }
 else if(isset($_GET['email'])) {
 	$email = $_GET['email']; 
@@ -32,7 +36,7 @@ else if(isset($_GET['email'])) {
 echo $content;
 
 function handle_adminRequest($req){
-	global $app, $content;
+	global $app, $content, $modalDialogReq;
 	if( $app -> tieneRol('Admin')){
 		$portalAdmin = Portal::factory($app->rolUsuario());
 		switch($req){
@@ -46,8 +50,11 @@ function handle_adminRequest($req){
 			case 'BUZON': $content = $portalAdmin -> generaBuzon(); break;
 			case 'SETTINGS': $content = $portalAdmin -> generaSettings(); break;
 		}
-		if(substr($req, 0, 7) == 'OFERTA_'){
-			$content = $portalAdmin -> generaDialogoOferta(substr($req, 7));
+		if($modalDialogReq){
+			switch (substr($req, 2, 1)){
+				case 'O': $content = $portalAdmin -> generaDialogoOferta(substr($req, 4)); break;
+			}
+
 		}
 	}
 }

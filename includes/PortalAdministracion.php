@@ -209,10 +209,10 @@ EOF;
             $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
             $content = <<<EOF
     <!-- Modal dialog oferta -->
-        <div id= 'oferta-model-content' class="dialogo-modal-content">
-            <div class="dialogo-modal-header">
+        <div id='admin-modal-content' class="dialogo-modal-content">
+            <div id='admin-modal-header' class="dialogo-modal-header">
                 <span class="close">×</span>
-                <h2>Modal Header</h2>
+                <h2>Oferta</h2>
             </div>
             <div class="dialogo-modal-body">
                 <p>Id: $id</p>
@@ -227,15 +227,16 @@ EOF;
                 <p>Estado: $estado</p>
                 <p>Días desde la creación: $diasDesdeCreacion</p>
             </div>
-            <div class="dialogo-modal-footer">
-                <h3>Modal Footer</h3>
+            <div id='admin-modal-footer' class="dialogo-modal-footer">
+                <button id='modificar-btn' type="button" class="btn btn-info">Modificar</button>
+                <button id='eliminar-btn' type="button" class="btn btn-danger">Eliminar</button>
             </div>
         </div>
 EOF;
         }
         else{
             $content = <<<EOF
-            <h1>Fallo al cargar la oferta</h1>
+            <h1 style="color:red">Fallo al cargar la oferta</h1>
 EOF;
 
         }
