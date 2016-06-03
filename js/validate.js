@@ -29,12 +29,13 @@ function validate(field, item) {
 					url : 'ajaxRequest.php',
 				    type: "GET",
 					data : {email: item.value}
-
 				})
 				.done(function(data) {
-					alert(data.result);
-					if (!data.result) 
+					var ok = JSON.parse(data).result;
+					if (!ok) {
+						alert(ok)
 						inputStyle(item, "El email introducido ya esta en uso", false);
+					}
 				})
 
 				inputStyle(item, null, true);

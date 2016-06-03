@@ -25,7 +25,7 @@ if($app -> usuarioLogueado()){
 }
 else if(isset($_GET['email'])) {
 	$email = $_GET['email']; 
-	handle_emailValidation($email);
+	echo handle_emailValidation($email);
 } else
 	$content = Error::generaErrorPermisos();
 /*Returns the content to dashboard by ajax*/
@@ -89,10 +89,10 @@ function handle_empresaRequest($req) {
 
 function handle_emailValidation($email) {
 	$ok = false;
-	if (!Usuario::cargaUsuario($email))
+	if (!UsuarioDAO::cargaUsuario($email))
 		$ok = true;
-      
-	return json_encode(array("result"=>$ok));
+	$jsonArray =  json_encode(array("result"=>$ok));
+	return $jsonArray;
 }
 
 ?>
