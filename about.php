@@ -43,18 +43,20 @@
 			<li class="slide"></li>
 		</ul>
 	</nav>
+
+	<script src="validate.js"></script>
 	<script>
-$(document).ready(function(){
-		alert("ads");
-    $("div#fran").hide();
-    
-    $("#fran").mouseover(function(){
-		alert("ads");
-    }).mouseout(function(){
-		alert("ads");
-    });
-    
-});
+		$(document).ready(function(){
+				alert("ads");
+			$("div#fran").hide();
+			
+			$("#fran").mouseover(function(){
+				alert("ads");
+			}).mouseout(function(){
+				alert("ads");
+			});
+			
+		});
 		$("box").hover(function(e) {
 			alert("asd");
 			$("#popup1").show();
