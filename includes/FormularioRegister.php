@@ -59,23 +59,23 @@ class FormularioRegister extends Form{
 
       $camposForm=<<<EOF
 			<legend>Registro para Administradores</legend>
-			<input type="text" name="email" placeholder="Email">
-			<input type="password" name="password" placeholder="Password"/>
-			<input type="text" name="nombre" placeholder="Nombre"/>
-			<input type="text" name="apellidos" placeholder="Apellidos"/>
-			<input type="text" name="nombre_universidad" placeholder="Universidad"/>
-			Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
-			Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
-			<input type="text" size="50" name="direccion" placeholder="Direccion"/>
-			<input type="text" name="cp" placeholder="Codigo Postal"/>
-			<input type="text" name="localidad" placeholder="Localidad"/>
-			<input type="text" name="provincia" placeholder="Provincia"/>
-			<input type="text" name="pais" placeholder="Pais"/>
-			<input type="text" name="web" placeholder="Web"/>
-			<input type="text" name="telefono" placeholder="Telefono"/>
-			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
+			<p class="star">*</p><input class="i_reg" type="text" name="email" onblur="validate('email')" placeholder="Email">
+			<p class="star">*</p><input class="i_reg" type="password" name="password" placeholder="Password"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="nombre" placeholder="Nombre"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="apellidos" placeholder="Apellidos"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="nombre_universidad" placeholder="Universidad"/><br />
+			<p class="star"></p>Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
+			<p class="star"></p>Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
+			<p class="star">*</p><input class="i_reg" type="text" size="50" name="direccion" placeholder="Direccion"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="cp" placeholder="Codigo Postal"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="localidad" placeholder="Localidad"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="provincia" placeholder="Provincia"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="pais" placeholder="Pais"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" name="web" placeholder="Web"/>
+			<p class="starnone">*</p><input type="text" class="i_reg" name="telefono" placeholder="Telefono"/>
+			<button type="submit" class ="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
-      return $camposForm;
+      return $camposForm;               
     }
 
     private function generaCamposFormularioEstudiante ($datos) {
@@ -124,24 +124,24 @@ EOF;
 
       $camposForm=<<<EOF
 			<legend>Registro para Estudiantes</legend>
-			<input type="text" name="email" placeholder="Email">
-			<input type="password" name="password" placeholder="Password"/>
-			<input type="text" name="dni" placeholder="DNI"/>
-			<input type="text" name="nombre" placeholder="Nombre"/>
-			<input type="text" name="apellidos" placeholder="Apellidos"/>
-			<input type="text" name="grado" placeholder="Grado"/>
-			<input type="text" name="nombre_universidad" placeholder="Universidad"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="email" onblur="validate('email', this)" size="100" placeholder="Email">
+			<p class="star">*</p><input class="i_reg" type="password" onblur="validate('password', this)" name="password" size="50" placeholder="Password"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('dni', this)" name="dni" size="9" placeholder="DNI"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('nombre', this)" name="nombre" size="50" placeholder="Nombre"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('apellidos', this)" name="apellidos" size="100" placeholder="Apellidos"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('grado', this)" name="grado" size="150" placeholder="Grado"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('universidad, this')" name="nombre_universidad" size="150" placeholder="Universidad"/>
 			Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
 			Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
-			<input type="text" name="nacionalidad" placeholder="Nacionalidad"/>
-			<input type="text" size="50" name="direccion" placeholder="Direccion"/>
-			<input type="date" name="fecha_nacimiento" value="Fecha nacimiento"/>
-			<input type="text" name="cp" placeholder="Codigo Postal"/>
-			<input type="text" name="localidad" placeholder="Ciudad"/>
-			<input type="text" name="provincia" placeholder="Provincia"/>
-			<input type="text" name="pais" placeholder="Country"/>
-			<input type="text" name="web" placeholder="Web"/>
-			<input type="text" name="telefono" placeholder="Telefono"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="nacionalidad" size="50" placeholder="Nacionalidad"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('direccion', this)" size="50" name="direccion" placeholder="Direccion"/>
+			<p class="star">*</p><input class="i_reg" type="date" onblur="validate('vacio', this, this)" name="fecha_nacimiento" value="Fecha nacimiento"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('cp', this)" size="5" name="cp" placeholder="Codigo Postal"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="localidad" size="50" placeholder="Ciudad"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="provincia" size="50" placeholder="Provincia"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="pais" size="50" placeholder="Country"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" size="100" name="web" placeholder="Web"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" size="9" name="telefono" placeholder="Telefono"/>
 			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 
@@ -178,17 +178,17 @@ EOF;
 
     $camposForm=<<<EOF
 		<legend>Registro para Empresa</legend>
-		<input type="text" name="email" placeholder"Email"/></p>
-		<input type="password" name="password" placeholder="Password"/>
-		<input type="text" name="cif" placeholder="CIF"/>
-		<input type="text" name="razonSocial" placeholder="Razon social"/>
-		<input type="text" size="50" name="direccion" placeholder="Direccion"/>
-		<input type="text" name="cp" placeholder="Codigo postal"/>
-		<input type="text" name="localidad" placeholder="Localidad"/>
-		<input type="text" name="provincia" placeholder="Provincia"/>
-		<input type="text" name="pais" placeholder="Pais"/>
-		<input type="text" name="web" placeholder="Web"/>
-		<input type="text" name="telefono" placeholder="Telefono"/>
+		<p class="star">*</p><input class="i_reg" type="text" name="email" placeholder="Email"/>
+		<p class="star">*</p><input class="i_reg" type="password" name="password" placeholder="Password"/>
+		<p class="star">*</p><input class="i_reg" type="text" name="cif" placeholder="CIF"/>
+		<p class="star">*</p><input class="i_reg" type="text" name="razonSocial" placeholder="Razon social"/>
+		<p class="star">*</p><input class="i_reg" type="text" size="50" name="direccion" placeholder="Direccion"/>
+		<p class="star">*</p><input class="i_reg" type="text" name="cp" placeholder="Codigo postal"/>
+		<p class="star">*</p><input class="i_reg" type="text" name="localidad" placeholder="Localidad"/>
+		<p class="star">*</p><input class="i_reg" type="text" name="provincia" placeholder="Provincia"/>
+		<p class="star">*</p><input class="i_reg" type="text" name="pais" placeholder="Pais"/>
+		<p class="starnone">*</p><input class="i_reg" type="text" name="web" placeholder="Web"/>
+		<p class="starnone">*</p><input class="i_reg" type="text" name="telefono" placeholder="Telefono"/>
 		<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 		return $camposForm;

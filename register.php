@@ -55,6 +55,7 @@
 		</ul>
 	</nav>
 
+	<script src="js/validate.js"></script>
 	<script>
 		$(document).ready(function () {
 			$("#regSelect").val("estudiante");
