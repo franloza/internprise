@@ -128,21 +128,23 @@ EOF;
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('dni', this)" name="dni" maxlength="9" placeholder="DNI"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('nombre', this)" name="nombre" maxlength="50" placeholder="Nombre"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('apellidos', this)" name="apellidos" maxlength="100" placeholder="Apellidos"/>
-			<p class="star">*</p><input list="list" onkeyup="validate('grado', this)" type="text" class="ui-autocomplete-input" id="grado" maxlength="100" placeholder="Grado"/>
-			<datalist class="i_reg" id="list"></datalist>
-			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('universidad, this')" name="nombre_universidad" maxlength="150" placeholder="Universidad"/>
+			<p class="star">*</p><input list="listgrado" onblur="validate('grado', this)" onkeyup="validate('gradocomplete', this)" type="text" id="grado" maxlength="100" placeholder="Grado"/>
+			<datalist class="i_reg" id="listgrado"></datalist>
+			<p class="star">*</p><input list="listuni" class="i_reg" type="text" onblur="validate('universidad', this)" onkeyup="validate('unicomplete', this)" name="nombre_universidad" maxlength="150" placeholder="Universidad"/>
+			<datalist class="i_reg" id="listuni"></datalist>
 			Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
 			Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
-			<p class="star">*</p><input class="i_reg" type="text" name="nacionalidad" maxlength="50" placeholder="Nacionalidad"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('nacionalidad', this)" name="nacionalidad" maxlength="50" placeholder="Nacionalidad"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('direccion', this)" maxlength="50" name="direccion" placeholder="Direccion"/>
-			<p class="star">*</p><input class="i_reg" type="date" onblur="validate('vacio', this)" name="fecha_nacimiento" />
+			<p class="star">*</p><input class="i_reg" type="date" onblur="validate('fecha', this)" name="fecha_nacimiento" />
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('cp', this)" maxlength="5" name="cp" placeholder="Codigo Postal"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="localidad" maxlength="50" placeholder="Ciudad"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="provincia" maxlength="50" placeholder="Provincia"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="pais" maxlength="50" placeholder="Country"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('ciudad', this)" name="localidad" maxlength="50" placeholder="Ciudad"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('provincia', this)" name="provincia" maxlength="50" placeholder="Provincia"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('pais', this)" name="pais" maxlength="50" placeholder="Pais"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="100" name="web" placeholder="Web"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="9" name="telefono" placeholder="Telefono"/>
-			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
+			<button type="submit" onsubmit="validateform('estudiante')" class="btn btn-primary btn-block btn-large">Registrarse</button>
+
 EOF;
 
       return $camposForm;

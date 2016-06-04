@@ -64,28 +64,6 @@
 			$( "#formEstudiante").find("input:hidden#rolHidden").val("estudiante");
 		});
 
-		//$('#grado').autocomplete({
-			//source: function(request, response) {
-				//$.ajax({
-					//url : 'ajaxRequest.php',
-					//type: "GET",
-					//dataType: "json",
-					//data: {datagrado: request.term}
-					//sucess: function(data) {
-						//alert(data);
-						//response(data);
-					//}
-			//}) .done (function(data) {
-				//alert(data);
-			//}) 
-				
-			//},
-			//minLength:1, 
-			//select: function(event, ui) {
-				//alert(ui.item.label);
-			//}
-		//});
-
 		$( "#regSelect").change(function () {
 			var valueSelected = this.value;
 			switch (valueSelected) {
