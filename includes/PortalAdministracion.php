@@ -63,20 +63,6 @@ EOF;
        $widgets="";
        $buscador = <<<EOF
        <div class="dashboard-content">
-       		
-           <!-- INI Contenedor busqueda dashboard -->
-           <div class="btn-search">
-               <a class="icon-search" href="#">
-                   <i class="fa fa-search fa-2x" style="color:#444;"></i>
-               </a>
-               <div class="txt-search">
-                   <form method="post" action="#" accept-charset="utf-8">
-                       <input id="busqueda" name="busqueda" value="" autocomplete="off" maxlength="30" class="txt-search" type="text" placeholder="Buscador de estudiantes / empresas">
-                   </form>
-               </div>
-           </div>
-           <!-- FIN Contenedor busqueda dashboard -->
-
            <!-- INI Contenedor Widgets superior -->
            <div class="widget-content">
 EOF;
@@ -154,7 +140,6 @@ EOF;
         $listaOfertas = array();
         $listaIds = array();
         foreach ( $ofertas as $oferta) {
-            $id = $oferta->getIdOferta();
             $empresa = $oferta ->getEmpresa();
             $puesto = $oferta->getPuesto();
             $sueldo = $oferta->getSueldo();
@@ -163,7 +148,7 @@ EOF;
             $estado = $oferta->getEstado();
             $fila = array($empresa, $puesto,$sueldo, $horas, $plazas, $estado);
             array_push($listaOfertas,$fila);
-            array_push($listaIds, $id);
+            array_push($listaIds, $oferta->getIdOferta());
         }
         $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado");
         $content = self::generaTabla("tabla-oferta","admin-table" ,
@@ -228,7 +213,7 @@ EOF;
                 <p>Días desde la creación: $diasDesdeCreacion</p>
             </div>
             <div id='admin-modal-footer' class="dialogo-modal-footer">
-                <button id='modificar-btn' type="button" class="btn btn-info">Modificar</button>
+                <button id='modificar-btn' type="button" class="btn btn-info disabled">Modificar</button>
                 <button id='eliminar-btn' type="button" class="btn btn-danger">Eliminar</button>
             </div>
         </div>

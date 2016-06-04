@@ -280,11 +280,11 @@ EOF;
                         $(".dialogo-modal").css('display', 'none');
                     });
                     // Cuando el usuario pulsa en otro lado que no sea el dialogo, se cierra
-                    window.onclick = function(event) {
+                    $('body').click (function(event) {
                         if (event.target != $(".dialogo-modal-content")) {
                             $(".dialogo-modal").css('display', 'none');
                         }
-                    }
+                    });
                 });
             }
         </script>
@@ -308,9 +308,7 @@ EOF;
             <label>
                 <a id="title-site" onclick="return loadContent('DASHBOARD')" href="#">$titulo</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                <a id="previous-page" href="$rol-dashboard.php">Anterior</a>
-                <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                <a id="current-page" href="dashboard.php">Actual</a>
+                <a id="current-page" href="dashboard.php">Dashboard</a>
             </label>
         </div>
         <nav id="icons-titlebar">
@@ -332,6 +330,11 @@ EOF;
                 </li>
             </ul>
         </nav>
+        <div class="search-bar">
+           <form method="post" action="#" accept-charset="utf-8">
+               <input value="" autocomplete="on" type="text" placeholder="Buscador...">
+           </form>
+       </div>
     </div>
 EOF;
 
