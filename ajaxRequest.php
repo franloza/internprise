@@ -27,10 +27,15 @@ if($app -> usuarioLogueado()){
 	if(!$modalDialogReq)
     	$app->saveSection($req);
 }
-else if(isset($_GET['email'])) {
-	$email = $_GET['email']; 
+else if(isset($_GET['datamail'])) {
+	$email = $_GET['datamail']; 
 	echo handle_emailValidation($email);
-} else
+} else if(isset($_GET['datagrado'])) {
+	$grado = $_GET['datagrado'];
+	$datos = handle_autocompleteGrado($grado);
+	echo $datos;
+}
+else
 	$content = Error::generaErrorPermisos();
 /*Returns the content to dashboard by ajax*/
 echo $content;
@@ -107,15 +112,23 @@ function handle_empresaRequest($req) {
 			}
 		}
 	}
+	
     else return false;
 }
 
 function handle_emailValidation($email) {
 	$ok = false;
+	// Si devuelve false es que no existe el email
 	if (!UsuarioDAO::cargaUsuario($email))
 		$ok = true;
-	$jsonArray =  json_encode(array("result"=>$ok));
+	$jsonArray =  json_encode(array("result" => $ok));
 	return $jsonArray;
+}
+
+function handle_autocompleteGrado($grado) {
+	$datos = array();
+	$datos = UsuarioDAO::getGradosLike($grado);
+	return json_encode($datos);
 }
 
 ?>

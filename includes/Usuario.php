@@ -87,6 +87,6 @@ class Usuario {
 
     //TODO:Hashear contraseña
   public function compruebaPassword($password) {
-    return $this->password === $password;
+    return password_verify($password, $this->password);
   }
 }
