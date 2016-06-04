@@ -63,14 +63,14 @@ class Oferta
         $this->sueldo = $sueldo;
     }
 
-    public function getFechaIncio()
+    public function getFechaInicio()
     {
         return $this->fecha_inicio;
     }
 
     public function setFechaInicio($fecha_inicio)
     {
-        $this->fecha_incio = $fecha_inicio;
+        $this->fecha_inicio = $fecha_inicio;
     }
 
     public function getFechaFin()

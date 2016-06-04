@@ -313,6 +313,21 @@ class UsuarioDAO
         return $universidades;
     }
 
+    public static function getEmails() {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT DISTINCT email FROM usuarios");
+        $rs = $conn->query($query);
+        $emails = array();
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($emails,$fila['email']);
+            }
+            $rs->free();
+        }
+        return $emails;
+    }
+
 
 
 

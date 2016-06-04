@@ -211,7 +211,7 @@ EOF;
         $tabla .= "</div>\n";
         $tabla .= <<<EOF
         <!-- Modal dialog oferta -->
-    <div id="oferta-modal-dialog" class="dialogo-modal">
+    <div class="dialogo-modal">
         <div class="dialogo-modal-content">
             <div class="dialogo-modal-header">
                 <span class="close">×</span>
@@ -262,29 +262,29 @@ EOF;
             function showDialog(row, rowType) {
                 var value, id;
                 if(rowType == 'data-id-oferta')
-                    value = 'OFERTA';
+                    value = 'MDO';
                 else if (rowType == 'data-id-demanda')
-                    value = 'DEMANDA';
+                    value = 'MDD';
                 else if (rowType == 'data-id-contrato')
-                    value = 'CONTRATO';
+                    value = 'MDC';
                 id = row.getAttribute(rowType);
                 //Petición ajax para cargar los datos de la oferta
                 $.get("ajaxRequest.php?val=" + value + '_' + id, function(data, status){
-                    //$("body").append(data);
-                    //$('head').append('<link rel="stylesheet" href="css/modal.css" type="text/css">');
+                    //Mete el html recibido dentro del div del dialogo modal
                     $('.dialogo-modal').html(data);
+                    //Muestra el dalogo modal
                     $('.dialogo-modal').css('display','block');
                     
                     // Cuando el usuario pulsa en la X para cerrar el dialogo
                     $(".close").click (function() {
                         $(".dialogo-modal").css('display', 'none');
                     });
-                    // When the user clicks anywhere outside of the modal, close it
-                    window.onclick = function(event) {
-                        if (event.target != $(".dialogo-modal")) {
+                    // Cuando el usuario pulsa en otro lado que no sea el dialogo, se cierra
+                    $('body').click (function(event) {
+                        if (event.target != $(".dialogo-modal-content")) {
                             $(".dialogo-modal").css('display', 'none');
                         }
-                    }
+                    });
                 });
             }
         </script>
@@ -308,9 +308,7 @@ EOF;
             <label>
                 <a id="title-site" onclick="return loadContent('DASHBOARD')" href="#">$titulo</a>
                 <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                <a id="previous-page" href="$rol-dashboard.php">Anterior</a>
-                <i class="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                <a id="current-page" href="dashboard.php">Actual</a>
+                <a id="current-page" href="dashboard.php">Dashboard</a>
             </label>
         </div>
         <nav id="icons-titlebar">
@@ -332,6 +330,11 @@ EOF;
                 </li>
             </ul>
         </nav>
+        <div class="search-bar">
+           <form method="post" action="#" accept-charset="utf-8">
+               <input value="" autocomplete="on" type="text" placeholder="Buscador...">
+           </form>
+       </div>
     </div>
 EOF;
 

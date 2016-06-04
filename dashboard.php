@@ -38,7 +38,6 @@ if (isset($_GET['logout'])) {
             echo $portal->generaMenu();
             echo $portal->generaTitlebar();
             echo '<div id="dashboard-content">';
-            echo $portal->generaDashboard();
             echo '</div>';
             echo $portal->generaFooter();
          }?>

@@ -80,6 +80,22 @@
 	color: white;
 }
 
+.search-bar {
+	float: right;
+	margin-top: 7px;
+}
+
+.search-bar > form > input {
+	border: none;
+	font:12px/12px 'HelveticaNeue', Helvetica, Arial, sans-serif;
+	margin-right: 5px;
+	padding: 10px;
+	box-shadow: 0 0 4px rgba(0,0,0,.4) inset, 1px 1px 1px rgba(255,255,255,.75);
+	border-radius: 9px;
+	color: #000;
+	height: 30px;
+}
+
 #icons-titlebar {
 	height: 100%;
 	float: right;

@@ -34,5 +34,4 @@
 		</ul>
 	</nav>
 </body>
-<script src="js/bckgEffect.js"></script>
 </html>

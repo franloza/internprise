@@ -24,62 +24,61 @@ class FormularioRegister extends Form{
     }
 
     private function generaCamposFormularioAdmin ($datos) {
-      $email = '';
-      $password = '';
-      $nombre = '';
-      $apellidos = '';
-      $nombre_universidad = '';
-      $sexo = '';
-      $direccion = '';
-      $cp = '';
-      $localidad = '';
-      $provincia = '';
-      $pais = '';
-      $web = '';
-      $telefono = '';
+		$email = '';
+		$password = '';
+		$nombre = '';
+		$apellidos = '';
+		$nombre_universidad = '';
+		$sexo = '';
+		$direccion = '';
+		$cp = '';
+		$localidad = '';
+		$provincia = '';
+		$pais = '';
+		$web = '';
+		$telefono = '';
 
-      if($datos){
-        $email = isset($datos['email']) ? $datos['email'] : $email;
-        $password = isset($datos['password']) ? $datos['password'] : $password;
-        $nombre = isset($datos['nombre']) ? $datos['nombre'] : $nombre;
-        $apellidos = isset($datos['apellidos']) ? $datos['apellidos'] : $apellidos;
-        $nombre_universidad = isset($datos['nombre_universidad']) ? $datos['nombre_universidad'] : $nombre_universidad;
-        $sexo = isset($datos['sexo']) ? $datos['sexo'] : $sexo;
-        $direccion = isset($datos['direccion']) ? $datos['direccion'] : $direccion;
-        $cp = isset($datos['cp']) ? $datos['cp'] : $cp;
-        $localidad = isset($datos['localidad']) ? $datos['localidad'] : $localidad;
-        $provincia = isset($datos['provincia']) ? $datos['provincia'] : $provincia;
-        $pais = isset($datos['pais']) ? $datos['pais'] : $pais;
-        $web = isset($datos['web']) ? $datos['web'] : $web;
-        $telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
-      }
+		if($datos) {
+			$email = isset($datos['email']) ? $datos['email'] : $email;
+			$password = isset($datos['password']) ? $datos['password'] : $password;
+			$nombre = isset($datos['nombre']) ? $datos['nombre'] : $nombre;
+			$apellidos = isset($datos['apellidos']) ? $datos['apellidos'] : $apellidos;
+			$nombre_universidad = isset($datos['nombre_universidad']) ? $datos['nombre_universidad'] : $nombre_universidad;
+			$sexo = isset($datos['sexo']) ? $datos['sexo'] : $sexo;
+			$direccion = isset($datos['direccion']) ? $datos['direccion'] : $direccion;
+			$cp = isset($datos['cp']) ? $datos['cp'] : $cp;
+			$localidad = isset($datos['localidad']) ? $datos['localidad'] : $localidad;
+			$provincia = isset($datos['provincia']) ? $datos['provincia'] : $provincia;
+			$pais = isset($datos['pais']) ? $datos['pais'] : $pais;
+			$web = isset($datos['web']) ? $datos['web'] : $web;
+			$telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
+		}
 
         $hChecked = (isset($sexo) == 'Hombre') ? "checked" : "";
         $mChecked = (isset($sexo) == 'Mujer') ? "checked" : "";
 
-      $camposForm=<<<EOF
+		$camposForm=<<<EOF
 			<legend>Registro para Administradores</legend>
-			<input type="text" name="email" placeholder="Email">
-			<input type="password" name="password" placeholder="Password"/>
-			<input type="text" name="nombre" placeholder="Nombre"/>
-			<input type="text" name="apellidos" placeholder="Apellidos"/>
-			<input type="text" name="nombre_universidad" placeholder="Universidad"/>
-			Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
-			Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
-			<input type="text" size="50" name="direccion" placeholder="Direccion"/>
-			<input type="text" name="cp" placeholder="Codigo Postal"/>
-			<input type="text" name="localidad" placeholder="Localidad"/>
-			<input type="text" name="provincia" placeholder="Provincia"/>
-			<input type="text" name="pais" placeholder="Pais"/>
-			<input type="text" name="web" placeholder="Web"/>
-			<input type="text" name="telefono" placeholder="Telefono"/>
-			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
+			<p class="star">*</p><input class="i_reg" type="text" name="email" onblur="validate('email')" placeholder="Email">
+			<p class="star">*</p><input class="i_reg" type="password" name="password" placeholder="Password"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="nombre" placeholder="Nombre"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="apellidos" placeholder="Apellidos"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="nombre_universidad" placeholder="Universidad"/><br />
+			<p class="star"></p>Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
+			<p class="star"></p>Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
+			<p class="star">*</p><input class="i_reg" type="text" maxlength="50" name="direccion" placeholder="Direccion"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="cp" placeholder="Codigo Postal"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="localidad" placeholder="Localidad"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="provincia" placeholder="Provincia"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="pais" placeholder="Pais"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" name="web" placeholder="Web"/>
+			<p class="starnone">*</p><input type="text" class="i_reg" name="telefono" placeholder="Telefono"/>
+			<button type="submit" class ="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
-      return $camposForm;
+      return $camposForm;               
     }
 
     private function generaCamposFormularioEstudiante ($datos) {
-
         $email = '';
         $dni = '';
         $password = '';
@@ -124,24 +123,25 @@ EOF;
 
       $camposForm=<<<EOF
 			<legend>Registro para Estudiantes</legend>
-			<input type="text" name="email" placeholder="Email">
-			<input type="password" name="password" placeholder="Password"/>
-			<input type="text" name="dni" placeholder="DNI"/>
-			<input type="text" name="nombre" placeholder="Nombre"/>
-			<input type="text" name="apellidos" placeholder="Apellidos"/>
-			<input type="text" name="grado" placeholder="Grado"/>
-			<input type="text" name="nombre_universidad" placeholder="Universidad"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="email" onblur="validate('email', this)" maxlength="100" placeholder="Email">
+			<p class="star">*</p><input class="i_reg" type="password" onblur="validate('password', this)" name="password" maxlength="50" placeholder="Password"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('dni', this)" name="dni" maxlength="9" placeholder="DNI"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('nombre', this)" name="nombre" maxlength="50" placeholder="Nombre"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('apellidos', this)" name="apellidos" maxlength="100" placeholder="Apellidos"/>
+			<p class="star">*</p><input list="list" onkeyup="validate('grado', this)" type="text" class="ui-autocomplete-input" id="grado" maxlength="100" placeholder="Grado"/>
+			<datalist class="i_reg" id="list"></datalist>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('universidad, this')" name="nombre_universidad" maxlength="150" placeholder="Universidad"/>
 			Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
 			Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
-			<input type="text" name="nacionalidad" placeholder="Nacionalidad"/>
-			<input type="text" size="50" name="direccion" placeholder="Direccion"/>
-			<input type="date" name="fecha_nacimiento" value="Fecha nacimiento"/>
-			<input type="text" name="cp" placeholder="Codigo Postal"/>
-			<input type="text" name="localidad" placeholder="Ciudad"/>
-			<input type="text" name="provincia" placeholder="Provincia"/>
-			<input type="text" name="pais" placeholder="Country"/>
-			<input type="text" name="web" placeholder="Web"/>
-			<input type="text" name="telefono" placeholder="Telefono"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="nacionalidad" maxlength="50" placeholder="Nacionalidad"/>
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('direccion', this)" maxlength="50" name="direccion" placeholder="Direccion"/>
+			<p class="star">*</p><input class="i_reg" type="date" onblur="validate('vacio', this)" name="fecha_nacimiento" />
+			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('cp', this)" maxlength="5" name="cp" placeholder="Codigo Postal"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="localidad" maxlength="50" placeholder="Ciudad"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="provincia" maxlength="50" placeholder="Provincia"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="pais" maxlength="50" placeholder="Country"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="100" name="web" placeholder="Web"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="9" name="telefono" placeholder="Telefono"/>
 			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 
@@ -149,47 +149,47 @@ EOF;
    }
 
     private function generaCamposFormularioEmpresa ($datos) {
-    $email = '';
-    $password = '';
-    $cif = '';
-    $razonSocial= '';
-    $direccion = '';
-    $cp = '';
-    $localidad = '';
-    $provincia = '';
-    $pais = '';
-    $web = '';
-    $telefono = '';
+		$email = '';
+		$password = '';
+		$cif = '';
+		$razonSocial= '';
+		$direccion = '';
+		$cp = '';
+		$localidad = '';
+		$provincia = '';
+		$pais = '';
+		$web = '';
+		$telefono = '';
 
 
-    if($datos){
-		$email = isset($datos['email']) ? $datos['email'] : $email;
-		$password = isset($datos['password']) ? $datos['password'] : $password;
-		$cif = isset($datos['cif']) ? $datos['cif'] : $cif;
-		$razonSocial = isset($datos['razonSocial']) ? $datos['razonSocial'] : $razonSocial;
-		$direccion = isset($datos['direccion']) ? $datos['direccion'] : $direccion;
-		$cp = isset($datos['cp']) ? $datos['cp'] : $cp;
-		$localidad = isset($datos['localidad']) ? $datos['localidad'] : $localidad;
-		$provincia = isset($datos['provincia']) ? $datos['provincia'] : $provincia;
-		$pais = isset($datos['pais']) ? $datos['pais'] : $pais;
-		$web = isset($datos['web']) ? $datos['web'] : $web;
-		$telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
-    }
+		if($datos){
+			$email = isset($datos['email']) ? $datos['email'] : $email;
+			$password = isset($datos['password']) ? $datos['password'] : $password;
+			$cif = isset($datos['cif']) ? $datos['cif'] : $cif;
+			$razonSocial = isset($datos['razonSocial']) ? $datos['razonSocial'] : $razonSocial;
+			$direccion = isset($datos['direccion']) ? $datos['direccion'] : $direccion;
+			$cp = isset($datos['cp']) ? $datos['cp'] : $cp;
+			$localidad = isset($datos['localidad']) ? $datos['localidad'] : $localidad;
+			$provincia = isset($datos['provincia']) ? $datos['provincia'] : $provincia;
+			$pais = isset($datos['pais']) ? $datos['pais'] : $pais;
+			$web = isset($datos['web']) ? $datos['web'] : $web;
+			$telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
+		}
 
-    $camposForm=<<<EOF
-		<legend>Registro para Empresa</legend>
-		<input type="text" name="email" placeholder"Email"/></p>
-		<input type="password" name="password" placeholder="Password"/>
-		<input type="text" name="cif" placeholder="CIF"/>
-		<input type="text" name="razonSocial" placeholder="Razon social"/>
-		<input type="text" size="50" name="direccion" placeholder="Direccion"/>
-		<input type="text" name="cp" placeholder="Codigo postal"/>
-		<input type="text" name="localidad" placeholder="Localidad"/>
-		<input type="text" name="provincia" placeholder="Provincia"/>
-		<input type="text" name="pais" placeholder="Pais"/>
-		<input type="text" name="web" placeholder="Web"/>
-		<input type="text" name="telefono" placeholder="Telefono"/>
-		<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
+		$camposForm=<<<EOF
+			<legend>Registro para Empresa</legend>
+			<p class="star">*</p><input class="i_reg" type="text" name="email" placeholder="Email"/>
+			<p class="star">*</p><input class="i_reg" type="password" name="password" placeholder="Password"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="cif" placeholder="CIF"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="razonSocial" placeholder="Razon social"/>
+			<p class="star">*</p><input class="i_reg" type="text" maxlength="50" name="direccion" placeholder="Direccion"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="cp" placeholder="Codigo postal"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="localidad" placeholder="Localidad"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="provincia" placeholder="Provincia"/>
+			<p class="star">*</p><input class="i_reg" type="text" name="pais" placeholder="Pais"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" name="web" placeholder="Web"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" name="telefono" placeholder="Telefono"/>
+			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 		return $camposForm;
     }

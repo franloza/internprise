@@ -6,9 +6,11 @@
 <html>
 <head>
 	<script src="js/jquery-2.2.3.js"></script>
+	<script src="js/jquery.auto-complete.js"></script>
+	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/jquery-ui.css" />
 	<link rel="stylesheet" type="text/css" href="css/estilo_index.css" />
 	<title>Internprise</title>
-
 </head>
 
 <body>
@@ -55,11 +57,35 @@
 		</ul>
 	</nav>
 
+	<script src="js/validate.js"></script>
 	<script>
 		$(document).ready(function () {
 			$("#regSelect").val("estudiante");
 			$( "#formEstudiante").find("input:hidden#rolHidden").val("estudiante");
 		});
+
+		//$('#grado').autocomplete({
+			//source: function(request, response) {
+				//$.ajax({
+					//url : 'ajaxRequest.php',
+					//type: "GET",
+					//dataType: "json",
+					//data: {datagrado: request.term}
+					//sucess: function(data) {
+						//alert(data);
+						//response(data);
+					//}
+			//}) .done (function(data) {
+				//alert(data);
+			//}) 
+				
+			//},
+			//minLength:1, 
+			//select: function(event, ui) {
+				//alert(ui.item.label);
+			//}
+		//});
+
 		$( "#regSelect").change(function () {
 			var valueSelected = this.value;
 			switch (valueSelected) {
@@ -89,6 +115,7 @@
 				}
 			}
 		}).change();
+
 	</script>
 </body>
 </html>

@@ -32,33 +32,6 @@ body, html{
     text-align: inherit;
 }
 
-/*Dashboard search*/
-
-.dashboard-content .btn-search {
-	border: 1px solid #ccc;
-	width: 50%;
-    display: inline-block;
-    border: 2px solid #a1a1a1;
-    border-radius: 25px;
-
-    padding: .8% 2% .8% 2%;
-
-}
-
-.dashboard-content .icon-search {
-    float: right;
-	padding-left: 2px;
-    height: 100%;
-}
-.dashboard-content .txt-search {
-    height: 50px;
-    font-size: 25px;
-    border: none;
-    width: 92%;
-    float:left;
-}
-
-
 /*Widgets dashboard*/
 
 .square a {

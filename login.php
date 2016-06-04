@@ -10,7 +10,6 @@
 	<title>Internprise</title>
 </head>
 <body>
-	<canvas id="canvas"></canvas>
 	<main>
 		<section id="left"></section>
 		<article id="main_login">
@@ -33,5 +32,4 @@
 		</ul>
 	</nav>
 </body>
-<script src="js/bckgEffect.js"></script>
 </html>

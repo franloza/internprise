@@ -63,20 +63,6 @@ EOF;
        $widgets="";
        $buscador = <<<EOF
        <div class="dashboard-content">
-       		
-           <!-- INI Contenedor busqueda dashboard -->
-           <div class="btn-search">
-               <a class="icon-search" href="#">
-                   <i class="fa fa-search fa-2x" style="color:#444;"></i>
-               </a>
-               <div class="txt-search">
-                   <form method="post" action="#" accept-charset="utf-8">
-                       <input id="busqueda" name="busqueda" value="" autocomplete="off" maxlength="30" class="txt-search" type="text" placeholder="Buscador de estudiantes / empresas">
-                   </form>
-               </div>
-           </div>
-           <!-- FIN Contenedor busqueda dashboard -->
-
            <!-- INI Contenedor Widgets superior -->
            <div class="widget-content">
 EOF;
@@ -154,7 +140,6 @@ EOF;
         $listaOfertas = array();
         $listaIds = array();
         foreach ( $ofertas as $oferta) {
-            $id = $oferta->getIdOferta();
             $empresa = $oferta ->getEmpresa();
             $puesto = $oferta->getPuesto();
             $sueldo = $oferta->getSueldo();
@@ -163,7 +148,7 @@ EOF;
             $estado = $oferta->getEstado();
             $fila = array($empresa, $puesto,$sueldo, $horas, $plazas, $estado);
             array_push($listaOfertas,$fila);
-            array_push($listaIds, $id);
+            array_push($listaIds, $oferta->getIdOferta());
         }
         $titulosColumnas = array("Empresa", "Puesto", "Sueldo", "Horas", "Plazas", "Estado");
         $content = self::generaTabla("tabla-oferta","admin-table" ,
@@ -200,7 +185,7 @@ EOF;
             $empresa = $oferta->getEmpresa();
             $puesto = $oferta->getPuesto();
             $sueldo = $oferta->getSueldo();
-            $fecha_inicio = $oferta->getFechaIncio();
+            $fecha_inicio = $oferta->getFechaInicio();
             $fecha_fin = $oferta->getFechaFin();
             $horas = $oferta->getHoras();
             $plazas = $oferta->getPlazas();
@@ -209,10 +194,10 @@ EOF;
             $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
             $content = <<<EOF
     <!-- Modal dialog oferta -->
-        <div id= 'oferta-model-content' class="dialogo-modal-content">
-            <div class="dialogo-modal-header">
+        <div id='admin-modal-content' class="dialogo-modal-content">
+            <div id='admin-modal-header' class="dialogo-modal-header">
                 <span class="close">×</span>
-                <h2>Modal Header</h2>
+                <h2>Oferta</h2>
             </div>
             <div class="dialogo-modal-body">
                 <p>Id: $id</p>
@@ -227,15 +212,16 @@ EOF;
                 <p>Estado: $estado</p>
                 <p>Días desde la creación: $diasDesdeCreacion</p>
             </div>
-            <div class="dialogo-modal-footer">
-                <h3>Modal Footer</h3>
+            <div id='admin-modal-footer' class="dialogo-modal-footer">
+                <button id='modificar-btn' type="button" class="btn btn-info disabled">Modificar</button>
+                <button id='eliminar-btn' type="button" class="btn btn-danger">Eliminar</button>
             </div>
         </div>
 EOF;
         }
         else{
             $content = <<<EOF
-            <h1>Fallo al cargar la oferta</h1>
+            <h1 style="color:red">Fallo al cargar la oferta</h1>
 EOF;
 
         }
