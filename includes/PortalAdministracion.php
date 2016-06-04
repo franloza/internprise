@@ -164,8 +164,26 @@ EOF;
 
     public function generaContratos(){
         // TODO: Implement generaContratos() method.
+    	$contratos = ContratoDAO::cargaContratosVigor(20,null);
+    	$listaContratos = array();
+    	$listaIds = array();
+    	foreach ( $contratos as $contrato) {
+    		$id_contrato = $contrato ->getIdContrato();
+    		$empresa = $contrato->getEmpresa();
+    		$estudiante = $contrato->getEstudiante();
+    		$fecha_inicio = $contrato->getFechaInicio();
+    		$fecha_fin = $contrato->getFechaFin();
+    		$fila = array($id_contrato,$empresa,$estudiante,$fecha_inicio, $fecha_fin);
+    		array_push($listaContratos,$fila);
+    		array_push($listaIds, $contrato->getIdContrato());
+    	}
+    
+    	$titulosColumnas = array("Id Contrato","Empresa", "Estudiante", "Inicio", "Fin");
+    	$content = self::generaTabla("tabla-contratos", "estudiante-table",
+    			"Contratos disponibles", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
+    
+    	return $content;
     }
-
     public function generaHistorial(){
         // TODO: Implement generaHistorial() method.
     }
