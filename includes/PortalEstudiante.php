@@ -51,20 +51,6 @@ EOF;
        $widgets="";
        $buscador = <<<EOF
        <div class="dashboard-content">
-
-           <!-- INI Contenedor busqueda dashboard -->
-           <div class="btn-search">
-               <a class="icon-search" href="#">
-                   <i class="fa fa-search fa-2x" style="color:#444;"></i>
-               </a>
-               <div class="txt-search">
-                   <form method="post" action="#">
-                       <input class="txt-search" type="text" placeholder="Buscador de empresas">
-                   </form>
-               </div>
-           </div>
-           <!-- FIN Contenedor busqueda dashboard -->
-
            <!-- INI Contenedor Widgets superior -->
            <div class="widget-content">
 EOF;
@@ -118,6 +104,7 @@ EOF;
     public function generaOfertas(){
         $ofertas = OfertaDAO::cargasOfertasEstudiante(20);
         $listaOfertas = array();
+        $listaIds = array();
         foreach ( $ofertas as $oferta) {
             $empresa = $oferta ->getEmpresa();
             $puesto = $oferta->getPuesto();
@@ -126,11 +113,62 @@ EOF;
             $plazas = $oferta->getPlazas();
             $fila = array($empresa,$puesto,$sueldo, $horas, $plazas);
             array_push($listaOfertas,$fila);
+            array_push($listaIds, $oferta->getIdOferta());
         }
 
         $titulosColumnas = array("Empresa","Puesto", "Sueldo", "Horas", "Plazas");
         $content = self::generaTabla("tabla-ofertas", "estudiante-table",
-            "Ofertas disponibles", $titulosColumnas, $listaOfertas);
+            "Ofertas disponibles", $titulosColumnas, $listaOfertas, $listaIds, 'oferta');
+
+        return $content;
+    }
+
+    public function generaDialogoOferta($idOferta){
+        $oferta = OfertaDAO::cargaOferta($idOferta);
+        if($oferta) {
+            $id = $oferta->getIdOferta();
+            $empresa = $oferta->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $fecha_inicio = $oferta->getFechaInicio();
+            $fecha_fin = $oferta->getFechaFin();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $descripcion = $oferta->getDescripcion();
+            $estado = $oferta->getEstado();
+            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
+            $content = <<<EOF
+    <!-- Modal dialog oferta -->
+        <div id='estudiante-modal-content' class="dialogo-modal-content">
+            <div id='estudiante-modal-header' class="dialogo-modal-header">
+                <span class="close">×</span>
+                <h2>Oferta</h2>
+            </div>
+            <div class="dialogo-modal-body">
+                <p>Id: $id</p>
+                <p>Empresa: $empresa</p>
+                <p>Puesto: $puesto</p>
+                <p>Sueldo: $sueldo</p>
+                <p>Fecha inicio: $fecha_inicio</p>
+                <p>Fecha fin: $fecha_fin </p>
+                <p>Horas: $horas</p>
+                <p>Plazas: $plazas</p>
+                <p>Descripción: $descripcion</p>
+                <p>Estado: $estado</p>
+                <p>Días desde la creación: $diasDesdeCreacion</p>
+            </div>
+            <div id='estudiante-modal-footer' class="dialogo-modal-footer">
+                <button id='aceptar-btn' type="button" class="btn btn-info">Solicitar</button>
+            </div>
+        </div>
+EOF;
+        }
+        else{
+            $content = <<<EOF
+            <h1 style="color:red">Fallo al cargar la oferta</h1>
+EOF;
+
+        }
 
         return $content;
     }
