@@ -128,7 +128,7 @@ EOF;
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('dni', this)" name="dni" maxlength="9" placeholder="DNI"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('nombre', this)" name="nombre" maxlength="50" placeholder="Nombre"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('apellidos', this)" name="apellidos" maxlength="100" placeholder="Apellidos"/>
-			<p class="star">*</p><input list="list" onkeyup="validate('grado', this)" type="text" class="ui-autocomplete-input" id="grado" maxlength="100" placeholder="Grado"/>
+			<p class="star">*</p><input list="list" onkeyup="validate('grado', this)" type="text" class="ui-autocomplete-input" id="grado" maxlength="100" name="grado" placeholder="Grado"/>
 			<datalist class="i_reg" id="list"></datalist>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('universidad, this')" name="nombre_universidad" maxlength="150" placeholder="Universidad"/>
 			Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
