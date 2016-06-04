@@ -180,6 +180,10 @@ EOF;
      * Procesa los datos del formulario.
      */
     protected function procesaFormulario($datos) {
+
+        $opciones = ['cost' => 6,];
+        $datos['password'] = password_hash($datos['password'], PASSWORD_BCRYPT, $opciones);
+
         $app = App::getSingleton();
         $rol = $app->rolUsuario();
         $email = $app->emailUsuario();
