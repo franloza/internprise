@@ -177,6 +177,12 @@ legend {
 	color: #fff;
 }
 
+datalist option {
+	background: rgba(240, 248, 255, 0.3);
+	font-size: 13px;
+	color: #fff;
+}
+
 #left, #right {
 	float: left;
 	width: 20%;
@@ -302,7 +308,7 @@ p.star, p.starnone {
 p.start { color:red; }
 p.starnone { color: #1B1B1B; }
 
-input.i_reg {
+input.i_reg, #grado {
 	float: left;
 	width: 88%;
 }
