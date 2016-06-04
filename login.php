@@ -25,9 +25,9 @@
 		<ul>
 			<li onclick="location.href='index.php';"><a href="index.php">Home</a></li>
 			<li onclick="location.href='about.php';"><a href="about.php">About us</a></li>
-			<li onclick="location.href='login.php';"<a href="login.php">Login</a></li>
-			<li onclick="location.href='register.php';"<a href="register.php">Register</a></li>
-			<li onclick="location.href='contact.php';"<a href="contact.php">Contact</a></li>
+			<li onclick="location.href='login.php';"><a href="login.php">Login</a></li>
+			<li onclick="location.href='register.php';"><a href="register.php">Register</a></li>
+			<li onclick="location.href='contact.php';"><a href="contact.php">Contact</a></li>
 			<li class="slide"></li>
 		</ul>
 	</nav>
