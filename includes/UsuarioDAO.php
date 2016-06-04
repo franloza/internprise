@@ -328,10 +328,34 @@ class UsuarioDAO
         return $emails;
     }
 
+    public static function listEmpresasEstudiantes() {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT id_usuario,CONCAT(nombre,' ',apellidos) AS nombre FROM estudiantes
+                          UNION ALL SELECT id_usuario,razon_social AS nombre FROM empresas");
+        $rs = $conn->query($query);
+        $list = array();
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($list,array($fila['id_usuario'],$fila['nombre']));
+            }
+            $rs->free();
+        }
+        return $list;
+    }
 
-
-
-
-
-
+    public static function listEstudiantes() {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT id_usuario,CONCAT(nombre,' ',apellidos) AS nombre FROM estudiantes");
+        $rs = $conn->query($query);
+        $list = array();
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($list,array($fila['id_usuario'],$fila['nombre']));
+            }
+            $rs->free();
+        }
+        return $list;
+    }
 }

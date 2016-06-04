@@ -201,6 +201,10 @@ EOF;
      */
     protected function procesaFormulario($datos) {
 
+        $opciones = ['cost' => 6,];
+        $datos['password'] = password_hash($datos['password'], PASSWORD_BCRYPT, $opciones);
+       
+
         switch ($datos['rol']) {
             case 'admin': {$result = Administrador::register($datos);break;}
             case 'estudiante': {$result = Estudiante::register($datos);break;}
