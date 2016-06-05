@@ -33,6 +33,7 @@ class contratoDAO
     /*
      * Función que carga los 20 ultimos contratos ya finalizados (estado de finalizado a true) de la BBDD.
      * Permite filtrar por grado. (Por defecto: TODOS)
+     * Permite filtrar por año. (Por defecto: TODOS)
      * Ordena por fecha de finalizacion (Por defecto: 20)
      */
     public static function cargaContratosFinalizados($numContratos, $grado, $año)
@@ -82,7 +83,7 @@ class contratoDAO
      * Función que recupera las contratos finalizados o no de una empresa
      */
 
-    public static function cargaOfertasPorEstado($numContratos, $estado)
+    public static function cargaContratosPorEstado($numContratos, $estado)
     {
         /*
          *  Este metodo muestra todos los contratos que tiene la empresa en funcion del estado de la variable
@@ -91,6 +92,7 @@ class contratoDAO
          * Este metodo se puede usar para ambas pestañas de la empresa en contratos.
          *
          */
+    	
     }
 
     /*FUNCIONES GENÉRICAS*/

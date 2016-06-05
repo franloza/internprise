@@ -272,7 +272,7 @@ CREATE TABLE `contratos` (
   `salario` decimal(6,0) NOT NULL,
   `descripcion` longtext,
   `finalizado` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id_contrato`),
+  PRIMARY KEY (`id_contrato`)
 
 --  KEY `ofertas_empresas_id_usuario_fk` (`id_empresa`),
 --  CONSTRAINT `ofertas_empresas_id_usuario_fk` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE

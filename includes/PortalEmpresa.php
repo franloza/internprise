@@ -224,8 +224,26 @@ EOF;
     }
 
 
-    public function generaContratos(){
-        // TODO: Implement generaContratos() method.
+    public function generaContratos($finalizado){
+        // TODO: Implement generaContratos($finalizado) method.
+    	$contratos = ContratoDAO::cargaContratosPorEstado(20, $finalizado);
+
+    	$listaContratos = array();
+    	$listaIds = array();
+    	foreach ( $contratos as $contrato) {
+    		$id_contrato = $contrato ->getIdContrato();
+    		$estudiante = $contrato->getEstudiante();
+    		$puesto = $contrato->getPuesto();
+    		$fecha_inicio = $contrato->getFechaInicio();
+    		$fecha_fin = $contrato->getFechaFin();
+    		$fila = array($id_contrato, $estudiante,$puesto, $fecha_inicio, $fecha_fin);
+    		array_push($listaContratos,$fila);
+    		array_push($listaIds, $contrato->getIdContrato());
+    	}
+    	$titulosColumnas = array("Id Contrato", "Estudiante", "Puesto", "Inicio", "Fin");
+    	$content = self::generaTabla("tabla-contrato","admin-table" ,
+    			"Contratos", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
+    	return $content;
     }
 
     public function generaBuzon(){

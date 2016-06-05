@@ -179,13 +179,31 @@ EOF;
     	}
     
     	$titulosColumnas = array("Id Contrato","Empresa", "Estudiante", "Inicio", "Fin");
-    	$content = self::generaTabla("tabla-contratos", "estudiante-table",
+    	$content = self::generaTabla("tabla-contratos", "admin-table",
     			"Contratos disponibles", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
     
     	return $content;
     }
     public function generaHistorial(){
         // TODO: Implement generaHistorial() method.
+    	$contratos = ContratoDAO::cargaContratosFinalizados(20,null,null);
+    	$listaContratos = array();
+    	$listaIds = array();
+    	foreach ( $contratos as $contrato) {
+    		$id_contrato = $contrato ->getIdContrato();
+    		$empresa = $contrato->getEmpresa();
+    		$estudiante = $contrato->getEstudiante();
+    		$puesto = $contrato->getPuesto();
+    		$fila = array($id_contrato,$empresa,$estudiante,$puesto);
+    		array_push($listaContratos,$fila);
+    		array_push($listaIds, $contrato->getIdContrato());
+    	}
+    	
+    	$titulosColumnas = array("Id Contrato","Empresa", "Estudiante", "Puesto");
+    	$content = self::generaTabla("tabla-contratos", "admin-table",
+    			"Historial", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
+    	
+    	return $content;
     }
 
     public function generaEncuestas(){
