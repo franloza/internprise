@@ -98,7 +98,98 @@ EOF;
     }
 
     public function generaPerfil(){
-        //TODO; Genera perfil
+        $content = <<<EOF
+        <div class="container">
+        <div class="row">
+            <div id="imagen-estudiante" class="col-sm-3">
+                <IMG SRC="img/estudiante-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
+            </div>
+            
+            <div class="col-sm-8">
+                <h1 ><strong>Pedro Sanchez Pérez</strong></h1>
+                <h3>Analista de datos y consultor técnico</h3>
+                <p>Madrid zona centro y norte</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+            <div class="text-center"><h1>Experiencia</h1></div>
+                <table class="table table-hover ">
+                    <tr>
+                        <td>Actual</td>
+                        <td>Analista de datos en Data Center</td>
+                    </tr>
+    
+                    <tr>
+                        <td>Anterior</td>
+                        <td>Becario en la Universidad Complutense. Tecnico de Infomatica</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-sm-6">
+            <div class="text-center""><h1>Educación</h1></div>
+                <table class="table table-hover ">
+                    <tr>
+                        <td>Estudios</td>
+                        <td>Grado en Ingeniería Informática</td>
+                        <td>Universidad Complutense de Madrid</td>
+                        </tr>
+        
+                        <tr>
+                            <td>Idiomas</td>
+                            <td>Inglés (C1)</td>
+                            <td>Frances (B1) </td>
+                        </tr>
+                    </table>
+             </div>
+         </div>      
+        <div class="row">
+            <div class="text-left"><h1>Aptitudes</h1>
+                <div class="aptitudes">
+                    <button class="btn btn-primary">SQL Server 2008</button>
+                    <button class="btn btn-primary">PL/SQL</button>
+                    <button class="btn btn-primary">R</button>
+                    <button class="btn btn-primary">Python</button>
+                    <button class="btn btn-primary">Microsoft Excel</button>
+                    <button class="btn btn-primary">Hadoop</button>
+                    <button class="btn btn-primary">SAS</button>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="text-left"><h1>Contacto</h1></div>      
+        </div>
+        <div class="well well-sm quick-contact">
+        <div class="row">
+            <div class="col-md-4">
+                <h2><i class="fa fa-envelope"></i> <a href="mailto:psanchez@ucm.com">psanchez@ucm.es</a></h2>
+            </div>
+            <div class="col-md-4 contact-email">
+                <h3><i class="fa fa-mobile"></i> 608 82 66 47</h3>
+                <h3><i class="fa fa-phone"></i> 91 847 24 89</h3>
+            </div>
+            <div class="col-md-4">
+                <div class="row contact row-first">
+                    <div class="col-md-6">
+                        <a href="#" class="skype"><i class="fa fa-skype"></i> Skype</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#" class="google"><i class="fa fa-google-plus"></i> Google+</a>
+                    </div>
+                </div>
+                <div class="row contact">
+                    <div class="col-md-6">
+                        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
+                    </div>
+                    <div class="col-md-6">
+                        <a href="#" class="twitter"><i class="fa fa-twitter"></i> Twitter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>              
+EOF;
+        echo $content;
     }
 
     public function generaOfertas(){
