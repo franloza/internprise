@@ -31,6 +31,7 @@ if (isset($_GET['logout'])) {
             loadContent('<?php echo $app->section()?>');
         });
     </script>
+    <script src="js/validate.js"></script>
     <body>
         <?php
         if($error) { echo $errorMsg;} else {
