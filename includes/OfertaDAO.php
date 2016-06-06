@@ -183,13 +183,19 @@ class OfertaDAO
         $horas = intval($datos['horas']);
         $plazas = intval($datos['plazas']);
         $descripcion = $datos['descripcion'];
+        $aptitudes = $datos['aptitudes'];
+        $reqMinimos = $datos['reqMinimos'];
+        $idiomas = $datos['idiomas'];
+        $reqDeseables = $datos['reqDeseables'];
+
+
         $estado = 'Pendiente';
 
         $stmt = $conn->prepare('INSERT INTO ofertas (id_empresa, 
                           puesto, sueldo, fecha_incio, fecha_fin, horas, 
-                          plazas, descripcion,estado) VALUES (?,?,?,?,?,?,?,?,?)');
+                          plazas, descripcion, aptitudes, reqMinimos, idiomas, reqDeseables, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
         $stmt->bind_param("isissiiss", $id_usuario, $puesto, $sueldo,$fechaInicio,
-            $fechaFin, $horas, $plazas, $descripcion, $estado);
+            $fechaFin, $horas, $plazas, $descripcion, $aptitudes, $reqMinimos, $idiomas, $reqDeseables, $estado);
 
         if (!$stmt->execute()) {
             $result [] = $stmt->error;
@@ -211,6 +217,11 @@ class OfertaDAO
         $oferta->setHoras($fila['horas']);
         $oferta->setSueldo($fila['sueldo']);
         $oferta->setDescripcion($fila['descripcion']);
+        $oferta->setAptitudes($fila['aptitudes']);
+        $oferta->setReqMinimos($fila['reqMinimos']);
+        $oferta->setIdiomas($fila['idiomas']);
+        $oferta->setReqDeseables($fila['reqDeseables']);
+
         $oferta->setDiasDesdeCreacion($fila['fecha_creacion']);
         return $oferta;
     }

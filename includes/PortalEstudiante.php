@@ -226,6 +226,10 @@ EOF;
             $horas = $oferta->getHoras();
             $plazas = $oferta->getPlazas();
             $descripcion = $oferta->getDescripcion();
+            $aptitudes = $oferta->getAptitudes();
+            $reqMinimos = $oferta->getReqMinimos();
+            $idiomas = $oferta->getIdiomas();
+            $reqDeseables = $oferta->getReqDeseables();
             $estado = $oferta->getEstado();
             $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
             $content = <<<EOF
@@ -245,6 +249,10 @@ EOF;
                 <p>Horas: $horas</p>
                 <p>Plazas: $plazas</p>
                 <p>Descripción: $descripcion</p>
+                <p>Aptitudes: $aptitudes</p>
+                <p>Requisitos minimos: $reqMinimos</p>
+                <p>Idiomas: $idiomas</p>
+                <p>Requisitos deseables: $reqDeseables</p>
                 <p>Estado: $estado</p>
                 <p>Días desde la creación: $diasDesdeCreacion</p>
             </div>
