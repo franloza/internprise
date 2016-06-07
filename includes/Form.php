@@ -131,7 +131,7 @@ class Form {
 
     $html= $this->generaListaErrores($errores);
 
-    $html .= '<form method="POST" action="'.$this->action.'" onsubmit="validateform(this)" id="'.$this->formId.'"';
+    $html .= '<form method="POST" action="'.$this->action.'" onsubmit="return validateform(this);" id="'.$this->formId.'"';
     if ( $this->classAtt ) {
       $html .= ' class="'.$this->classAtt.'"';
     }

@@ -1,69 +1,130 @@
-var ok = false;
+var fieldsEstudiante = { 
+	email: false,
+	password: false,
+	dni: false,
+	nombre: false,
+	apellidos: false,
+	grado: false,
+	universidad: false,
+	nacionalidad: false,
+	direccion: false,
+	fecha: false,
+	cp: false,
+	ciudad: false,
+	provincia: false,
+	pais: false
+};
+
+var fieldsAdmin = { 
+	email: false,
+	password: false,
+	nombre: false,
+	apellidos: false,
+	universidad: false,
+	direccion: false,
+	cp: false,
+	localidad: false,
+	provincia: false,
+	pais: false
+};
+
+var fieldsEmpresa = { 
+	email: false,
+	password: false,
+	cif: false,
+	razon: false,
+	direccion: false,
+	cp: false,
+	localidad: false,
+	provincia: false,
+	pais: false
+};
+
+function resetFields() {
+	for (var i in fieldsEstudiante)
+		fieldsEstudiante[i] = false;
+	for (var i in fieldsEmpresa)
+		fieldsEmpresa[i] = false;
+	for (var i in fieldsAdmin)
+		fieldsAdmin[i] = false;
+}
 
 function validate(field, item) {
 	switch (field) {
 		case 'email':
-			ok |= validateEmail(item);
+			validateEmail(item);
 			break;
 
 		case 'password':
-			ok |= validatePassword(item);
+			fieldsAdmin["password"] = fieldsEmpresa["password"] = fieldsEstudiante["password"] = validatePassword(item);
+			break;
+
+		case 'cif':
+			fieldsEmpresa["cif"] = validateCif(item);
+			break;
+
+		case 'razon':
+			fieldsEmpresa["razon"] = validateRazon(item); 	
 			break;
 
 		case 'dni':
-			ok |= validateDni(item);
+			fieldsEstudiante["dni"] = validateDni(item);
 			break;
 		
 		case 'nombre':
-			ok |= validateName(item);
+			fieldsAdmin["nombre"] = fieldsEstudiante["nombre"] = validateName(item);
 			break;
 
 		case 'apellidos':
-			ok |= validateSurname(item);
+			fieldsAdmin["apellidos"] = fieldsEstudiante["apellidos"] = validateSurname(item);
 			break;
 
 		case 'grado':
-			ok |= validateGrado(item);
+			fieldsEstudiante["grado"] = validateGrado(item);
 			break;
 
 		case 'gradocomplete':
-			ok |= validateGradoAutocomplete(item);
+			validateGradoAutocomplete(item);
 			break;
 		
 		case 'universidad':
-			ok |= validateUniversidad(item);
+			fieldsAdmin["universidad"] = fieldsEstudiante["universidad"] = validateUniversidad(item);
 			break;
 		
 		case 'unicomplete':
-			ok |= validateUniversidadAutocomplete(item);
+			validateUniversidadAutocomplete(item);
 			break;
 
 		case 'nacionalidad':
-			ok |= validateNacionalidad(item);
+			fieldsEstudiante["nacionalidad"] = validateNacionalidad(item);
 			break;
 
 		case 'direccion':
-			ok |= validateDireccion(item);
+			fieldsAdmin["direccion"] = fieldsEmpresa["direccion"] = fieldsEstudiante["direccion"] = validateDireccion(item);
 			break;
 
 		case 'fecha':
-			ok |= validateFecha(item);
+			fieldsEstudiante["fecha"] = validateFecha(item);
 			break;
 
 		case 'cp':
-			ok |= validateCp(item);
+			fieldsAdmin["cp"] = fieldsEmpresa["cp"] = fieldsEstudiante["cp"] = validateCp(item);
+			break;
+
+		case 'localidad':
+			fieldsAdmin["localidad"] = fieldsEmpresa["localidad"] = validateLocalidad(item); 	
 			break;
 
 		case 'ciudad':
-			ok |= validateCiudad(item);
+			fieldsEstudiante["ciudad"] = validateCiudad(item);
 			break;
 
 		case 'provincia':
-			ok |= validateProvincia(item);
+			fieldsAdmin["provincia"] = fieldsEmpresa["provincia"] = fieldsEstudiante["provincia"] = validateProvincia(item);
 			break;
 
 		case 'pais':
-			ok |= validatePais(item);
+			fieldsAdmin["pais"] = fieldsEmpresa["pais"] = fieldsEstudiante["pais"] = validatePais(item);
 			break;
 	}
 }
@@ -81,9 +142,8 @@ function inputStyle(item, msg, isOk) {
 function validateEmail(item) {
 	var email = item.value;
 	var re = /[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm;
-	var ok = false;
 
-	if (email.length == 0)
+	if (email.length == 0) 
 		inputStyle(item, "El campo email es obligatorio", false);
 	else if (!re.test(email)) 
 		inputStyle(item, "El email introducido es incorrecto", false);
@@ -95,17 +155,15 @@ function validateEmail(item) {
 			data : {datamail: email}
 		})
 		.done(function(data) {
-			var ok = JSON.parse(data).result;
-			if (!ok) 
+			var res = JSON.parse(data).result;
+			if (!res) 
 				inputStyle(item, "El email introducido ya esta en uso", false);
 			else {
 				inputStyle(item, null, true);
-				ok = true;
+				fieldsAdmin["email"] = fieldsEmpresa["email"] = fieldsEstudiante["email"] = true;
 			}
 		})
 	}
-
-	return ok;
 }
 
 function validatePassword(item) {
@@ -146,6 +204,32 @@ function validateDni(item) {
 			}
 		} else
 			inputStyle(item, "DNI erroneo, formato no valido", false);
+	}
+
+	return ok;
+}
+
+function validateRazon(item) {
+	var ok = false;
+
+	if (item.value.length == 0)
+		inputStyle(item, "El campo razon social es obligatorio", false);
+	else {
+		inputStyle(item, null, true);
+		ok = true;
+	}
+
+	return ok;
+}
+
+function validateCif(item) {
+	var ok = false;
+
+	if (item.value.length == 0)
+		inputStyle(item, "El campo cif es obligatorio", false);
+	else {
+		inputStyle(item, null, true);
+		ok = true;
 	}
 
 	return ok;
@@ -251,6 +335,20 @@ function validateNacionalidad(item) {
 	return ok;
 }
 
+function validateLocalidad(item) {
+	var loc = item.value;
+	var ok = false;
+
+	if (loc.length == 0)
+		inputStyle(item, "El campo localidad es obligatorio", false);
+	else {
+		inputStyle(item, null, true);
+		ok = true;
+	}
+
+	return ok;
+}
+
 function validateDireccion(item) {
 	var dir = item.value;
 	var ok = false;
@@ -343,18 +441,30 @@ function validatePais(item) {
 
 function validateform(item) {
 	var tipo = item.id; 
+	var ok = true;
 
 	switch(tipo) {
 		case 'formRegister_estudiante':
-			alert(ok);
+			for (var i in fieldsEstudiante) {
+				if (fieldsEstudiante[i] == false)
+					ok = false;
+			}
 			break;
 		
 		case 'formRegister_admin':
+			for (var i in fieldsAdmin) {
+				if (fieldsAdmin[i] == false)
+					ok = false;
+			}
 			break;
 
 		case 'formRegister_empresa':
+			for (var i in fieldsEmpresa) {
+				if (fieldsEmpresa[i] == false)
+					ok = false;
+			}
 			break;
 	}
 
-	return false;
+	return ok;
 }

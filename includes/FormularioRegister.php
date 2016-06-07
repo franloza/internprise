@@ -59,21 +59,22 @@ class FormularioRegister extends Form{
 
 		$camposForm=<<<EOF
 			<legend>Registro para Administradores</legend>
-			<p class="star">*</p><input class="i_reg" type="text" name="email" onblur="validate('email')" placeholder="Email">
-			<p class="star">*</p><input class="i_reg" type="password" name="password" placeholder="Password"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="nombre" placeholder="Nombre"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="apellidos" placeholder="Apellidos"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="nombre_universidad" placeholder="Universidad"/><br />
+			<p class="star">*</p><input class="i_reg" onblur="validate('email', this)" type="text" name="email" onblur="validate('email')" placeholder="Email">
+			<p class="star">*</p><input class="i_reg" onblur="validate('password', this)" type="password" name="password" placeholder="Password"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('nombre', this)" type="text" name="nombre" placeholder="Nombre"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('apellidos', this)" type="text" name="apellidos" placeholder="Apellidos"/>
+			<p class="star">*</p><input class="i_reg" list="listuni" onblur="validate('universidad', this)" type="text" name="nombre_universidad" placeholder="Universidad"/><br />
+			<datalist class="i_reg" id="listuni"></datalist>
 			<p class="star"></p>Man <input type="radio" name="sexo" placeholder="Hombre" checked/>
 			<p class="star"></p>Woman <input type="radio" name="sexo" placeholder="Mujer"/></br /></br />
-			<p class="star">*</p><input class="i_reg" type="text" maxlength="50" name="direccion" placeholder="Direccion"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="cp" placeholder="Codigo Postal"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="localidad" placeholder="Localidad"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="provincia" placeholder="Provincia"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="pais" placeholder="Pais"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('direccion', this)" type="text" maxlength="50" name="direccion" placeholder="Direccion"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('cp', this)" type="text" name="cp" placeholder="Codigo Postal"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('localidad', this)" type="text" name="localidad" placeholder="Localidad"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('provincia', this)" type="text" name="provincia" placeholder="Provincia"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('pais', this)" type="text" name="pais" placeholder="Pais"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" name="web" placeholder="Web"/>
 			<p class="starnone">*</p><input type="text" class="i_reg" name="telefono" placeholder="Telefono"/>
-			<button type="submit" class ="btn btn-primary btn-block btn-large">Registrarse</button>
+			<button type="submit" onsubmit="validateform('admin')" class ="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
       return $camposForm;               
     }
@@ -180,18 +181,18 @@ EOF;
 
 		$camposForm=<<<EOF
 			<legend>Registro para Empresa</legend>
-			<p class="star">*</p><input class="i_reg" type="text" name="email" placeholder="Email"/>
-			<p class="star">*</p><input class="i_reg" type="password" name="password" placeholder="Password"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="cif" placeholder="CIF"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="razonSocial" placeholder="Razon social"/>
-			<p class="star">*</p><input class="i_reg" type="text" maxlength="50" name="direccion" placeholder="Direccion"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="cp" placeholder="Codigo postal"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="localidad" placeholder="Localidad"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="provincia" placeholder="Provincia"/>
-			<p class="star">*</p><input class="i_reg" type="text" name="pais" placeholder="Pais"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('email', this)" type="text" name="email" placeholder="Email"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('password', this)" type="password" name="password" placeholder="Password"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('cif', this)" type="text" name="cif" placeholder="CIF"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('razon', this)" type="text" name="razonSocial" placeholder="Razon social"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('direccion', this)" type="text" maxlength="50" name="direccion" placeholder="Direccion"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('cp', this)" type="text" name="cp" placeholder="Codigo postal"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('localidad', this)" type="text" name="localidad" placeholder="Localidad"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('provincia', this)" type="text" name="provincia" placeholder="Provincia"/>
+			<p class="star">*</p><input class="i_reg" onblur="validate('pais', this)" type="text" name="pais" placeholder="Pais"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" name="web" placeholder="Web"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" name="telefono" placeholder="Telefono"/>
-			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
+			<button type="submit" onsubmit="validateform('empresa')" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 		return $camposForm;
     }

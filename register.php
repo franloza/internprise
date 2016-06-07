@@ -18,7 +18,7 @@
 		<section id="left"></section>
 		<article id="main_register">
 			<header id="register_fields">
-				<select id="regSelect">
+				<select id="regSelect" onchange="resetFields();">
 					<option value="empresa">Empresa</option>
 					<option value="estudiante" selected="selected">Estudiante</option>
 					<option value="admin">Administrador</option>
@@ -61,7 +61,7 @@
 	<script>
 		$(document).ready(function () {
 			$("#regSelect").val("estudiante");
-			$( "#formEstudiante").find("input:hidden#rolHidden").val("estudiante");
+			$("#formEstudiante").find("input:hidden#rolHidden").val("estudiante");
 		});
 
 		$( "#regSelect").change(function () {
