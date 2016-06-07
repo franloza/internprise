@@ -137,18 +137,16 @@ function handle_autocompleteGrado($grado) {
 	return json_encode($datos);
 }
 
-<<<<<<< HEAD
 function handle_autocompleteUni($uni) {
 	$datos = array();
 	$datos = UsuarioDAO::getUniversidadesLike($uni);
 	return json_encode($datos);
 }	
-=======
+
 function handle_autocompletebuscador($buscador) {
 	$datos = array();
 	$datos = UsuarioDAO::getGradosLike($buscador);
 	return json_encode($datos);
 }
->>>>>>> 05be84a24797c18bf3f58dc3f4ef2f2b3c10f37b
 
 ?>
