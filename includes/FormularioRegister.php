@@ -145,7 +145,6 @@ EOF;
 			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="100" name="web" placeholder="Web"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="9" name="telefono" placeholder="Telefono"/>
 			<button type="submit" onsubmit="validateform('estudiante')" class="btn btn-primary btn-block btn-large">Registrarse</button>
-
 EOF;
 
       return $camposForm;

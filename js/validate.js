@@ -126,6 +126,10 @@ function validate(field, item) {
 		case 'pais':
 			fieldsAdmin["pais"] = fieldsEmpresa["pais"] = fieldsEstudiante["pais"] = validatePais(item);
 			break;
+
+		case 'buscador':
+			validateBuscador(item);
+			break;
 	}
 }
 
@@ -304,6 +308,22 @@ function validateUniversidadAutocomplete(item) {
 		for (var i = 0; i < data.length; i++)
 			options += '<option value="' + data[i] + '" />';
 		document.getElementById('listuni').innerHTML = options;
+	});
+}
+
+function validateBuscador(item) {
+	var buscador = item.value;
+
+	$.ajax({
+		url : 'ajaxRequest.php',
+		type: "GET",
+		dataType: "json",
+		data: {databuscador: buscador}
+	}) .done (function(data) {
+		var options = '';
+		for (var i = 0; i < data.length; i++)
+			options += '<option value="' + data[i] + '" />';
+		document.getElementById('list666').innerHTML = options;
 	});
 }
 

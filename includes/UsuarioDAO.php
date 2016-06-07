@@ -328,11 +328,12 @@ class UsuarioDAO
         return $emails;
     }
 
-    public static function listEmpresasEstudiantes() {
+    public static function listEmpresasEstudiantes($patron) {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT id_usuario,CONCAT(nombre,' ',apellidos) AS nombre FROM estudiantes
-                          UNION ALL SELECT id_usuario,razon_social AS nombre FROM empresas");
+        $query = sprintf("SELECT id_usuario,CONCAT(nombre,' ',apellidos) AS nombre FROM estudiantes WHERE nombre LIKE '%s'
+                          UNION ALL SELECT id_usuario,razon_social AS nombre FROM empresas WHERE razon_social LIKE '%s'",
+            $conn->real_escape_string($patron),$conn->real_escape_string($patron));
         $rs = $conn->query($query);
         $list = array();
         if ($rs) {
@@ -344,10 +345,11 @@ class UsuarioDAO
         return $list;
     }
 
-    public static function listEstudiantes() {
+    public static function listEmpresas($patron) {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT id_usuario,CONCAT(nombre,' ',apellidos) AS nombre FROM estudiantes");
+        $patron = '%' . $patron .'%';
+        $query = sprintf("SELECT id_usuario,razon_social AS nombre FROM empresas WHERE razon_social LIKE'%s'",$conn->real_escape_string($patron));
         $rs = $conn->query($query);
         $list = array();
         if ($rs) {

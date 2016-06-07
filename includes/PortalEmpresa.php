@@ -180,6 +180,10 @@ EOF;
             $horas = $oferta->getHoras();
             $plazas = $oferta->getPlazas();
             $descripcion = $oferta->getDescripcion();
+            $aptitudes = $oferta->getAptitudes();
+            $reqMinimos = $oferta->getReqMinimos();
+            $idiomas = $oferta->getIdiomas();
+            $reqDeseables = $oferta->getReqDeseables();
             $estado = $oferta->getEstado();
             $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
             $content = <<<EOF
@@ -199,6 +203,10 @@ EOF;
                 <p>Horas: $horas</p>
                 <p>Plazas: $plazas</p>
                 <p>Descripción: $descripcion</p>
+                <p>Aptitudes: $aptitudes</p>
+                <p>Requisitos minimos: $reqMinimos</p>
+                <p>Idiomas: $idiomas</p>
+                <p>Requisitos deseables: $reqDeseables</p>
                 <p>Estado: $estado</p>
                 <p>Días desde la creación: $diasDesdeCreacion</p>
             </div>
@@ -224,8 +232,26 @@ EOF;
     }
 
 
-    public function generaContratos(){
-        // TODO: Implement generaContratos() method.
+    public function generaContratos($finalizado){
+        // TODO: Implement generaContratos($finalizado) method.
+    	$contratos = ContratoDAO::cargaContratosPorEstado(20, $finalizado);
+
+    	$listaContratos = array();
+    	$listaIds = array();
+    	foreach ( $contratos as $contrato) {
+    		$id_contrato = $contrato ->getIdContrato();
+    		$estudiante = $contrato->getEstudiante();
+    		$puesto = $contrato->getPuesto();
+    		$fecha_inicio = $contrato->getFechaInicio();
+    		$fecha_fin = $contrato->getFechaFin();
+    		$fila = array($id_contrato, $estudiante,$puesto, $fecha_inicio, $fecha_fin);
+    		array_push($listaContratos,$fila);
+    		array_push($listaIds, $contrato->getIdContrato());
+    	}
+    	$titulosColumnas = array("Id Contrato", "Estudiante", "Puesto", "Inicio", "Fin");
+    	$content = self::generaTabla("tabla-contrato","admin-table" ,
+    			"Contratos", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
+    	return $content;
     }
 
     public function generaBuzon(){
