@@ -37,10 +37,11 @@ else if(isset($_GET['datamail'])) {
 	echo handle_emailValidation($email);
 } else if(isset($_GET['datagrado'])) {
 	$grado = $_GET['datagrado'];
-	$datos = handle_autocompleteGrado($grado);
-	echo $datos;
-}
-else
+	echo handle_autocompleteGrado($grado);
+} else if(isset($_GET['datauni'])) {
+	$uni = $_GET['datauni']; 
+	echo handle_autocompleteUni($uni);
+} else
 	$content = Error::generaErrorPermisos();
 /*Returns the content to dashboard by ajax*/
 echo $content;
@@ -135,6 +136,12 @@ function handle_autocompleteGrado($grado) {
 	$datos = UsuarioDAO::getGradosLike($grado);
 	return json_encode($datos);
 }
+
+function handle_autocompleteUni($uni) {
+	$datos = array();
+	$datos = UsuarioDAO::getUniversidadesLike($uni);
+	return json_encode($datos);
+}	
 
 function handle_autocompletebuscador($buscador) {
 	$datos = array();
