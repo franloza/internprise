@@ -82,7 +82,7 @@ function handle_studentRequest($req) {
 		else{
 			switch($req){
 				case 'DASHBOARD': $content = $portalEstudiante -> generaDashboard(); break;
-				case 'PERFIL': $content = $portalEstudiante -> generaPerfil(); break;
+				case 'PERFIL': $content = $portalEstudiante -> generaPerfil($app->idUsuario()); break;
 				case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
 				case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
 				case 'SETTINGS': $content = $portalEstudiante -> generaSettings(); break;

@@ -97,52 +97,152 @@ EOF;
 
     }
 
-    public function generaPerfil(){
+    public function generaPerfil($id_estudiante){
+        //TODO: Implementar funcionalidad Avatar
+
+        $app = Aplicacion::getSingleton();
+
+        $user = UsuarioDAO::cargaEstudiante($id_estudiante);
+
+        $nombre = $user->getNombre() . " " . $user->getApellidos();
+        $email = $user->getEmail();
+        $descripcion = $user->getDescripcion();
+        $localizacion = $user->getLocalizacion();
+        $experiencia = $user->getExperiencia();
+        $estudios = $user->getEstudios();
+        $idiomas = $user->getIdiomas();
+        $cursos = $user->getCursos();
+        $telefono_fijo = $user->getTelefonoFijo();
+        $telefono_movil = $user->getTelefonoMovil();
+        $redesSociales = $user->getRedesSociales();
+        $web = $user->getWeb();
+        $avatar = $user->getAvatar();
+
+        //Bloque contacto
+        $bloqueContacto ="<div class='col-md-4'>".
+                         "<h2><i class='fa fa-envelope'></i> <a href='mailto:$email'> Email</a></h2>";
+        if(!empty(trim($web))) {
+            $bloqueContacto .="<h2><a href='$web' class='web'><i class='fa fa-globe'></i> Website</a></h2>";
+        }
+        $bloqueContacto .="</div>";
+        $bloqueContacto .=" <div class='col-md-4 contact-email'>";
+        if(!empty(trim($telefono_movil))) {
+            $bloqueContacto .="<h3><i class='fa fa-mobile'></i> $telefono_movil</h3>";
+        }
+        if(!empty(trim($telefono_movil))) {
+            $bloqueContacto .="<h3><i class='fa fa-phone'></i> $telefono_fijo</h3>";
+        }
+        $bloqueContacto .="</div>".
+                          "<div class='col-md-4'>";
+        $socialCounter = 0;
+        for($x = 0;$x < 4; $x++){
+            if(!empty(trim($redesSociales[$x]))){
+                if($socialCounter==0) {
+                    $bloqueContacto .= "<div class='row contact row-first'>";
+                }
+                elseif ($socialCounter==2){
+                    $bloqueContacto .= "<div class='row contact row-second'>";
+                }
+                $bloqueContacto .="<div class='col-md-6'>";
+                switch($x){
+                    case 0: {
+                        $bloqueContacto .= "<a href='skype:$redesSociales[$x]?call' class='skype'><i class='fa fa-skype'></i>Skype</a>";
+                    }break;
+                    case 1: {
+                        $bloqueContacto .= "<a href='$redesSociales[$x]' class='google'><i class='fa fa-google-plus'></i> Google+</a>";
+                    }break;
+                    case 2: {
+                        $bloqueContacto .= "<a href='$redesSociales[$x]' class='linkedin'><i class='fa fa-linkedin'></i> LinkedIn</a>";
+                    }break;
+                    case 3: {
+                        $bloqueContacto .= "<a href='$redesSociales[$x]' class='twitter'><i class='fa fa-twitter'></i> Twitter</a>";
+                    }
+                }
+                $bloqueContacto .="</div>";
+
+                if ($socialCounter==1) {
+                    $bloqueContacto .= "</div>";
+                } elseif ($socialCounter==3) {
+                    $bloqueContacto .= "</div>";
+                }
+                else if($x == 3){
+                    $bloqueContacto .= "</div>";
+                }
+                $socialCounter++;
+            }
+        }
+
+
         $content = <<<EOF
         <div class="container">
         <div class="row">
             <div id="imagen-estudiante" class="col-sm-3">
                 <IMG SRC="img/estudiante-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
-            </div>
-            
-            <div class="col-sm-8">
-                <h1 ><strong>Pedro Sanchez Pérez</strong></h1>
-                <h3>Analista de datos y consultor técnico</h3>
-                <p>Madrid zona centro y norte</p>
+            </div>      
+            <div class="col-sm-8">;       
+                <h1 ><strong>$nombre</strong></h1>
+                <h3>$descripcion</h3>
+                <p>$localizacion</p>
             </div>
         </div>
         <div class="row">
             <div class="col-sm-6">
-            <div class="text-center"><h1>Experiencia</h1></div>
+            <div class="text-center"><h1>Experiencia</h1></div>                          
                 <table class="table table-hover ">
-                    <tr>
-                        <td>Actual</td>
-                        <td>Analista de datos en Data Center</td>
-                    </tr>
-    
-                    <tr>
-                        <td>Anterior</td>
-                        <td>Becario en la Universidad Complutense. Tecnico de Infomatica</td>
-                    </tr>
+                    <tr><td><strong>Puesto</strong></td><td><strong>Duración (meses) </strong></td></tr>
+EOF;
+        foreach ($experiencia as $row){
+            if(!empty(trim($row[0]))){
+                $content .= "<tr><td>$row[0]</td><td>$row[1]</td></tr>";
+            }
+        }
+        $content .= <<<EOF
                 </table>
             </div>
             <div class="col-sm-6">
-            <div class="text-center""><h1>Educación</h1></div>
+            <div class="text-center""><h1>Estudios</h1></div>
                 <table class="table table-hover ">
-                    <tr>
-                        <td>Estudios</td>
-                        <td>Grado en Ingeniería Informática</td>
-                        <td>Universidad Complutense de Madrid</td>
-                        </tr>
-        
-                        <tr>
-                            <td>Idiomas</td>
-                            <td>Inglés (C1)</td>
-                            <td>Frances (B1) </td>
-                        </tr>
-                    </table>
+                <tr><td><strong>Título</strong></td><td><strong>Centro de impartición</strong></td></tr>
+EOF;
+        foreach ($estudios as $row){
+            if(!empty(trim($row[0]))){
+                $content .= "<tr><td>$row[0]</td><td>$row[1]</td></tr>";
+            }
+        }
+        $content .= <<<EOF
+                </table>
              </div>
-         </div>      
+         </div>
+         <div class="row">
+            <div class="col-sm-6">
+                <div class="text-center""><h1>Idiomas</h1></div>
+                     <table class="table table-hover ">
+                     <tr><td><strong>Idioma</strong></td><td><strong>Nivel</strong></td></tr>
+                     
+EOF;
+        foreach ($idiomas as $row){
+            if(!empty(trim($row[0]))){
+                $content .= "<tr><td>$row[0]</td><td>$row[1]</td></tr>";
+            }
+        }
+        $content .= <<<EOF
+                </table>
+             </div>
+                     <div class="col-sm-6">
+            <div class="text-center""><h1>Cursos</h1></div>
+                <table class="table table-hover ">
+                <tr><td><strong>Título</strong></td><td><strong>Duración (horas) </strong></td></tr>
+EOF;
+        foreach ($cursos as $row){
+            if(!empty(trim($row[0]))){
+                $content .= "<tr><td>$row[0]</td><td>$row[1]</td></tr>";
+            }
+        }
+        //TODO:Implementar funcionalidad aptitudes
+        $content .= <<<EOF
+                </table>
+             </div>
+         </div> 
         <div class="row">
             <div class="text-left"><h1>Aptitudes</h1>
                 <div class="aptitudes">
@@ -161,35 +261,12 @@ EOF;
         </div>
         <div class="well well-sm quick-contact">
         <div class="row">
-            <div class="col-md-4">
-                <h2><i class="fa fa-envelope"></i> <a href="mailto:psanchez@ucm.com">psanchez@ucm.es</a></h2>
-            </div>
-            <div class="col-md-4 contact-email">
-                <h3><i class="fa fa-mobile"></i> 608 82 66 47</h3>
-                <h3><i class="fa fa-phone"></i> 91 847 24 89</h3>
-            </div>
-            <div class="col-md-4">
-                <div class="row contact row-first">
-                    <div class="col-md-6">
-                        <a href="#" class="skype"><i class="fa fa-skype"></i> Skype</a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="#" class="google"><i class="fa fa-google-plus"></i> Google+</a>
-                    </div>
-                </div>
-                <div class="row contact">
-                    <div class="col-md-6">
-                        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i> LinkedIn</a>
-                    </div>
-                    <div class="col-md-6">
-                        <a href="#" class="twitter"><i class="fa fa-twitter"></i> Twitter</a>
-                    </div>
-                </div>
-            </div>
+            $bloqueContacto
+         </div>
         </div>
     </div>              
 EOF;
-        echo $content;
+        return $content;
     }
 
     public function generaOfertas(){

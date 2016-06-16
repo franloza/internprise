@@ -94,8 +94,8 @@ EOF;
         $localidad = '';
         $provincia = '';
         $pais = '';
-        $web = '';
-        $telefono = '';
+        $telefono_fijo = '';
+        $telefono_movil = '';
 
         if($datos){
             $email = isset($datos['email']) ? $datos['email'] : $email;
@@ -113,8 +113,8 @@ EOF;
             $localidad = isset($datos['localidad']) ? $datos['localidad'] : $localidad;
             $provincia = isset($datos['provincia']) ? $datos['provincia'] : $provincia;
             $pais = isset($datos['pais']) ? $datos['pais'] : $pais;
-            $web = isset($datos['web']) ? $datos['web'] : $web;
-            $telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
+            $telefono_fijo = isset($datos['telefono_fijo']) ? $datos['telefono_fijo'] : $telefono_fijo;
+            $telefono_movil = isset($datos['telefono_movil']) ? $datos['telefono_movil'] : $telefono_movil;
         }
 
         $hChecked = (isset($sexo) == 'Hombre') ? "checked" : "";
@@ -140,8 +140,8 @@ EOF;
 			<p class="star">*</p><input class="i_reg" type="text" name="localidad" maxlength="50" placeholder="Ciudad"/>
 			<p class="star">*</p><input class="i_reg" type="text" name="provincia" maxlength="50" placeholder="Provincia"/>
 			<p class="star">*</p><input class="i_reg" type="text" name="pais" maxlength="50" placeholder="Country"/>
-			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="100" name="web" placeholder="Web"/>
-			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="9" name="telefono" placeholder="Telefono"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="12" name="telefono_fijo" placeholder="Telefono Fijo"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="12" name="telefono_movil" placeholder="Telefono Móvil"/>
 			<button type="submit" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 

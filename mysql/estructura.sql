@@ -154,9 +154,42 @@ CREATE TABLE `estudiantes` (
   `localidad` varchar(20) NOT NULL,
   `provincia` varchar(20) NOT NULL,
   `pais` varchar(20) NOT NULL,
-  `telefono` varchar(12) NOT NULL,
+  `cp` varchar(11) DEFAULT NULL,
   `web` varchar(20) NOT NULL,
   `contratado` tinyint(1) DEFAULT '0',
+  `descripción` text,
+  `localización` text,
+  `experiencia_puesto_1` text,
+  `experiencia_duracion_1` int(11) DEFAULT NULL,
+  `experiencia_puesto_2` text,
+  `experiencia_duracion_2` int(11) DEFAULT NULL,
+  `experiencia_puesto_3` text,
+  `experiencia_duracion_3` int(11) DEFAULT NULL,
+  `estudios_titulo_1` text,
+  `estudios_centro_1` text,
+  `estudios_titulo_2` text,
+  `estudios_centro_2` text,
+  `estudios_titulo_3` text,
+  `estudios_centro_3` text,
+  `idiomas_idioma_1` text,
+  `idiomas_nivel_1` text,
+  `idiomas_idioma_2` text,
+  `idiomas_nivel_2` text,
+  `idiomas_idioma_3` text,
+  `idiomas_nivel_3` text,
+  `cursos_titulo_1` text,
+  `cursos_horas_1` int(11) DEFAULT NULL,
+  `cursos_titulo_2` text,
+  `cursos_horas_2` int(11) DEFAULT NULL,
+  `cursos_titulo_3` text,
+  `cursos_horas_3` int(11) DEFAULT NULL,
+  `telefono_movil` varchar(30) DEFAULT NULL,
+  `telefono_fijo` varchar(30) DEFAULT NULL,
+  `skype` tinytext,
+  `google_plus` tinytext,
+  `linkedin` tinytext,
+  `twitter` tinytext,
+  `avatar` text,
   PRIMARY KEY (`id_usuario`),
   CONSTRAINT `estudiantes_usuarios_id_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='direccion';
@@ -233,6 +266,10 @@ CREATE TABLE `usuarios` (
   PRIMARY KEY (`id_usuario`)
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping events for database 'internprise'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -243,42 +280,4 @@ CREATE TABLE `usuarios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-01 17:57:03
-
-
---
--- Table structure for table `contratos`
---
-
--- 
--- algunas dudas son:
---   que es mejor poner id_contrato, id_empresa, id_estudiante y asi luego
---   en la consulta se usa esos ids para sacar la empresa y el nombre y apellidos
---   del estudiante, o usamos en la tabla directamente esos datos¿?
-
-DROP TABLE IF EXISTS `contratos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `contratos` (
-  `id_contrato` int(6) NOT NULL AUTO_INCREMENT,
---   `id_empresa` int(6) NOT NULL,
-  `empresa` varchar(50) NOT NULL,
---   `id_estudiante` int(6) NOT NULL,
-  `estudiante` int(6) NOT NULL,
-  `puesto` varchar(60) CHARACTER SET latin1 NOT NULL,
-  `fecha_inicio` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `fecha_fin` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `horas` int(4) NOT NULL,
-  `salario` decimal(6,0) NOT NULL,
-  `descripcion` longtext,
-  `finalizado` tinyint(1) DEFAULT '0',
-  PRIMARY KEY (`id_contrato`)
-
---  KEY `ofertas_empresas_id_usuario_fk` (`id_empresa`),
---  CONSTRAINT `ofertas_empresas_id_usuario_fk` FOREIGN KEY (`id_empresa`) REFERENCES `empresas` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
-
---  KEY `demandas_estudiantes_id_usuario_fk` (`id_estudiante`),
---  CONSTRAINT `demandas_estudiantes_id_usuario_fk` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
-
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+-- Dump completed on 2016-06-16 22:38:23

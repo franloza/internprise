@@ -36,7 +36,7 @@ class Usuario {
             $ok = false;
         }
         if (!$ok) {
-            $result[] = 'La contraseña no tiene entre 4 y 14 caracteres';
+            $result[] = 'La contraseña no ha sido definida';
             return $result;
         }
         return $ok;
@@ -82,7 +82,7 @@ class Usuario {
         return $this->id;
     }
 
-    //TODO:Hashear contraseña
+
   public function compruebaPassword($password) {
     return password_verify($password, $this->password);
   }

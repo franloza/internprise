@@ -101,11 +101,11 @@ class UsuarioDAO
             }
             $stmt = $conn->prepare('INSERT INTO estudiantes(id_usuario,dni,nombre_universidad,id_Grado,
                                         nombre,apellidos,direccion,sexo, nacionalidad,fecha_nacimiento,localidad,provincia,
-                                        pais,telefono,web) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
+                                        pais,telefono_fijo,telefono_movil) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
             $stmt->bind_param("ississsssssssss",$id,$datos['dni'],$datos['nombre_universidad'],$idGrado,
                 $datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['sexo'], $datos['nacionalidad'],
-                $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'],$datos['pais'],$datos['telefono'],
-                $datos['web']);
+                $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'],$datos['pais'],$datos['telefono_fijo'],
+                $datos['telefono_movil']);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
                 return $result;
@@ -134,8 +134,6 @@ class UsuarioDAO
         if (!is_array($id)) {
             $app = App::getSingleton();
             $conn = $app->conexionBd();
-
-
             $stmt = $conn->prepare('INSERT INTO empresas(id_usuario ,cif ,razon_social ,direccion ,localidad ,provincia ,cp ,
                                     pais ,telefono , web ) VALUES (?,?,?,?,?,?,?,?,?,?)');
             $stmt->bind_param("isssssisss", $id, $datos['cif'], $datos['razonSocial'],$datos['direccion'],
@@ -171,7 +169,6 @@ class UsuarioDAO
      * @return array|bool|mixed
      */
     public static function updateEstudiante($datos) {
-        self::updateUsuario ($datos['password']);
         $app = App::getSingleton();
         $id = $app->idUsuario();
         if (!is_array($id)){
@@ -186,7 +183,6 @@ class UsuarioDAO
                 //Se ha encontrado el grado
                 $fila = $rs->fetch_assoc();
                 $idGrado = intval($fila['id_grado']);
-                $rs->free();
             } else {
                 //No se ha encontrado el grado -> Se inserta
                 $stmt = $conn->prepare('INSERT INTO grados(nombre_grado) VALUES (?)');
@@ -194,17 +190,38 @@ class UsuarioDAO
                 $idGrado = $conn->insert_id;
                 if (!$stmt->execute()) {
                     $result [] = "Hubo un problema en la inserción en la BBDD";
+                    $rs->free();
                     return $result;
                 }
             }
+
             $stmt = $conn->prepare('UPDATE estudiantes SET dni = ?,nombre_universidad = ?,id_Grado = ?,
-                                        nombre = ?,apellidos = ?,direccion = ?,sexo = ?, nacionalidad = ?,fecha_nacimiento = ?,localidad = ?, provincia = ?,
-                                        pais = ?,telefono = ?,web = ? WHERE id_usuario = ?');
-            $stmt->bind_param("ssisssssssssssi",$datos['dni'],$datos['nombre_universidad'],$idGrado,
+                                        nombre = ?,apellidos = ?,direccion = ?,sexo = ?, nacionalidad = ?,
+                                        fecha_nacimiento = ?,localidad = ?, provincia = ?, cp = ?,
+                                        pais = ?,telefono_fijo = ?,telefono_movil = ?, descripción=?,localización=?,
+                                        experiencia_puesto_1=?,experiencia_duracion_1=?,experiencia_puesto_2=?,
+                                        experiencia_duracion_2=?,experiencia_puesto_3=?,experiencia_duracion_3=?,
+                                        estudios_titulo_1=?,estudios_centro_1=?,estudios_titulo_2=?,estudios_centro_2=?,
+                                        estudios_titulo_3=?,estudios_centro_3=?,idiomas_idioma_1=?,idiomas_nivel_1=?,
+                                        idiomas_idioma_2=?,idiomas_nivel_2=?,idiomas_idioma_3=?,idiomas_nivel_3=?,
+                                        cursos_titulo_1=?,cursos_horas_1=?,cursos_titulo_2=?,cursos_horas_2=?,
+                                        cursos_titulo_3=?,cursos_horas_3=?,skype=?,google_plus=?,linkedin=?,
+                                        twitter=?,avatar=?, web = ? WHERE id_usuario = ?');
+
+            $stmt->bind_param("ssisssssssssssssssisisisssssssssssssisisissssssi",$datos['dni'],$datos['nombre_universidad'],$idGrado,
                 $datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['sexo'], $datos['nacionalidad'],
-                $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'],$datos['pais'],$datos['telefono'],
-                $datos['web'],$id);
+                $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'], $datos['cp'],$datos['pais'],
+                $datos['telefono_fijo'],$datos['telefono_movil'],$datos['descripción'],$datos['localización'],
+                $datos['experiencia_puesto_1'],$datos['experiencia_duracion_1'],$datos['experiencia_puesto_2'],
+                $datos['experiencia_duracion_2'],$datos['experiencia_puesto_3'],$datos['experiencia_duracion_3'],
+                $datos['estudios_titulo_1'],$datos['estudios_centro_1'],$datos['estudios_titulo_2'],$datos['estudios_centro_2'],
+                $datos['estudios_titulo_3'],$datos['estudios_centro_3'],$datos['idiomas_idioma_1'],$datos['idiomas_nivel_1'],
+                $datos['idiomas_idioma_2'],$datos['idiomas_nivel_2'],$datos['idiomas_idioma_3'],$datos['idiomas_nivel_3'],
+                $datos['cursos_titulo_1'],$datos['cursos_horas_1'],$datos['cursos_titulo_2'],$datos['cursos_horas_2'],
+                $datos['cursos_titulo_3'],$datos['cursos_horas_3'],$datos['skype'],$datos['google_plus'],$datos['linkedin'],
+                $datos['twitter'],$datos['avatar'],$datos['web'],intval($id));
             if (!$stmt->execute()) {
+                $rs->free();
                 $result [] = $stmt->error;
                 return $result;
             }
@@ -229,7 +246,6 @@ class UsuarioDAO
     }
 
     public static function updateEmpresa($datos) {
-        self::updateUsuario ($datos['password']);
         $app = App::getSingleton();
         $id = $app->idUsuario();
         if (!is_array($id)) {
@@ -247,7 +263,6 @@ class UsuarioDAO
     }
 
     public static function updateAdmin($datos) {
-        self::updateUsuario ($datos['password']);
         $app = App::getSingleton();
         $id = $app->idUsuario();
         if (!is_array($id)) {
