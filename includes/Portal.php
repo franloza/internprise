@@ -54,7 +54,7 @@ abstract class Portal
             <div class="footer-icons">
                 <a class="fa fa-github" href="https://github.com/franloza/internprise"></a>
             </div>
-        </div>
+        </div>       
 EOF;
         return $bloqueFooter;
     }
@@ -78,22 +78,7 @@ EOF;
             <script src="js/jquery-2.2.3.js"></script>
             <script type="text/javascript" src="js/datatables/datatables.min.js"></script>
             <!-- css solo para los colores-->
-            <link rel="icon" type="image/png" href="$imagen">
-            <!-- script para peticiones asíncronas AJAX -->
-            <script>
-                function loadContent(value, currentPage) { 
-                     $.get("ajaxRequest.php?val=" + value, function(data, status){
-                        $('#dashboard-content').html(data);
-                        $('#current-page').text(currentPage);
-                     });     
-                }
-                function subMenu(showHide, id){
-                    if(showHide)
-                        $('#'+id).slideDown(200);
-                    else
-                        $('#'+id).slideUp(200);
-                }
-            </script>
+            <link rel="icon" type="image/png" href="$imagen">            
         </head>
 EOF;
         return $bloqueHead;
@@ -340,13 +325,13 @@ EOF;
     </div>
 EOF;
 
-        return$bloqueTitleBar;
+        return $bloqueTitleBar;
     }
 
     protected function generaPerfil($id_usuario)
     {
-        
-    
+
+
     }
 
     public static function factory($rol) {
@@ -358,5 +343,32 @@ EOF;
             return new PortalEmpresa();
         }
         return false;
+    }
+
+    public function generaScriptsAdicionales(){
+        $bloqueScripts = <<<EOF
+        <!-- script para peticiones asíncronas AJAX -->
+        <script>
+            function loadContent(value, currentPage) { 
+                 $.get("ajaxRequest.php?val=" + value, function(data, status){
+                    $('#dashboard-content').html(data);
+                    $('#current-page').text(currentPage);
+                 });     
+            }
+            function subMenu(showHide, id){
+                if(showHide)
+                    $('#'+id).slideDown(200);
+                else
+                    $('#'+id).slideUp(200);
+            }
+        </script>
+        <!-- script para lista infinita de aptitudes (Settings) -->
+        <script>
+         function addInputAptitud() { 
+               $('#all-aptitudes').append('<div class="form-group col-xs-2"><input type="text" class="form-control" name="aptitudes[]"/></div>');  
+          }                
+        </script>
+EOF;
+        return $bloqueScripts;
     }
 }

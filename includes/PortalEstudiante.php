@@ -94,7 +94,6 @@ EOF;
     public function generaTitlebar()
     {
         return parent::generaTitlebarParam("Internprise Estudiante");
-
     }
 
     public function generaPerfil($id_estudiante){
@@ -117,6 +116,7 @@ EOF;
         $redesSociales = $user->getRedesSociales();
         $web = $user->getWeb();
         $avatar = $user->getAvatar();
+        $aptitudes = $user->getAptitudes();
 
         //Bloque contacto
         $bloqueContacto ="<div class='col-md-4'>".
@@ -238,22 +238,22 @@ EOF;
                 $content .= "<tr><td>$row[0]</td><td>$row[1]</td></tr>";
             }
         }
-        //TODO:Implementar funcionalidad aptitudes
+
         $content .= <<<EOF
                 </table>
              </div>
          </div> 
         <div class="row">
             <div class="text-left"><h1>Aptitudes</h1>
-                <div class="aptitudes">
-                    <button class="btn btn-primary">SQL Server 2008</button>
-                    <button class="btn btn-primary">PL/SQL</button>
-                    <button class="btn btn-primary">R</button>
-                    <button class="btn btn-primary">Python</button>
-                    <button class="btn btn-primary">Microsoft Excel</button>
-                    <button class="btn btn-primary">Hadoop</button>
-                    <button class="btn btn-primary">SAS</button>
-                </div>
+                <ol class="aptitudes">
+EOF;
+        foreach ($aptitudes as $aptitud){
+            if(!empty(trim($aptitud))){
+                $content .= "<li class='btn btn-primary'> $aptitud</li>";
+            }
+        }
+        $content .= <<<EOF
+                 </ol>
             </div>
         </div>
         <div class="row">

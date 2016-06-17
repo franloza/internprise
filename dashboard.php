@@ -42,5 +42,6 @@ if (isset($_GET['logout'])) {
             echo '</div>';
             echo $portal->generaFooter();
          }?>
+        <?php echo $portal->generaScriptsAdicionales(); ?>
     </body>
 </html>

@@ -35,6 +35,8 @@ class Estudiante extends Usuario
     private $redesSociales;
     private $avatar;
 
+    private $aptitudes;
+
 
     public function __construct($datos) {
         parent::__construct($datos['id_usuario'], $datos['email'],$datos['password']);
@@ -207,6 +209,13 @@ class Estudiante extends Usuario
         $sanitizedData['google_plus'] = isset($datos['google_plus']) ? filter_var($datos['google_plus'], FILTER_SANITIZE_URL) : null ;
         $sanitizedData['linkedin'] = isset($datos['linkedin']) ? filter_var($datos['linkedin'], FILTER_SANITIZE_URL) : null ;
         $sanitizedData['twitter'] = isset($datos['twitter']) ? filter_var($datos['twitter'], FILTER_SANITIZE_STRING) : null ;
+
+        $sanitizedData['aptitudes'] = array();
+        foreach ($datos['aptitudes'] as $aptitud) {
+            if(!empty(trim($aptitud))) {
+                array_push($sanitizedData['aptitudes'], isset($aptitud) ? filter_var($aptitud, FILTER_SANITIZE_STRING) : null);
+            }
+        }
 
         //TODO: Avatar
 
@@ -406,6 +415,18 @@ class Estudiante extends Usuario
     {
         return $this->avatar;
     }
-    
- 
+
+    /**
+     * @return mixed
+     */
+    public function getAptitudes()
+    {
+        return $this->aptitudes;
+    }
+
+    public function setAptitudes($aptitudes)
+    {
+        $this->aptitudes = $aptitudes;
+    }
+
 }

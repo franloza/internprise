@@ -107,6 +107,7 @@ EOF;
         $redesSociales = $user->getRedesSociales();
         $web = $user->getWeb();
         $avatar = $user->getAvatar();
+        $aptitudes = $user->getAptitudes();
 
 
         $hChecked = ($sexo == 'Hombre') ? "checked" : "";
@@ -186,6 +187,24 @@ EOF;
                 </div>
 EOF;
         }
+
+        //Generar campos aptitudes
+        $camposAptitudes = "<div id='edit-aptitudes' class='col-xs-12'><div id='all-aptitudes'>";
+        if(isset($aptitudes)){
+            foreach($aptitudes as $aptitud){
+                $camposAptitudes .= <<<EOF
+                <div class='form-group col-xs-2'>
+                  <input type='text' class='form-control' name='aptitudes[]' value='$aptitud'/>
+                 </div>
+EOF;
+            }
+        }
+        $camposAptitudes .=
+            " <div class='form-group col-xs-2'>".
+            " <input type='text' class='form-control' name='aptitudes[]'/></div></div>".
+            " <button type='button' class='btn btn-success' id='add-aptitud' onclick='addInputAptitud()'> + </button>".
+            "</div>";
+
         $content = <<<EOF
             <div id="formSettings">
                 <div id="infoPersonal" class="col-xs-12">
@@ -276,6 +295,9 @@ EOF;
                      $camposIdiomas
                      <h2> Otros cursos </h2> 
                      $camposCursos
+                     <h2> Aptitudes </h2> 
+                     $camposAptitudes
+                     
                 <h2> Redes Sociales </h2>   
                  <div class="form-group col-xs-3">
                      <label for="linkedin">LinkedIn:</label>
@@ -305,7 +327,6 @@ EOF;
                          <input type="text" class="form-control" name="skype" id="skype" value="$redesSociales[0]">
                     </div>      
                  </div>  
-                </div>  
                 <div class="form-group col-xs-12">
                     <label for="web">Web:</label>
                     <div class="icon-addon addon-md">    
@@ -313,6 +334,7 @@ EOF;
                              <input type="url" class="form-control" name="web" id="web" value="$web">
                      </div>
                  </div>  
+                </div> 
                 <div class="col-xs-12">  
                     <button type="submit" class="btn btn-default">Confirmar cambios</button>   
                 </div>

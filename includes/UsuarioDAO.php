@@ -18,7 +18,6 @@ class UsuarioDAO
             $user = new Usuario($fila['id_usuario'], $fila['email'], $fila['password']);
             $user->setRol($fila['rol']);
             $rs->free();
-
             return $user;
         }
         return false;
@@ -35,6 +34,7 @@ class UsuarioDAO
             $fila = $rs->fetch_assoc();
             $user = new Estudiante($fila);
             $rs->free();
+            $user->setAptitudes(self::cargaAptitudesEstudiante($id_estudiante));
             return $user;
         }
         return false;
@@ -171,65 +171,104 @@ class UsuarioDAO
     public static function updateEstudiante($datos) {
         $app = App::getSingleton();
         $id = $app->idUsuario();
-        if (!is_array($id)){
-            $app = App::getSingleton();
-            $conn = $app->conexionBd();
-            $grado = $datos['grado'];
+        $conn = $app->conexionBd();;
+        $conn->begin_transaction();
 
-            //Conseguir id del grado o crearlo si no existe
-            $query = sprintf("SELECT id_grado FROM grados WHERE nombre_grado LIKE '%s'", $conn->real_escape_string($grado));
+        $grado = $datos['grado'];
+        $conn->begin_transaction();
+        //Conseguir id del grado o crearlo si no existe
+        $query = sprintf("SELECT id_grado FROM grados WHERE nombre_grado LIKE '%s'", $conn->real_escape_string($grado));
+        $rs = $conn->query($query);
+        if ($rs) {
+            //Se ha encontrado el grado
+            $fila = $rs->fetch_assoc();
+            $idGrado = intval($fila['id_grado']);
+        } else {
+            //No se ha encontrado el grado -> Se inserta
+            $stmt = $conn->prepare('INSERT INTO grados(nombre_grado) VALUES (?)');
+            $stmt->bind_param("s",$grado);
+            if (!$stmt->execute()) {
+                $result [] = "Hubo un problema en la inserción en la BBDD";
+                $rs->free();
+                $conn->rollback();
+                return $result;
+            }
+            $idGrado = $conn->insert_id;
+        }
+        $conn->commit();
+        $conn->begin_transaction();
+        //Actualizar aptitudes
+
+        $stmt = $conn->prepare('DELETE FROM aptitudes_estudiantes WHERE id_estudiante = ?');
+        $stmt->bind_param("i",intval($id));
+        if (!$stmt->execute()) {
+            $rs->free();
+            $result [] = $stmt->error;
+            $conn->rollback();
+            return $result;
+        }
+        foreach ($datos['aptitudes'] as $aptitud) {
+
+            //Conseguir id de aptitud si existe
+            $query = sprintf("SELECT id_aptitud FROM aptitudes WHERE nombre_aptitud = '%s'", $conn->real_escape_string($aptitud));
             $rs = $conn->query($query);
-            if ($rs) {
-                //Se ha encontrado el grado
+            if ($rs->num_rows > 0) {
+                //Se ha encontrado la aptitud
                 $fila = $rs->fetch_assoc();
-                $idGrado = intval($fila['id_grado']);
+                $idAptitud = intval($fila['id_aptitud']);
             } else {
-                //No se ha encontrado el grado -> Se inserta
-                $stmt = $conn->prepare('INSERT INTO grados(nombre_grado) VALUES (?)');
-                $stmt->bind_param("s",$grado);
-                $idGrado = $conn->insert_id;
+                //No se ha encontrado la aptitud -> Se inserta
+                $stmt = $conn->prepare('INSERT INTO aptitudes(nombre_aptitud) VALUES (?)');
+                $stmt->bind_param("s",$aptitud);
                 if (!$stmt->execute()) {
                     $result [] = "Hubo un problema en la inserción en la BBDD";
                     $rs->free();
+                    $conn->rollback();
                     return $result;
                 }
+                $idAptitud = $conn->insert_id;
             }
-
-            $stmt = $conn->prepare('UPDATE estudiantes SET dni = ?,nombre_universidad = ?,id_Grado = ?,
-                                        nombre = ?,apellidos = ?,direccion = ?,sexo = ?, nacionalidad = ?,
-                                        fecha_nacimiento = ?,localidad = ?, provincia = ?, cp = ?,
-                                        pais = ?,telefono_fijo = ?,telefono_movil = ?, descripción=?,localización=?,
-                                        experiencia_puesto_1=?,experiencia_duracion_1=?,experiencia_puesto_2=?,
-                                        experiencia_duracion_2=?,experiencia_puesto_3=?,experiencia_duracion_3=?,
-                                        estudios_titulo_1=?,estudios_centro_1=?,estudios_titulo_2=?,estudios_centro_2=?,
-                                        estudios_titulo_3=?,estudios_centro_3=?,idiomas_idioma_1=?,idiomas_nivel_1=?,
-                                        idiomas_idioma_2=?,idiomas_nivel_2=?,idiomas_idioma_3=?,idiomas_nivel_3=?,
-                                        cursos_titulo_1=?,cursos_horas_1=?,cursos_titulo_2=?,cursos_horas_2=?,
-                                        cursos_titulo_3=?,cursos_horas_3=?,skype=?,google_plus=?,linkedin=?,
-                                        twitter=?,avatar=?, web = ? WHERE id_usuario = ?');
-
-            $stmt->bind_param("ssisssssssssssssssisisisssssssssssssisisissssssi",$datos['dni'],$datos['nombre_universidad'],$idGrado,
-                $datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['sexo'], $datos['nacionalidad'],
-                $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'], $datos['cp'],$datos['pais'],
-                $datos['telefono_fijo'],$datos['telefono_movil'],$datos['descripción'],$datos['localización'],
-                $datos['experiencia_puesto_1'],$datos['experiencia_duracion_1'],$datos['experiencia_puesto_2'],
-                $datos['experiencia_duracion_2'],$datos['experiencia_puesto_3'],$datos['experiencia_duracion_3'],
-                $datos['estudios_titulo_1'],$datos['estudios_centro_1'],$datos['estudios_titulo_2'],$datos['estudios_centro_2'],
-                $datos['estudios_titulo_3'],$datos['estudios_centro_3'],$datos['idiomas_idioma_1'],$datos['idiomas_nivel_1'],
-                $datos['idiomas_idioma_2'],$datos['idiomas_nivel_2'],$datos['idiomas_idioma_3'],$datos['idiomas_nivel_3'],
-                $datos['cursos_titulo_1'],$datos['cursos_horas_1'],$datos['cursos_titulo_2'],$datos['cursos_horas_2'],
-                $datos['cursos_titulo_3'],$datos['cursos_horas_3'],$datos['skype'],$datos['google_plus'],$datos['linkedin'],
-                $datos['twitter'],$datos['avatar'],$datos['web'],intval($id));
+            $stmt = $conn->prepare('INSERT INTO aptitudes_estudiantes VALUES (?,?)');
+            $stmt->bind_param("ii",intval($id),$idAptitud);
             if (!$stmt->execute()) {
                 $rs->free();
                 $result [] = $stmt->error;
+                $conn->rollback();
                 return $result;
             }
         }
-        else {
-            //There was an error in the insertion
-            return $id;
+        $stmt = $conn->prepare('UPDATE estudiantes SET dni = ?,nombre_universidad = ?,id_Grado = ?,
+                                    nombre = ?,apellidos = ?,direccion = ?,sexo = ?, nacionalidad = ?,
+                                    fecha_nacimiento = ?,localidad = ?, provincia = ?, cp = ?,
+                                    pais = ?,telefono_fijo = ?,telefono_movil = ?, descripción=?,localización=?,
+                                    experiencia_puesto_1=?,experiencia_duracion_1=?,experiencia_puesto_2=?,
+                                    experiencia_duracion_2=?,experiencia_puesto_3=?,experiencia_duracion_3=?,
+                                    estudios_titulo_1=?,estudios_centro_1=?,estudios_titulo_2=?,estudios_centro_2=?,
+                                    estudios_titulo_3=?,estudios_centro_3=?,idiomas_idioma_1=?,idiomas_nivel_1=?,
+                                    idiomas_idioma_2=?,idiomas_nivel_2=?,idiomas_idioma_3=?,idiomas_nivel_3=?,
+                                    cursos_titulo_1=?,cursos_horas_1=?,cursos_titulo_2=?,cursos_horas_2=?,
+                                    cursos_titulo_3=?,cursos_horas_3=?,skype=?,google_plus=?,linkedin=?,
+                                    twitter=?,avatar=?, web = ? WHERE id_usuario = ?');
+
+        $stmt->bind_param("ssisssssssssssssssisisisssssssssssssisisissssssi",$datos['dni'],$datos['nombre_universidad'],$idGrado,
+            $datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['sexo'], $datos['nacionalidad'],
+            $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'], $datos['cp'],$datos['pais'],
+            $datos['telefono_fijo'],$datos['telefono_movil'],$datos['descripción'],$datos['localización'],
+            $datos['experiencia_puesto_1'],$datos['experiencia_duracion_1'],$datos['experiencia_puesto_2'],
+            $datos['experiencia_duracion_2'],$datos['experiencia_puesto_3'],$datos['experiencia_duracion_3'],
+            $datos['estudios_titulo_1'],$datos['estudios_centro_1'],$datos['estudios_titulo_2'],$datos['estudios_centro_2'],
+            $datos['estudios_titulo_3'],$datos['estudios_centro_3'],$datos['idiomas_idioma_1'],$datos['idiomas_nivel_1'],
+            $datos['idiomas_idioma_2'],$datos['idiomas_nivel_2'],$datos['idiomas_idioma_3'],$datos['idiomas_nivel_3'],
+            $datos['cursos_titulo_1'],$datos['cursos_horas_1'],$datos['cursos_titulo_2'],$datos['cursos_horas_2'],
+            $datos['cursos_titulo_3'],$datos['cursos_horas_3'],$datos['skype'],$datos['google_plus'],$datos['linkedin'],
+            $datos['twitter'],$datos['avatar'],$datos['web'],intval($id));
+        if (!$stmt->execute()) {
+            $rs->free();
+            $result [] = $stmt->error;
+            $conn->rollback();
+            return $result;
         }
+        $conn->commit();
         return true;
     }
     private function updateUsuario ($password) {
@@ -374,5 +413,22 @@ class UsuarioDAO
             $rs->free();
         }
         return $list;
+    }
+
+    private static function cargaAptitudesEstudiante($id_estudiante) {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $aptitudes = array();
+        $query = sprintf("SELECT nombre_aptitud FROM aptitudes_estudiantes ae 
+        INNER JOIN aptitudes a ON a.id_aptitud=ae.id_aptitud  WHERE id_estudiante='%d'", intval($id_estudiante));
+        $rs = $conn->query($query);
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($aptitudes,$fila["nombre_aptitud"]);
+            }
+            $rs->free();
+            return $aptitudes;
+        }
+        return false;
     }
 }
