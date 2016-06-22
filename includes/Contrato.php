@@ -17,7 +17,7 @@ class Contrato
     private $horas;
     private $salario;
     private $descripcion;
-    private $finalizado; //si o no(en curso)
+    private $estado; //Activo, Expirado o Cancelado
 
     /**
      * Contrato constructor.
@@ -181,6 +181,7 @@ class Contrato
         $this->descripcion = $descripcion;
     }
 
+
     /**
      * @return mixed
      */
@@ -196,6 +197,4 @@ class Contrato
     {
         $this->estado = $estado;
     }
-
-
 }

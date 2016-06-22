@@ -46,11 +46,14 @@ class OfertaDAO
      */
     public static function cargaOfertasNoClasificadas($numOfertas,$grado)
     {
-        $numOfertas = isset($numOfertas)? $numOfertas : 20;
-        $whereGrado = isset($grado)? 'WHERE nombre_grado LIKE $grado AND' : 'WHERE';
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
+        $numOfertas = isset($numOfertas)? $numOfertas : 20;
+        if (isset($grado)) {
+            $whereGrado = sprintf("WHERE nombre_grado LIKE %s AND",$conn->real_escape_string($grado));
+        }
+        else {$whereGrado="WHERE";}
         $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa
                             FROM ofertas o
                               INNER JOIN empresas em ON o.id_empresa = em.id_usuario
@@ -76,7 +79,7 @@ class OfertaDAO
      */
     public static function cargasOfertasEstudiante($numOfertas)
     {
-        $numOfertas = isset($numOfertas)? $numOfertas : 20;
+        $numOfertas = isset($numOfertas)? intval($numOfertas) : 20;
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
@@ -107,7 +110,7 @@ class OfertaDAO
      */
     public static function cargaOfertasEmpresa($numOfertas)
     {
-        $numOfertas = isset($numOfertas)? $numOfertas : 20;
+        $numOfertas = isset($numOfertas)? intval($numOfertas) : 20;
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
@@ -136,6 +139,7 @@ class OfertaDAO
         $app = App::getSingleton();
         $conn = $app->conexionBd();
         $id_usuario = $app->idUsuario();
+        $numOfertas = isset($numOfertas)? intval($numOfertas) : 20;
         $query = sprintf("SELECT o.*,em.razon_social as empresa FROM ofertas o
                           INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN empresas em ON o.id_empresa = em.id_usuario

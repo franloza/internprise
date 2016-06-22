@@ -14,135 +14,173 @@ class contratoDAO
      * Permite filtrar por grado. (Por defecto: TODOS)
      * Ordena por fecha de creación (Por defecto: 20)
      */
-    public static function cargaContratosVigor($numContratos, $grado)
+    public static function cargaContratosActivos($numContratos, $grado)
     {
-        /*
-         * esto de momento me supera, deberia cargar todos los contratos que no han terminado
-         * hasta la fecha de hoy, creo una variable  en contrato llamada finalizado
-         */
-		 
-		/*
-         * este metodo es el cual debe usarse al pinchar en la pestaña ver contratos del perfil
-		 * administrador, y iniciarlmente muestra los ultimos 20 contratos, en este caso filtrado
-		 * por todos los grados, y tambien se usa cuando se seleccione un grado de los disponibles 
-		 * en un combobox que abra encima de la tabla en la pagina
-         */
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $numContratos = isset($numContratos)? intval($numContratos) : 20;
+        if (isset($grado)) {
+            $whereGrado = sprintf("WHERE nombre_grado LIKE %s AND",$conn->real_escape_string($grado));
+        }
+        else {$whereGrado="WHERE";}
+
+        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado, nombre_grado
+                          FROM contratos c
+                          INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
+                          INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
+                          INNER JOIN empresas em ON em.id_usuario = o.id_empresa
+                          INNER JOIN grados g ON g.id_grado = e.id_Grado
+                          $whereGrado AND estado = 'Activo' LIMIT $numContratos");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $contratos = array();
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($contratos,self::constructContrato($fila));
+            }
+            $rs->free();
+            return $contratos;
+        }
+        return false;
 
     }
 
     /*
-     * Función que carga los 20 ultimos contratos ya finalizados (estado de finalizado a true) de la BBDD.
+     * Función que carga los contratos ya finalizados de la BBDD.
      * Permite filtrar por grado. (Por defecto: TODOS)
      * Permite filtrar por año. (Por defecto: TODOS)
      * Ordena por fecha de finalizacion (Por defecto: 20)
      */
     public static function cargaContratosFinalizados($numContratos, $grado, $año)
     {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $numContratos = isset($numContratos)? intval($numContratos) : 20;
+        if (isset($grado)) {
+            $whereGrado = sprintf("WHERE nombre_grado LIKE %s AND",$conn->real_escape_string($grado));
+        }
+        else {$whereGrado="WHERE";}
+        
+        if (isset($año)) {
+            $añoFilter = sprintf("AND YEAR(fecha_incio) <= %d AND YEAR(fecha_fin) >= '%d'",intval($año),intval($año));
+        }
+        else {$añoFilter="";}
 
-        /*
-         * Como en la de antes, este metodo carga todos los contratos que ya han finalizado por el valor
-         * de la variable finalizado de contrato, y los ordena por fecha de finalización del  contrato
-         * Tambien se puede filtrar por el grado
-         *
-         */
-		 
-		 /*
-         * este metodo es el que se usa en la pestaña historial del portal administrador, inicialmente
-		 * muestra los ultimos contratos ordenados por fecha de finalizacion y por grado( todos )
-		 *  habra dos combobox para seleccionar el grado por el que buscar, y tambien estara la opcion 
-		 *  de buscar por año en otro combobox
-         */
+        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado, nombre_grado
+                          FROM contratos c
+                          INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
+                          INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
+                          INNER JOIN empresas em ON em.id_usuario = o.id_empresa
+                          INNER JOIN grados g ON g.id_grado = e.id_Grado
+                          $whereGrado estado = 'Expirado' OR estado = 'Cancelado' $añoFilter LIMIT $numContratos");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $contratos = array();
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($contratos,self::constructContrato($fila));
+            }
+            $rs->free();
+            return $contratos;
+        }
+        return false;
+
     }
 
     /*FUNCIONES PARA ESTUDIANTE*/
 
     /*
-     * Muestra la información del contrato que tiene el estudiante
+     * Muestra la información del contrato activo que tiene el estudiante si tiene. Si no devuelve false
      */
-    public static function cargaContratoEstudiante($numContratos)
+    public static function cargaContratoActivoEstudiante()
     {
-        /*
-         * En este caso solo muestra la información del contrato que esta realizando el estudiante,
-         * en caso de no tener ningun contrato, no muestra nada, saldran las ofertas que correspondan.
-         */
-		 
-        /*
-         * Este metodo es el que se usa al pinchar en principio en la pestaña ofertas del perfil 
-         * estudiantes, que en el caso de tener un contrato en vigor, se mostrara una tabla con un 
-		 * unico elemento, que sera el contrato actual que tiene, en lugar de las ofertas que hay 
-		 * disponibles, en caso de que tenga algun contrato finalizado anteriormente tambien 
-		 * se mostrará
-         */
+        {
+            $app = App::getSingleton();
+            $conn = $app->conexionBd();
+            $id_estudiante = $app->idUsuario();
+            $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
+                          FROM contratos c
+                          INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
+                          INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
+                          INNER JOIN empresas em ON em.id_usuario = o.id_empresa
+                          WHERE c.id_estudiante = 'Activo' AND estado = '%s'",intval($id_estudiante));
+            $rs = $conn->query($query);
+            if ($rs) {
+                $fila = $rs->fetch_assoc();
+                $contrato = self::constructContrato($fila);
+                $rs->free();
+                return $contrato;
+            }
+            return false;
+        }
 
     }
 
     /*FUNCIONES PARA EMPRESA*/
-
-
     /*
      * Función que recupera las contratos finalizados o no de una empresa
      */
 
-    public static function cargaContratosPorEstado($numContratos, $estado)
-    {
-        /*
-         *  Este metodo muestra todos los contratos que tiene la empresa en funcion del estado de la variable
-         * finalizado, si es true muestra todos los contratos finalizados, si es false muestra todos los
-         * contratos que tiene en vigor.
-         * Este metodo se puede usar para ambas pestañas de la empresa en contratos.
-         *
-         */
-    	
-    }
-
-    /*FUNCIONES GENÉRICAS*/
-	
-	     /*
-         * Estos metodos no estan implementados correctamente, solo estan cogidos del dao de ofertas para 
-		 * amoldarlo a los contratos, hay que cambiar todos los atributos por los que tiene los 
-         * contratos, que ya esta hecho.
-         */
-
-    public static function cargaContrato($idContrato)
+    public static function cargaContratosPorEstadoEmpresa($numContratos, $estado)
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT o.*,em.razon_social as empresa FROM ofertas o
-                          INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
-                          INNER JOIN empresas em ON o.id_empresa = em.id_usuario
-                          WHERE o.id_oferta = '%d'", intval($idOferta));
+        $id_empresa = $app->idUsuario();
+        $numContratos = isset($numContratos)? intval($numContratos) : 20;
+        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
+                          FROM contratos c
+                          INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
+                          INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
+                          INNER JOIN empresas em ON em.id_usuario = o.id_empresa
+                          WHERE c.id_empresa = '%d' AND estado = '%s' LIMIT $numContratos",intval($id_empresa),$conn->real_escape_string($estado));
         $rs = $conn->query($query);
-        if ($rs && $rs->num_rows == 1) {
-            $fila = $rs->fetch_assoc();
-            $oferta = self::constructContrato($fila);
+        if ($rs) {
+            $contratos = array();
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($contratos,self::constructContrato($fila));
+            }
             $rs->free();
-            return $oferta;
+            return $contratos;
         }
         return false;
     }
 
-    public static function creaContrato($datos)
+    /*FUNCIONES GENÉRICAS*/
+
+    /*Carga un contrato por ID de la BBDDD*/
+    public static function cargaContrato($idContrato)
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $id_usuario = $app->idUsuario();
-        $puesto = $datos['puesto'];
-        $sueldo = intval($datos['sueldo']);
-        $fechaInicio = $datos['fecha_inicio'];
-        $fechaFin = $datos['fecha_fin'];
-        $horas = intval($datos['horas']);
-        $plazas = intval($datos['plazas']);
-        $descripcion = $datos['descripcion'];
-        $estado = 'Pendiente';
+        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
+                          FROM contratos c
+                          INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
+                          INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
+                          INNER JOIN empresas em ON em.id_usuario = o.id_empresa
+                          WHERE id_contrato = '%d'", intval($idContrato));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $contrato = self::constructContrato($fila);
+            $rs->free();
+            return $contrato;
+        }
+        return false;
+    }
 
-        $stmt = $conn->prepare('INSERT INTO ofertas (id_empresa, 
-                          puesto, sueldo, fecha_incio, fecha_fin, horas, 
-                          plazas, descripcion,estado) VALUES (?,?,?,?,?,?,?,?,?)');
-        $stmt->bind_param("isissiiss", $id_usuario, $puesto, $sueldo, $fechaInicio,
-            $fechaFin, $horas, $plazas, $descripcion, $estado);
-
-        if (!$stmt->execute()) {
-            $result [] = $stmt->error;
+    /*Permite crear un contrato nuevo si el estudiante no tiene uno en vigor*/
+    public static function creaContrato($id_oferta,$id_estudiante)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        //Comprobar si el estudiante ya tiene un contrato en vigor
+        if (self::tieneContratoActivo($id_estudiante)) {
+            $stmt = $conn->prepare('INSERT INTO contratos (id_oferta, id_estudiante,finalizado) VALUES (?,?,?)');
+            $stmt->bind_param("iis", $id_oferta, $id_estudiante, 'Activo');
+            if (!$stmt->execute()) {
+                $result [] = $stmt->error;
+                return $result;
+            }
+        } else {
+            $result [] = "El usuario ya tiene un contrato activo";
             return $result;
         }
         return true;
@@ -150,19 +188,26 @@ class contratoDAO
 
     private static function constructContrato($fila)
     {
-        $idOferta = $fila['id_oferta'];
+        $idContrato = $fila['id_contrato'];
+        $estudiante = $fila['estudiante'];
         $empresa = $fila['empresa'];
-        $oferta = new Oferta($idOferta, $empresa);
-        $oferta->setEstado($fila['estado']);
-        $oferta->setFechaFin($fila['fecha_fin']);
-        $oferta->setFechaInicio($fila['fecha_incio']);
-        $oferta->setPlazas($fila['plazas']);
-        $oferta->setEstado($fila['estado']);
-        $oferta->setPuesto($fila['puesto']);
-        $oferta->setHoras($fila['horas']);
-        $oferta->setSueldo($fila['sueldo']);
-        $oferta->setDescripcion($fila['descripcion']);
-        $oferta->setDiasDesdeCreacion($fila['fecha_creacion']);
-        return $oferta;
+        $contrato = new Contrato($idContrato, $empresa, $estudiante);
+        $contrato->setPuesto($fila['puesto']);
+        $contrato->setFechaInicio($fila['fecha_incio']);
+        $contrato->setFechaFin($fila['fecha_fin']);
+        $contrato->setHoras($fila['horas']);
+        $contrato->setSalario($fila['sueldo']);
+        $contrato->setEstado($fila['estado']);
+
+        return $contrato;
+    }
+    
+    private function tieneContratoActivo ($idEstudiante) {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT id_contrato FROM contratos c
+                          WHERE id_estudiante = '%d' AND estado = 'Activo'", intval($idEstudiante));
+        $rs = $conn->query($query);
+        return ($rs && $rs->num_rows > 0);
     }
 }
