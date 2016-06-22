@@ -32,7 +32,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `aptitudes` WRITE;
 /*!40000 ALTER TABLE `aptitudes` DISABLE KEYS */;
-INSERT INTO `aptitudes` VALUES (1,'Java'),(2,'C++'),(3,'Linux'),(4,'PHP'),(5,'Python'),(6,'Bash'),(7,'Perl'),(8,'HTML5'),(9,'Ruby');
+INSERT INTO `aptitudes` VALUES (1,'Java'),(2,'C++'),(3,'Linux'),(4,'PHP'),(5,'Python'),(6,'Bash'),(7,'Perl'),(8,'HTML5'),(9,'Ruby'),(16,'Groovy'),(17,'Haskell');
 /*!40000 ALTER TABLE `aptitudes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -42,7 +42,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `aptitudes_estudiantes` WRITE;
 /*!40000 ALTER TABLE `aptitudes_estudiantes` DISABLE KEYS */;
-INSERT INTO `aptitudes_estudiantes` VALUES (2,1),(2,2),(4,4),(4,7),(4,8),(5,1),(6,6),(7,9),(7,5),(7,3);
+INSERT INTO `aptitudes_estudiantes` VALUES (4,4),(4,7),(4,8),(5,1),(6,6),(7,9),(7,5),(7,3),(2,16),(2,17),(2,2);
 /*!40000 ALTER TABLE `aptitudes_estudiantes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -54,6 +54,16 @@ LOCK TABLES `aptitudes_ofertas` WRITE;
 /*!40000 ALTER TABLE `aptitudes_ofertas` DISABLE KEYS */;
 INSERT INTO `aptitudes_ofertas` VALUES (1,3),(1,4),(2,4),(2,5),(3,6),(4,8),(5,9);
 /*!40000 ALTER TABLE `aptitudes_ofertas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Dumping data for table `contratos`
+--
+
+LOCK TABLES `contratos` WRITE;
+/*!40000 ALTER TABLE `contratos` DISABLE KEYS */;
+INSERT INTO `contratos` VALUES (1,2,3,'Activo'),(2,3,4,'Activo'),(3,4,5,'Cancelado');
+/*!40000 ALTER TABLE `contratos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -138,6 +148,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-16 22:37:51
-
-
+-- Dump completed on 2016-06-23  0:49:42

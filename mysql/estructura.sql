@@ -51,7 +51,7 @@ CREATE TABLE `aptitudes` (
   `id_aptitud` int(6) NOT NULL AUTO_INCREMENT,
   `nombre_aptitud` varchar(20) NOT NULL,
   PRIMARY KEY (`id_aptitud`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -86,6 +86,26 @@ CREATE TABLE `aptitudes_ofertas` (
   CONSTRAINT `aptitudes_ofertas_aptitudes_id_aptitud_fk` FOREIGN KEY (`id_aptitud`) REFERENCES `aptitudes` (`id_aptitud`),
   CONSTRAINT `aptitudes_ofertas_ofertas_id_oferta_fk` FOREIGN KEY (`id_oferta`) REFERENCES `ofertas` (`id_oferta`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `contratos`
+--
+
+DROP TABLE IF EXISTS `contratos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `contratos` (
+  `id_contrato` int(6) NOT NULL AUTO_INCREMENT,
+  `id_oferta` int(6) NOT NULL,
+  `id_estudiante` int(6) NOT NULL,
+  `estado` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_contrato`),
+  KEY `contratos_ofertas_id_oferta_fk` (`id_oferta`),
+  KEY `contratos_estudiantes_id_usuario_fk` (`id_estudiante`),
+  CONSTRAINT `contratos_estudiantes_id_usuario_fk` FOREIGN KEY (`id_estudiante`) REFERENCES `estudiantes` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `contratos_ofertas_id_oferta_fk` FOREIGN KEY (`id_oferta`) REFERENCES `ofertas` (`id_oferta`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -284,4 +304,4 @@ CREATE TABLE `usuarios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-16 22:38:23
+-- Dump completed on 2016-06-23  0:50:35
