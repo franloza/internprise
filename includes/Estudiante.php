@@ -89,7 +89,6 @@ class Estudiante extends Usuario
 
     }
 
-
     public static function register($datos) {
         $datos = self::sanitizeData($datos);
         $result = self::validateData($datos);

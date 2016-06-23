@@ -171,6 +171,7 @@ class OfertaDAO
             $fila = $rs->fetch_assoc();
             $oferta =  self::constructOferta($fila);
             $rs->free();
+            $oferta->setAptitudes(self::cargaAptitudesOferta($idOferta));
             return $oferta;
         }
         return false;
@@ -179,33 +180,84 @@ class OfertaDAO
     public static function creaOferta($datos){
         $app = App::getSingleton();
         $conn = $app->conexionBd();
+        $conn->begin_transaction();
         $id_usuario = $app->idUsuario();
-                $puesto = $datos['puesto'];
+        $puesto = $datos['puesto'];
         $sueldo = intval($datos['sueldo']);
         $fechaInicio = $datos['fecha_inicio'];
         $fechaFin = $datos['fecha_fin'];
         $horas = intval($datos['horas']);
         $plazas = intval($datos['plazas']);
         $descripcion = $datos['descripcion'];
-        $aptitudes = $datos['aptitudes'];
         $reqMinimos = $datos['reqMinimos'];
         $idiomas = $datos['idiomas'];
-        $reqDeseables = $datos['reqDeseables'];
-
-
         $estado = 'Pendiente';
+        
 
         $stmt = $conn->prepare('INSERT INTO ofertas (id_empresa, 
                           puesto, sueldo, fecha_incio, fecha_fin, horas, 
                           plazas, descripcion, aptitudes, reqMinimos, idiomas, reqDeseables, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
-        $stmt->bind_param("isissiiss", $id_usuario, $puesto, $sueldo,$fechaInicio,
-            $fechaFin, $horas, $plazas, $descripcion, $aptitudes, $reqMinimos, $idiomas, $reqDeseables, $estado);
+        $stmt->bind_param("isissiissssss", $id_usuario, $puesto, $sueldo,$fechaInicio,
+            $fechaFin, $horas, $plazas, $descripcion, $reqMinimos, $idiomas, $estado);
 
         if (!$stmt->execute()) {
             $result [] = $stmt->error;
+            $conn->rollback();
             return $result;
         }
+        $id_oferta = $conn->insert_id;
+
+        foreach ($datos['aptitudes'] as $aptitud) {
+
+            //Conseguir id de aptitud si existe
+            $query = sprintf("SELECT id_aptitud FROM aptitudes WHERE nombre_aptitud = '%s'", $conn->real_escape_string($aptitud));
+            $rs = $conn->query($query);
+            if ($rs->num_rows > 0) {
+                //Se ha encontrado la aptitud
+                $fila = $rs->fetch_assoc();
+                $idAptitud = intval($fila['id_aptitud']);
+            } else {
+                //No se ha encontrado la aptitud -> Se inserta
+                $stmt = $conn->prepare('INSERT INTO aptitudes(nombre_aptitud) VALUES (?)');
+                $stmt->bind_param("s", $aptitud);
+                if (!$stmt->execute()) {
+                    $result [] = "Hubo un problema en la inserción en la BBDD";
+                    $rs->free();
+                    $conn->rollback();
+                    return $result;
+                }
+                $idAptitud = $conn->insert_id;
+            }
+
+            $stmt = $conn->prepare('INSERT INTO aptitudes_ofertas VALUES (?,?)');
+            $stmt->bind_param("ii", intval($id_oferta), $idAptitud);
+            if (!$stmt->execute()) {
+                $rs->free();
+                $result [] = $stmt->error;
+                $conn->rollback();
+                return $result;
+            }
+        }
+        
+        $conn->commit();
         return true;
+    }
+
+    private static function cargaAptitudesOferta($id_oferta) {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $aptitudes = array();
+        $query = sprintf("SELECT nombre_aptitud FROM aptitudes_ofertas ae 
+        INNER JOIN aptitudes a ON a.id_aptitud=ae.id_aptitud WHERE id_oferta='%d'", intval($id_oferta));
+        $rs = $conn->query($query);
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($aptitudes,$fila["nombre_aptitud"]);
+            }
+            $rs->free();
+            return $aptitudes;
+        }
+        return false;
     }
     
     private static function constructOferta($fila) {
@@ -221,10 +273,8 @@ class OfertaDAO
         $oferta->setHoras($fila['horas']);
         $oferta->setSueldo($fila['sueldo']);
         $oferta->setDescripcion($fila['descripcion']);
-        $oferta->setAptitudes($fila['aptitudes']);
         $oferta->setReqMinimos($fila['reqMinimos']);
         $oferta->setIdiomas($fila['idiomas']);
-        $oferta->setReqDeseables($fila['reqDeseables']);
 
         $oferta->setDiasDesdeCreacion($fila['fecha_creacion']);
         return $oferta;
