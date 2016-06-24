@@ -75,6 +75,11 @@
     height: 3%;
 }
 
+.dialogo-modal-footer button {
+    margin: 10px;
+}
+
+
 #admin-modal-footer, #admin-modal-header {
     background-color: #16a085;
 }

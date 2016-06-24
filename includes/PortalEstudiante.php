@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\aw\internprise;
-
+use es\ucm\aw\internprise\Aplicacion as App;
 
 class PortalEstudiante extends Portal
 {
@@ -25,6 +25,7 @@ class PortalEstudiante extends Portal
                 <ul>
                     <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
                     <li><a onclick="return loadContent('OFERTAS', 'Ofertas')" href="#">OFERTAS</a></li>
+                    <li><a onclick="return loadContent('SOLICITUDES', 'Ofertas')" href="#">SOLICITUDES</a></li>
                     <li><a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
@@ -69,19 +70,18 @@ EOF;
             $item = array($titleItem,$subtitleItem,$description);
             array_push($listaOfertas,$item);
         }
-        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue");
+        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue",null);
         $widgets .= "<!-- FIN Widget Ofertas activos -->";
 
         /*Generar contenido widget Novedades */
         $widgets .= "<!-- INI Widget Contratos activos -->";
-        //TODO:Implementar Contrato model & ContratoDAO
         //$contratos = ContratoDAO::cargaTodosContratosActivos();
         $novedades = array();
         $novedades = array();
         foreach ( $novedades as $contrato) {
 
         }
-        $widgets .= parent::generarWidget("Novedades", $novedades,"check-circle","green");
+        $widgets .= parent::generarWidget("Novedades", $novedades,"check-circle","green",null);
         $widgets .= "<!-- FIN Widget Contratos activos -->\n<!-- FIN Contenedor widgets superior -->";
 
         $content = $buscador . $widgets;
@@ -96,7 +96,7 @@ EOF;
         return parent::generaTitlebarParam("Internprise Estudiante");
     }
 
-    public function generaPerfil($id_estudiante){
+    public static function generaPerfil($id_estudiante){
         //TODO: Implementar funcionalidad Avatar
 
         $app = Aplicacion::getSingleton();
@@ -174,12 +174,12 @@ EOF;
 
 
         $content = <<<EOF
-        <div class="container">
+        <div class="container" style="width:100%">
         <div class="row">
             <div id="imagen-estudiante" class="col-sm-3">
                 <IMG SRC="img/estudiante-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
             </div>      
-            <div class="col-sm-8">;       
+            <div class="col-sm-8">     
                 <h1 ><strong>$nombre</strong></h1>
                 <h3>$descripcion</h3>
                 <p>$localizacion</p>
@@ -270,7 +270,8 @@ EOF;
     }
 
     public function generaOfertas(){
-        $ofertas = OfertaDAO::cargasOfertasEstudiante(20);
+        $app = App::getSingleton();
+        $ofertas = OfertaDAO::cargasOfertasEstudiante(null);
         $listaOfertas = array();
         $listaIds = array();
         foreach ( $ofertas as $oferta) {
@@ -291,60 +292,27 @@ EOF;
         return $content;
     }
 
-    public function generaDialogoOferta($idOferta){
-        $oferta = OfertaDAO::cargaOferta($idOferta);
-        if($oferta) {
-            $id = $oferta->getIdOferta();
-            $empresa = $oferta->getEmpresa();
+    public function generaDemandas(){
+        $app = App::getSingleton();
+        $demandas = DemandaDAO::cargaDemandasEstudiante($app->idUsuario());
+        $listaDemandas = array();
+        $listaIds = array();
+        foreach ( $demandas as $demanda) {
+            $oferta = $demanda->getOferta();
+            $empresa = $oferta->getEmpresa() ;
             $puesto = $oferta->getPuesto();
             $sueldo = $oferta->getSueldo();
-            $fecha_inicio = $oferta->getFechaInicio();
-            $fecha_fin = $oferta->getFechaFin();
             $horas = $oferta->getHoras();
             $plazas = $oferta->getPlazas();
-            $descripcion = $oferta->getDescripcion();
-            $aptitudes = $oferta->getAptitudes();
-            $reqMinimos = $oferta->getReqMinimos();
-            $idiomas = $oferta->getIdiomas();
-            $reqDeseables = $oferta->getReqDeseables();
-            $estado = $oferta->getEstado();
-            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
-            $content = <<<EOF
-    <!-- Modal dialog oferta -->
-        <div id='estudiante-modal-content' class="dialogo-modal-content">
-            <div id='estudiante-modal-header' class="dialogo-modal-header">
-                <span class="close">×</span>
-                <h2>Oferta</h2>
-            </div>
-            <div class="dialogo-modal-body">
-                <p>Id: $id</p>
-                <p>Empresa: $empresa</p>
-                <p>Puesto: $puesto</p>
-                <p>Sueldo: $sueldo</p>
-                <p>Fecha inicio: $fecha_inicio</p>
-                <p>Fecha fin: $fecha_fin </p>
-                <p>Horas: $horas</p>
-                <p>Plazas: $plazas</p>
-                <p>Descripción: $descripcion</p>
-                <p>Aptitudes: $aptitudes</p>
-                <p>Requisitos minimos: $reqMinimos</p>
-                <p>Idiomas: $idiomas</p>
-                <p>Requisitos deseables: $reqDeseables</p>
-                <p>Estado: $estado</p>
-                <p>Días desde la creación: $diasDesdeCreacion</p>
-            </div>
-            <div id='estudiante-modal-footer' class="dialogo-modal-footer">
-                <button id='aceptar-btn' type="button" class="btn btn-info">Solicitar</button>
-            </div>
-        </div>
-EOF;
+            $estado = $demanda->getEstado();
+            $fila = array($empresa,$puesto,$sueldo, $horas, $plazas,$estado);
+            array_push($listaDemandas,$fila);
+            array_push($listaIds, $demanda->getIdDemanda());
         }
-        else{
-            $content = <<<EOF
-            <h1 style="color:red">Fallo al cargar la oferta</h1>
-EOF;
 
-        }
+        $titulosColumnas = array("Empresa","Puesto", "Sueldo", "Horas", "Plazas","Estado");
+        $content = self::generaTabla("tabla-demandas", "estudiante-table",
+            "Ofertas solicitadas", $titulosColumnas, $listaDemandas, $listaIds, 'demanda');
 
         return $content;
     }

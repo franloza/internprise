@@ -72,9 +72,55 @@ class OfertaDAO
         return false;
     }
 
+    /*Devuelve el numero de ofertas creadas en el día actual*/
+    public static function countNewOfertas()
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT COUNT(*) AS numOfertas FROM ofertas WHERE DATE(fecha_creacion) = CURDATE()");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $numOfertas = 0;
+            while ($fila = $rs->fetch_assoc()) {
+                $numOfertas = $fila['numOfertas'];
+            }
+            return $numOfertas;
+        }
+        return 0;
+    }
+
+    /*Clasifica una demanda como aceptada*/
+    public static function aceptarOferta($op)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $stmt = $conn->prepare('UPDATE ofertas SET estado="Aceptada" WHERE id_oferta=?');
+        $stmt->bind_param("i", intval($op));
+
+        if (!$stmt->execute()) {
+            $result [] = "Hubo un error en la operación";
+            return $result;
+        }
+    }
+
+    /*Clasifica una demanda como rechazada*/
+    public static function rechazarOferta($op)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $stmt = $conn->prepare('UPDATE ofertas SET estado="Rechazada" WHERE id_oferta=?');
+        $stmt->bind_param("i", intval($op));
+
+        if (!$stmt->execute()) {
+            $result [] = "Hubo un error en la operación";
+            return $result;
+        }
+    }
+
     /*FUNCIONES PARA ESTUDIANTE*/
 
     /*
+     * Devuelve las ofertas disponibles para el estudiante que no han sido solicitadas previamente
      * Ordena por fecha de creación (Por defecto: 20)
      */
     public static function cargasOfertasEstudiante($numOfertas)
@@ -83,12 +129,14 @@ class OfertaDAO
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $id_usuario = $app->idUsuario();
+        $id_usuario = intval($app->idUsuario());
         $query = sprintf("SELECT o.*,em.razon_social as empresa FROM ofertas o
                           INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                           INNER JOIN estudiantes e ON e.id_grado = go.id_grado
-                          WHERE e.id_usuario = $id_usuario
+                          WHERE e.id_usuario = $id_usuario AND o.id_oferta NOT IN 
+                              (SELECT d.id_oferta FROM demandas d WHERE id_estudiante = $id_usuario)
+                          AND o.estado = 'Aceptada'
                           ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
@@ -96,7 +144,6 @@ class OfertaDAO
             while ($fila = $rs->fetch_assoc()) {
                 array_push($ofertas,self::constructOferta($fila));
             }
-            $rs->free();
             return $ofertas;
         }
         return false;
@@ -157,6 +204,36 @@ class OfertaDAO
         return false;
     }
 
+    /*Elimina una oferta de la empresa*/
+
+    public static function eliminarOferta($id_oferta)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+
+        //Comprobar que la oferta pertenece a la empresa
+        $ofertas = self::cargaOfertasEmpresa(500);
+        $ok = false;
+        foreach($ofertas as $oferta) {
+            if($id_oferta == $oferta->getIdOferta()) {
+                $ok = true;
+                break;
+            }
+        }
+        if(!$ok){
+            $result [] = "La oferta no pertenece a la empresa";
+            return $result;
+        }
+
+        $stmt = $conn->prepare('DELETE FROM ofertas WHERE id_oferta = ?');
+        $stmt->bind_param("i", intval($id_oferta));
+
+        if (!$stmt->execute()) {
+            $result [] = $stmt->error;
+            return $result;
+        }
+    }
+
     /*FUNCIONES GENÉRICAS*/
     public static function cargaOferta($idOferta)
     {
@@ -170,7 +247,7 @@ class OfertaDAO
         if ($rs &&$rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
             $oferta =  self::constructOferta($fila);
-            $rs->free();
+            $oferta->setAptitudes(self::cargaAptitudesOferta($idOferta));
             return $oferta;
         }
         return false;
@@ -179,32 +256,66 @@ class OfertaDAO
     public static function creaOferta($datos){
         $app = App::getSingleton();
         $conn = $app->conexionBd();
+        $conn->begin_transaction();
         $id_usuario = $app->idUsuario();
-                $puesto = $datos['puesto'];
+        $puesto = $datos['puesto'];
         $sueldo = intval($datos['sueldo']);
         $fechaInicio = $datos['fecha_inicio'];
         $fechaFin = $datos['fecha_fin'];
         $horas = intval($datos['horas']);
         $plazas = intval($datos['plazas']);
         $descripcion = $datos['descripcion'];
-        $aptitudes = $datos['aptitudes'];
         $reqMinimos = $datos['reqMinimos'];
         $idiomas = $datos['idiomas'];
-        $reqDeseables = $datos['reqDeseables'];
-
-
         $estado = 'Pendiente';
+        
 
         $stmt = $conn->prepare('INSERT INTO ofertas (id_empresa, 
                           puesto, sueldo, fecha_incio, fecha_fin, horas, 
-                          plazas, descripcion, aptitudes, reqMinimos, idiomas, reqDeseables, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
-        $stmt->bind_param("isissiiss", $id_usuario, $puesto, $sueldo,$fechaInicio,
-            $fechaFin, $horas, $plazas, $descripcion, $aptitudes, $reqMinimos, $idiomas, $reqDeseables, $estado);
+                          plazas, descripcion, reqMinimos, idiomas, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
+        $stmt->bind_param("isissiissss", $id_usuario, $puesto, $sueldo,$fechaInicio,
+            $fechaFin, $horas, $plazas, $descripcion, $reqMinimos, $idiomas, $estado);
 
         if (!$stmt->execute()) {
             $result [] = $stmt->error;
+            $conn->rollback();
             return $result;
         }
+        $id_oferta = $conn->insert_id;
+
+        foreach ($datos['aptitudes'] as $aptitud) {
+
+            //Conseguir id de aptitud si existe
+            $query = sprintf("SELECT id_aptitud FROM aptitudes WHERE nombre_aptitud = '%s'", $conn->real_escape_string($aptitud));
+            $rs = $conn->query($query);
+            if ($rs->num_rows > 0) {
+                //Se ha encontrado la aptitud
+                $fila = $rs->fetch_assoc();
+                $idAptitud = intval($fila['id_aptitud']);
+            } else {
+                //No se ha encontrado la aptitud -> Se inserta
+                $stmt = $conn->prepare('INSERT INTO aptitudes(nombre_aptitud) VALUES (?)');
+                $stmt->bind_param("s", $aptitud);
+                if (!$stmt->execute()) {
+                    $result [] = "Hubo un problema en la inserción en la BBDD";
+                    $rs->free();
+                    $conn->rollback();
+                    return $result;
+                }
+                $idAptitud = $conn->insert_id;
+            }
+
+            $stmt = $conn->prepare('INSERT INTO aptitudes_ofertas VALUES (?,?)');
+            $stmt->bind_param("ii", intval($id_oferta), $idAptitud);
+            if (!$stmt->execute()) {
+                $rs->free();
+                $result [] = $stmt->error;
+                $conn->rollback();
+                return $result;
+            }
+        }
+        
+        $conn->commit();
         return true;
     }
 
@@ -224,8 +335,24 @@ class OfertaDAO
         return $list;
     }
 
-    private static function constructOferta($fila)
-    {
+    private static function cargaAptitudesOferta($id_oferta) {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $aptitudes = array();
+        $query = sprintf("SELECT nombre_aptitud FROM aptitudes_ofertas ae 
+        INNER JOIN aptitudes a ON a.id_aptitud=ae.id_aptitud WHERE id_oferta='%d'", intval($id_oferta));
+        $rs = $conn->query($query);
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($aptitudes,$fila["nombre_aptitud"]);
+            }
+            $rs->free();
+            return $aptitudes;
+        }
+        return false;
+    }
+    
+    private static function constructOferta($fila) {
         $idOferta = $fila['id_oferta'];
         $empresa = $fila['empresa'];
         $oferta = new Oferta($idOferta, $empresa);
@@ -238,10 +365,8 @@ class OfertaDAO
         $oferta->setHoras($fila['horas']);
         $oferta->setSueldo($fila['sueldo']);
         $oferta->setDescripcion($fila['descripcion']);
-        $oferta->setAptitudes($fila['aptitudes']);
         $oferta->setReqMinimos($fila['reqMinimos']);
         $oferta->setIdiomas($fila['idiomas']);
-        $oferta->setReqDeseables($fila['reqDeseables']);
 
         $oferta->setDiasDesdeCreacion($fila['fecha_creacion']);
         return $oferta;

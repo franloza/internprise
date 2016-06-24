@@ -119,7 +119,7 @@ CREATE TABLE `demandas` (
   `id_demanda` int(6) NOT NULL AUTO_INCREMENT,
   `id_oferta` int(6) NOT NULL,
   `id_estudiante` int(6) NOT NULL,
-  `estado` varchar(20) NOT NULL,
+  `estado` varchar(50) NOT NULL,
   `comentarios` longtext,
   `fecha_solicitud` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_demanda`,`id_oferta`,`id_estudiante`),
@@ -264,10 +264,8 @@ CREATE TABLE `ofertas` (
   `horas` int(4) NOT NULL,
   `plazas` int(4) NOT NULL,
   `descripcion` longtext CHARACTER SET latin1 NOT NULL,
-  `aptitudes` mediumtext CHARACTER SET latin1 NOT NULL,
   `reqMinimos` mediumtext CHARACTER SET latin1 NOT NULL,
   `idiomas` mediumtext CHARACTER SET latin1 NOT NULL,
-  `reqDeseables` mediumtext CHARACTER SET latin1 NOT NULL,
   `estado` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
   `fecha_creacion` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_oferta`),
@@ -305,4 +303,4 @@ CREATE TABLE `usuarios` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-23  0:50:35
+-- Dump completed on 2016-06-23 19:55:55

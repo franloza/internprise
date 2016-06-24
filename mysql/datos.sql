@@ -1,4 +1,4 @@
-USE `internprise`;
+USE internprise;
 -- MySQL dump 10.13  Distrib 5.7.9, for Win64 (x86_64)
 --
 -- Host: localhost    Database: internprise
@@ -121,7 +121,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `ofertas` WRITE;
 /*!40000 ALTER TABLE `ofertas` DISABLE KEYS */;
-INSERT INTO `ofertas` VALUES (1,4,'Administrador de sistemas Solaris',650,'2016-05-15','2016-11-15',6,2,'Precisamos incorporar un perfil Administrador seniorde sistemas Unix con alto conocimiento en Solaris y especialista en Almacenamiento & Backup.','','Requisitos:\r\n· Solvencia técnica contrastable','Ingles: nivel avanzado C1','Conocimientos avanzados en eipos Sun/Oracle Solaris e IBM AIX tanto e nivel hardware como software\r\no Conocimientos avanzados en equipos Intel y/o power a nivel de Red Hat Enterprise Linux y/o similar','Aceptada','2016-05-02 23:26:48'),(2,3,'Desarrollador Java Junior',400,'2016-06-01','2016-09-01',5,4,'desarrollo de aplicaciones java','','Requisitos mínimos:\r\n- No se necesita experiencia laboral previa\r\n- Motivación por aprender y crecer dentro de una compañía con un gran plan de carrera profesional\r\n- Pasión por la programación\r\n-','ninguno',' Team Player\r\n\r\nValorable experiencia en:\r\n- Servidor de aplicaciones Tomcat o JBOSS\r\n- Control de versiones SVN o GIT\r\n- JQuery, Servicios Web Axis 2.0, Axis\r\n- Delphi 7','Pendiente','2016-05-03 23:26:48'),(3,3,'Programador Web',550,'2016-05-19','2016-05-30',4,5,'Programador web con experiencia en Ajax','','estar en ultimo curso de carrera','ingles nivel intermedio','conocimientos de Ajax','Aceptada','2016-05-13 00:00:00'),(4,3,'Programador C++',700,'2016-05-24','2016-05-30',2,8,'Programar apliaciones en c++','','estar en ultimo curso de GII','Ingles nivel avanzado','','Pendiente','2016-05-13 00:00:00'),(5,3,'Programador Python',600,'2016-05-14','2016-05-29',3,7,'Programador Python 2.7 y 3.5 con disponibilidad inmediata','aptitudes','req minimos','idiomas','req deseables','Pendiente','2016-05-13 00:00:00');
+INSERT INTO `ofertas` VALUES (1,4,'Administrador de sistemas Solaris',650,'2016-05-15','2016-11-15',6,2,'Precisamos incorporar un perfil Administrador seniorde sistemas Unix con alto conocimiento en Solaris y especialista en Almacenamiento & Backup.','Requisitos:\r\n· Solvencia técnica contrastable','Ingles: nivel avanzado C1','Aceptada','2016-05-02 23:26:48'),(2,3,'Desarrollador Java Junior',400,'2016-06-01','2016-09-01',5,4,'desarrollo de aplicaciones java','Requisitos mínimos:\r\n- No se necesita experiencia laboral previa\r\n- Motivación por aprender y crecer dentro de una compañía con un gran plan de carrera profesional\r\n- Pasión por la programación\r\n-','ninguno','Pendiente','2016-05-03 23:26:48'),(3,3,'Programador Web',550,'2016-05-19','2016-05-30',4,5,'Programador web con experiencia en Ajax','estar en ultimo curso de carrera','ingles nivel intermedio','Aceptada','2016-05-13 00:00:00'),(4,3,'Programador C++',700,'2016-05-24','2016-05-30',2,8,'Programar apliaciones en c++','estar en ultimo curso de GII','Ingles nivel avanzado','Pendiente','2016-05-13 00:00:00'),(5,3,'Programador Python',600,'2016-05-14','2016-05-29',3,7,'Programador Python 2.7 y 3.5 con disponibilidad inmediata','req minimos','idiomas','Pendiente','2016-05-13 00:00:00');
 /*!40000 ALTER TABLE `ofertas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -148,4 +148,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-23  0:49:42
+-- Dump completed on 2016-06-23 19:56:18

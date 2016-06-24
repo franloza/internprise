@@ -65,7 +65,7 @@ EOF;
     protected function generaHeadParam($titulo, $imagen)
     {
         $bloqueHead = <<<EOF
-        <!-- Fragmento para incluir CSS -->
+        <!-- Fragmento para incluir CSS y JS-->
         <head>
             <meta charset="UTF-8">
             <title>$titulo</title>
@@ -73,10 +73,16 @@ EOF;
             <link rel="stylesheet" href="css/content.css" type="text/css">
             <link rel="stylesheet" href="css/titlebar&footer.css" type="text/css">
             <link rel="stylesheet" href="css/modal.css" type="text/css">
-            <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
             <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
             <script src="js/jquery-2.2.3.js"></script>
             <script type="text/javascript" src="js/datatables/datatables.min.js"></script>
+            <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="css/datepicker.css" />
+            <script src="js/bootstrap-datepicker.js"></script>
+
             <!-- css solo para los colores-->
             <link rel="icon" type="image/png" href="$imagen">            
         </head>
@@ -84,9 +90,9 @@ EOF;
         return $bloqueHead;
     }
 
-    protected function generarWidget($titulo, $lista,$typeIcon,$colorIcon )
+    protected function generarWidget($titulo, $lista,$typeIcon,$colorIcon,$numNewItems)
     {
-        $numItems = count($lista);
+        $numItems = isset($numNewItems)?$numNewItems:count($lista);
         $typeIcon = isset($typeIcon)?$typeIcon:"envelope";
         $colorIcon = isset($colorIcon)?$colorIcon: "blue";
 
@@ -186,7 +192,6 @@ EOF;
                 }
                 $tabla .= "</td>\n";
             }
-            // TODO: Implement generaDialogoModal() for each oferta
             //$tabla .= "<td><a href=\"#\">Ver</a></td>\n";
             //$tabla .= "<td><a onclick=\"return loadContent('OFERTAS_ADMIN')\" href='dashboard.php'>Ver</a></td>";
             $tabla .= "</tr>\n";
@@ -199,7 +204,7 @@ EOF;
     <div class="dialogo-modal">
         <div class="dialogo-modal-content">
             <div class="dialogo-modal-header">
-                <span class="close">×</span>
+                <i class=" fa fa-times close"></i>
                 <h2>Modal Header</h2>
             </div>
             <div class="dialogo-modal-body">
@@ -232,11 +237,6 @@ EOF;
                     'pdf',
                     'print',
                     {
-                        text: 'Borrar filas seleccionadas',
-                        action: function (e, dt, node, config){
-                        }
-                    },
-                    {
                         text: 'Recargar',
                         action: function (e, dt, node, config){
                             dt.ajax.reload();
@@ -263,13 +263,7 @@ EOF;
                     // Cuando el usuario pulsa en la X para cerrar el dialogo
                     $(".close").click (function() {
                         $(".dialogo-modal").css('display', 'none');
-                    });
-                    // Cuando el usuario pulsa en otro lado que no sea el dialogo, se cierra
-                    $('body').click (function(event) {
-                        if (event.target != $(".dialogo-modal-content")) {
-                            $(".dialogo-modal").css('display', 'none');
-                        }
-                    });
+                    });       
                 });
             }
         </script>
@@ -284,10 +278,10 @@ EOF;
     {
         $urlLogout = $_SERVER['PHP_SELF'] . '?logout';
         $rol = strtolower($this->rol);
-        //TODO: Implementar correctamente los enlaces
         $bloqueTitleBar = <<<EOF
     <!-- Fragmento para definir el titlebar del Portal -->
     <div id="$rol-titlebar" class='titlebar'>
+        <i class="fa fa-bars fa-lg burger" aria-hidden="true"></i>
         <img src="img/favicon-$rol.png" alt="Internprise icon" height="70" width="70"></img>
         <div id="label-titlebar">
             <label>
@@ -316,9 +310,10 @@ EOF;
             </ul>
         </nav>
         <div class="search-bar">
+       
            <form method="post" action="#" accept-charset="utf-8">
                <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" name="buscador" placeholder="Buscador..."/>
-			   <datalist id="list666"></datalist>
+			   <datalist class="i_reg" id="list666"></datalist>
            </form>
            
        </div>
@@ -328,7 +323,7 @@ EOF;
         return $bloqueTitleBar;
     }
 
-    protected function generaPerfil($id_usuario)
+    protected static function generaPerfil($id_usuario)
     {
 
 
@@ -362,13 +357,456 @@ EOF;
                     $('#'+id).slideUp(200);
             }
         </script>
+        
+        <!-- script para cargar perfil -->
+        <script>
+        function cargaPerfil(id) { 
+             $.get("ajaxRequest.php?val=CARGA_PERFIL&op=" + id , function(data, status){
+                if (data) {
+                    $('#dashboard-content').html(data);
+                    $('#current-page').text(currentPage);
+                }
+             });     
+        }
+        </script>
+        
         <!-- script para lista infinita de aptitudes (Settings) -->
         <script>
          function addInputAptitud() { 
                $('#all-aptitudes').append('<div class="form-group col-xs-2"><input type="text" class="form-control" name="aptitudes[]"/></div>');  
           }                
         </script>
+        
+        
 EOF;
         return $bloqueScripts;
+    }
+
+    public function generaDialogoOferta ($idOferta){
+        $cssClass = "";
+        switch ($this->rol){
+            case 'Admin': $cssClass = 'admin'; break;
+            case 'Estudiante': $cssClass = 'estudiante'; break;
+            case 'Empresa': $cssClass = 'empresa'; break;
+        }
+        $content = <<<EOF
+    <!-- Modal dialog oferta -->
+        <div id='$cssClass-modal-content' class="dialogo-modal-content">
+            <div id='$cssClass-modal-header' class="dialogo-modal-header text-center">
+                <i class=" fa fa-times close"></i>
+EOF;
+        $oferta = OfertaDAO::cargaOferta($idOferta);
+        if($oferta) {
+            $id = $oferta->getIdOferta();
+            $empresa = $oferta->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $fecha_inicio = $oferta->getFechaInicio();
+            $fecha_fin = $oferta->getFechaFin();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $descripcion = $oferta->getDescripcion();
+            $aptitudes = $oferta->getAptitudes();
+            $reqMinimos = $oferta->getReqMinimos();
+            $idiomas = $oferta->getIdiomas();
+            $estado = $oferta->getEstado();
+            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
+
+            $bloqueAptitudes = "<ol class='aptitudes'>";
+            foreach ($aptitudes as $aptitud){
+                if(!empty(trim($aptitud))){
+                    $bloqueAptitudes .= "<li class='btn btn-primary'> $aptitud</li>";
+                }
+            }
+            $bloqueAptitudes .= "</ol>";
+
+            if ($this->rol === 'Admin')
+                $content .= "<h3 class=\"h3\">$puesto (ID: $id)</h3>";
+            else
+                $content .= "<h3 class=\"h3\">$puesto</h3>";
+
+            $content .= <<<EOF
+            </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style="width:100%">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Empresa</h4>
+                            <p>$empresa</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Plazas</h4>
+                            <p>$plazas</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Sueldo</h4>
+                            <p>$sueldo €</p>
+                        </div>             
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Horas</h4>
+                            <p>$horas h </p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Fecha inicio</h4>
+                            <p>$fecha_inicio</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Fecha fin</h4>
+                            <p>$fecha_fin</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Aptitudes recomendables</h4>
+                            <p>$bloqueAptitudes</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Idiomas</h4>
+                            <p>$idiomas</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Requisitos mínimos</h4>
+                            <p>$reqMinimos</p>
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Descripción</h4>
+                            <p>$descripcion</p>
+                        </div>
+                    </div>
+EOF;
+            if ($this->rol === 'Admin' || $this->rol === 'Empresa'){
+                $content .= <<<EOF
+                 <div class="row">
+                        <div class="col-md-6">
+                            <h4>Estado</h4>
+                            <p>$estado</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Días desde creación</h4>
+                            <p>$diasDesdeCreacion</p>
+                        </div>
+                    </div>
+EOF;
+            }
+            $content .= <<<EOF
+            </div>     
+            </div>
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+EOF;
+            if ($this->rol === 'Admin') {
+                $content .= "<button id='aceptar-btn' type='button' class='btn btn-success' onclick='aceptarOferta($id)'>Aceptar</button>";
+                $content .= "<button id='rechazar-btn' type='button' class='btn btn-danger' onclick='rechazarOferta($id)'>Rechazar</button>";
+            } else if ($this->rol === 'Empresa') {
+                $content .= "<button id='eliminar-btn' type='button' class='btn btn-danger' onclick='eliminarrOferta($id)>Eliminar</button>";
+            }
+            else if ($this->rol === 'Estudiante') {
+                $content .= "<button id='solicitar-btn' type='button' class='btn btn-success' onclick='solicitarOferta($id)>Solicitar</button>";
+            }
+            $content .= "</div>";
+            $content .= "</div>";
+
+        }
+        else
+            //Error message
+            $content .=<<<EOF
+            </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style='width:100%'>
+                    <h1 style='color:red'>Fallo al cargar la oferta</h1>
+                </div>         
+            </div>
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+            </div>
+                 
+        <script>
+        <!--Funciones para aceptar/rechazar oferta en portal administrador-->
+            function aceptarOferta(id) {
+                 $('#aceptar-btn').hide();
+                 $('#rechazar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para aceptar oferta
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=ACEPTAR_OFERTA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }
+            
+            function rechazarOferta(id) {
+                 $('#aceptar-btn').hide();
+                 $('#rechazar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para aceptar demanda
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=RECHAZAR_OFERTA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }
+            
+        <!--Funcion para solicitar oferta en portal estudiante-->
+            function solicitarOferta(id) {
+                 $('#solicitar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para aceptar demanda
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=CREAR_DEMANDAA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }
+            
+            <!--Funcion para eliminar oferta en portal empresa-->
+            function eliminarrOferta(id) {
+                 $('#eliminar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para aceptar demanda
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=ELIMINAR_OFERTA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }   
+        </script>           
+EOF;
+
+        return $content;
+    }
+
+    public function generaDialogoDemanda ($idDemanda)
+    {
+        $cssClass = "";
+        switch ($this->rol) {
+            case 'Admin':
+                $cssClass = 'admin';
+                break;
+            case 'Estudiante':
+                $cssClass = 'estudiante';
+                break;
+            case 'Empresa':
+                $cssClass = 'empresa';
+                break;
+        }
+        $content = <<<EOF
+    <!-- Modal dialog demanda -->
+        <div id='$cssClass-modal-content' class="dialogo-modal-content">
+            <div id='$cssClass-modal-header' class="dialogo-modal-header text-center">
+                <i class=" fa fa-times close"></i>
+EOF;
+        $demanda = DemandaDAO::cargaDemanda($idDemanda);
+        if ($demanda) {
+            $estudiante = $demanda->getEstudiante();
+            $oferta = $demanda->getOferta();
+            $id = $demanda->getIdDemanda();
+            $empresa = $oferta->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $fecha_inicio = $oferta->getFechaInicio();
+            $fecha_fin = $oferta->getFechaFin();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $descripcion = $oferta->getDescripcion();
+            $aptitudes = $oferta->getAptitudes();
+            $reqMinimos = $oferta->getReqMinimos();
+            $idiomas = $oferta->getIdiomas();
+            $estado = $oferta->getEstado();
+            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
+
+            $bloqueAptitudes = "<ol class='aptitudes'>";
+            foreach ($aptitudes as $aptitud) {
+                if (!empty(trim($aptitud))) {
+                    $bloqueAptitudes .= "<li class='btn btn-primary'> $aptitud</li>";
+                }
+            }
+            $bloqueAptitudes .= "</ol>";
+
+            if ($this->rol === 'Admin')
+                $content .= "<h3 class=\"h3\">$puesto (ID: $id)</h3>";
+            else
+                $content .= "<h3 class=\"h3\">$puesto</h3>";
+
+            //Inicio contenido
+            $content .= <<<EOF
+            </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style="width:100%">                  
+EOF;
+
+            //Información del estudiante
+            if ($this->rol === 'Admin' || $this->rol === 'Empresa') {
+                $nombre = $estudiante->getNombre() . " " . $estudiante->getApellidos();
+                $grado = $estudiante->getGrado();
+                $idEstudiante = $estudiante->getId();
+                $content .= <<<EOF
+                 <div class="row">
+                 <h2> Información del estudiante </h2>
+                        <div class="col-md-6">
+                            <h3><b>$nombre</b></h3>
+                        </div>   
+                         <div class="col-md-4">
+                            <h3>$grado</h3>
+                        </div>                    
+                        <div class="col-md-2">
+                            <h3><button id='perfil-btn' type='button' class='btn btn-info' onclick='cargaPerfil($idEstudiante)'>Ver Perfil</button></h3>
+                        </div>                       
+                    </div>
+EOF;
+            }
+
+            //Información de la oferta
+            $content .= <<<EOF
+            <div class="row">
+            <h2> Información de la oferta </h2>
+                <div class="col-md-4">
+                    <h4>Empresa</h4>
+                    <p>$empresa</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Plazas</h4>
+                    <p>$plazas</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Sueldo</h4>
+                    <p>$sueldo €</p>
+                </div>             
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Horas</h4>
+                    <p>$horas h </p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Fecha inicio</h4>
+                    <p>$fecha_inicio</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Fecha fin</h4>
+                    <p>$fecha_fin</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Aptitudes recomendadas</h4>
+                    <p>$bloqueAptitudes</p>
+                </div>
+                <div class="col-md-6">
+                    <h4>Idiomas</h4>
+                    <p>$idiomas</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Requisitos mínimos</h4>
+                    <p>$reqMinimos</p>
+                </div>        
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4>Descripción</h4>
+                    <p>$descripcion</p>
+                </div>
+            </div>
+EOF;
+
+            //Campos adicionales oferta
+            if ($this->rol === 'Admin' || $this->rol === 'Empresa') {
+                $content .= <<<EOF
+                 <div class="row">
+                        <div class="col-md-6">
+                            <h4>Estado</h4>
+                            <p>$estado</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Días desde creación</h4>
+                            <p>$diasDesdeCreacion</p>
+                        </div>
+                    </div>
+EOF;
+            }
+
+            //Cierre contenido
+            $content .= <<<EOF
+            </div>     
+            </div>
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+EOF;
+            if ($this->rol === 'Admin' || $this->rol === 'Empresa') {
+                $content .= "<button id='aceptar-btn' type='button' class='btn btn-success' onclick='aceptarDemanda($id)'>Aceptar</button>";
+                $content .= "<button id='rechazar-btn' type='button' class='btn btn-danger' onclick='rechazarDemanda($id)'>Rechazar</button>";
+                $content .= "</div>";
+                $content .= "</div>";
+            }
+            $content .= <<<EOF
+            <!--Script para aceptar/rechazar demanda en portal administrador/empresa-->
+            <script>
+                function aceptarDemanda(id) {
+                     $('#aceptar-btn').hide();
+                     $('#rechazar-btn').hide();
+                     $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                    //Petición ajax para aceptar demanda
+                    $.ajax({
+                        type: 'GET',
+                        url: "ajaxRequest.php?val=ACEPTAR_DEMANDA&op="+id,
+                        success: function (data) { 
+                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                         },
+                        error: function (data) { 
+                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                    })       
+                }
+                
+                function rechazarDemanda(id) {
+                     $('#aceptar-btn').hide();
+                     $('#rechazar-btn').hide();
+                     $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                    //Petición ajax para aceptar demanda
+                    $.ajax({
+                        type: 'GET',
+                        url: "ajaxRequest.php?val=RECHAZAR_DEMANDA&op="+id,
+                        success: function (data) { 
+                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                         },
+                        error: function (data) { 
+                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                    })       
+                }
+            </script>           
+EOF;
+        }
+        else
+            //Error block
+            $content .= <<<EOF
+            </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style='width:100%'>
+                    <h1 style='color:red'>Fallo al cargar la oferta</h1>
+                </div>         
+            </div>
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+            </div>
+EOF;
+        return $content;
     }
 }

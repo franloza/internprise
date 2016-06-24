@@ -17,13 +17,11 @@ class Oferta
     private $horas;
     private $plazas;
     private $descripcion;
-    private $aptitudes;
     private $reqMinimos;
     private $idiomas;
-    private $reqDeseables;
-    private $estado;
-    private $diasDesdeCreacion;
-
+    private $estado; /*Aceptada, Rechazada*/
+    private $diasDesdeCreacion; 
+    private $aptitudes;
 
     /**
      * Constructor.
@@ -117,15 +115,6 @@ class Oferta
         $this->descripcion = $descripcion;
     }
 
-    public function getAptitudes()
-    {
-        return $this->aptitudes;
-    }
-
-    public function setAptitudes($aptitudes)
-    {
-        $this->aptitudes = $aptitudes;
-    }
 
     public function getReqMinimos()
     {
@@ -145,16 +134,6 @@ class Oferta
     public function setIdiomas($idiomas)
     {
         $this->idiomas = $idiomas;
-    }
-
-    public function getReqDeseables()
-    {
-        return $this->reqDeseables;
-    }
-
-    public function setReqDeseables($reqDeseables)
-    {
-        $this->reqDeseables = $reqDeseables;
     }
 
     public function getEstado()
@@ -180,6 +159,16 @@ class Oferta
         $this->diasDesdeCreacion = $datediff;
     }
 
+    public function getAptitudes()
+    {
+        return $this->aptitudes;
+    }
+
+    public function setAptitudes($aptitudes)
+    {
+        $this->aptitudes = $aptitudes;
+    }
+
     public static function creaOferta($datos){
         $datos = self::sanitizeData($datos);
         $result = self::validateData($datos);
@@ -191,13 +180,23 @@ class Oferta
     }
 
     private static function validateData ($datos) {
-
         /*Comprobar campos obligatorios*/
         if( (!isset($datos['puesto'])) || (!isset($datos['sueldo'])) || (!isset($datos['horas'])) || (!isset($datos['plazas'])) ||
             (!isset($datos['fecha_inicio']))||  (!isset($datos['fecha_fin'])) ||  (!isset($datos['descripcion']))) {
             $result[] = 'No se ha introducido un campo obligatorio';
             return $result;
         }
+        if($datos['fecha_inicio'] > $datos['fecha_fin']){
+            $result[] = 'Las fechas son incorrectas';
+            return $result;
+        }
+
+        if(strlen($datos['puesto']) == 0 || strlen($datos['sueldo']) == 0 || strlen($datos['horas']) == 0 || strlen($datos['plazas']) == 0
+            || strlen($datos['fecha_inicio']) == 0 || strlen($datos['fecha_fin']) == 0){
+            $result[] = 'Algún campo no es válido';
+            return $result;
+        }
+
         return true;
     }
 
@@ -210,11 +209,16 @@ class Oferta
         $sanitizedData['fecha_inicio'] = isset($datos['fecha_inicio']) ? filter_var($datos['fecha_inicio'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['fecha_fin'] = isset($datos['fecha_fin']) ? filter_var($datos['fecha_fin'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['descripcion'] = isset($datos['descripcion']) ? filter_var($datos['descripcion'], FILTER_SANITIZE_STRING) : null ;
-        $sanitizedData['aptitudes'] = isset($datos['aptitudes']) ? filter_var($datos['aptitudes'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['reqMinimos'] = isset($datos['reqMinimos']) ? filter_var($datos['reqMinimos'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['idiomas'] = isset($datos['idiomas']) ? filter_var($datos['idiomas'], FILTER_SANITIZE_STRING) : null ;
-        $sanitizedData['reqDeseables'] = isset($datos['reqDeseables']) ? filter_var($datos['reqDeseables'], FILTER_SANITIZE_STRING) : null ;
 
+        $sanitizedData['aptitudes'] = array();
+        foreach ($datos['aptitudes'] as $aptitud) {
+            if(!empty(trim($aptitud))) {
+                array_push($sanitizedData['aptitudes'], isset($aptitud) ? filter_var($aptitud, FILTER_SANITIZE_STRING) : null);
+            }
+        }
+        
         return $sanitizedData;
     }
 
