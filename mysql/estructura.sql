@@ -119,7 +119,7 @@ CREATE TABLE `demandas` (
   `id_demanda` int(6) NOT NULL AUTO_INCREMENT,
   `id_oferta` int(6) NOT NULL,
   `id_estudiante` int(6) NOT NULL,
-  `estado` varchar(20) NOT NULL,
+  `estado` varchar(50) NOT NULL,
   `comentarios` longtext,
   `fecha_solicitud` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_demanda`,`id_oferta`,`id_estudiante`),

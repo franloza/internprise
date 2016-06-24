@@ -9,27 +9,8 @@ class Demanda
      * Atributos
      */
     private $id_demanda;
-    private $id_estudiante;
-    private $id_oferta;
-    private $nombre_estudiante;
-    private $puesto;
-    private $estado;
-    private $comentarios;
-    private $fecha_solicitud;
+    private $oferta;
 
-    /**
-     * Demanda constructor.
-     * @param $id_demanda
-     * @param $id_estudiante
-     * @param $id_oferta
-     */
-    public function __construct($id_demanda, $id_estudiante, $id_oferta)
-    {
-        $this->id_demanda = $id_demanda;
-        $this->id_estudiante = $id_estudiante;
-        $this->id_oferta = $id_oferta;
-    }
-    
     /**
      * @return mixed
      */
@@ -49,33 +30,33 @@ class Demanda
     /**
      * @return mixed
      */
-    public function getIdEstudiante()
+    public function getOferta()
     {
-        return $this->id_estudiante;
+        return $this->oferta;
     }
 
     /**
-     * @param mixed $id_estudiante
+     * @param mixed $oferta
      */
-    public function setIdEstudiante($id_estudiante)
+    public function setOferta($oferta)
     {
-        $this->id_estudiante = $id_estudiante;
+        $this->oferta = $oferta;
     }
 
     /**
      * @return mixed
      */
-    public function getIdOferta()
+    public function getEstudiante()
     {
-        return $this->id_oferta;
+        return $this->estudiante;
     }
 
     /**
-     * @param mixed $id_oferta
+     * @param mixed $estudiante
      */
-    public function setIdOferta($id_oferta)
+    public function setEstudiante($estudiante)
     {
-        $this->id_oferta = $id_oferta;
+        $this->estudiante = $estudiante;
     }
 
     /**
@@ -113,38 +94,6 @@ class Demanda
     /**
      * @return mixed
      */
-    public function getNombreEstudiante()
-    {
-        return $this->nombre_estudiante;
-    }
-
-    /**
-     * @param mixed $nombre_estudiante
-     */
-    public function setNombreEstudiante($nombre_estudiante)
-    {
-        $this->nombre_estudiante = $nombre_estudiante;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPuesto()
-    {
-        return $this->puesto;
-    }
-
-    /**
-     * @param mixed $puesto
-     */
-    public function setPuesto($puesto)
-    {
-        $this->puesto = $puesto;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getFechaSolicitud()
     {
         return $this->fecha_solicitud;
@@ -157,5 +106,22 @@ class Demanda
     {
         $this->fecha_solicitud = $fecha_solicitud;
     }
+    private $estudiante;
+    private $estado;
+    private $comentarios;
+    private $fecha_solicitud;
 
+    /**
+     * Demanda constructor.
+     * @param $id_demanda
+     * @param $id_estudiante
+     * @param $id_oferta
+     */
+    public function __construct($id_demanda)
+    {
+        $this->id_demanda = $id_demanda;
+    }
+    
+
+    
 }

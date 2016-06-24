@@ -14,6 +14,7 @@ $content = '';
 if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
 	$req = $_GET['val'];
+	$op = (isset($_GET['op']))?$_GET['op']:null;
 	$modalDialogReq = false;
 	if(isset($_GET['databuscador'])) {
 		$buscador = $_GET['databuscador'];
@@ -24,7 +25,7 @@ if($app -> usuarioLogueado()){
 		$modalDialogReq = true;
 	switch($rol){
 		case 'Admin': handle_adminRequest($req); break;
-		case 'Estudiante':handle_studentRequest($req); break;
+		case 'Estudiante':handle_studentRequest($req,$op); break;
 		case 'Empresa': handle_empresaRequest($req); break;
 		default : $content = Error::generaErrorPermisos();
 	}
@@ -44,6 +45,7 @@ else if(isset($_GET['datamail'])) {
 } else
 	$content = Error::generaErrorPermisos();
 /*Returns the content to dashboard by ajax*/
+
 echo $content;
 
 function handle_adminRequest($req){
@@ -71,7 +73,7 @@ function handle_adminRequest($req){
 	}
 }
 
-function handle_studentRequest($req) {
+function handle_studentRequest($req,$op) {
 	global $app, $content, $modalDialogReq;
 	if($app -> tieneRol('Estudiante')){
 		$portalEstudiante = Portal::factory($app->rolUsuario());
@@ -85,8 +87,17 @@ function handle_studentRequest($req) {
 				case 'DASHBOARD': $content = $portalEstudiante -> generaDashboard(); break;
 				case 'PERFIL': $content = $portalEstudiante -> generaPerfil($app->idUsuario()); break;
 				case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
+				case 'SOLICITUDES': $content = $portalEstudiante -> generaDemandas(); break;
 				case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
 				case 'SETTINGS': $content = $portalEstudiante -> generaSettings(); break;
+				case 'CREAR_DEMANDA': {
+					$content = DemandaDAO::creaDemanda($op,$app->idUsuario());
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Demanda solicitada correctamente";
+					}
+				} 
 			}
 		}
 

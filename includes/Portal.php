@@ -264,12 +264,7 @@ EOF;
                     $(".close").click (function() {
                         $(".dialogo-modal").css('display', 'none');
                     });
-                    // Cuando el usuario pulsa en otro lado que no sea el dialogo, se cierra
-                    $('body').click (function(event) {
-                        if (event.target != $(".dialogo-modal-content")) {
-                            $(".dialogo-modal").css('display', 'none');
-                        }
-                    });
+                    
                 });
             }
         </script>
@@ -362,11 +357,30 @@ EOF;
                     $('#'+id).slideUp(200);
             }
         </script>
+        
         <!-- script para lista infinita de aptitudes (Settings) -->
         <script>
          function addInputAptitud() { 
                $('#all-aptitudes').append('<div class="form-group col-xs-2"><input type="text" class="form-control" name="aptitudes[]"/></div>');  
           }                
+        </script>
+        
+        <!--Script para solicitar oferta en portal estudiante-->
+        <script>
+            function solicitarOferta(id) {
+                 $('#aceptar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para solicitar oferta
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=CREAR_DEMANDA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }
         </script>
 EOF;
         return $bloqueScripts;

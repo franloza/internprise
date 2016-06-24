@@ -75,6 +75,7 @@ class OfertaDAO
     /*FUNCIONES PARA ESTUDIANTE*/
 
     /*
+     * Devuelve las ofertas disponibles para el estudiante que no han sido solicitadas previamente
      * Ordena por fecha de creación (Por defecto: 20)
      */
     public static function cargasOfertasEstudiante($numOfertas)
@@ -83,12 +84,13 @@ class OfertaDAO
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $id_usuario = $app->idUsuario();
+        $id_usuario = intval($app->idUsuario());
         $query = sprintf("SELECT o.*,em.razon_social as empresa FROM ofertas o
                           INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                           INNER JOIN estudiantes e ON e.id_grado = go.id_grado
-                          WHERE e.id_usuario = $id_usuario
+                          WHERE e.id_usuario = $id_usuario AND o.id_oferta NOT IN 
+                              (SELECT d.id_oferta FROM demandas d WHERE id_estudiante = $id_usuario)
                           ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
@@ -96,7 +98,6 @@ class OfertaDAO
             while ($fila = $rs->fetch_assoc()) {
                 array_push($ofertas,self::constructOferta($fila));
             }
-            $rs->free();
             return $ofertas;
         }
         return false;

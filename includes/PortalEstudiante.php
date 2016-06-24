@@ -1,7 +1,7 @@
 <?php
 
 namespace es\ucm\aw\internprise;
-
+use es\ucm\aw\internprise\Aplicacion as App;
 
 class PortalEstudiante extends Portal
 {
@@ -25,6 +25,7 @@ class PortalEstudiante extends Portal
                 <ul>
                     <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
                     <li><a onclick="return loadContent('OFERTAS', 'Ofertas')" href="#">OFERTAS</a></li>
+                    <li><a onclick="return loadContent('SOLICITUDES', 'Ofertas')" href="#">SOLICITUDES</a></li>
                     <li><a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
@@ -74,7 +75,6 @@ EOF;
 
         /*Generar contenido widget Novedades */
         $widgets .= "<!-- INI Widget Contratos activos -->";
-        //TODO:Implementar Contrato model & ContratoDAO
         //$contratos = ContratoDAO::cargaTodosContratosActivos();
         $novedades = array();
         $novedades = array();
@@ -270,7 +270,8 @@ EOF;
     }
 
     public function generaOfertas(){
-        $ofertas = OfertaDAO::cargasOfertasEstudiante(20);
+        $app = App::getSingleton();
+        $ofertas = OfertaDAO::cargasOfertasEstudiante(null);
         $listaOfertas = array();
         $listaIds = array();
         foreach ( $ofertas as $oferta) {
@@ -291,6 +292,31 @@ EOF;
         return $content;
     }
 
+    public function generaDemandas(){
+        $app = App::getSingleton();
+        $demandas = DemandaDAO::cargaDemandasEstudiante($app->idUsuario());
+        $listaDemandas = array();
+        $listaIds = array();
+        foreach ( $demandas as $demanda) {
+            $oferta = $demanda->getOferta();
+            $empresa = $oferta->getEmpresa() ;
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $estado = $demanda->getEstado();
+            $fila = array($empresa,$puesto,$sueldo, $horas, $plazas,$estado);
+            array_push($listaDemandas,$fila);
+            array_push($listaIds, $demanda->getIdDemanda());
+        }
+
+        $titulosColumnas = array("Empresa","Puesto", "Sueldo", "Horas", "Plazas","Estado");
+        $content = self::generaTabla("tabla-demandas", "estudiante-table",
+            "Ofertas solicitadas", $titulosColumnas, $listaDemandas, $listaIds, 'demanda');
+
+        return $content;
+    }
+
     public function generaDialogoOferta($idOferta){
         $oferta = OfertaDAO::cargaOferta($idOferta);
         if($oferta) {
@@ -306,7 +332,6 @@ EOF;
             $aptitudes = $oferta->getAptitudes();
             $reqMinimos = $oferta->getReqMinimos();
             $idiomas = $oferta->getIdiomas();
-            $reqDeseables = $oferta->getReqDeseables();
             $estado = $oferta->getEstado();
             $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
             $content = <<<EOF
@@ -326,17 +351,15 @@ EOF;
                 <p>Horas: $horas</p>
                 <p>Plazas: $plazas</p>
                 <p>Descripción: $descripcion</p>
-                <p>Aptitudes: $aptitudes</p>
                 <p>Requisitos minimos: $reqMinimos</p>
                 <p>Idiomas: $idiomas</p>
-                <p>Requisitos deseables: $reqDeseables</p>
                 <p>Estado: $estado</p>
                 <p>Días desde la creación: $diasDesdeCreacion</p>
             </div>
             <div id='estudiante-modal-footer' class="dialogo-modal-footer">
-                <button id='aceptar-btn' type="button" class="btn btn-info">Solicitar</button>
+                <button id='aceptar-btn' type="button" class="btn btn-info" onclick="solicitarOferta($id)">Solicitar</button>
             </div>
-        </div>
+        </div>        
 EOF;
         }
         else{
