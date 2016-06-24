@@ -214,66 +214,6 @@ EOF;
         // TODO: Implement generaBuzon() method.
     }
 
-    public function generaDialogoOferta($idOferta){
-        $oferta = OfertaDAO::cargaOferta($idOferta);
-        if($oferta) {
-            $id = $oferta->getIdOferta();
-            $empresa = $oferta->getEmpresa();
-            $puesto = $oferta->getPuesto();
-            $sueldo = $oferta->getSueldo();
-            $fecha_inicio = $oferta->getFechaInicio();
-            $fecha_fin = $oferta->getFechaFin();
-            $horas = $oferta->getHoras();
-            $plazas = $oferta->getPlazas();
-            $descripcion = $oferta->getDescripcion();
-            $aptitudes = $oferta->getAptitudes();
-            $reqMinimos = $oferta->getReqMinimos();
-            $idiomas = $oferta->getIdiomas();
-            $reqDeseables = $oferta->getReqDeseables();
-
-            $estado = $oferta->getEstado();
-            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
-            $content = <<<EOF
-    <!-- Modal dialog oferta -->
-        <div id='admin-modal-content' class="dialogo-modal-content">
-            <div id='admin-modal-header' class="dialogo-modal-header">
-                <span class="close">×</span>
-                <h2>Oferta</h2>
-            </div>
-            <div class="dialogo-modal-body">
-                <p>Id: $id</p>
-                <p>Empresa: $empresa</p>
-                <p>Puesto: $puesto</p>
-                <p>Sueldo: $sueldo</p>
-                <p>Fecha inicio: $fecha_inicio</p>
-                <p>Fecha fin: $fecha_fin </p>
-                <p>Horas: $horas</p>
-                <p>Plazas: $plazas</p>
-                <p>Descripción: $descripcion</p>
-                <p>Aptitudes: $aptitudes</p>
-                <p>Requisitos minimos: $reqMinimos</p>
-                <p>Idiomas: $idiomas</p>
-                <p>Requisitos deseables: $reqDeseables</p>
-                <p>Estado: $estado</p>
-                <p>Días desde la creación: $diasDesdeCreacion</p>
-            </div>
-            <div id='admin-modal-footer' class="dialogo-modal-footer">
-                <button id='modificar-btn' type="button" class="btn btn-info disabled">Modificar</button>
-                <button id='eliminar-btn' type="button" class="btn btn-danger">Eliminar</button>
-            </div>
-        </div>
-EOF;
-        }
-        else{
-            $content = <<<EOF
-            <h1 style="color:red">Fallo al cargar la oferta</h1>
-EOF;
-
-        }
-
-    return $content;
-    }
-
     public function generaSettings(){
         $formAdmin =  new \es\ucm\aw\internprise\FormularioSettings('admin');
         $formAdmin->gestiona();

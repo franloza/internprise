@@ -180,13 +180,23 @@ class Oferta
     }
 
     private static function validateData ($datos) {
-
         /*Comprobar campos obligatorios*/
         if( (!isset($datos['puesto'])) || (!isset($datos['sueldo'])) || (!isset($datos['horas'])) || (!isset($datos['plazas'])) ||
             (!isset($datos['fecha_inicio']))||  (!isset($datos['fecha_fin'])) ||  (!isset($datos['descripcion']))) {
             $result[] = 'No se ha introducido un campo obligatorio';
             return $result;
         }
+        if($datos['fecha_inicio'] > $datos['fecha_fin']){
+            $result[] = 'Las fechas son incorrectas';
+            return $result;
+        }
+
+        if(strlen($datos['puesto']) == 0 || strlen($datos['sueldo']) == 0 || strlen($datos['horas']) == 0 || strlen($datos['plazas']) == 0
+            || strlen($datos['fecha_inicio']) == 0 || strlen($datos['fecha_fin']) == 0){
+            $result[] = 'Algún campo no es válido';
+            return $result;
+        }
+
         return true;
     }
 

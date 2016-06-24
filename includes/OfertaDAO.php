@@ -171,7 +171,6 @@ class OfertaDAO
         if ($rs &&$rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
             $oferta =  self::constructOferta($fila);
-            $rs->free();
             $oferta->setAptitudes(self::cargaAptitudesOferta($idOferta));
             return $oferta;
         }
@@ -197,8 +196,8 @@ class OfertaDAO
 
         $stmt = $conn->prepare('INSERT INTO ofertas (id_empresa, 
                           puesto, sueldo, fecha_incio, fecha_fin, horas, 
-                          plazas, descripcion, aptitudes, reqMinimos, idiomas, reqDeseables, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)');
-        $stmt->bind_param("isissiissssss", $id_usuario, $puesto, $sueldo,$fechaInicio,
+                          plazas, descripcion, reqMinimos, idiomas, estado) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
+        $stmt->bind_param("isissiissss", $id_usuario, $puesto, $sueldo,$fechaInicio,
             $fechaFin, $horas, $plazas, $descripcion, $reqMinimos, $idiomas, $estado);
 
         if (!$stmt->execute()) {

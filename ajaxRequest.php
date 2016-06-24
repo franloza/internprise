@@ -121,10 +121,7 @@ function handle_empresaRequest($req) {
 				case 'SOLICITUDES': $content = $portalEmpresa -> generaSolicitudes(); break;
 				case 'CONTRATOS': $content = $portalEmpresa -> generaContratos(); break;
 				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
-				case 'CREAR_OFERTA':
-					$form = new \es\ucm\aw\internprise\FormularioCrearOferta();
-					$form->gestiona();
-					break;
+				case 'CREAR_OFERTA': $content = $portalEmpresa->generaCrearOferta(); break;
 				case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
 			}
 		}

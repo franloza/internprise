@@ -168,62 +168,6 @@ EOF;
         return $content;
     }
 
-    public function generaDialogoOferta($idOferta){
-        $oferta = OfertaDAO::cargaOferta($idOferta);
-        if($oferta) {
-            $id = $oferta->getIdOferta();
-            $empresa = $oferta->getEmpresa();
-            $puesto = $oferta->getPuesto();
-            $sueldo = $oferta->getSueldo();
-            $fecha_inicio = $oferta->getFechaInicio();
-            $fecha_fin = $oferta->getFechaFin();
-            $horas = $oferta->getHoras();
-            $plazas = $oferta->getPlazas();
-            $descripcion = $oferta->getDescripcion();
-            $aptitudes = $oferta->getAptitudes();
-            $reqMinimos = $oferta->getReqMinimos();
-            $idiomas = $oferta->getIdiomas();
-            $estado = $oferta->getEstado();
-            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
-            $content = <<<EOF
-    <!-- Modal dialog oferta -->
-        <div id='empresa-modal-content' class="dialogo-modal-content">
-            <div id='empresa-modal-header' class="dialogo-modal-header">
-                <span class="close">×</span>
-                <h2>Oferta</h2>
-            </div>
-            <div class="dialogo-modal-body">
-                <p>Id: $id</p>
-                <p>Empresa: $empresa</p>
-                <p>Puesto: $puesto</p>
-                <p>Sueldo: $sueldo</p>
-                <p>Fecha inicio: $fecha_inicio</p>
-                <p>Fecha fin: $fecha_fin </p>
-                <p>Horas: $horas</p>
-                <p>Plazas: $plazas</p>
-                <p>Descripción: $descripcion</p>
-                <p>Requisitos minimos: $reqMinimos</p>
-                <p>Idiomas: $idiomas</p>
-                <p>Estado: $estado</p>
-                <p>Días desde la creación: $diasDesdeCreacion</p>
-            </div>
-            <div id='empresa-modal-footer' class="dialogo-modal-footer">
-                <button id='modificar-btn' type="button" class="btn btn-info disabled">Modificar</button>
-                <button id='eliminar-btn' type="button" class="btn btn-danger">Eliminar</button>
-            </div>
-        </div>
-EOF;
-        }
-        else{
-            $content = <<<EOF
-            <h1 style="color:red">Fallo al cargar la oferta</h1>
-EOF;
-
-        }
-
-        return $content;
-    }
-
     public function generaSolicitudes(){
         // TODO: Implement generaSolicitudes() method.
     }
@@ -256,39 +200,8 @@ EOF;
     }
 
     public function generaCrearOferta(){
-        $content = <<<EOF
-            <div id="form-crear-oferta" class="form">
-                <h2>Rellena los campos de la nueva oferta:</h2>
-                <form action="includes/ajaxRequest.php" method="post">
-                    <fieldset>
-                        <label for="name">Puesto</label>
-                        <input type="text" name="puesto">
-                        <br>
-                        <label for="sueldo">Sueldo</label>
-                        <input type="number" name="sueldo">
-                        <br>
-                        <label for="horas">Horas</label>
-                        <input type="number" min="0" max="20" name="horas">
-                        <br>
-                        <label for="plazas">Plazas</label>
-                        <input type="number" name="plazas">
-                        <br>
-                        <label for="fecha-inicio">Fecha inicio</label>
-                        <input type="date" name="fecha-inicio">
-                        <br>
-                        <label for="fecha-fin">Fecha fin</label>
-                        <input type="date" name="fecha-fin">
-                        <br>
-                        <label for="horas">Descripción</label>
-                        <textarea type="text" name="fecha-inicio"></textarea>
-                        <br>
-                        <input type="submit" tabindex="-1">
-                    </fieldset>
-                </form>
-            </div>
-EOF;
-        return $content;
-
+        $formCrearOferta =  new \es\ucm\aw\internprise\FormularioCrearOferta();
+        $formCrearOferta->gestiona();
     }
 
     public function generaSettings(){

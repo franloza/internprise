@@ -65,7 +65,7 @@ EOF;
     protected function generaHeadParam($titulo, $imagen)
     {
         $bloqueHead = <<<EOF
-        <!-- Fragmento para incluir CSS -->
+        <!-- Fragmento para incluir CSS y JS-->
         <head>
             <meta charset="UTF-8">
             <title>$titulo</title>
@@ -73,10 +73,16 @@ EOF;
             <link rel="stylesheet" href="css/content.css" type="text/css">
             <link rel="stylesheet" href="css/titlebar&footer.css" type="text/css">
             <link rel="stylesheet" href="css/modal.css" type="text/css">
-            <link rel="stylesheet" href="css/font-awesome-4.5.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
             <link rel="stylesheet" type="text/css" href="css/datatables.min.css"/>
+            <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
             <script src="js/jquery-2.2.3.js"></script>
             <script type="text/javascript" src="js/datatables/datatables.min.js"></script>
+            <script type="text/javascript" src="js/moment-with-locales.min.js"></script>
+            <script type="text/javascript" src="js/bootstrap.min.js"></script>
+            <link rel="stylesheet" href="css/datepicker.css" />
+            <script src="js/bootstrap-datepicker.js"></script>
+
             <!-- css solo para los colores-->
             <link rel="icon" type="image/png" href="$imagen">            
         </head>
@@ -186,7 +192,6 @@ EOF;
                 }
                 $tabla .= "</td>\n";
             }
-            // TODO: Implement generaDialogoModal() for each oferta
             //$tabla .= "<td><a href=\"#\">Ver</a></td>\n";
             //$tabla .= "<td><a onclick=\"return loadContent('OFERTAS_ADMIN')\" href='dashboard.php'>Ver</a></td>";
             $tabla .= "</tr>\n";
@@ -199,7 +204,7 @@ EOF;
     <div class="dialogo-modal">
         <div class="dialogo-modal-content">
             <div class="dialogo-modal-header">
-                <span class="close">×</span>
+                <i class=" fa fa-times close"></i>
                 <h2>Modal Header</h2>
             </div>
             <div class="dialogo-modal-body">
@@ -231,11 +236,6 @@ EOF;
                 buttons: [
                     'pdf',
                     'print',
-                    {
-                        text: 'Borrar filas seleccionadas',
-                        action: function (e, dt, node, config){
-                        }
-                    },
                     {
                         text: 'Recargar',
                         action: function (e, dt, node, config){
@@ -279,10 +279,10 @@ EOF;
     {
         $urlLogout = $_SERVER['PHP_SELF'] . '?logout';
         $rol = strtolower($this->rol);
-        //TODO: Implementar correctamente los enlaces
         $bloqueTitleBar = <<<EOF
     <!-- Fragmento para definir el titlebar del Portal -->
     <div id="$rol-titlebar" class='titlebar'>
+        <i class="fa fa-bars fa-lg burger" aria-hidden="true"></i>
         <img src="img/favicon-$rol.png" alt="Internprise icon" height="70" width="70"></img>
         <div id="label-titlebar">
             <label>
@@ -315,7 +315,7 @@ EOF;
                <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" name="buscador" placeholder="Buscador..."/>
 			   <datalist id="list666"></datalist>
            </form>
-           
+            
        </div>
     </div>
 EOF;
@@ -384,5 +384,151 @@ EOF;
         </script>
 EOF;
         return $bloqueScripts;
+    }
+
+    public function generaDialogoOferta ($idOferta){
+        $cssClass = "";
+        switch ($this->rol){
+            case 'Admin': $cssClass = 'admin'; break;
+            case 'Estudiante': $cssClass = 'estudiante'; break;
+            case 'Empresa': $cssClass = 'empresa'; break;
+        }
+        $content = <<<EOF
+    <!-- Modal dialog oferta -->
+        <div id='$cssClass-modal-content' class="dialogo-modal-content">
+            <div id='$cssClass-modal-header' class="dialogo-modal-header text-center">
+                <i class=" fa fa-times close"></i>
+EOF;
+        $oferta = OfertaDAO::cargaOferta($idOferta);
+        if($oferta) {
+            $id = $oferta->getIdOferta();
+            $empresa = $oferta->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $fecha_inicio = $oferta->getFechaInicio();
+            $fecha_fin = $oferta->getFechaFin();
+            $horas = $oferta->getHoras();
+            $plazas = $oferta->getPlazas();
+            $descripcion = $oferta->getDescripcion();
+            $aptitudes = $oferta->getAptitudes();
+            $reqMinimos = $oferta->getReqMinimos();
+            $idiomas = $oferta->getIdiomas();
+            $estado = $oferta->getEstado();
+            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
+
+            $bloqueAptitudes = "<ol class='aptitudes'>";
+            foreach ($aptitudes as $aptitud){
+                if(!empty(trim($aptitud))){
+                    $bloqueAptitudes .= "<li class='btn btn-primary'> $aptitud</li>";
+                }
+            }
+            $bloqueAptitudes .= "</ol>";
+
+            if ($this->rol === 'Admin')
+                $content .= "<h3 class=\"h3\">$puesto (id=$id)</h3>";
+            else
+                $content .= "<h3 class=\"h3\">$puesto</h3>";
+
+            $content .= <<<EOF
+                
+            </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style="width:100%">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Empresa</h4>
+                            <p>$empresa</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Plazas</h4>
+                            <p>$plazas</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Sueldo</h4>
+                            <p>$sueldo €</p>
+                        </div>             
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h4>Horas</h4>
+                            <p>$horas h </p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Fecha inicio</h4>
+                            <p>$fecha_inicio</p>
+                        </div>
+                        <div class="col-md-4">
+                            <h4>Fecha fin</h4>
+                            <p>$fecha_fin</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h4>Aptitudes</h4>
+                            <p>$bloqueAptitudes</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Idiomas</h4>
+                            <p>$idiomas</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Requisitos mínimos</h4>
+                            <p>$reqMinimos</p>
+                        </div>        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Descripción</h4>
+                            <p>$descripcion</p>
+                        </div>
+                    </div>
+EOF;
+            if ($this->rol === 'Admin' || $this->rol === 'Empresa'){
+                $content .= <<<EOF
+                 <div class="row">
+                        <div class="col-md-6">
+                            <h4>Estado</h4>
+                            <p>$estado</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h4>Días desde creación</h4>
+                            <p>$diasDesdeCreacion</p>
+                        </div>
+                    </div>
+EOF;
+            }
+            $content .= <<<EOF
+            </div>     
+            </div>
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+EOF;
+
+            if ($this->rol === 'Admin' || $this->rol === 'Empresa') {
+                $content .= "<button id='modificar-btn' type='button' class='btn btn-warning'>Modificar</button>";
+                $content .= "<button id='eliminar-btn' type='button' class='btn btn-danger'>Eliminar</button>";
+            }
+            else
+                $content .= "<button id='solicitar-btn' type='button' class='btn btn-success'>Solicitar</button>";
+
+            $content .= "</div>";
+            $content .= "</div>";
+
+        }
+        else
+            $content .=<<<EOF
+            </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style='width:100%'>
+                    <h1 style='color:red'>Fallo al cargar la oferta</h1>
+                </div>
+                
+            </div>
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+            </div>
+EOF;
+
+        return $content;
     }
 }

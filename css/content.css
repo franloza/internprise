@@ -444,7 +444,16 @@ body, html{
 	float:left;
 }
 
-/*Ofertas empresa*/
+/*Crear oferta empresa*/
+
+#form-crear-oferta .form-group{
+    text-align: left;
+}
+
+#form-crear-oferta .form-group.required label:after {
+    content:"*";
+    color:red;
+}
 
 .content #fieldset-crear-oferta {
     background-color: #3498BB;

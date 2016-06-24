@@ -174,12 +174,12 @@ EOF;
 
 
         $content = <<<EOF
-        <div class="container">
+        <div class="container" style="width:100%">
         <div class="row">
             <div id="imagen-estudiante" class="col-sm-3">
                 <IMG SRC="img/estudiante-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
             </div>      
-            <div class="col-sm-8">;       
+            <div class="col-sm-8">     
                 <h1 ><strong>$nombre</strong></h1>
                 <h3>$descripcion</h3>
                 <p>$localizacion</p>
@@ -313,61 +313,6 @@ EOF;
         $titulosColumnas = array("Empresa","Puesto", "Sueldo", "Horas", "Plazas","Estado");
         $content = self::generaTabla("tabla-demandas", "estudiante-table",
             "Ofertas solicitadas", $titulosColumnas, $listaDemandas, $listaIds, 'demanda');
-
-        return $content;
-    }
-
-    public function generaDialogoOferta($idOferta){
-        $oferta = OfertaDAO::cargaOferta($idOferta);
-        if($oferta) {
-            $id = $oferta->getIdOferta();
-            $empresa = $oferta->getEmpresa();
-            $puesto = $oferta->getPuesto();
-            $sueldo = $oferta->getSueldo();
-            $fecha_inicio = $oferta->getFechaInicio();
-            $fecha_fin = $oferta->getFechaFin();
-            $horas = $oferta->getHoras();
-            $plazas = $oferta->getPlazas();
-            $descripcion = $oferta->getDescripcion();
-            $aptitudes = $oferta->getAptitudes();
-            $reqMinimos = $oferta->getReqMinimos();
-            $idiomas = $oferta->getIdiomas();
-            $estado = $oferta->getEstado();
-            $diasDesdeCreacion = $oferta->getDiasDesdeCreacion();
-            $content = <<<EOF
-    <!-- Modal dialog oferta -->
-        <div id='estudiante-modal-content' class="dialogo-modal-content">
-            <div id='estudiante-modal-header' class="dialogo-modal-header">
-                <span class="close">×</span>
-                <h2>Oferta</h2>
-            </div>
-            <div class="dialogo-modal-body">
-                <p>Id: $id</p>
-                <p>Empresa: $empresa</p>
-                <p>Puesto: $puesto</p>
-                <p>Sueldo: $sueldo</p>
-                <p>Fecha inicio: $fecha_inicio</p>
-                <p>Fecha fin: $fecha_fin </p>
-                <p>Horas: $horas</p>
-                <p>Plazas: $plazas</p>
-                <p>Descripción: $descripcion</p>
-                <p>Requisitos minimos: $reqMinimos</p>
-                <p>Idiomas: $idiomas</p>
-                <p>Estado: $estado</p>
-                <p>Días desde la creación: $diasDesdeCreacion</p>
-            </div>
-            <div id='estudiante-modal-footer' class="dialogo-modal-footer">
-                <button id='aceptar-btn' type="button" class="btn btn-info" onclick="solicitarOferta($id)">Solicitar</button>
-            </div>
-        </div>        
-EOF;
-        }
-        else{
-            $content = <<<EOF
-            <h1 style="color:red">Fallo al cargar la oferta</h1>
-EOF;
-
-        }
 
         return $content;
     }
