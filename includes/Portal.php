@@ -310,11 +310,12 @@ EOF;
             </ul>
         </nav>
         <div class="search-bar">
+       
            <form method="post" action="#" accept-charset="utf-8">
                <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" name="buscador" placeholder="Buscador..."/>
-			   <datalist id="list666"></datalist>
+			   <datalist class="i_reg" id="list666"></datalist>
            </form>
-            
+           
        </div>
     </div>
 EOF;

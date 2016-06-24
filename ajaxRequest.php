@@ -11,16 +11,16 @@ $app = App::getSingleton();
 $app -> doInclude('comun/Error.php');
 $content = '';
 
-if($app -> usuarioLogueado()){
+if(isset($_GET['databuscador'])) {
+	$buscador = $_GET['databuscador'];
+	echo handle_autocompletebuscador($buscador);
+}
+else if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
 	$req = $_GET['val'];
 	$op = (isset($_GET['op']))?$_GET['op']:null;
 	$modalDialogReq = false;
-	if(isset($_GET['databuscador'])) {
-		$buscador = $_GET['databuscador'];
-		$datos = handle_autocompletebuscador($buscador);
-		echo $datos;
-	}
+
 	if(substr($req, 0, 2) === 'MD')
 		$modalDialogReq = true;
 	switch($rol){
