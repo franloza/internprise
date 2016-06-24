@@ -135,9 +135,9 @@ class UsuarioDAO
             $app = App::getSingleton();
             $conn = $app->conexionBd();
             $stmt = $conn->prepare('INSERT INTO empresas(id_usuario ,cif ,razon_social ,direccion ,localidad ,provincia ,cp ,
-                                    pais ,telefono , web ) VALUES (?,?,?,?,?,?,?,?,?,?)');
+                                    pais ,telefono , web, descripcion ) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
             $stmt->bind_param("isssssisss", $id, $datos['cif'], $datos['razonSocial'],$datos['direccion'],
-                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web']);
+                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web'], $datos['descripcion']);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
                 return $result;
@@ -290,9 +290,9 @@ class UsuarioDAO
         if (!is_array($id)) {
             $conn = $app->conexionBd();
             $stmt = $conn->prepare('UPDATE empresas SET cif = ?,razon_social= ? ,direccion = ?,
-                                    localidad = ?,provincia = ?,cp = ?,pais = ?,telefono = ?, web= ?  WHERE id_usuario = ?');
+                                    localidad = ?,provincia = ?,cp = ?,pais = ?,telefono = ?, web= ?, descripcion= ?  WHERE id_usuario = ?');
             $stmt->bind_param("sssssisssi",  $datos['cif'], $datos['razonSocial'],$datos['direccion'],
-                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web'],$id);
+                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web'], $datos['descripcion'],$id);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
                 return $result;
@@ -399,6 +399,8 @@ class UsuarioDAO
         return $list;
     }
 
+
+
     public static function listEmpresas($patron) {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
@@ -431,4 +433,5 @@ class UsuarioDAO
         }
         return false;
     }
+
 }

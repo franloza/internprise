@@ -162,6 +162,7 @@ EOF;
 		$pais = '';
 		$web = '';
 		$telefono = '';
+        $descripcion = '';
 
 
 		if($datos){
@@ -176,6 +177,7 @@ EOF;
 			$pais = isset($datos['pais']) ? $datos['pais'] : $pais;
 			$web = isset($datos['web']) ? $datos['web'] : $web;
 			$telefono = isset($datos['telefono']) ? $datos['telefono'] : $telefono;
+            $descripcion = isset($datos['descripcion']) ? $datos['descripcion'] : $descripcion;
 		}
 
 		$camposForm=<<<EOF
@@ -191,6 +193,8 @@ EOF;
 			<p class="star">*</p><input class="i_reg" onblur="validate('pais', this)" type="text" name="pais" placeholder="Pais"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" name="web" placeholder="Web"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" name="telefono" placeholder="Telefono"/>
+			<p class="starnone">*</p><textarea class="txtdesc" name="descripcion" placeholder="Descripcion del sitio..." maxlength="400"></textarea>
+
 			<button type="submit" onsubmit="validateform('empresa')" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 		return $camposForm;

@@ -148,6 +148,7 @@ CREATE TABLE `empresas` (
   `pais` varchar(20) NOT NULL,
   `telefono` varchar(12) NOT NULL,
   `web` varchar(30) NOT NULL,
+  `descripcion` longtext CHARACTER SET latin1 NOT NULL,
   KEY `empresas_usuarios_id_usuario_fk` (`id_usuario`),
   CONSTRAINT `empresas_usuarios_id_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

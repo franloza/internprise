@@ -207,11 +207,28 @@ class OfertaDAO
         }
         return true;
     }
-    
-    private static function constructOferta($fila) {
+
+    public static function listOfertasEmpresa($id_empresa) {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $aptitudes = array();
+        $query = sprintf("SELECT puesto, plazas, estado FROM ofertas WHERE id_empresa='%d'", intval($id_empresa));
+        $rs = $conn->query($query);
+        $list = array();
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($list, array($fila['puesto'],$fila['plazas'],$fila['estado']));
+            }
+            $rs->free();
+        }
+        return $list;
+    }
+
+    private static function constructOferta($fila)
+    {
         $idOferta = $fila['id_oferta'];
         $empresa = $fila['empresa'];
-        $oferta = new Oferta($idOferta,$empresa);
+        $oferta = new Oferta($idOferta, $empresa);
         $oferta->setEstado($fila['estado']);
         $oferta->setFechaFin($fila['fecha_fin']);
         $oferta->setFechaInicio($fila['fecha_incio']);
@@ -229,4 +246,5 @@ class OfertaDAO
         $oferta->setDiasDesdeCreacion($fila['fecha_creacion']);
         return $oferta;
     }
+
 }

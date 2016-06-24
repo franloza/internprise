@@ -105,7 +105,7 @@ function handle_empresaRequest($req) {
 		else{
 			switch($req){
 				case 'DASHBOARD': $content = $portalEmpresa -> generaDashboard(); break;
-				case 'PERFIL': $content = $portalEmpresa -> generaPerfil(); break;
+				case 'PERFIL': $content = $portalEmpresa -> generaPerfil($app->idUsuario()); break;
 				case 'OFERTAS': $content = $portalEmpresa -> generaOfertas(); break;
 				case 'SOLICITUDES': $content = $portalEmpresa -> generaSolicitudes(); break;
 				case 'CONTRATOS': $content = $portalEmpresa -> generaContratos(); break;

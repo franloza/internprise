@@ -67,7 +67,7 @@ EOF;
      * Función que genera el contenido de la página principal del portal.
      * El resto de contenido debe generarse por medio de peticiones AJAX.
      */
- public function generaDashboard()
+    public function generaDashboard()
     {
        $widgets="";
        $buscador = <<<EOF
@@ -142,8 +142,105 @@ EOF;
         return parent::generaTitlebarParam("Internprise Empresa");
     }
 
-    public function generaPerfil(){
-        // TODO: Implement generaPerfil() method.
+    public function generaPerfil($id_empresa) {
+        $app = Aplicacion::getSingleton();
+
+        $empresa = UsuarioDAO::cargaEmpresa($id_empresa);
+        $ofertas = OfertaDAO::listOfertasEmpresa($id_empresa);
+
+        $nombre = $empresa->getRazonSocial();
+        $direccion = $empresa->getDireccion();
+        $localidad = $empresa->getLocalidad();
+        $provincia = $empresa->getProvincia();
+        $cp = $empresa->getCp();
+        $pais = $empresa->getPais();
+        $telefono = $empresa->getTelefono();
+        $web = $empresa->getWeb();
+        $descripcion  = $empresa->getDescripcion();
+
+        //Bloque contacto
+        $bloqueContacto ="<div class='col-md-4'>";
+        if(!empty(trim($web))) {
+            $bloqueContacto .="<h2><a href='$web' class='web'><i class='fa fa-globe'></i> Website</a></h2>";
+        }
+        $bloqueContacto .="</div>";
+        $bloqueContacto .=" <div class='col-md-4 contact-email'>";
+        if(!empty(trim($telefono))) {
+            $bloqueContacto .= "<h3><i class='fa fa-mobile'></i> $telefono</h3>";
+        }
+        $bloqueContacto .="</div>";
+        
+        $content = <<<EOF
+        <div class="container">
+        <div class="row">
+            <div id="imagen-empresa" class="col-sm-3">
+                <IMG SRC="img/empresa-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
+            </div>      
+            <div class="col-sm-8">  
+                <h1 ><strong>$nombre</strong></h1>
+                <h3><strong>$localidad</strong></h3>
+                <p>$provincia</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-left"><h1>Descripción</h1></div>
+                    <table class="table table-hover ">
+                        <tr><td><p class="text-justify">$descripcion</p></td></tr>
+                    </table>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+            <div class="text-center"><h1>Ofertas</h1></div>                          
+                <table class="table table-hover ">
+                    <tr><td><strong>Puesto</strong></td><td><strong>Plazas</strong></td><td><strong>Estado</strong></td></tr>
+EOF;
+
+        $ofertas = OfertaDAO::listOfertasEmpresa($id_empresa);
+        $contAceptadas = 0;
+        $contPendiente = 0;
+        $contPlazasA = 0;
+        $contPlazasP = 0;
+        foreach ($ofertas as $row){
+            if(!empty(trim($row[0]))){
+                if (strcmp($row[2], "Aceptada") == 0) {
+                    $contAceptadas++;
+                    $contPlazasA += $row[1];
+                } else if (strcmp($row[2], "Pendiente") == 0) {
+                    $contPendiente++;
+                    $contPlazasP += $row[1];
+                }
+                $content .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
+            }
+        }
+        $content .= <<<EOF
+                </table>
+            </div>
+            <div class="col-sm-6">
+            <div class="text-center""><h1>Datos</h1></div>
+                <table class="table table-hover ">
+                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad Aceptadas / pendientes</strong></td><td><strong>Plazas totales</strong></td></tr>
+                    <tr><td>Aceptadas</td><td>$contAceptadas</td><td>$contPlazasA</td></tr>
+                    <tr><td>Pendientes</td><td>$contPendiente</td><td>$contPlazasP</td></tr>
+                </table>
+            </div>
+  
+            <div class="row"></div>          
+
+            <div class="row">
+                <div class="text-left"><h1>Contacto</h1></div>      
+            </div>
+            <div class="well well-sm quick-contact">
+            <div class="row">
+                $bloqueContacto
+            </div>
+        </div>
+                        
+EOF;
+        return $content;
     }
 
     public function generaOfertas(){
