@@ -28,7 +28,7 @@ class UsuarioDAO
         $id_estudiante = intval($id_estudiante);
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT * FROM usuarios u INNER JOIN estudiantes e ON e.id_usuario = u.id_usuario INNER JOIN grados g ON g.id_grado = e.id_grado WHERE e.id_usuario='%d'", $id_estudiante);
+        $query = sprintf("SELECT * FROM usuarios u INNER JOIN estudiantes e ON e.id_usuario = u.id_usuario INNER JOIN grados g ON g.id_grado = e.id_grado WHERE e.id_usuario='%d'", intval($id_estudiante));
         $rs = $conn->query($query);
         if ($rs && $rs->num_rows == 1) {
             $fila = $rs->fetch_assoc();
@@ -431,4 +431,21 @@ class UsuarioDAO
         }
         return false;
     }
+
+    public static function findUsuarioById($idUsuario)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * FROM usuarios WHERE id_usuario='%d'", intval($idUsuario));
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $user = new Usuario($fila['id_usuario'], $fila['email'], $fila['password']);
+            $user->setRol($fila['rol']);
+            $rs->free();
+            return $user;
+        }
+        return false;
+    }
+
 }

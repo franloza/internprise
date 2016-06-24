@@ -19,8 +19,8 @@ class Oferta
     private $descripcion;
     private $reqMinimos;
     private $idiomas;
-    private $estado;
-    private $diasDesdeCreacion;
+    private $estado; /*Aceptada, Rechazada*/
+    private $diasDesdeCreacion; 
     private $aptitudes;
 
     /**

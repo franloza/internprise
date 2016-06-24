@@ -104,7 +104,7 @@ class DemandaDAO
         $conn = $app->conexionBd();
         $query = sprintf("SELECT d.* 
                           FROM demandas d
-                          INNER JOIN ofertas o ON d.id_oferta = o.id_oferta $whereGrado d.estado NOT LIKE('Pendiente de Universidad');
+                          INNER JOIN ofertas o ON d.id_oferta = o.id_oferta $whereGrado d.estado NOT LIKE('Pendiente de Universidad')
                           ORDER BY d.fecha_solicitud DESC LIMIT $numDemandas");
         $rs = $conn->query($query);
         if ($rs) {
@@ -142,6 +142,66 @@ class DemandaDAO
             }
             $rs->free();
             return $demandas;
+        }
+        return false;
+    }
+
+    /*Clasifica una demanda como pendiente de empresa*/
+    public static function aceptarDemanda($op)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $stmt = $conn->prepare('UPDATE demandas SET estado="Pendiente de Empresa" WHERE id_demanda=?');
+        $stmt->bind_param("i", intval($op));
+        if (!$stmt->execute()) {
+            $result [] = "Hubo un error en la operación";
+            return $result;
+        }
+    }
+
+    /*Clasifica una demanda como rechazada*/
+    public static function rechazarDemanda($op)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $stmt = $conn->prepare('UPDATE demandas SET estado="Rechazada por Universidad" WHERE id_demanda=?');
+        $stmt->bind_param("i", intval($op));
+
+        if (!$stmt->execute()) {
+            $result [] = "Hubo un error en la operación";
+            return $result;
+        }
+    }
+
+    /*Cuenta el numero de demandas creadas en el día*/
+    public static function countNewDemandas()
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT COUNT(*) AS numDemandas FROM demandas WHERE DATE(fecha_solicitud) = CURDATE()");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $numDemandas = 0;
+            while ($fila = $rs->fetch_assoc()) {
+                $numDemandas = $fila['numDemandas'];
+            }
+            return $numDemandas;
+        }
+        return 0;
+    }
+
+    /*FUNCIONES GENÉRICAS*/
+
+    public static function cargaDemanda($idDemanda)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT * from demandas WHERE id_demanda = '%d'",intval($idDemanda));
+        $rs = $conn->query($query);
+        if ($rs &&$rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $oferta =  self::constructDemanda($fila);
+            return $oferta;
         }
         return false;
     }
@@ -200,8 +260,8 @@ class DemandaDAO
         $demanda->setOferta($oferta);
         $demanda->setEstado($fila['estado']);
         $demanda->setComentarios($fila['comentarios']);
-        $demanda->setFechaSolicitud($fila['fecha_solicitud']);
+        $demanda->setDiasDesdeCreacion($fila['fecha_solicitud']);
         return $demanda;
     }
-    
+
 }

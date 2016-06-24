@@ -58,7 +58,7 @@ class Aplicacion {
   public function login(Usuario $user) {
     $_SESSION['login'] = true;
     $_SESSION['email'] = $user->getEmail();
-    $_SESSION['rol'] = $user->rol();
+    $_SESSION['rol'] = $user->getRol();
     $_SESSION['id_usuario'] = $user->getId();
     $_SESSION['section'] = 'DASHBOARD';
   }

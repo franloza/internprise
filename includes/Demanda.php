@@ -10,6 +10,10 @@ class Demanda
      */
     private $id_demanda;
     private $oferta;
+    private $estudiante;
+    private $estado; /*Aceptada, Rechazada, Pendiente de Universidad, Pendiente de Empresa,Rechazada por Universidad, Rechazada por Empresa*/
+    private $comentarios;
+    private $diasDesdeCreacion;
 
     /**
      * @return mixed
@@ -94,22 +98,21 @@ class Demanda
     /**
      * @return mixed
      */
-    public function getFechaSolicitud()
+    public function getDiasDesdeCreacion()
     {
-        return $this->fecha_solicitud;
+        return $this->diasDesdeCreacion;
     }
 
     /**
      * @param mixed $fecha_solicitud
      */
-    public function setFechaSolicitud($fecha_solicitud)
+    public function setDiasDesdeCreacion($fechaCreacion)
     {
-        $this->fecha_solicitud = $fecha_solicitud;
+        $date = date('d', strtotime($fechaCreacion));
+        $now = date('d',time());
+        $datediff = $now - $date;
+        $this->diasDesdeCreacion = $datediff;
     }
-    private $estudiante;
-    private $estado;
-    private $comentarios;
-    private $fecha_solicitud;
 
     /**
      * Demanda constructor.

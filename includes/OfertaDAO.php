@@ -72,6 +72,51 @@ class OfertaDAO
         return false;
     }
 
+    /*Devuelve el numero de ofertas creadas en el día actual*/
+    public static function countNewOfertas()
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT COUNT(*) AS numOfertas FROM ofertas WHERE DATE(fecha_creacion) = CURDATE()");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $numOfertas = 0;
+            while ($fila = $rs->fetch_assoc()) {
+                $numOfertas = $fila['numOfertas'];
+            }
+            return $numOfertas;
+        }
+        return 0;
+    }
+
+    /*Clasifica una demanda como aceptada*/
+    public static function aceptarOferta($op)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $stmt = $conn->prepare('UPDATE ofertas SET estado="Aceptada" WHERE id_oferta=?');
+        $stmt->bind_param("i", intval($op));
+
+        if (!$stmt->execute()) {
+            $result [] = "Hubo un error en la operación";
+            return $result;
+        }
+    }
+
+    /*Clasifica una demanda como rechazada*/
+    public static function rechazarOferta($op)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $stmt = $conn->prepare('UPDATE ofertas SET estado="Rechazada" WHERE id_oferta=?');
+        $stmt->bind_param("i", intval($op));
+
+        if (!$stmt->execute()) {
+            $result [] = "Hubo un error en la operación";
+            return $result;
+        }
+    }
+
     /*FUNCIONES PARA ESTUDIANTE*/
 
     /*
@@ -91,6 +136,7 @@ class OfertaDAO
                           INNER JOIN estudiantes e ON e.id_grado = go.id_grado
                           WHERE e.id_usuario = $id_usuario AND o.id_oferta NOT IN 
                               (SELECT d.id_oferta FROM demandas d WHERE id_estudiante = $id_usuario)
+                          AND o.estado = 'Aceptada'
                           ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
         if ($rs) {
@@ -156,6 +202,36 @@ class OfertaDAO
             return $ofertas;
         }
         return false;
+    }
+
+    /*Elimina una oferta de la empresa*/
+
+    public static function eliminarOferta($id_oferta)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+
+        //Comprobar que la oferta pertenece a la empresa
+        $ofertas = self::cargaOfertasEmpresa(500);
+        $ok = false;
+        foreach($ofertas as $oferta) {
+            if($id_oferta == $oferta->getIdOferta()) {
+                $ok = true;
+                break;
+            }
+        }
+        if(!$ok){
+            $result [] = "La oferta no pertenece a la empresa";
+            return $result;
+        }
+
+        $stmt = $conn->prepare('DELETE FROM ofertas WHERE id_oferta = ?');
+        $stmt->bind_param("i", intval($id_oferta));
+
+        if (!$stmt->execute()) {
+            $result [] = $stmt->error;
+            return $result;
+        }
     }
 
     /*FUNCIONES GENÉRICAS*/

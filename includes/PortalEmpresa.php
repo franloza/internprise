@@ -90,7 +90,7 @@ EOF;
             $item = array($titleItem,$subtitleItem,$description);
             array_push($listaOfertas,$item);
         }
-        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue");
+        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue",null);
         $widgets .= "<!-- FIN Widget Ofertas activos -->";
 
         /*Generar contenido widget Contratos */
@@ -102,7 +102,7 @@ EOF;
         foreach ( $contratos as $contrato) {
 
         }
-        $widgets .= parent::generarWidget("Contratos", $listaContratos,"check-circle","green");
+        $widgets .= parent::generarWidget("Contratos", $listaContratos,"check-circle","green",null);
         $widgets .= "<!-- FIN Widget Contratos activos -->\n<!-- FIN Contenedor widgets superior -->";
 
         $widgets .= "<!-- INI Contenedor widgets inferior -->\n<!-- INI Contenedor widgets inferior -->";
@@ -116,7 +116,7 @@ EOF;
         foreach ( $demandas as $demanda) {
 
         }
-        $widgets .= parent::generarWidget("Demandas", $listaContratos," fa-caret-square-o-down","#FF800D");
+        $widgets .= parent::generarWidget("Demandas", $listaContratos," fa-caret-square-o-down","#FF800D",null);
         $widgets .= "<!-- FIN Widget Nuevas demandas -->";
 
         /*Generar contenido widget Dudas y sugerencias */
@@ -127,7 +127,7 @@ EOF;
         $listaSugerencias = array();
         foreach ( $sugerencias as $sugerencia) {
         }
-        $widgets .= parent::generarWidget("Dudas y sugerencias", $listaContratos," fa-commenting-o","#B9264F");
+        $widgets .= parent::generarWidget("Dudas y sugerencias", $listaContratos," fa-commenting-o","#B9264F",null);
         $widgets .= "<!-- FIN Widget Nuevas demandas -->";
 
         $content = $buscador . $widgets;

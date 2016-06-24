@@ -30,8 +30,6 @@ class FormularioSettings extends Form{
         $id_administrador = $app->idUsuario();
         $user = UsuarioDAO::cargaAdministrador($id_administrador);
 
-        $email = $user->getEmail();
-        $password = $user->getPassword();
         $nombre = $user->getNombre();
         $apellidos = $user->getApellidos();
         $nombre_universidad = $user->getNombreUniversidad();
@@ -49,30 +47,66 @@ class FormularioSettings extends Form{
         $mChecked = ($sexo == 'Mujer') ? "checked" : "";
 
         $content = <<<EOF
-       <legend id= "formSettings">Cambios en el perfil: </legend>
-        <div id = "formSettingsLeft">
-        <p><label>eMail:</label> <input type="text" name="email" value="$email" disabled/></p>
-        <p><label>Password:</label> <input type="password" name="password" value="$password"/><br /></p>
-        <p><label>Nombre:</label> <input type="text" name="nombre" value="$nombre"/></p>
-        <p><label>Apellidos:</label> <input type="text" name="apellidos" value="$apellidos"/><br /></p>
-        <p><label>Universidad:</label> <input type="text" name="nombre_universidad" value="$nombre_universidad"/></p>
-        <p><label>Sexo:</label> 
-             <input type="radio" name="sexo" value="Hombre" $hChecked >Hombre 
-             <input type="radio" name="sexo" value="Mujer" $mChecked > Mujer <br></p>
-        <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
-        </div>
-        <div id = "formSettingsRight">
-        <p><label>Codigo Postal:</label> <input type="text" name="cp" value="$cp"/><br /></p>
-        <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
-        <p><label>Provincia:</label> <input type="text" name="provincia" value="$provincia"/><br /></p>
-        <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
-        <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
-        <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
-        </div>
-        <legend id= "formSettingsSubmit">
-        <button class="btn btn-default" type="submit" id="formSettingsBotton">Confirmar cambios</button>
-        </legend>
-        
+        <div id="formSettings">
+            <div id="infoPersonal" class="col-xs-12">
+                <div class="row"><h1> Información personal </h1> </div>
+                <div class="col-xs-6">
+                    <div class="form-group required">
+                        <label for="dni">Nombre:</label>
+                        <input type="text" class="form-control" name="nombre" id="nombre" value="$nombre">
+                    </div> 
+                     <div class="form-group required">
+                            <label for="apellidos">Apellidos:</label>
+                            <input type="text" class="form-control" name="apellidos" id="apellidos" value="$apellidos"/>
+                     </div>
+                      <div class="form-group required">
+                            <label for="nombre_universidad">Universidad:</label>
+                            <input type="text" class="form-control" name="nombre_universidad" id="nombre_universidad" value="$nombre_universidad">
+                      </div>
+                       <div class="form-group required">
+                            <label for="sexo">Sexo:</label>
+                            <label class="radio-inline"><input type="radio" name="sexo" value="Hombre" $hChecked>Hombre</label>
+                            <label class="radio-inline"><input type="radio" name="sexo" value="Mujer" $mChecked>Mujer</label>
+                       </div>
+                            <div class="form-group required">
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" value="$direccion">
+                        </div>
+                        <div class="form-group required">
+                            <label for="localidad">Localidad:</label>
+                            <input type="localidad" class="form-control" name="localidad" id="localidad" value="$localidad">
+                        </div> 
+                    </div>           
+                    <div class="col-xs-6">                      
+                        <div class="form-group required">
+                            <label for="provincia">Provincia:</label>
+                            <input type="provincia" class="form-control" name="provincia" id="provincia" value="$provincia">
+                        </div> 
+                        
+                        <div class="form-group required">
+                            <label for="provincia">Código Postal:</label>
+                            <input type="cp" class="form-control" name="cp" id="cp" value="$cp">
+                        </div> 
+                        
+                        <div class="form-group required">
+                            <label for="pais">Pais:</label>
+                            <input type="pais" class="form-control" name="pais" id="pais" value="$pais">
+                        </div>
+                         <div class="form-group">
+                            <label for="telefono_fijo">Teléfono:</label>
+                            <input type="telefono_fijo" class="form-control" name="telefono_fijo" id="telefono" value="$telefono">
+                        </div>
+                        <label for="web">Web:</label>
+                        <div class="icon-addon addon-md">    
+                                 <label for="web" class="fa fa-globe" rel="tooltip"/>
+                                 <input type="url" class="form-control" name="web" id="web" value="$web">
+                         </div>
+                    </div>             
+            </div>
+            <div class="col-xs-12">  
+                <button type="submit" class="btn btn-default">Confirmar cambios</button>   
+            </div>
+        </div>   
 EOF;
         return $content;
     }

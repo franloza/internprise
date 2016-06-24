@@ -70,7 +70,7 @@ EOF;
             $item = array($titleItem,$subtitleItem,$description);
             array_push($listaOfertas,$item);
         }
-        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue");
+        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue",null);
         $widgets .= "<!-- FIN Widget Ofertas activos -->";
 
         /*Generar contenido widget Novedades */
@@ -81,7 +81,7 @@ EOF;
         foreach ( $novedades as $contrato) {
 
         }
-        $widgets .= parent::generarWidget("Novedades", $novedades,"check-circle","green");
+        $widgets .= parent::generarWidget("Novedades", $novedades,"check-circle","green",null);
         $widgets .= "<!-- FIN Widget Contratos activos -->\n<!-- FIN Contenedor widgets superior -->";
 
         $content = $buscador . $widgets;
@@ -96,7 +96,7 @@ EOF;
         return parent::generaTitlebarParam("Internprise Estudiante");
     }
 
-    public function generaPerfil($id_estudiante){
+    public static function generaPerfil($id_estudiante){
         //TODO: Implementar funcionalidad Avatar
 
         $app = Aplicacion::getSingleton();

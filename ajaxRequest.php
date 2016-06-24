@@ -24,9 +24,9 @@ if($app -> usuarioLogueado()){
 	if(substr($req, 0, 2) === 'MD')
 		$modalDialogReq = true;
 	switch($rol){
-		case 'Admin': handle_adminRequest($req); break;
+		case 'Admin': handle_adminRequest($req,$op); break;
 		case 'Estudiante':handle_studentRequest($req,$op); break;
-		case 'Empresa': handle_empresaRequest($req); break;
+		case 'Empresa': handle_empresaRequest($req,$op); break;
 		default : $content = Error::generaErrorPermisos();
 	}
     /*Save active section if its not a modal dialog request*/
@@ -48,26 +48,86 @@ else if(isset($_GET['datamail'])) {
 
 echo $content;
 
-function handle_adminRequest($req){
+function handle_adminRequest($req,$op){
 	global $app, $content, $modalDialogReq;
 	if( $app -> tieneRol('Admin')){
 		$portalAdmin = Portal::factory($app->rolUsuario());
 		if($modalDialogReq){
 			switch (substr($req, 2, 1)){
 				case 'O': $content = $portalAdmin -> generaDialogoOferta(substr($req, 4)); break;
+				case 'D': $content = $portalAdmin -> generaDialogoDemanda(substr($req, 4)); break;
 			}
 		}
 		else {
 			switch ($req) {
+				//Secciones
 				case 'DASHBOARD': $content = $portalAdmin->generaDashboard(); break;
 				case 'OFERTAS_CLASIFICADAS': $content = $portalAdmin->generaOfertas(true); break;
 				case 'OFERTAS_NO_CLASIFICADAS': $content = $portalAdmin->generaOfertas(false); break;
-				case 'DEMANDAS': $content = $portalAdmin->generaDemandas(); break;
+				case 'DEMANDAS_CLASIFICADAS': $content = $portalAdmin->generaDemandas(true); break;
+				case 'DEMANDAS_NO_CLASIFICADAS': $content = $portalAdmin->generaDemandas(false); break;
 				case 'CONTRATOS': $content = $portalAdmin->generaContratos(); break;
 				case 'HISTORIAL': $content = $portalAdmin->generaHistorial(); break;
 				case 'ENCUESTAS': $content = $portalAdmin->generaEncuestas(); break;
 				case 'BUZON': $content = $portalAdmin->generaBuzon(); break;
 				case 'SETTINGS': $content = $portalAdmin->generaSettings(); break;
+
+				//Acciones
+				case 'ACEPTAR_OFERTA': {
+					$content = OfertaDAO::aceptarOferta($op);
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Oferta aceptada";
+					}
+					break;
+				}
+				case 'RECHAZAR_OFERTA': {
+					$content = OfertaDAO::rechazarOferta($op);
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Oferta rechazada";
+					}
+					break;
+				}
+
+				case 'ACEPTAR_DEMANDA': {
+					$content = DemandaDAO::aceptarDemanda($op);
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Demanda aceptada";
+					}
+					break;
+				}
+				case 'RECHAZAR_DEMANDA': {
+					$content = DemandaDAO::rechazarDemanda($op);
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Demanda rechazada";
+					}
+					break;
+				}
+
+				case 'CARGA_PERFIL': {
+					$user = UsuarioDAO::findUsuarioById($op);
+					if($user) {
+						$rol = $user->getRol();
+						if ($rol == 'Estudiante') {
+							$content = PortalEstudiante::generaPerfil($op);
+							break;
+						}
+						else if($rol == 'Empresa') {
+							//TODO:
+							//$content = PortalEmpresa::generaPerfil($op);
+						}
+					}
+					else
+						$content = false;
+					break;
+				}
 			}
 		}
 	}
@@ -80,16 +140,20 @@ function handle_studentRequest($req,$op) {
 		if($modalDialogReq){
 			switch (substr($req, 2, 1)){
 				case 'O': $content = $portalEstudiante -> generaDialogoOferta(substr($req, 4)); break;
+				case 'D': $content = $portalEstudiante -> generaDialogoDemanda(substr($req, 4)); break;
 			}
 		}
 		else{
 			switch($req){
+				//Secciones
 				case 'DASHBOARD': $content = $portalEstudiante -> generaDashboard(); break;
-				case 'PERFIL': $content = $portalEstudiante -> generaPerfil($app->idUsuario()); break;
+				case 'PERFIL': $content = PortalEstudiante::generaPerfil($app->idUsuario()); break;
 				case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
 				case 'SOLICITUDES': $content = $portalEstudiante -> generaDemandas(); break;
 				case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
 				case 'SETTINGS': $content = $portalEstudiante -> generaSettings(); break;
+				
+				//Acciones
 				case 'CREAR_DEMANDA': {
 					$content = DemandaDAO::creaDemanda($op,$app->idUsuario());
 					if(is_array($content)){
@@ -97,14 +161,28 @@ function handle_studentRequest($req,$op) {
 					} else{
 						$content = "Demanda solicitada correctamente";
 					}
-				} 
+					break;
+				}
+				case 'CARGA_PERFIL': {
+					$user = UsuarioDAO::findUsuarioById($op);
+					if($user) {
+						$rol = $user->getRol();
+						if ($rol == 'Estudiante') {
+							$content = PortalEstudiante::generaPerfil($op);
+							break;
+						}
+					}
+					else
+						$content = false;
+					break;
+				}
 			}
 		}
 
 	}
 }
 
-function handle_empresaRequest($req) {
+function handle_empresaRequest($req,$op) {
 	global $app, $content, $modalDialogReq;
 	if($app -> tieneRol('Empresa')){
 		$portalEmpresa = Portal::factory($app->rolUsuario());
@@ -115,6 +193,7 @@ function handle_empresaRequest($req) {
 		}
 		else{
 			switch($req){
+				//Secciones
 				case 'DASHBOARD': $content = $portalEmpresa -> generaDashboard(); break;
 				case 'PERFIL': $content = $portalEmpresa -> generaPerfil(); break;
 				case 'OFERTAS': $content = $portalEmpresa -> generaOfertas(); break;
@@ -123,6 +202,30 @@ function handle_empresaRequest($req) {
 				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
 				case 'CREAR_OFERTA': $content = $portalEmpresa->generaCrearOferta(); break;
 				case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
+
+				//Acciones
+				case 'ELIMINAR_OFERTA': {
+					$content = OfertaDAO::eliminarOferta($op);
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Oferta eliminada correctamente";
+					}
+					break;
+				}
+				case 'CARGA_PERFIL': {
+					$user = UsuarioDAO::findUsuarioById($op);
+					if($user) {
+						$rol = $user->getRol();
+						if($rol == 'Empresa') {
+							//TODO:
+							//$content = PortalEmpresa::generaPerfil($op);
+						}
+					}
+					else
+						$content = false;
+					break;
+				}
 			}
 		}
 	}
