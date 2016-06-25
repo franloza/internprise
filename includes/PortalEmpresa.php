@@ -182,14 +182,17 @@ EOF;
         <div class="row">
             <div id="imagen-empresa" class="col-sm-3">
                 <IMG SRC="img/empresa-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
-            </div>      
+            </div> 
+        
+        <!-- NOMBRE EMPRESA Y LOCALIZACION -->         
             <div class="col-sm-8">  
                 <h1 ><strong>$nombre</strong></h1>
                 <h3><strong>$localidad</strong></h3>
                 <p>$provincia</p>
             </div>
         </div>
-
+        
+        <!-- DESCRIPCION -->
         <div class="row">
             <div class="col-sm-12">
                 <div class="text-left"><h1>Descripción</h1></div>
@@ -199,11 +202,12 @@ EOF;
             </div>
         </div>
 
+        <!-- NUMERO DE OFERTAS ACTIVAS -->
         <div class="row">
             <div class="col-sm-6">
-            <div class="text-center"><h1>Ofertas</h1></div>                          
+            <div class="text-center"><h1>Ofertas activas</h1></div>                          
                 <table class="table table-hover ">
-                    <tr><td><strong>Puesto</strong></td><td><strong>Plazas</strong></td><td><strong>Estado</strong></td></tr>
+                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad aceptadas</strong></td><td><strong>Plazas totales</strong></td></tr>
 EOF;
 
         $ofertas = OfertaDAO::listOfertasEmpresa($id_empresa);
@@ -220,17 +224,18 @@ EOF;
                     $contPendiente++;
                     $contPlazasP += $row[1];
                 }
-                $content .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
             }
         }
         $content .= <<<EOF
+            <tr><td>Aceptadas</td><td>$contAceptadas</td><td>$contPlazasA</td></tr>
                 </table>
             </div>
+            
+            <!-- NUMERO DE OFERTAS PENDIENTES -->
             <div class="col-sm-6">
-            <div class="text-center""><h1>Datos</h1></div>
+            <div class="text-center""><h1>Ofertas pendientes</h1></div>
                 <table class="table table-hover ">
-                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad Aceptadas / pendientes</strong></td><td><strong>Plazas totales</strong></td></tr>
-                    <tr><td>Aceptadas</td><td>$contAceptadas</td><td>$contPlazasA</td></tr>
+                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad pendientes</strong></td><td><strong>Plazas totales</strong></td></tr>                    
                     <tr><td>Pendientes</td><td>$contPendiente</td><td>$contPlazasP</td></tr>
                 </table>
             </div>
