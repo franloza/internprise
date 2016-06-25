@@ -293,9 +293,11 @@ EOF;
         </div>
         <nav id="icons-titlebar">
             <ul>
-                <li onclick="return loadContent('NOTIFICATIONS', 'Notifications')" >
+                <li onclick="return loadContent('DASHBOARD')" >
                     <a href="#">
-                        <i id="bell" class="fa fa-bell fa-lg"></i>
+EOF;
+        $bloqueTitleBar .= <<<EOF
+                        <i id="bell" class="fa fa-bell fa-lg"><span id="contAlertas" style="color:red;"></span></i>
                     </a>
                 </li>
                 <li onclick="return loadContent('SETTINGS', 'Modificar perfil')">
@@ -344,6 +346,11 @@ EOF;
                  $.get("ajaxRequest.php?val=" + value, function(data, status){
                     $('#dashboard-content').html(data);
                     $('#current-page').text(currentPage);
+                 });     
+            }
+            function contAlertas() { 
+                 $.get("ajaxRequest.php?val=" + alertas, function(data, status){
+                    $('#contAlertas').html(data);
                  });     
             }
             function subMenu(showHide, id){

@@ -45,7 +45,7 @@ class PortalEmpresa extends Portal
                     </div>
                 </li>
                 <li>
-                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÃ“N</a>
+                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a>
                 </li>
             </ul>
         </div>
@@ -186,7 +186,7 @@ EOF;
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="text-left"><h1>DescripciÃ³n</h1></div>
+                <div class="text-left"><h1>Descripci&oacute;n</h1></div>
                     <table class="table table-hover ">
                         <tr><td><p class="text-justify">$descripcion</p></td></tr>
                     </table>
