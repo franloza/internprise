@@ -199,7 +199,7 @@ function handle_empresaRequest($req,$op) {
 				case 'OFERTAS': $content = $portalEmpresa -> generaOfertas(); break;
 				case 'SOLICITUDES': $content = $portalEmpresa -> generaSolicitudes(); break;
 				case 'CONTRATOS_VIGOR': $content = $portalEmpresa -> generaContratos("Activo"); break;
-				case 'CONTRATOS_FIN': $content = $portalEmpresa -> generaContratos("Cancelado"); break;
+				case 'CONTRATOS_FIN': $content = $portalEmpresa -> generaContratos("Expirado"); break;
 				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
 				case 'CREAR_OFERTA': $content = $portalEmpresa->generaCrearOferta(); break;
 				case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;

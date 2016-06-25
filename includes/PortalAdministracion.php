@@ -200,7 +200,7 @@ EOF;
 
     public function generaContratos(){
         // TODO: Implement generaContratos() method.
-    	$contratos = ContratoDAO::cargaContratosVigor(20,null);
+    	$contratos = ContratoDAO::cargaContratosActivos(20,null);
     	$listaContratos = array();
     	$listaIds = array();
     	foreach ( $contratos as $contrato) {
