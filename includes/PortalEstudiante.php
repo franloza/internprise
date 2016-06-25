@@ -24,6 +24,9 @@ class PortalEstudiante extends Portal
         <div id="estudiante-sidebar" class="sidebar">
             <div id="estudiante-menu-avatar" class="menu-avatar">
                 <img src="img/$avatar" alt="Avatar image" width="100%"></img>
+                <div id='change-avatar'>
+                    <i class="fa fa-pencil" aria-hidden="true"></i> 
+                </div>
             </div>
                 <ul>
                     <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>

@@ -132,6 +132,8 @@ function handle_adminRequest($req,$op){
 						$content = false;
 					break;
 				}
+
+
 			}
 		}
 	}
@@ -180,6 +182,17 @@ function handle_studentRequest($req,$op) {
 						$content = false;
 					break;
 				}
+				case 'BUSCA_PERFIL': {
+					$listaEmpresas = UsuarioDAO::listEmpresas($op);
+					if(sizeof($listaEmpresas) == 1) {
+
+						$content = PortalEmpresa::generaPerfil($listaEmpresas[0][0]);
+						break;
+					}
+					else
+						$content = false;
+					break;
+				}
 			}
 		}
 
@@ -203,7 +216,7 @@ function handle_empresaRequest($req,$op) {
 				case 'OFERTAS': $content = $portalEmpresa -> generaOfertas(); break;
 				case 'SOLICITUDES': $content = $portalEmpresa -> generaSolicitudes(); break;
 				case 'CONTRATOS_VIGOR': $content = $portalEmpresa -> generaContratos("Activo"); break;
-				case 'CONTRATOS_FIN': $content = $portalEmpresa -> generaContratos("Cancelado"); break;
+				case 'CONTRATOS_FIN': $content = $portalEmpresa -> generaContratos("Expirado"); break;
 				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
 				case 'CREAR_OFERTA': $content = $portalEmpresa->generaCrearOferta(); break;
 				case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
@@ -226,6 +239,17 @@ function handle_empresaRequest($req,$op) {
 							//TODO:
 							//$content = PortalEmpresa::generaPerfil($op);
 						}
+					}
+					else
+						$content = false;
+					break;
+				}
+				case 'BUSCA_PERFIL': {
+					$listaEmpresasEstudiantes = UsuarioDAO::listEmpresasEstudiantes($op);
+					if(sizeof($listaEmpresasEstudiantes) == 1) {
+
+							$content = PortalEstudiante::generaPerfil($listaEmpresasEstudiantes[0][0]);
+							break;
 					}
 					else
 						$content = false;

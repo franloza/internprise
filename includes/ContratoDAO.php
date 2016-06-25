@@ -24,7 +24,7 @@ class contratoDAO
         }
         else {$whereGrado="WHERE";}
 
-        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado, nombre_grado
+        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,fecha_incio ,fecha_fin,horas,sueldo as salario,c.estado, nombre_grado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
@@ -71,7 +71,7 @@ class contratoDAO
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
                           INNER JOIN empresas em ON em.id_usuario = o.id_empresa
                           INNER JOIN grados g ON g.id_grado = e.id_Grado
-                          $whereGrado estado = 'Expirado' OR estado = 'Cancelado' $añoFilter LIMIT $numContratos");
+                          $whereGrado estado = 'Expirado' $añoFilter LIMIT $numContratos");
         $rs = $conn->query($query);
         if ($rs) {
             $contratos = array();
@@ -125,7 +125,7 @@ class contratoDAO
         $conn = $app->conexionBd();
         $id_empresa = $app->idUsuario();
         $numContratos = isset($numContratos)? intval($numContratos) : 20;
-        $query = sprintf("SELECT id_contrato, em.nombre, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
+        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,fecha_incio ,fecha_fin,horas,sueldo as salario,c.estado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
@@ -135,7 +135,7 @@ class contratoDAO
         if ($rs) {
             $contratos = array();
             while ($fila = $rs->fetch_assoc()) {
-                array_push($contratos,self::constructContrato($fila));
+                array_push($contratos, self::constructContrato($fila));
             }
             $rs->free();
             return $contratos;
@@ -196,7 +196,7 @@ class contratoDAO
         $contrato->setFechaInicio($fila['fecha_incio']);
         $contrato->setFechaFin($fila['fecha_fin']);
         $contrato->setHoras($fila['horas']);
-        $contrato->setSalario($fila['sueldo']);
+        $contrato->setSalario($fila['salario']);
         $contrato->setEstado($fila['estado']);
 
         return $contrato;

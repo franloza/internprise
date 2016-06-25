@@ -27,9 +27,9 @@ class Contrato
      */
     public function __construct($id_contrato, $empresa, $estudiante)
     {
-        $this->$id_contrato = $id_contrato;
-        $this->$empresa = $empresa;
-        $this->$estudiante = $estudiante;
+        $this->id_contrato = $id_contrato;
+        $this->empresa = $empresa;
+        $this->estudiante = $estudiante;
     }
 
     /**
