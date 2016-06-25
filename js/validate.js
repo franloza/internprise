@@ -322,7 +322,7 @@ function validateBuscador(item) {
 	}) .done (function(data) {
 		var options = '';
 		for (var i = 0; i < data.length; i++)
-			options += '<option value="' + data[i] + '" />';
+			options += '<option value="' + data[i][1] + '" />';
 		document.getElementById('list666').innerHTML = options;
 	});
 }

@@ -256,7 +256,17 @@ function handle_autocompleteUni($uni) {
 
 function handle_autocompletebuscador($buscador) {
 	$datos = array();
-	$datos = UsuarioDAO::getGradosLike($buscador);
+
+	$app = App::getSingleton();
+
+		$rol = $app->rolUsuario();
+
+		switch($rol){
+			case 'Admin': $datos = UsuarioDAO::listEmpresasEstudiantes($buscador); break;
+			case 'Estudiante': $datos = UsuarioDAO::listEmpresas($buscador); break;
+			case 'Empresa': $datos = UsuarioDAO::listEmpresasEstudiantes($buscador); break;
+		}
+
 	return json_encode($datos);
 }
 
