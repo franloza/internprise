@@ -18,6 +18,7 @@ class Empresa extends Usuario
     private $telefono;
     private $web;
     private $descripcion;
+    private $avatar;
 
     public function __construct($datos) {
         parent::__construct($datos['id_usuario'], $datos['email'],$datos['password']);
@@ -32,6 +33,7 @@ class Empresa extends Usuario
         $this->web = $datos['web'];
         $this->telefono = $datos['telefono'];
         $this->descripcion = $datos['descripcion'];
+        $this->avatar = $datos['avatar'];
     }
 
     
@@ -92,6 +94,7 @@ class Empresa extends Usuario
         $sanitizedData['web'] = isset($datos['web']) ? filter_var($datos['web'], FILTER_SANITIZE_URL) : null ;
         $sanitizedData['telefono'] = isset($datos['telefono']) ? filter_var($datos['telefono'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['descripcion'] = isset($datos['descripcion']) ? filter_var($datos['descripcion'], FILTER_SANITIZE_STRING) : null ;
+        $sanitizedData['avatar'] = isset($datos['avatar']) ? filter_var($datos['avatar'], FILTER_SANITIZE_STRING) : null ;
         $sanitizedData['rol'] = 'Empresa';
         return $sanitizedData;
     }
@@ -174,6 +177,10 @@ class Empresa extends Usuario
     public function getDescripcion()
     {
         return $this->descripcion;
+    }
+
+    public function getAvatar(){
+        return $this->avatar;
     }
     
 }

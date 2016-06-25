@@ -16,11 +16,14 @@ class PortalEmpresa extends Portal
      */
     public function generaMenu()
     {
+        $app = App::getSingleton();
+        $empresa = UsuarioDAO::cargaEmpresa($app->idUsuario());
+        $avatar = $empresa->getAvatar();
         $bloqueEmpresaSideBar = <<<EOF
         <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
-                <img src="img/empresa-avatar.png" alt="Avatar image" width="100%"></img>
+                <img src="img/$avatar" alt="Avatar image" width="100%"></img>
             </div>
             <ul>
                 <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
