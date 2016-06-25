@@ -60,6 +60,8 @@ function handle_adminRequest($req,$op){
 			switch (substr($req, 2, 1)){
 				case 'O': $content = $portalAdmin -> generaDialogoOferta(substr($req, 4)); break;
 				case 'D': $content = $portalAdmin -> generaDialogoDemanda(substr($req, 4)); break;
+				case 'C': $content = $portalAdmin -> generaDialogoContrato(substr($req, 4)); break;
+				
 			}
 		}
 		else {
@@ -206,6 +208,8 @@ function handle_empresaRequest($req,$op) {
 		if($modalDialogReq){
 			switch (substr($req, 2, 1)){
 				case 'O': $content = $portalEmpresa -> generaDialogoOferta(substr($req, 4)); break;
+				case 'C': $content = $portalEmpresa -> generaDialogoContrato(substr($req, 4)); break;
+				
 			}
 		}
 		else{

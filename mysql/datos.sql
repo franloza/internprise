@@ -42,7 +42,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `aptitudes_estudiantes` WRITE;
 /*!40000 ALTER TABLE `aptitudes_estudiantes` DISABLE KEYS */;
-INSERT INTO `aptitudes_estudiantes` VALUES (4,4),(4,7),(4,8),(5,1),(6,6),(7,9),(7,5),(7,3),(2,16),(2,17),(2,2);
+INSERT INTO `aptitudes_estudiantes` VALUES (2,4),(2,7),(2,8),(5,1),(6,6),(7,9),(7,5),(7,3),(8,16),(9,17),(9,2);
 /*!40000 ALTER TABLE `aptitudes_estudiantes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -62,7 +62,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `contratos` WRITE;
 /*!40000 ALTER TABLE `contratos` DISABLE KEYS */;
-INSERT INTO `contratos` VALUES (1,2,3,'Activo'),(2,3,4,'Activo'),(3,4,5,'Cancelado');
+INSERT INTO `contratos` VALUES (1,2,2,'Activo'),(2,3,5,'Activo'),(3,4,6,'Expirado');
 /*!40000 ALTER TABLE `contratos` ENABLE KEYS */;
 UNLOCK TABLES;
 
