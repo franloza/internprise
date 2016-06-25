@@ -241,7 +241,7 @@ function handle_empresaRequest($req,$op) {
 					break;
 				}
 				case 'BUSCA_PERFIL': {
-					$listaEmpresasEstudiantes = UsuarioDAO::listEmpresasEstudiantes($op);
+					$listaEmpresasEstudiantes = UsuarioDAO::listEmpresasEstudiantesConcatenado($op);
 					if(sizeof($listaEmpresasEstudiantes) == 1) {
 
 							$content = PortalEstudiante::generaPerfil($listaEmpresasEstudiantes[0][0]);
