@@ -36,9 +36,16 @@ class PortalEmpresa extends Portal
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <a onclick="return loadContent('SOLICITUDES', 'Solicitudes')" href="#">SOLICITUDES</a>
-                </li>
+                
+                <li onmouseenter="subMenu(true, 'sub-menu-demandas')" onmouseleave="subMenu(false, 'sub-menu-demandas')" >
+                    <a onclick="subMenu(true, 'sub-menu-demandas')" href="#">SOLICITUDES</a>
+                    <div id="sub-menu-demandas" class="sub-menu">
+                            <ul>
+                                <li><a onclick="return loadContent('DEMANDAS_CLASIFICADAS', 'Solicitudes clasificadas')" href="#">Clasificadas</a></li>
+                                <li><a onclick="return loadContent('DEMANDAS_NO_CLASIFICADAS', 'Solicitudes no clasificadas')" href="#">No clasificadas</a></li>
+                            </ul>
+                     </div>
+                </li>             
                 <li onmouseenter="subMenu(true, 'sub-menu-contratos')" onmouseleave="subMenu(false, 'sub-menu-contratos')" >
                     <a onclick="subMenu(true, 'sub-menu-contratos')" href="#">CONTRATOS</a>
                     <div id="sub-menu-contratos" class="sub-menu">
@@ -277,28 +284,52 @@ EOF;
         return $content;
     }
 
-    public function generaSolicitudes(){
-        // TODO: Implement generaSolicitudes() method.
+    public function generaDemandas($clasificadas){
+        if ($clasificadas)
+            $demandas = DemandaDAO::cargaDemandasClasificadasEmpresa(30);
+        else
+            $demandas = DemandaDAO::cargaDemandasNoClasificadasEmpresa(30);
+        $listaDemandas = array();
+        $listaIds = array();
+        foreach ( $demandas as $demanda) {
+            $oferta = $demanda->getOferta();
+            $estudiante = $demanda->getEstudiante();
+            $nombreEstudiante = $estudiante->getNombre() . " " . $estudiante->getApellidos();
+            $empresa = $oferta ->getEmpresa();
+            $puesto = $oferta->getPuesto();
+            $sueldo = $oferta->getSueldo();
+            $horas = $oferta->getHoras();
+            $estado = $demanda->getEstado();
+            $fila = array($nombreEstudiante,$empresa, $puesto,$sueldo, $horas,$estado);
+            array_push($listaDemandas,$fila);
+            array_push($listaIds, $demanda->getIdDemanda());
+        }
+        $titulosColumnas = array("Estudiante","Empresa", "Puesto", "Sueldo", "Horas", "Estado");
+        $content = self::generaTabla("tabla-oferta","empresa-table" ,
+            "Demandas" . (($clasificadas)? ' ' : ' no ') . 'clasificadas',
+            $titulosColumnas, $listaDemandas, $listaIds, 'demanda');
+        return $content;
     }
 
 
     public function generaContratos($finalizado){
-        // TODO: Implement generaContratos($finalizado) method.
     	$contratos = ContratoDAO::cargaContratosPorEstadoEmpresa(20, $finalizado);
 			
     	$listaContratos = array();
     	$listaIds = array();
     	foreach ( $contratos as $contrato) {
-    		$id_contrato = $contrato ->getIdContrato();
     		$estudiante = $contrato->getEstudiante();
+            $nombreEstudiante = $estudiante->getNombre() . " " . $estudiante->getApellidos();
+            $empresa = $contrato->getEmpresa();
     		$puesto = $contrato->getPuesto();
     		$fecha_inicio = $contrato->getFechaInicio();
     		$fecha_fin = $contrato->getFechaFin();
-    		$fila = array($id_contrato, $estudiante,$puesto, $fecha_inicio, $fecha_fin);
+            $estado = $contrato->getEstado();
+    		$fila = array($nombreEstudiante, $empresa,$puesto, $fecha_inicio, $fecha_fin,$estado);
     		array_push($listaContratos,$fila);
     		array_push($listaIds, $contrato->getIdContrato());
     	}
-    	$titulosColumnas = array("Id Contrato", "Estudiante", "Puesto", "Inicio", "Fin");
+    	$titulosColumnas = array("Estudiante", "Empresa", "Puesto", "Inicio", "Fin","Estado");
     	$content = self::generaTabla("tabla-contrato","empresa-table" ,
     			"Contratos", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
     	return $content;

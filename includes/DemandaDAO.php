@@ -37,12 +37,13 @@ class DemandaDAO
      * Permite filtrar por grado. (Por defecto: TODOS)
      * Ordena por fecha de creación (Por defecto: 20)
      */
-    public static function cargaDemandasClasificadasEmpresa($numDemandas,$id_empresa)
+    public static function cargaDemandasClasificadasEmpresa($numDemandas)
     {
         $numDemandas = isset($numDemandas)? intval($numDemandas) : 20;
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
+        $id_empresa = $app->idUsuario();
         $query = sprintf("SELECT d.* 
                           FROM demandas d
                           INNER JOIN ofertas o ON d.id_oferta = o.id_oferta WHERE d.estado NOT LIKE('Pendiente de Empresa')
@@ -65,12 +66,13 @@ class DemandaDAO
      * Permite filtrar por grado. (Por defecto: TODOS)
      * Ordena por fecha de creación (Por defecto: 20)
      */
-    public static function cargaDemandasNoClasificadasEmpresa($numDemandas,$id_empresa)
+    public static function cargaDemandasNoClasificadasEmpresa($numDemandas)
     {
         $numDemandas = isset($numDemandas)? intval($numDemandas) : 20;
 
         $app = App::getSingleton();
         $conn = $app->conexionBd();
+        $id_empresa = $app->idUsuario();
         $query = sprintf("SELECT d.* 
                           FROM demandas d
                           INNER JOIN ofertas o ON d.id_oferta = o.id_oferta WHERE d.estado LIKE('Pendiente de Empresa')
@@ -149,26 +151,45 @@ class DemandaDAO
     
     
     /*Clasifica una demanda como pendiente de empresa*/
-    public static function aceptarDemanda($op)
+    public static function aceptarDemanda($op,$rol)
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $stmt = $conn->prepare('UPDATE demandas SET estado="Pendiente de Empresa" WHERE id_demanda=?');
+        if ($rol == "Admin")
+            $estado = 'Pendiente de Empresa';
+        else {
+            $estado = 'Aceptada';
+        }
+
+        $query = sprintf("UPDATE demandas SET estado='%s' WHERE id_demanda=?",$estado);
+
+        $stmt = $conn->prepare($query);
         $stmt->bind_param("i", intval($op));
         if (!$stmt->execute()) {
             $result [] = "Hubo un error en la operación";
             return $result;
         }
+        //Crear contrato
+        $demanda = self::cargaDemanda($op);
+        $result =  ContratoDAO::creaContrato($demanda->getOferta()->getIdOferta(), $demanda->getEstudiante()->getId());
+        return $result;
     }
 
     /*Clasifica una demanda como rechazada*/
-    public static function rechazarDemanda($op)
+    public static function rechazarDemanda($op,$rol)
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $stmt = $conn->prepare('UPDATE demandas SET estado="Rechazada por Universidad" WHERE id_demanda=?');
-        $stmt->bind_param("i", intval($op));
+        if ($rol == "Admin")
+            $estado = 'Rechazada por Universidad';
+        else {
+            $estado = 'Rechazada por Empresa';
+        }
 
+        $query = sprintf("UPDATE demandas SET estado='%s' WHERE id_demanda=?",$estado);
+
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", intval($op));
         if (!$stmt->execute()) {
             $result [] = "Hubo un error en la operación";
             return $result;
@@ -288,5 +309,4 @@ class DemandaDAO
         $demanda->setDiasDesdeCreacion($fila['fecha_solicitud']);
         return $demanda;
     }
-
 }
