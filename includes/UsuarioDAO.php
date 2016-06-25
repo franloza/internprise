@@ -399,7 +399,9 @@ class UsuarioDAO
         return $list;
     }
 
-
+    public static function listEmpresasEstudiantesConcatenado($patron) {
+       return null;
+    }
 
     public static function listEmpresas($patron) {
         $app = App::getSingleton();

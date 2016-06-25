@@ -15,6 +15,10 @@ if(isset($_GET['databuscador'])) {
 	$buscador = $_GET['databuscador'];
 	echo handle_autocompletebuscador($buscador);
 }
+if (isset($_GET['alertas'])) {
+	if ($_GET['alertas'] === 'cont')
+		echo handle_getAlertas();
+}
 else if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
 	$req = $_GET['val'];
@@ -130,6 +134,8 @@ function handle_adminRequest($req,$op){
 						$content = false;
 					break;
 				}
+
+
 			}
 		}
 	}
@@ -173,6 +179,17 @@ function handle_studentRequest($req,$op) {
 							$content = PortalEstudiante::generaPerfil($op);
 							break;
 						}
+					}
+					else
+						$content = false;
+					break;
+				}
+				case 'BUSCA_PERFIL': {
+					$listaEmpresas = UsuarioDAO::listEmpresas($op);
+					if(sizeof($listaEmpresas) == 1) {
+
+						$content = PortalEmpresa::generaPerfil($listaEmpresas[0][0]);
+						break;
 					}
 					else
 						$content = false;
@@ -231,6 +248,17 @@ function handle_empresaRequest($req,$op) {
 						$content = false;
 					break;
 				}
+				case 'BUSCA_PERFIL': {
+					$listaEmpresasEstudiantes = UsuarioDAO::listEmpresasEstudiantesConcatenado($op);
+					if(sizeof($listaEmpresasEstudiantes) == 1) {
+
+							$content = PortalEstudiante::generaPerfil($listaEmpresasEstudiantes[0][0]);
+							break;
+					}
+					else
+						$content = false;
+					break;
+				}
 			}
 		}
 	}
@@ -273,6 +301,19 @@ function handle_autocompletebuscador($buscador) {
 		}
 
 	return json_encode($datos);
+}
+
+function handle_getAlertas() {
+	$app = App::getSingleton();
+	$rol = $app->rolUsuario();
+	$cont = 0;
+
+	if ($rol === "Admin")
+		$cont += OfertaDAO::countNewDemandas();
+
+	$cont += OfertaDAO::countNewOfertas();
+
+	return $cont;
 }
 
 ?>

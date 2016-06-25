@@ -293,9 +293,9 @@ EOF;
         </div>
         <nav id="icons-titlebar">
             <ul>
-                <li onclick="return loadContent('NOTIFICATIONS', 'Notifications')" >
-                    <a href="#">
-                        <i id="bell" class="fa fa-bell fa-lg"></i>
+                <li onclick="return loadContent('DASHBOARD')" >
+                    <a href="#" onclick="desactivaAlert();">
+                        <i id="bell" class="fa fa-bell fa-lg"><span id="contAlertas" style="color:red; font-weight: bold; margin-left:5px;"></span></i>
                     </a>
                 </li>
                 <li onclick="return loadContent('SETTINGS', 'Modificar perfil')">
@@ -312,10 +312,17 @@ EOF;
         </nav>
         <div class="search-bar">
        
-           <form method="post" action="#" accept-charset="utf-8">
-               <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" name="buscador" placeholder="Buscador..."/>
+               <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" id = "buscador" name="buscador" placeholder="Buscador..."/>
+               <script>
+              
+                $("#buscador").keyup(function (e) {
+                    if (e.keyCode == 13) {
+                            buscaPerfil($(this).val());
+                    }
+                });
+
+                </script>
 			   <datalist class="i_reg" id="list666"></datalist>
-           </form>
            
        </div>
     </div>
@@ -346,11 +353,25 @@ EOF;
                     $('#current-page').text(currentPage);
                  });     
             }
+            
             function subMenu(showHide, id){
                 if(showHide)
                     $('#'+id).slideDown(200);
                 else
                     $('#'+id).slideUp(200);
+            }
+            contAlert();
+            function contAlert() {    
+                $.get("ajaxRequest.php?alertas=cont", function(data) {   
+                    if (data > 0) {
+                        $("#contAlertas").html(data);
+                        $('#bell').addClass("animacionBell");
+                    }
+                });     
+            }
+            
+            function desactivaAlert() {
+                $("#contAlertas").html("");
             }
         </script>
         
@@ -358,6 +379,18 @@ EOF;
         <script>
         function cargaPerfil(id) { 
              $.get("ajaxRequest.php?val=CARGA_PERFIL&op=" + id , function(data, status){
+                if (data) {
+                    $('#dashboard-content').html(data);
+                    $('#current-page').text(currentPage);
+                }
+             });     
+        }
+        </script>
+        
+        <!-- script para buscar perfil -->
+        <script>
+        function buscaPerfil(nombre) { 
+             $.get("ajaxRequest.php?val=BUSCA_PERFIL&op=" + nombre , function(data, status){
                 if (data) {
                     $('#dashboard-content').html(data);
                     $('#current-page').text(currentPage);

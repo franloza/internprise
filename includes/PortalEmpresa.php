@@ -135,9 +135,11 @@ EOF;
         $widgets .= parent::generarWidget("Dudas y sugerencias", $listaContratos," fa-commenting-o","#B9264F",null);
         $widgets .= "<!-- FIN Widget Nuevas demandas -->";
 
+
         $content = $buscador . $widgets;
         $content .= "</div>";
         $content .= "</div>";
+        
        return $content;
     }
     
