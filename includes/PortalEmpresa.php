@@ -11,12 +11,12 @@ class PortalEmpresa extends Portal
     }
 
     /**
-     * Función que genera un menú lateral.
+     * FunciÃ³n que genera un menÃº lateral.
      */
     public function generaMenu()
     {
         $bloqueEmpresaSideBar = <<<EOF
-        <!-- Fragmento para definir el menú de empresa-->
+        <!-- Fragmento para definir el menÃº de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
                 <img src="img/empresa-avatar.png" alt="Avatar image" width="100%"></img>
@@ -45,7 +45,7 @@ class PortalEmpresa extends Portal
                     </div>
                 </li>
                 <li>
-                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a>
+                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÃ“N</a>
                 </li>
             </ul>
         </div>
@@ -54,7 +54,7 @@ EOF;
     }
 
     /**
-     * Función que genera los encabezados de la página.
+     * FunciÃ³n que genera los encabezados de la pÃ¡gina.
      */
     public function generaHead()
     {
@@ -64,7 +64,7 @@ EOF;
     }
 
     /**
-     * Función que genera el contenido de la página principal del portal.
+     * FunciÃ³n que genera el contenido de la pÃ¡gina principal del portal.
      * El resto de contenido debe generarse por medio de peticiones AJAX.
      */
     public function generaDashboard()
@@ -185,7 +185,7 @@ EOF;
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="text-left"><h1>Descripción</h1></div>
+                <div class="text-left"><h1>DescripciÃ³n</h1></div>
                     <table class="table table-hover ">
                         <tr><td><p class="text-justify">$descripcion</p></td></tr>
                     </table>
@@ -272,7 +272,8 @@ EOF;
 
     public function generaContratos($finalizado){
         // TODO: Implement generaContratos($finalizado) method.
-    	$contratos = ContratoDAO::cargaContratosPorEstado(20, $finalizado);
+
+    	$contratos = ContratoDAO::cargaContratosPorEstadoEmpresa(20, $finalizado);
 
     	$listaContratos = array();
     	$listaIds = array();
@@ -287,7 +288,7 @@ EOF;
     		array_push($listaIds, $contrato->getIdContrato());
     	}
     	$titulosColumnas = array("Id Contrato", "Estudiante", "Puesto", "Inicio", "Fin");
-    	$content = self::generaTabla("tabla-contrato","admin-table" ,
+    	$content = self::generaTabla("tabla-contrato","empresa-table" ,
     			"Contratos", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
     	return $content;
     }
