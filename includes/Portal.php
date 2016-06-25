@@ -805,4 +805,146 @@ EOF;
 EOF;
         return $content;
     }
+    public function generaDialogoContrato ($idContrato)
+    {
+    	$cssClass = "";
+    	switch ($this->rol) {
+    		case 'Admin':
+    			$cssClass = 'admin';
+    			break;
+    		case 'Estudiante':
+    			$cssClass = 'estudiante';
+    			break;
+    		case 'Empresa':
+    			$cssClass = 'empresa';
+    			break;
+    	}
+    	$content = <<<EOF
+    <!-- Modal dialog contrato -->
+        <div id='$cssClass-modal-content' class="dialogo-modal-content">
+            <div id='$cssClass-modal-header' class="dialogo-modal-header text-center">
+                <i class=" fa fa-times close"></i>
+EOF;
+    	$contrato = ContratoDAO::cargaContrato($idContrato);
+    	if ($contrato) {
+    		$id_contrato = $contrato->getIdContrato();
+    		$empresa = $contrato->getEmpresa();
+    		$estudiante = $contrato->getEstudiante();
+    		$puesto = $contrato->getPuesto();
+    		$fecha_inicio = $contrato->getFechaInicio();
+    		$fecha_fin = $contrato->getFechaFin();
+    		$horas = $contrato->getHoras();
+    		$salario = $contrato->getSalario();
+    		$descripcion = $contrato->getDescripcion();
+    		$estado = $contrato->getEstado();
+
+    
+    		if ($this->rol === 'Admin')
+    			$content .= "<h3 class=\"h3\">Contrato (ID: $id)</h3>";
+    		else
+    			$content .= "<h3 class=\"h3\">Contrato</h3>";
+    
+    		//Inicio contenido
+    		$content .= <<<EOF
+            </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style="width:100%">
+EOF;
+    
+    
+    		//Información del contrato
+    		$content .= <<<EOF
+    		<div class="row">
+    		<h2> Información del contrato </h2>
+    			<div class="row">
+           			<div class="col-md-6">
+                    	<h4>Empresa</h4>
+                    	<p>$empresa</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h4>Estudiante</h4>
+                        <p>$estudiante</p>
+                    </div>
+               </div>
+               <div class="row">
+	               <div class="col-md-4">
+		               <h4>Puesto</h4>
+		               <p>$puesto h </p>
+	               </div>
+	               <div class="col-md-4">
+		               <h4>Fecha inicio</h4>
+		               <p>$fecha_inicio</p>
+	               </div>
+	               <div class="col-md-4">
+		               <h4>Fecha fin</h4>
+		               <p>$fecha_fin</p>
+	               </div>
+               </div>
+               <div class="row">
+           			<div class="col-md-4">
+                    	<h4>Horas</h4>
+                    	<p>$horas</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4>Salario</h4>
+                        <p>$salario</p>
+                    </div>
+	                <div class="col-md-4">
+		               <h4>Estado</h4>
+		               <p>$estado</p>
+	               </div>
+               </div>
+                
+                       
+            </div>
+EOF;
+            
+    
+            //Cierre contenido
+            $content .= <<<EOF
+            </div>
+            </div>
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+EOF;
+            if (($this->rol === 'Admin' || $this->rol === 'Empresa') && $estado ==="Activo" ) {
+                $content .= "<button id='finalizar-btn' type='button' class='btn btn-danger' onclick='finalizarContrato($id_contrato)'>Finalizar</button>";
+                $content .= "</div>";
+                $content .= "</div>";
+            }
+            $content .= <<<EOF
+            <!--Script para finalizar contrato en portal administrador/empresa-->
+            <script>
+                function finalizarContrato(id) {
+                     $('#finalizar-btn').hide();
+                     $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                    //Petición ajax para finalizar contrato
+                    $.ajax({
+                        type: 'GET',
+                        url: "ajaxRequest.php?val=FINALIZAR_CONTRATOA&op="+id,
+                        success: function (data) {
+                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                         },
+                        error: function (data) {
+                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                    })
+                }
+    
+            </script>
+EOF;
+    	}else{
+            //Error block
+            $content .= <<<EOF
+            </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style='width:100%'>
+                    <h1 style='color:red'>Fallo al cargar el contrato</h1>
+                </div>
+            </div>
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+            </div>
+EOF;
+            }
+        return $content;
+    	
+    	}
 }
