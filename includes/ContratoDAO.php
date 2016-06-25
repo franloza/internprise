@@ -135,7 +135,7 @@ class contratoDAO
         if ($rs) {
             $contratos = array();
             while ($fila = $rs->fetch_assoc()) {
-                array_push($contratos,self::constructContrato($fila));
+                array_push($contratos, self::constructContrato($fila));
             }
             $rs->free();
             return $contratos;
