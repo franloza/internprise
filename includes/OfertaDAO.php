@@ -72,6 +72,29 @@ class OfertaDAO
         return false;
     }
 
+    /*Devuelve el numero de ofertas creadas*/
+    public static function countOfertasSinClasificar()
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT COUNT(*) AS Total 
+                          FROM (SELECT DISTINCT o.*,em.razon_social as empresa 
+                          FROM ofertas o INNER JOIN empresas em ON o.id_empresa = em.id_usuario 
+                            LEFT JOIN grados_ofertas go ON go.id_oferta = o.id_oferta 
+                            LEFT JOIN grados g ON g.id_grado = go.id_grado 
+                            WHERE estado LIKE 'Pendiente') 
+                          dt");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $numOfertas = 0;
+            while ($fila = $rs->fetch_assoc()) {
+                $numOfertas = $fila['Total'];
+            }
+            return $numOfertas;
+        }
+        return 0;
+    }
+
     /*Devuelve el numero de ofertas creadas en el día actual*/
     public static function countNewOfertas()
     {
@@ -83,6 +106,51 @@ class OfertaDAO
             $numOfertas = 0;
             while ($fila = $rs->fetch_assoc()) {
                 $numOfertas = $fila['numOfertas'];
+            }
+            return $numOfertas;
+        }
+        return 0;
+    }
+
+    /*Devuelve el numero de ofertas por estudiante*/
+    public static function countOfertasEstudiante()
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $id_estudiante = intval($app->idUsuario());
+        $query = sprintf("SELECT COUNT(*) AS Total FROM (SELECT o.*,em.razon_social as empresa FROM ofertas o
+                          INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
+                          INNER JOIN empresas em ON o.id_empresa = em.id_usuario
+                          INNER JOIN estudiantes e ON e.id_grado = go.id_grado
+                          WHERE e.id_usuario = $id_estudiante AND o.id_oferta NOT IN 
+                              (SELECT d.id_oferta FROM demandas d WHERE id_estudiante = $id_estudiante)
+                          AND o.estado = 'Aceptada'
+                          ) dt");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $numOfertas = 0;
+            while ($fila = $rs->fetch_assoc()) {
+                $numOfertas = $fila['Total'];
+            }
+            return $numOfertas;
+        }
+        return 0;
+    }
+
+    /*Devuelve el numero de ofertas por empresa*/
+    public static function countOfertasEmpresa()
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $id_empresa = intval($app->idUsuario());
+        $query = sprintf("SELECT COUNT(*) AS Total FROM (SELECT o.*,em.razon_social as empresa FROM ofertas o
+                          INNER JOIN empresas em ON o.id_empresa = em.id_usuario
+                          WHERE id_empresa = $id_empresa) dt");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $numOfertas = 0;
+            while ($fila = $rs->fetch_assoc()) {
+                $numOfertas = $fila['Total'];
             }
             return $numOfertas;
         }

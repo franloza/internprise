@@ -146,6 +146,8 @@ class DemandaDAO
         return false;
     }
 
+    
+    
     /*Clasifica una demanda como pendiente de empresa*/
     public static function aceptarDemanda($op)
     {
@@ -184,6 +186,29 @@ class DemandaDAO
             $numDemandas = 0;
             while ($fila = $rs->fetch_assoc()) {
                 $numDemandas = $fila['numDemandas'];
+            }
+            return $numDemandas;
+        }
+        return 0;
+    }
+
+    /*Cuenta el numero de demandas creadas en el día*/
+    public static function countDemandasNoClasificadas()
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT COUNT(*) AS Total
+                          FROM (SELECT d.* FROM demandas d 
+                            INNER JOIN ofertas o ON d.id_oferta = o.id_oferta 
+                            WHERE d.estado LIKE('Pendiente de Universidad') 
+                            ORDER BY d.fecha_solicitud 
+                            DESC LIMIT 20) 
+                          dt");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $numDemandas = 0;
+            while ($fila = $rs->fetch_assoc()) {
+                $numDemandas = $fila['Total'];
             }
             return $numDemandas;
         }

@@ -71,7 +71,7 @@ EOF;
 
         /*Generar contenido widget Ofertas */
         $widgets .= "<!-- INI Widget Ofertas activos -->";
-        $ofertas = OfertaDAO::cargaOfertasNoClasificadas(5,null);
+        $ofertas = OfertaDAO::cargaOfertasNoClasificadas(null,null);
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
             $titleItem = $oferta->getEmpresa();
@@ -81,7 +81,7 @@ EOF;
             $item = array($titleItem,$subtitleItem,$description);
             array_push($listaOfertas,$item);
         }
-        $numNewOfertas = OfertaDAO::countNewOfertas();
+        $numNewOfertas = OfertaDAO::countOfertasSinClasificar();
         $widgets .= parent::generarWidget("Nuevas ofertas sin clasificar", $listaOfertas,"envelope-o","blue",$numNewOfertas);
         $widgets .= "<!-- FIN Widget Ofertas activos -->";
 
@@ -100,7 +100,7 @@ EOF;
 
         /*Generar contenido widget Demandas */
         $widgets .= "<!-- INI Widget Nuevas demandas -->";
-        $demandas = DemandaDAO::cargaDemandasNoClasificadas(5,null);
+        $demandas = DemandaDAO::cargaDemandasNoClasificadas(null,null);
         $listaDemandas = array();
         if($demandas) {
             foreach ($demandas as $demanda) {
@@ -118,7 +118,7 @@ EOF;
                 array_push($listaDemandas, $item);
             }
         }
-        $numNewDemandas = DemandaDAO::countNewDemandas();
+        $numNewDemandas = DemandaDAO::countDemandasNoClasificadas();
         $widgets .= parent::generarWidget("Nuevas demandas sin clasificar", $listaDemandas," fa-caret-square-o-down","#FF800D",$numNewDemandas);
         $widgets .= "<!-- FIN Widget Nuevas demandas -->";
 

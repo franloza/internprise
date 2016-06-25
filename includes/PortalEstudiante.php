@@ -70,7 +70,8 @@ EOF;
             $item = array($titleItem,$subtitleItem,$description);
             array_push($listaOfertas,$item);
         }
-        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue",null);
+        $numNewOfertas = OfertaDAO::countOfertasEstudiante();
+        $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue",$numNewOfertas);
         $widgets .= "<!-- FIN Widget Ofertas activos -->";
 
         /*Generar contenido widget Novedades */
