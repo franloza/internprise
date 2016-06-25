@@ -233,6 +233,8 @@ EOF;
                 }
             }
         }
+
+        $contratosVigor = ContratoDAO::countContratosActivos($id_empresa);
         $content .= <<<EOF
             <tr><td>Aceptadas</td><td>$contAceptadas</td><td>$contPlazasA</td></tr>
                 </table>
@@ -247,8 +249,16 @@ EOF;
                 </table>
             </div>
   
-            <div class="row"></div>          
+            <!-- NUMERO DE CONTRATOS EN VIGOR-->
+            <div class="col-sm-6">
+            <div class="text-center""><h1>Contratos en vigor</h1></div>
+                <table class="table table-hover ">
+                    <tr><td><strong>Tipo</strong></td><td><strong>Cantidad</strong></td></tr>                    
+                    <tr><td>Contratos</td><td>$contratosVigor</td></tr>
+                </table>
+            </div>        
 
+            <div class="row"></div>
             <div class="row">
                 <div class="text-left"><h1>Contacto</h1></div>      
             </div>

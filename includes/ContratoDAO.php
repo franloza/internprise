@@ -214,13 +214,13 @@ class contratoDAO
         return ($rs && $rs->num_rows > 0);
     }
 
-    public function countContratosActivos ($idEmpresa) {
+    public static function countContratosActivos ($idEmpresa) {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
         $query = sprintf("SELECT COUNT(id_contrato) AS contratos FROM contratos c 
                             INNER JOIN ofertas o ON c.id_oferta = o.id_oferta 
                             INNER JOIN empresas e ON e.id_usuario = o.id_empresa
-                          WHERE e.id_usuario = '%d' AND estado = 'Activo'", intval($idEmpresa));
+                          WHERE e.id_usuario = '%d' AND c.estado = 'Activo'", intval($idEmpresa));
         $rs = $conn->query($query);
         if ($rs) {
             $fila = $rs->fetch_assoc();
