@@ -2,7 +2,7 @@
 namespace es\ucm\aw\internprise;
 require_once __DIR__ . '/includes/config.php';
 /**
- * Script para manejar las peticiones asÃ­ncronas AJAX.
+ * Script para manejar las peticiones asíncronas AJAX.
  */
 
 use es\ucm\aw\internprise\Aplicacion as App;
@@ -14,6 +14,10 @@ $content = '';
 if(isset($_GET['databuscador'])) {
 	$buscador = $_GET['databuscador'];
 	echo handle_autocompletebuscador($buscador);
+}
+if (isset($_GET['alertas'])) {
+	if ($_GET['alertas'] === 'cont')
+		echo handle_getAlertas();
 }
 else if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
@@ -269,6 +273,19 @@ function handle_autocompletebuscador($buscador) {
 		}
 
 	return json_encode($datos);
+}
+
+function handle_getAlertas() {
+	$app = App::getSingleton();
+	$rol = $app->rolUsuario();
+	$cont = 0;
+
+	if ($rol === "Admin")
+		$cont += OfertaDAO::countNewDemandas();
+
+	$cont += OfertaDAO::countNewOfertas();
+
+	return $cont;
 }
 
 ?>

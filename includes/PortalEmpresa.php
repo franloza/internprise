@@ -2,6 +2,7 @@
 
 namespace es\ucm\aw\internprise;
 
+use es\ucm\aw\internprise\Aplicacion as App;
 
 class PortalEmpresa extends Portal
 {
@@ -11,15 +12,18 @@ class PortalEmpresa extends Portal
     }
 
     /**
-     * FunciÃ³n que genera un menÃº lateral.
+     * Función que genera un menú lateral.
      */
     public function generaMenu()
     {
+        $app = App::getSingleton();
+        $empresa = UsuarioDAO::cargaEmpresa($app->idUsuario());
+        $avatar = $empresa->getAvatar();
         $bloqueEmpresaSideBar = <<<EOF
-        <!-- Fragmento para definir el menÃº de empresa-->
+        <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
-                <img src="img/empresa-avatar.png" alt="Avatar image" width="100%"></img>
+                <img src="img/$avatar" alt="Avatar image" width="100%"></img>
             </div>
             <ul>
                 <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
@@ -54,7 +58,7 @@ EOF;
     }
 
     /**
-     * FunciÃ³n que genera los encabezados de la pÃ¡gina.
+     * Función que genera los encabezados de la página.
      */
     public function generaHead()
     {
@@ -64,7 +68,7 @@ EOF;
     }
 
     /**
-     * FunciÃ³n que genera el contenido de la pÃ¡gina principal del portal.
+     * Función que genera el contenido de la página principal del portal.
      * El resto de contenido debe generarse por medio de peticiones AJAX.
      */
     public function generaDashboard()
@@ -131,9 +135,11 @@ EOF;
         $widgets .= parent::generarWidget("Dudas y sugerencias", $listaContratos," fa-commenting-o","#B9264F",null);
         $widgets .= "<!-- FIN Widget Nuevas demandas -->";
 
+
         $content = $buscador . $widgets;
         $content .= "</div>";
         $content .= "</div>";
+        
        return $content;
     }
     
@@ -186,7 +192,7 @@ EOF;
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="text-left"><h1>Descripci&oacute;n</h1></div>
+                <div class="text-left"><h1>Descripción</h1></div>
                     <table class="table table-hover ">
                         <tr><td><p class="text-justify">$descripcion</p></td></tr>
                     </table>

@@ -149,6 +149,7 @@ CREATE TABLE `empresas` (
   `telefono` varchar(12) NOT NULL,
   `web` varchar(30) NOT NULL,
   `descripcion` longtext CHARACTER SET latin1 NOT NULL,
+  `avatar` varchar(40) NOT NULL DEFAULT 'empresa-avatar.png',
   KEY `empresas_usuarios_id_usuario_fk` (`id_usuario`),
   CONSTRAINT `empresas_usuarios_id_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -210,7 +211,7 @@ CREATE TABLE `estudiantes` (
   `google_plus` tinytext,
   `linkedin` tinytext,
   `twitter` tinytext,
-  `avatar` text,
+  `avatar` varchar(40) NOT NULL DEFAULT 'estudiante-avatar.png',
   PRIMARY KEY (`id_usuario`),
   CONSTRAINT `estudiantes_usuarios_id_usuario_fk` FOREIGN KEY (`id_usuario`) REFERENCES `usuarios` (`id_usuario`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='direccion';

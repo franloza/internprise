@@ -16,11 +16,14 @@ class PortalEstudiante extends Portal
      */
     public function generaMenu()
     {
+        $app = App::getSingleton();
+        $estudiante = UsuarioDAO::cargaEstudiante($app->idUsuario());
+        $avatar = $estudiante->getAvatar();
         $bloqueEstudianteSideBar = <<<EOF
         <!-- Fragmento para definir el menú de estudiante-->
         <div id="estudiante-sidebar" class="sidebar">
             <div id="estudiante-menu-avatar" class="menu-avatar">
-                <img src="img/estudiante-avatar.png" alt="Avatar image" width="100%"></img>
+                <img src="img/$avatar" alt="Avatar image" width="100%"></img>
             </div>
                 <ul>
                     <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>

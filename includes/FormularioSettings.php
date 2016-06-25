@@ -313,11 +313,15 @@ EOF;
                 </div>
                 <div class="col-xs-12">
                 <div class="row"><h1> Perfil </h1> </div>
-                    <div class="form-group">
+                    <div class="form-group col-xs-8">
                         <label for="descripcion">Breve descripción:</label>
                         <input type="text" class="form-control" name="descripcion" id="descripcion" value="$descripcion">
-                    </div>  
-                    <div class="form-group">
+                    </div>
+                    <div class="form-group col-xs-8">
+                        <label for="avatar">Avatar:</label>
+                        <input type="file" class="form-control" name="avatar" id="avatar">
+                    </div>
+                    <div class="form-group col-xs-8">
                         <label for="localizacion">Localización:</label>
                         <input type="text" class="form-control" name="localizacion" id="localizacion" value="$localizacion"/>
                     </div> 
