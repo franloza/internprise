@@ -293,9 +293,9 @@ EOF;
         </div>
         <nav id="icons-titlebar">
             <ul>
-                <li onclick="return loadContent('NOTIFICATIONS', 'Notifications')" >
-                    <a href="#">
-                        <i id="bell" class="fa fa-bell fa-lg"></i>
+                <li onclick="return loadContent('DASHBOARD')" >
+                    <a href="#" onclick="desactivaAlert();">
+                        <i id="bell" class="fa fa-bell fa-lg"><span id="contAlertas" style="color:red; font-weight: bold; margin-left:5px;"></span></i>
                     </a>
                 </li>
                 <li onclick="return loadContent('SETTINGS', 'Modificar perfil')">
@@ -353,11 +353,25 @@ EOF;
                     $('#current-page').text(currentPage);
                  });     
             }
+            
             function subMenu(showHide, id){
                 if(showHide)
                     $('#'+id).slideDown(200);
                 else
                     $('#'+id).slideUp(200);
+            }
+            contAlert();
+            function contAlert() {    
+                $.get("ajaxRequest.php?alertas=cont", function(data) {   
+                    if (data > 0) {
+                        $("#contAlertas").html(data);
+                        $('#bell').addClass("animacionBell");
+                    }
+                });     
+            }
+            
+            function desactivaAlert() {
+                $("#contAlertas").html("");
             }
         </script>
         

@@ -15,6 +15,10 @@ if(isset($_GET['databuscador'])) {
 	$buscador = $_GET['databuscador'];
 	echo handle_autocompletebuscador($buscador);
 }
+if (isset($_GET['alertas'])) {
+	if ($_GET['alertas'] === 'cont')
+		echo handle_getAlertas();
+}
 else if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
 	$req = $_GET['val'];
@@ -293,6 +297,19 @@ function handle_autocompletebuscador($buscador) {
 		}
 
 	return json_encode($datos);
+}
+
+function handle_getAlertas() {
+	$app = App::getSingleton();
+	$rol = $app->rolUsuario();
+	$cont = 0;
+
+	if ($rol === "Admin")
+		$cont += OfertaDAO::countNewDemandas();
+
+	$cont += OfertaDAO::countNewOfertas();
+
+	return $cont;
 }
 
 ?>
