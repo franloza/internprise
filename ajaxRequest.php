@@ -128,6 +128,8 @@ function handle_adminRequest($req,$op){
 						$content = false;
 					break;
 				}
+
+
 			}
 		}
 	}
@@ -171,6 +173,17 @@ function handle_studentRequest($req,$op) {
 							$content = PortalEstudiante::generaPerfil($op);
 							break;
 						}
+					}
+					else
+						$content = false;
+					break;
+				}
+				case 'BUSCA_PERFIL': {
+					$listaEmpresas = UsuarioDAO::listEmpresas($op);
+					if(sizeof($listaEmpresas) == 1) {
+
+						$content = PortalEmpresa::generaPerfil($listaEmpresas[0][0]);
+						break;
 					}
 					else
 						$content = false;
@@ -222,6 +235,17 @@ function handle_empresaRequest($req,$op) {
 							//TODO:
 							//$content = PortalEmpresa::generaPerfil($op);
 						}
+					}
+					else
+						$content = false;
+					break;
+				}
+				case 'BUSCA_PERFIL': {
+					$listaEmpresasEstudiantes = UsuarioDAO::listEmpresasEstudiantes($op);
+					if(sizeof($listaEmpresasEstudiantes) == 1) {
+
+							$content = PortalEstudiante::generaPerfil($listaEmpresasEstudiantes[0][0]);
+							break;
 					}
 					else
 						$content = false;
