@@ -25,7 +25,7 @@ class Contrato
      * @param $empresa
      * @param $estudiante
      */
-    public function __construct($id_contrato, $empresa, $estudiante)
+    public function __construct($id_contrato, $empresa,$estudiante)
     {
         $this->id_contrato = $id_contrato;
         $this->empresa = $empresa;

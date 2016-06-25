@@ -24,13 +24,13 @@ class contratoDAO
         }
         else {$whereGrado="WHERE";}
 
-        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,fecha_incio ,fecha_fin,horas,sueldo as salario,c.estado, nombre_grado
+        $query = sprintf("SELECT id_contrato, e.id_usuario, em.razon_social as empresa,puesto,fecha_incio ,fecha_fin,horas,sueldo as salario,c.estado, nombre_grado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
                           INNER JOIN empresas em ON em.id_usuario = o.id_empresa
                           INNER JOIN grados g ON g.id_grado = e.id_Grado
-                          $whereGrado AND estado = 'Activo' LIMIT $numContratos");
+                          $whereGrado c.estado = 'Activo' LIMIT $numContratos");
         $rs = $conn->query($query);
         if ($rs) {
             $contratos = array();
@@ -65,13 +65,13 @@ class contratoDAO
         }
         else {$añoFilter="";}
 
-        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado, nombre_grado
+        $query = sprintf("SELECT id_contrato, e.id_usuario, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado, nombre_grado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
                           INNER JOIN empresas em ON em.id_usuario = o.id_empresa
                           INNER JOIN grados g ON g.id_grado = e.id_Grado
-                          $whereGrado estado = 'Expirado' $añoFilter LIMIT $numContratos");
+                          $whereGrado c.estado = 'Expirado' $añoFilter LIMIT $numContratos");
         $rs = $conn->query($query);
         if ($rs) {
             $contratos = array();
@@ -96,7 +96,7 @@ class contratoDAO
             $app = App::getSingleton();
             $conn = $app->conexionBd();
             $id_estudiante = $app->idUsuario();
-            $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
+            $query = sprintf("SELECT id_contrato, e.id_usuario, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
@@ -125,7 +125,7 @@ class contratoDAO
         $conn = $app->conexionBd();
         $id_empresa = $app->idUsuario();
         $numContratos = isset($numContratos)? intval($numContratos) : 20;
-        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,fecha_incio ,fecha_fin,horas,sueldo as salario,c.estado
+        $query = sprintf("SELECT id_contrato, e.id_usuario, em.razon_social as empresa,puesto,fecha_incio ,fecha_fin,horas,sueldo as salario,c.estado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
@@ -150,7 +150,7 @@ class contratoDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
+        $query = sprintf("SELECT id_contrato, e.id_usuario, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
@@ -171,10 +171,11 @@ class contratoDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
+        $estado = 'Activo';
         //Comprobar si el estudiante ya tiene un contrato en vigor
-        if (self::tieneContratoActivo($id_estudiante)) {
-            $stmt = $conn->prepare('INSERT INTO contratos (id_oferta, id_estudiante,finalizado) VALUES (?,?,?)');
-            $stmt->bind_param("iis", $id_oferta, $id_estudiante, 'Activo');
+        if (!self::tieneContratoActivo($id_estudiante)) {
+            $stmt = $conn->prepare('INSERT INTO contratos (id_oferta, id_estudiante,estado) VALUES (?,?,?)');
+            $stmt->bind_param("iis", $id_oferta, $id_estudiante,$estado);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
                 return $result;
@@ -189,9 +190,10 @@ class contratoDAO
     private static function constructContrato($fila)
     {
         $idContrato = $fila['id_contrato'];
-        $estudiante = $fila['estudiante'];
         $empresa = $fila['empresa'];
-        $contrato = new Contrato($idContrato, $empresa, $estudiante);
+        $estudiante =  UsuarioDAO::cargaEstudiante($fila['id_usuario']);
+
+        $contrato = new Contrato($idContrato, $empresa,$estudiante);
         $contrato->setPuesto($fila['puesto']);
         $contrato->setFechaInicio($fila['fecha_incio']);
         $contrato->setFechaFin($fila['fecha_fin']);
@@ -199,6 +201,7 @@ class contratoDAO
         $contrato->setSalario($fila['salario']);
         $contrato->setEstado($fila['estado']);
 
+        
         return $contrato;
     }
     
@@ -209,5 +212,21 @@ class contratoDAO
                           WHERE id_estudiante = '%d' AND estado = 'Activo'", intval($idEstudiante));
         $rs = $conn->query($query);
         return ($rs && $rs->num_rows > 0);
+    }
+
+    public function countContratosActivos ($idEmpresa) {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT COUNT(id_contrato) AS contratos FROM contratos c 
+                            INNER JOIN ofertas o ON c.id_oferta = o.id_oferta 
+                            INNER JOIN empresas e ON e.id_usuario = o.id_empresa
+                          WHERE e.id_usuario = '%d' AND estado = 'Activo'", intval($idEmpresa));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $fila = $rs->fetch_assoc();
+            $contratos = $fila['contratos'];
+            return $contratos;
+        }
+        return false;
     }
 }

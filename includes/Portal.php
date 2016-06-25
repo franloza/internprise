@@ -189,6 +189,9 @@ EOF;
                     case 'Pendiente de Empresa':{$tabla .= "<td class='cell-status'>\n\t<label class='warning'>Pendiente de Empresa</label>";break;}
                     case 'Rechazada por Universidad':{$tabla .= "<td class='cell-status'>\n\t<label class='fail'>Rechazada por Universidad</label>";break;}
                     case 'Rechazada por Empresa':{$tabla .= "<td class='cell-status'>\n\t<label class='fail'>Rechazada por Empresa</label>";break;}
+                    /*Estados contrato*/
+                    case 'Activo':{$tabla .= "<td class='cell-status'>\n\t<label class='pass'>Activo</label>";break;}
+                    case 'Expirado':{$tabla .= "<td class='cell-status'>\n\t<label class='fail'>Expirado</label>";break;}
                     default: { $tabla .= "<td>"; $tabla .= $celda;}
                 }
                 $tabla .= "</td>\n";
@@ -293,9 +296,9 @@ EOF;
         </div>
         <nav id="icons-titlebar">
             <ul>
-                <li onclick="return loadContent('DASHBOARD')" >
-                    <a href="#" onclick="desactivaAlert();">
-                        <i id="bell" class="fa fa-bell fa-lg"><span id="contAlertas" style="color:red; font-weight: bold; margin-left:5px;"></span></i>
+                <li onclick="return loadContent('NOTIFICATIONS', 'Notifications')" >
+                    <a href="#">
+                        <i id="bell" class="fa fa-bell fa-lg"></i>
                     </a>
                 </li>
                 <li onclick="return loadContent('SETTINGS', 'Modificar perfil')">
@@ -312,17 +315,10 @@ EOF;
         </nav>
         <div class="search-bar">
        
-               <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" id = "buscador" name="buscador" placeholder="Buscador..."/>
-               <script>
-              
-                $("#buscador").keyup(function (e) {
-                    if (e.keyCode == 13) {
-                            buscaPerfil($(this).val());
-                    }
-                });
-
-                </script>
+           <form method="post" action="#" accept-charset="utf-8">
+               <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" name="buscador" placeholder="Buscador..."/>
 			   <datalist class="i_reg" id="list666"></datalist>
+           </form>
            
        </div>
     </div>
@@ -353,25 +349,11 @@ EOF;
                     $('#current-page').text(currentPage);
                  });     
             }
-            
             function subMenu(showHide, id){
                 if(showHide)
                     $('#'+id).slideDown(200);
                 else
                     $('#'+id).slideUp(200);
-            }
-            contAlert();
-            function contAlert() {    
-                $.get("ajaxRequest.php?alertas=cont", function(data) {   
-                    if (data > 0) {
-                        $("#contAlertas").html(data);
-                        $('#bell').addClass("animacionBell");
-                    }
-                });     
-            }
-            
-            function desactivaAlert() {
-                $("#contAlertas").html("");
             }
         </script>
         
@@ -379,18 +361,6 @@ EOF;
         <script>
         function cargaPerfil(id) { 
              $.get("ajaxRequest.php?val=CARGA_PERFIL&op=" + id , function(data, status){
-                if (data) {
-                    $('#dashboard-content').html(data);
-                    $('#current-page').text(currentPage);
-                }
-             });     
-        }
-        </script>
-        
-        <!-- script para buscar perfil -->
-        <script>
-        function buscaPerfil(nombre) { 
-             $.get("ajaxRequest.php?val=BUSCA_PERFIL&op=" + nombre , function(data, status){
                 if (data) {
                     $('#dashboard-content').html(data);
                     $('#current-page').text(currentPage);
@@ -420,6 +390,74 @@ EOF;
         }
         $content = <<<EOF
     <!-- Modal dialog oferta -->
+        <!-- Scripts para el dialogo -->
+        <script>  
+            //Funciones para aceptar/rechazar oferta en portal administrador      
+            function aceptarOferta(id) {
+                 $('#aceptar-btn').hide();
+                 $('#rechazar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para aceptar oferta
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=ACEPTAR_OFERTA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }
+            
+            function rechazarOferta(id) {
+                 $('#aceptar-btn').hide();
+                 $('#rechazar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para aceptar demanda
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=RECHAZAR_OFERTA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }                 
+            
+            //Funcion para solicitar oferta en portal estudiante
+            function solicitarOferta(id) {
+                 $('#solicitar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para aceptar demanda
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=CREAR_DEMANDA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }
+            
+            //Funcion para eliminar oferta en portal empresa
+            function eliminarrOferta(id) {
+                 $('#eliminar-btn').hide();
+                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                //Petición ajax para aceptar demanda
+                $.ajax({
+                    type: 'GET',
+                    url: "ajaxRequest.php?val=ELIMINAR_OFERTA&op="+id,
+                    success: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                     },
+                    error: function (data) { 
+                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                })       
+            }   
+        </script> 
+     
         <div id='$cssClass-modal-content' class="dialogo-modal-content">
             <div id='$cssClass-modal-header' class="dialogo-modal-header text-center">
                 <i class=" fa fa-times close"></i>
@@ -550,75 +588,7 @@ EOF;
                     <h1 style='color:red'>Fallo al cargar la oferta</h1>
                 </div>         
             </div>
-            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
-            </div>
-                 
-        <script>
-        <!--Funciones para aceptar/rechazar oferta en portal administrador-->
-            function aceptarOferta(id) {
-                 $('#aceptar-btn').hide();
-                 $('#rechazar-btn').hide();
-                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
-                //Petición ajax para aceptar oferta
-                $.ajax({
-                    type: 'GET',
-                    url: "ajaxRequest.php?val=ACEPTAR_OFERTA&op="+id,
-                    success: function (data) { 
-                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
-                     },
-                    error: function (data) { 
-                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
-                })       
-            }
-            
-            function rechazarOferta(id) {
-                 $('#aceptar-btn').hide();
-                 $('#rechazar-btn').hide();
-                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
-                //Petición ajax para aceptar demanda
-                $.ajax({
-                    type: 'GET',
-                    url: "ajaxRequest.php?val=RECHAZAR_OFERTA&op="+id,
-                    success: function (data) { 
-                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
-                     },
-                    error: function (data) { 
-                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
-                })       
-            }
-            
-        <!--Funcion para solicitar oferta en portal estudiante-->
-            function solicitarOferta(id) {
-                 $('#solicitar-btn').hide();
-                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
-                //Petición ajax para aceptar demanda
-                $.ajax({
-                    type: 'GET',
-                    url: "ajaxRequest.php?val=CREAR_DEMANDAA&op="+id,
-                    success: function (data) { 
-                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
-                     },
-                    error: function (data) { 
-                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
-                })       
-            }
-            
-            <!--Funcion para eliminar oferta en portal empresa-->
-            function eliminarrOferta(id) {
-                 $('#eliminar-btn').hide();
-                 $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
-                //Petición ajax para aceptar demanda
-                $.ajax({
-                    type: 'GET',
-                    url: "ajaxRequest.php?val=ELIMINAR_OFERTA&op="+id,
-                    success: function (data) { 
-                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
-                     },
-                    error: function (data) { 
-                        $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
-                })       
-            }   
-        </script>           
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer"></div>                                      
 EOF;
 
         return $content;
@@ -838,146 +808,120 @@ EOF;
 EOF;
         return $content;
     }
+
     public function generaDialogoContrato ($idContrato)
     {
-    	$cssClass = "";
-    	switch ($this->rol) {
-    		case 'Admin':
-    			$cssClass = 'admin';
-    			break;
-    		case 'Estudiante':
-    			$cssClass = 'estudiante';
-    			break;
-    		case 'Empresa':
-    			$cssClass = 'empresa';
-    			break;
-    	}
-    	$content = <<<EOF
+        $cssClass = "";
+        switch ($this->rol) {
+            case 'Admin':
+                $cssClass = 'admin';
+                break;
+            case 'Estudiante':
+                $cssClass = 'estudiante';
+                break;
+            case 'Empresa':
+                $cssClass = 'empresa';
+                break;
+        }
+        $content = <<<EOF
     <!-- Modal dialog contrato -->
         <div id='$cssClass-modal-content' class="dialogo-modal-content">
             <div id='$cssClass-modal-header' class="dialogo-modal-header text-center">
                 <i class=" fa fa-times close"></i>
 EOF;
-    	$contrato = ContratoDAO::cargaContrato($idContrato);
-    	if ($contrato) {
-    		$id_contrato = $contrato->getIdContrato();
-    		$empresa = $contrato->getEmpresa();
-    		$estudiante = $contrato->getEstudiante();
-    		$puesto = $contrato->getPuesto();
-    		$fecha_inicio = $contrato->getFechaInicio();
-    		$fecha_fin = $contrato->getFechaFin();
-    		$horas = $contrato->getHoras();
-    		$salario = $contrato->getSalario();
-    		$descripcion = $contrato->getDescripcion();
-    		$estado = $contrato->getEstado();
+        $contrato = ContratoDAO::cargaContrato($idContrato);
+        if ($contrato) {
+            $estudiante = $contrato->getEstudiante();
+            $id = $contrato->getIdContrato();
+            $empresa = $contrato->getEmpresa();
+            $horas = $contrato->getHoras();
+            $puesto = $contrato->getPuesto();
+            $fecha_fin = $contrato->getFechaFin();
+            $fecha_inicio  =$contrato->getFechaInicio();
+            $estado = $contrato->getEstado();
+            //Inicio contenido
 
-    
-    		if ($this->rol === 'Admin')
-    			$content .= "<h3 class=\"h3\">Contrato (ID: $id)</h3>";
-    		else
-    			$content .= "<h3 class=\"h3\">Contrato</h3>";
-    
-    		//Inicio contenido
-    		$content .= <<<EOF
-            </div>
-            <div class="dialogo-modal-body">
-                <div class="container" style="width:100%">
-EOF;
-    
-    
-    		//Información del contrato
-    		$content .= <<<EOF
-    		<div class="row">
-    		<h2> Información del contrato </h2>
-    			<div class="row">
-           			<div class="col-md-6">
-                    	<h4>Empresa</h4>
-                    	<p>$empresa</p>
-                    </div>
-                    <div class="col-md-6">
-                        <h4>Estudiante</h4>
-                        <p>$estudiante</p>
-                    </div>
-               </div>
-               <div class="row">
-	               <div class="col-md-4">
-		               <h4>Puesto</h4>
-		               <p>$puesto h </p>
-	               </div>
-	               <div class="col-md-4">
-		               <h4>Fecha inicio</h4>
-		               <p>$fecha_inicio</p>
-	               </div>
-	               <div class="col-md-4">
-		               <h4>Fecha fin</h4>
-		               <p>$fecha_fin</p>
-	               </div>
-               </div>
-               <div class="row">
-           			<div class="col-md-4">
-                    	<h4>Horas</h4>
-                    	<p>$horas</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4>Salario</h4>
-                        <p>$salario</p>
-                    </div>
-	                <div class="col-md-4">
-		               <h4>Estado</h4>
-		               <p>$estado</p>
-	               </div>
-               </div>
-                
-                       
-            </div>
-EOF;
-            
-    
-            //Cierre contenido
+
+            $nombre = $estudiante->getNombre() . " " . $estudiante->getApellidos();
+            $grado = $estudiante->getGrado();
+            $idEstudiante = $estudiante->getId();
+
+            if ($this->rol === 'Admin')
+                $content .= "<h3 class=\"h3\">Información del contrato (ID: $id)</h3>";
+            else
+                $content .= "<h3 class=\"h3\">Información del contrato</h3>";
             $content .= <<<EOF
             </div>
+            <div class="dialogo-modal-body">
+                <div class="container" style="width:100%">                  
+EOF;
+
+            //Información del estudiante
+
+            $content .= <<<EOF
+             <div class="row">
+             <h2> Información del estudiante </h2>
+                    <div class="col-md-6">
+                        <h3><b>$nombre</b></h3>
+                    </div>   
+                     <div class="col-md-4">
+                        <h3>$grado</h3>
+                    </div>                    
+                    <div class="col-md-2">
+                        <h3><button id='perfil-btn' type='button' class='btn btn-info' onclick='cargaPerfil($idEstudiante)'>Ver Perfil</button></h3>
+                    </div>                       
+                </div>
+EOF;
+
+            //Información del contrato
+            $content .= <<<EOF
+            <div class="row">
+            <h2> Información del Contrato </h2>
+                <div class="col-md-4">
+                    <h4>Empresa</h4>
+                    <p>$empresa</p>
+                </div>
+                <div class="col-md-8">
+                    <h4>Puesto</h4>
+                    <p>$puesto</p>
+                </div>           
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <h4>Horas</h4>
+                    <p>$horas</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Fecha inicio</h4>
+                    <p>$fecha_inicio</p>
+                </div>
+                <div class="col-md-4">
+                    <h4>Fecha fin</h4>
+                    <p>$fecha_fin</p>
+                </div>
+            </div>
+            </div>
+EOF;
+            //Cierre contenido
+            $content .= <<<EOF
+            </div>     
             </div>
             <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
 EOF;
-            if (($this->rol === 'Admin' || $this->rol === 'Empresa') && $estado ==="Activo" ) {
-                $content .= "<button id='finalizar-btn' type='button' class='btn btn-danger' onclick='finalizarContrato($id_contrato)'>Finalizar</button>";
-                $content .= "</div>";
-                $content .= "</div>";
-            }
-            $content .= <<<EOF
-            <!--Script para finalizar contrato en portal administrador/empresa-->
-            <script>
-                function finalizarContrato(id) {
-                     $('#finalizar-btn').hide();
-                     $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
-                    //Petición ajax para finalizar contrato
-                    $.ajax({
-                        type: 'GET',
-                        url: "ajaxRequest.php?val=FINALIZAR_CONTRATOA&op="+id,
-                        success: function (data) {
-                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
-                         },
-                        error: function (data) {
-                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
-                    })
-                }
-    
-            </script>
-EOF;
-    	}else{
+        }
+        else
             //Error block
             $content .= <<<EOF
             </div>
             <div class="dialogo-modal-body">
                 <div class="container" style='width:100%'>
-                    <h1 style='color:red'>Fallo al cargar el contrato</h1>
-                </div>
+                    <h1 style='color:red'>Fallo al cargar la oferta</h1>
+                </div>         
             </div>
             <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
             </div>
 EOF;
-            }
         return $content;
-    	
-    	}
+    }
+
 }

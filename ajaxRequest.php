@@ -99,7 +99,7 @@ function handle_adminRequest($req,$op){
 				}
 
 				case 'ACEPTAR_DEMANDA': {
-					$content = DemandaDAO::aceptarDemanda($op);
+					$content = DemandaDAO::aceptarDemanda($op,'Admin');
 					if(is_array($content)){
 						$content = $content[0];
 					} else{
@@ -108,7 +108,7 @@ function handle_adminRequest($req,$op){
 					break;
 				}
 				case 'RECHAZAR_DEMANDA': {
-					$content = DemandaDAO::rechazarDemanda($op);
+					$content = DemandaDAO::rechazarDemanda($op,'Admin');
 					if(is_array($content)){
 						$content = $content[0];
 					} else{
@@ -148,14 +148,13 @@ function handle_studentRequest($req,$op) {
 		if($modalDialogReq){
 			switch (substr($req, 2, 1)){
 				case 'O': $content = $portalEstudiante -> generaDialogoOferta(substr($req, 4)); break;
-				case 'D': $content = $portalEstudiante -> generaDialogoDemanda(substr($req, 4)); break;
-			}
+				case 'D': $content = $portalEstudiante -> generaDialogoDemanda(substr($req, 4)); break;}
 		}
 		else{
 			switch($req){
 				//Secciones
 				case 'DASHBOARD': $content = $portalEstudiante -> generaDashboard(); break;
-				case 'PERFIL': $content = PortalEstudiante::generaPerfil($app->idUsuario()); break;
+				case 'PERFIL': $content = $portalEstudiante ->generaPerfil(($app->idUsuario())); break;
 				case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
 				case 'SOLICITUDES': $content = $portalEstudiante -> generaDemandas(); break;
 				case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
@@ -176,7 +175,7 @@ function handle_studentRequest($req,$op) {
 					if($user) {
 						$rol = $user->getRol();
 						if ($rol == 'Estudiante') {
-							$content = PortalEstudiante::generaPerfil($op);
+							$content = $portalEstudiante ->generaPerfil($op);
 							break;
 						}
 					}
@@ -208,8 +207,8 @@ function handle_empresaRequest($req,$op) {
 		if($modalDialogReq){
 			switch (substr($req, 2, 1)){
 				case 'O': $content = $portalEmpresa -> generaDialogoOferta(substr($req, 4)); break;
+				case 'D': $content = $portalEmpresa -> generaDialogoDemanda(substr($req, 4)); break;
 				case 'C': $content = $portalEmpresa -> generaDialogoContrato(substr($req, 4)); break;
-				
 			}
 		}
 		else{
@@ -218,7 +217,8 @@ function handle_empresaRequest($req,$op) {
 				case 'DASHBOARD': $content = $portalEmpresa -> generaDashboard(); break;
 				case 'PERFIL': $content = $portalEmpresa -> generaPerfil($app->idUsuario()); break;
 				case 'OFERTAS': $content = $portalEmpresa -> generaOfertas(); break;
-				case 'SOLICITUDES': $content = $portalEmpresa -> generaSolicitudes(); break;
+				case 'DEMANDAS_CLASIFICADAS': $content = $portalEmpresa->generaDemandas(true); break;
+				case 'DEMANDAS_NO_CLASIFICADAS': $content = $portalEmpresa->generaDemandas(false); break;
 				case 'CONTRATOS_VIGOR': $content = $portalEmpresa -> generaContratos("Activo"); break;
 				case 'CONTRATOS_FIN': $content = $portalEmpresa -> generaContratos("Expirado"); break;
 				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
@@ -246,6 +246,24 @@ function handle_empresaRequest($req,$op) {
 					}
 					else
 						$content = false;
+					break;
+				}
+				case 'ACEPTAR_DEMANDA': {
+					$content = DemandaDAO::aceptarDemanda($op,'Empresa');
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Demanda aceptada. Se ha creado un nuevo contrato";
+					}
+					break;
+				}
+				case 'RECHAZAR_DEMANDA': {
+					$content = DemandaDAO::rechazarDemanda($op,'Empresa');
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Demanda rechazada";
+					}
 					break;
 				}
 				case 'BUSCA_PERFIL': {
