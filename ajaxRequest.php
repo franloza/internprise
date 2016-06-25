@@ -2,7 +2,7 @@
 namespace es\ucm\aw\internprise;
 require_once __DIR__ . '/includes/config.php';
 /**
- * Script para manejar las peticiones asÃ­ncronas AJAX.
+ * Script para manejar las peticiones asíncronas AJAX.
  */
 
 use es\ucm\aw\internprise\Aplicacion as App;

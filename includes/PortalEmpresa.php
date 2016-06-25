@@ -2,6 +2,7 @@
 
 namespace es\ucm\aw\internprise;
 
+use es\ucm\aw\internprise\Aplicacion as App;
 
 class PortalEmpresa extends Portal
 {
@@ -11,12 +12,12 @@ class PortalEmpresa extends Portal
     }
 
     /**
-     * FunciÃ³n que genera un menÃº lateral.
+     * Función que genera un menú lateral.
      */
     public function generaMenu()
     {
         $bloqueEmpresaSideBar = <<<EOF
-        <!-- Fragmento para definir el menÃº de empresa-->
+        <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
                 <img src="img/empresa-avatar.png" alt="Avatar image" width="100%"></img>
@@ -45,7 +46,7 @@ class PortalEmpresa extends Portal
                     </div>
                 </li>
                 <li>
-                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÃ“N</a>
+                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a>
                 </li>
             </ul>
         </div>
@@ -54,7 +55,7 @@ EOF;
     }
 
     /**
-     * FunciÃ³n que genera los encabezados de la pÃ¡gina.
+     * Función que genera los encabezados de la página.
      */
     public function generaHead()
     {
@@ -64,7 +65,7 @@ EOF;
     }
 
     /**
-     * FunciÃ³n que genera el contenido de la pÃ¡gina principal del portal.
+     * Función que genera el contenido de la página principal del portal.
      * El resto de contenido debe generarse por medio de peticiones AJAX.
      */
     public function generaDashboard()
@@ -186,7 +187,7 @@ EOF;
 
         <div class="row">
             <div class="col-sm-12">
-                <div class="text-left"><h1>DescripciÃ³n</h1></div>
+                <div class="text-left"><h1>Descripción</h1></div>
                     <table class="table table-hover ">
                         <tr><td><p class="text-justify">$descripcion</p></td></tr>
                     </table>

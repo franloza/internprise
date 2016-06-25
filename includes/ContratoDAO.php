@@ -125,12 +125,12 @@ class contratoDAO
         $conn = $app->conexionBd();
         $id_empresa = $app->idUsuario();
         $numContratos = isset($numContratos)? intval($numContratos) : 20;
-        $query = sprintf("SELECT id_contrato, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
+        $query = sprintf("SELECT id_contrato, em.nombre, CONCAT(e.nombre,' ', e.apellidos) as estudiante, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
                           INNER JOIN empresas em ON em.id_usuario = o.id_empresa
-                          WHERE c.id_empresa = '%d' AND estado = '%s' LIMIT $numContratos",intval($id_empresa),$conn->real_escape_string($estado));
+                          WHERE o.id_empresa = '%d' AND c.estado = '%s' LIMIT $numContratos",intval($id_empresa),$conn->real_escape_string($estado));
         $rs = $conn->query($query);
         if ($rs) {
             $contratos = array();
