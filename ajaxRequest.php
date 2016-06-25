@@ -2,7 +2,7 @@
 namespace es\ucm\aw\internprise;
 require_once __DIR__ . '/includes/config.php';
 /**
- * Script para manejar las peticiones asíncronas AJAX.
+ * Script para manejar las peticiones asÃ­ncronas AJAX.
  */
 
 use es\ucm\aw\internprise\Aplicacion as App;
@@ -198,7 +198,8 @@ function handle_empresaRequest($req,$op) {
 				case 'PERFIL': $content = $portalEmpresa -> generaPerfil($app->idUsuario()); break;
 				case 'OFERTAS': $content = $portalEmpresa -> generaOfertas(); break;
 				case 'SOLICITUDES': $content = $portalEmpresa -> generaSolicitudes(); break;
-				case 'CONTRATOS': $content = $portalEmpresa -> generaContratos(); break;
+				case 'CONTRATOS_VIGOR': $content = $portalEmpresa -> generaContratos("Activo"); break;
+				case 'CONTRATOS_FIN': $content = $portalEmpresa -> generaContratos("Cancelado"); break;
 				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
 				case 'CREAR_OFERTA': $content = $portalEmpresa->generaCrearOferta(); break;
 				case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
