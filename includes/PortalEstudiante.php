@@ -25,7 +25,7 @@ class PortalEstudiante extends Portal
             <div id="estudiante-menu-avatar" class="menu-avatar">
                 <img src="img/$avatar" alt="Avatar image" width="100%"></img>
                 <div id='change-avatar'>
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <i class="fa fa-pencil" aria-hidden="true"></i> 
                 </div>
             </div>
                 <ul>
