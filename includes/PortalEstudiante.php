@@ -96,7 +96,7 @@ EOF;
         return parent::generaTitlebarParam("Internprise Estudiante");
     }
 
-    public static function generaPerfil($id_estudiante){
+    public function generaPerfil($id_estudiante){
         //TODO: Implementar funcionalidad Avatar
 
         $app = Aplicacion::getSingleton();

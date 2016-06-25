@@ -42,6 +42,7 @@ abstract class Portal
      */
     public abstract function generaMenu();
 
+
     /**
      * Función que genera un footer al final de la página.
      */
@@ -323,11 +324,6 @@ EOF;
         return $bloqueTitleBar;
     }
 
-    protected static function generaPerfil($id_usuario)
-    {
-
-
-    }
 
     public static function factory($rol) {
         if ($rol === "Admin"){
@@ -503,10 +499,10 @@ EOF;
                 $content .= "<button id='aceptar-btn' type='button' class='btn btn-success' onclick='aceptarOferta($id)'>Aceptar</button>";
                 $content .= "<button id='rechazar-btn' type='button' class='btn btn-danger' onclick='rechazarOferta($id)'>Rechazar</button>";
             } else if ($this->rol === 'Empresa') {
-                $content .= "<button id='eliminar-btn' type='button' class='btn btn-danger' onclick='eliminarrOferta($id)>Eliminar</button>";
+                $content .= "<button id='eliminar-btn' type='button' class='btn btn-danger' onclick='eliminarrOferta($id)'>Eliminar</button>";
             }
             else if ($this->rol === 'Estudiante') {
-                $content .= "<button id='solicitar-btn' type='button' class='btn btn-success' onclick='solicitarOferta($id)>Solicitar</button>";
+                $content .= "<button id='solicitar-btn' type='button' class='btn btn-success' onclick='solicitarOferta($id)'>Solicitar</button>";
             }
             $content .= "</div>";
             $content .= "</div>";

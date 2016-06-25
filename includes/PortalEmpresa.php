@@ -171,7 +171,7 @@ EOF;
         $bloqueContacto .="</div>";
         
         $content = <<<EOF
-        <div class="container">
+        <div style="width:100%" class="container">
         <div class="row">
             <div id="imagen-empresa" class="col-sm-3">
                 <IMG SRC="img/empresa-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
