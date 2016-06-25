@@ -15,7 +15,7 @@ if(isset($_GET['databuscador'])) {
 	$buscador = $_GET['databuscador'];
 	echo handle_autocompletebuscador($buscador);
 }
-if (isset($_GET['alertas'])) {
+else if (isset($_GET['alertas'])) {
 	if ($_GET['alertas'] === 'cont')
 		echo handle_getAlertas();
 }
