@@ -90,27 +90,30 @@ class contratoDAO
     /*
      * Muestra la información del contrato activo que tiene el estudiante si tiene. Si no devuelve false
      */
-    public static function cargaContratoActivoEstudiante()
-    {
-        {
+    public static function cargaContratoActivoEstudiante($idEstudiante){
+        
             $app = App::getSingleton();
             $conn = $app->conexionBd();
-            $id_estudiante = $app->idUsuario();
-            $query = sprintf("SELECT id_contrato, e.id_usuario, em.razon_social as empresa,puesto,sueldo as salario,fecha_incio ,fecha_fin,horas,c.estado
+            
+            $estudianteFilter = sprintf("WHERE c.id_estudiante = %d ",intval($idEstudiante));
+            
+            $query = sprintf("SELECT id_contrato, e.id_usuario, em.razon_social as empresa,puesto,fecha_incio ,fecha_fin,horas,sueldo as salario,c.estado, nombre_grado
                           FROM contratos c
                           INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
                           INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
                           INNER JOIN empresas em ON em.id_usuario = o.id_empresa
-                          WHERE c.id_estudiante = 'Activo' AND estado = '%s'",intval($id_estudiante));
+                          INNER JOIN grados g ON g.id_grado = e.id_Grado
+                          $estudianteFilter ");
             $rs = $conn->query($query);
             if ($rs) {
-                $fila = $rs->fetch_assoc();
-                $contrato = self::constructContrato($fila);
-                $rs->free();
-                return $contrato;
+            	$contratos =  array();
+            	while ($fila = $rs->fetch_assoc()) {
+            		array_push($contratos,self::constructContrato($fila));
+            	}
+            	$rs->free();
+                return $contratos;
             }
             return false;
-        }
 
     }
 

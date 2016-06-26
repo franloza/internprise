@@ -54,7 +54,7 @@ class PortalEmpresa extends Portal
                         </ul>
                     </div>
                 </li>
-                <li>
+                <li>		                   
                     <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a>
                 </li>
             </ul>
@@ -344,11 +344,9 @@ EOF;
     			"Contratos", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
     	return $content;
     }
-
-    public function generaBuzon(){
-        // TODO: Implement generaBuzon() method.
+    public function generaBuzon(){		
+        // TODO: Implement generaBuzon() method.		
     }
-
     public function generaCrearOferta(){
         $formCrearOferta =  new \es\ucm\aw\internprise\FormularioCrearOferta();
         $formCrearOferta->gestiona();
