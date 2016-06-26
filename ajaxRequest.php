@@ -24,6 +24,10 @@ else if($app -> usuarioLogueado()){
 	$req = $_GET['val'];
 	$op = (isset($_GET['op']))?$_GET['op']:null;
 	$modalDialogReq = false;
+	$uploadAvatar = false;
+	
+	if(isset($_FILES["avatar-upload"]["type"]))
+		$uploadAvatar = true;
 
 	if(substr($req, 0, 2) === 'MD')
 		$modalDialogReq = true;
@@ -34,7 +38,7 @@ else if($app -> usuarioLogueado()){
 		default : $content = Error::generaErrorPermisos();
 	}
     /*Save active section if its not a modal dialog request*/
-	if(!$modalDialogReq)
+	if(!$modalDialogReq && !$uploadAvatar)
     	$app->saveSection($req);
 }
 else if(isset($_GET['datamail'])) {
@@ -203,6 +207,8 @@ function handle_studentRequest($req,$op) {
 						$content = false;
 					break;
 				}
+				//Upload avatar
+				case 'UPLOAD_AVATAR': $content = handle_uploadAvatar(); break;
 			}
 		}
 
@@ -233,6 +239,7 @@ function handle_empresaRequest($req,$op) {
 				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
 				case 'CREAR_OFERTA': $content = $portalEmpresa->generaCrearOferta(); break;
 				case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
+
 
 				//Acciones
 				case 'ELIMINAR_OFERTA': {
@@ -295,6 +302,8 @@ function handle_empresaRequest($req,$op) {
 						$content = false;
 					break;
 				}
+				//Upload avatar
+				case 'UPLOAD_AVATAR': $content = handle_uploadAvatar(); break;
 			}
 		}
 	}
@@ -350,6 +359,56 @@ function handle_getAlertas() {
 	$cont += OfertaDAO::countNewOfertas();
 
 	return $cont;
+}
+
+function handle_uploadAvatar(){
+	if(isset($_FILES["avatar-upload"]["type"]))
+	{
+		$validextensions = array("jpeg", "jpg", "png");
+		$validmimotypes = array("image/png", "image/jpg", "image/jpeg");
+		$temporary = explode(".", $_FILES["avatar-upload"]["name"]);
+		$file_extension = end($temporary);
+		$finfo = new \finfo(FILEINFO_MIME_TYPE);
+		$type = $finfo->file($_FILES["avatar-upload"]["tmp_name"]);
+		if(in_array($type, $validmimotypes) && in_array($file_extension, $validextensions)
+			&& ($_FILES["avatar-upload"]["size"] < 2000000)){ //Approx. 2MB maximo.
+
+			if ($_FILES["avatar-upload"]["error"] > 0)
+			{
+				return "Return Code: " . $_FILES["avatar-upload"]["error"] . "<br/><br/>";
+			}
+			else
+			{
+
+				$caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890"; //posibles caracteres a usar
+				$numerodeletras=20; //numero de letras para generar el texto
+				$cadena = ""; //variable para almacenar la cadena generada
+				for($i=0;$i<$numerodeletras;$i++) {
+					$cadena .= substr($caracteres,rand(0,strlen($caracteres)),1); //Caracteres aleatorios
+				}
+				$nuevoNombre = $cadena . '.' . $file_extension;
+				if (file_exists("img/avatares/$nuevoNombre")) {
+					return $_FILES["avatar-upload"]["name"] . " <span id='invalid'><b>already exists.</b></span> ";
+				}
+				else
+				{
+					$sourcePath = $_FILES['avatar-upload']['tmp_name']; // Storing source path of the file in a variable
+					$targetPath = __DIR__ . "/img/avatares/" . $nuevoNombre; // Target path where file is to be stored
+					require_once __DIR__ . '/includes/smart_resize_image.function.php';
+					$app = App::getSingleton();
+					//Si la BD se actualiza correctamente entonces se mueve el archivo
+					if(UsuarioDAO::updateAvatarByIdUsuario($app->idUsuario(), $nuevoNombre))
+						smart_resize_image($sourcePath, null, 200, 200, true, $targetPath, true, true, 80);
+
+					return "<span><b>Subida realizada.</b></span>";
+				}
+			}
+		}
+		else
+		{
+			return "<span id='invalid'>***Invalid file Size or Type***<span>";
+		}
+	}
 }
 
 ?>

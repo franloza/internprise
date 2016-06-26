@@ -17,13 +17,12 @@ class PortalEmpresa extends Portal
     public function generaMenu()
     {
         $app = App::getSingleton();
-        $empresa = UsuarioDAO::cargaEmpresa($app->idUsuario());
-        $avatar = $empresa->getAvatar();
+        $avatar = UsuarioDAO::getAvatarByUsuarioId($app->idUsuario());
         $bloqueEmpresaSideBar = <<<EOF
         <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
-                <img src="img/$avatar" alt="Avatar image" width="100%"></img>
+                <img src="img/avatares/$avatar" alt="Avatar image" width="100%"></img>
             </div>
             <ul>
                 <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
@@ -171,6 +170,7 @@ EOF;
         $telefono = $empresa->getTelefono();
         $web = $empresa->getWeb();
         $descripcion  = $empresa->getDescripcion();
+        $avatar = $empresa->getAvatar();
 
         //Bloque contacto
         $bloqueContacto ="<div class='col-md-4'>";
@@ -188,7 +188,7 @@ EOF;
         <div style="width:100%" class="container">
         <div class="row">
             <div id="imagen-empresa" class="col-sm-3">
-                <IMG SRC="img/empresa-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
+                <img src="img/avatares/$avatar" class="img-rounded" alt="Avatar" width="200" height="200">
             </div> 
         
         <!-- NOMBRE EMPRESA Y LOCALIZACION -->         

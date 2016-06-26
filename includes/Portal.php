@@ -913,8 +913,8 @@ EOF;
             //Cierre contenido
             $content .= <<<EOF
             </div>     
-            </div>
-            <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
+
+            <div id='$cssClass-modal-footer' class="dialogo-modal-footer"></div>
 EOF;
             if (($this->rol === 'Admin' || $this->rol === 'Empresa') && $estado ==="Activo" ) {
                 $content .= "<button id='finalizar-btn' type='button' class='btn btn-danger' onclick='finalizarContrato($id)'>Finalizar</button>";
