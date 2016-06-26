@@ -328,7 +328,8 @@ EOF;
         // TODO: Implement generaBuzon() method.
     }
 
-    public function generaSettings() {
+    public function generaSettings(){
+
         $formAdmin =  new \es\ucm\aw\internprise\FormularioSettings('estudiante');
         $formAdmin->gestiona();
     }
