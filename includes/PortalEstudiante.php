@@ -17,16 +17,12 @@ class PortalEstudiante extends Portal
     public function generaMenu()
     {
         $app = App::getSingleton();
-        $estudiante = UsuarioDAO::cargaEstudiante($app->idUsuario());
-        $avatar = $estudiante->getAvatar();
+        $avatar = UsuarioDAO::getAvatarByUsuarioId($app->idUsuario());
         $bloqueEstudianteSideBar = <<<EOF
         <!-- Fragmento para definir el menú de estudiante-->
         <div id="estudiante-sidebar" class="sidebar">
             <div id="estudiante-menu-avatar" class="menu-avatar">
-                <img src="img/$avatar" alt="Avatar image" width="100%"></img>
-                <div id='change-avatar'>
-                    <i class="fa fa-pencil" aria-hidden="true"></i> 
-                </div>
+                <img src="img/avatares/$avatar" alt="Avatar image" width="100%"></img>
             </div>
                 <ul>
                     <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
@@ -185,7 +181,7 @@ EOF;
         <div class="container" style="width:100%">
         <div class="row">
             <div id="imagen-estudiante" class="col-sm-3">
-                <IMG SRC="img/estudiante-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
+                <img src="img/avatares/$avatar" class="img-rounded" alt="Avatar" width="200" height="200">
             </div>      
             <div class="col-sm-8">     
                 <h1 ><strong>$nombre</strong></h1>
@@ -352,7 +348,38 @@ EOF;
         // TODO: Implement generaBuzon() method.		
     }
     public function generaSettings(){
-
+        $app = App::getSingleton();
+        $avatar = UsuarioDAO::getAvatarByUsuarioId($app->idUsuario());
+        $content = <<<EOF
+    <div class="row">
+        <div id="avatar-div" class="col-md-12">
+            <label for='avatar-upload'>Avatar:</label>
+            <img src='img/avatares/$avatar'></img>
+            <form id="upload-avatar" action="" method="post" enctype="multipart/form-data">
+                <input type='file' name='avatar-upload' style="width:200px;display:inline;">
+                <button type="submit" class="btn btn-default">Cambiar avatar</button>
+            </form>
+        </div>
+    </div>
+    <script>
+            $("#upload-avatar").on('submit',(function(e) {
+            $.ajax({
+                url: "ajaxRequest.php?val=UPLOAD_AVATAR", // Url to which the request is send
+                type: "POST",             // Type of request to be send, called as method
+                data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                contentType: false,       // The content type used when sending data to the server.
+                cache: false,             // To unable request pages to be cached
+                processData:false,        // To send DOMDocument or non processed data file it is set to false
+                success: function(data)   // A function to be called if request succeeds
+            {
+            $("#avatar-div").html(data);
+            window.location.replace("dashboard.php");
+            }
+            });
+            }));
+    </script>
+EOF;
+        echo $content;
         $formAdmin =  new \es\ucm\aw\internprise\FormularioSettings('estudiante');
         $formAdmin->gestiona();
     }
