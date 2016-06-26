@@ -694,7 +694,7 @@ EOF;
             <div class="row">
                 <div class="col-md-4">
                     <h4>Horas</h4>
-                    <p>$horas h </p>
+                    <p>$horas </p>
                 </div>
                 <div class="col-md-4">
                     <h4>Fecha inicio</h4>
@@ -917,7 +917,7 @@ EOF;
             <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
 EOF;
             if (($this->rol === 'Admin' || $this->rol === 'Empresa') && $estado ==="Activo" ) {
-                $content .= "<button id='finalizar-btn' type='button' class='btn btn-danger' onclick='finalizarContrato($id_contrato)'>Finalizar</button>";
+                $content .= "<button id='finalizar-btn' type='button' class='btn btn-danger' onclick='finalizarContrato($id)'>Finalizar</button>";
                 $content .= "</div>";
                 $content .= "</div>";
         }

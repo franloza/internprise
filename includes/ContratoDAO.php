@@ -147,7 +147,7 @@ class contratoDAO
     {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-		$estado = 'Expirada';
+		$estado = 'Expirado';
 
 		$query = sprintf("UPDATE contratos SET estado ='%s' WHERE id_contrato=?",$estado);
         $stmt = $conn->prepare($query);
