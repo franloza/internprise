@@ -142,6 +142,22 @@ class contratoDAO
         }
         return false;
     }
+	    /*Clasifica un contrato como finalizado*/
+    public static function finalizarContrato($op)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+		$estado = 'Expirada';
+
+		$query = sprintf("UPDATE contratos SET estado ='%s' WHERE id_contrato=?",$estado);
+        $stmt = $conn->prepare($query);
+        $stmt->bind_param("i", intval($op));
+
+        if (!$stmt->execute()) {
+            $result [] = "Hubo un error en la operación";
+            return $result;
+        }
+    }
 
     /*FUNCIONES GENÉRICAS*/
 

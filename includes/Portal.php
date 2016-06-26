@@ -831,17 +831,18 @@ EOF;
 EOF;
         $contrato = ContratoDAO::cargaContrato($idContrato);
         if ($contrato) {
-            $estudiante = $contrato->getEstudiante();
+            
             $id = $contrato->getIdContrato();
+			$estudiante = $contrato->getEstudiante();
             $empresa = $contrato->getEmpresa();
-            $horas = $contrato->getHoras();
             $puesto = $contrato->getPuesto();
             $fecha_fin = $contrato->getFechaFin();
             $fecha_inicio  =$contrato->getFechaInicio();
+			$horas = $contrato->getHoras();
+			$salario = $contrato->getSalario();
             $estado = $contrato->getEstado();
             //Inicio contenido
-
-
+			
             $nombre = $estudiante->getNombre() . " " . $estudiante->getApellidos();
             $grado = $estudiante->getGrado();
             $idEstudiante = $estudiante->getId();
@@ -856,49 +857,56 @@ EOF;
                 <div class="container" style="width:100%">                  
 EOF;
 
-            //Información del estudiante
+            //Información del contrato
 
             $content .= <<<EOF
              <div class="row">
-             <h2> Información del estudiante </h2>
-                    <div class="col-md-6">
-                        <h3><b>$nombre</b></h3>
-                    </div>   
-                     <div class="col-md-4">
-                        <h3>$grado</h3>
-                    </div>                    
-                    <div class="col-md-2">
-                        <h3><button id='perfil-btn' type='button' class='btn btn-info' onclick='cargaPerfil($idEstudiante)'>Ver Perfil</button></h3>
-                    </div>                       
-                </div>
-EOF;
-
-            //Información del contrato
-            $content .= <<<EOF
-            <div class="row">
-            <h2> Información del Contrato </h2>
-                <div class="col-md-4">
-                    <h4>Empresa</h4>
-                    <p>$empresa</p>
-                </div>
-                <div class="col-md-8">
-                    <h4>Puesto</h4>
-                    <p>$puesto</p>
-                </div>           
+				<div class="col-md-4">
+                    <h4>Estudiante</h4>
+                    <p>$nombre</p>
+				</div>   
+				 <div class="col-md-4">
+                    <h4>Grado</h4>
+                    <p>$grado</p>
+				</div>                    
+				<div class="col-md-4">
+				    <h4>enlace</h4>
+                    <p><button id='perfil-btn' type='button' class='btn btn-info' onclick='cargaPerfil($idEstudiante)'>Ver Perfil</button></p>
+				</div>                       
             </div>
             <div class="row">
-                <div class="col-md-4">
-                    <h4>Horas</h4>
-                    <p>$horas</p>
-                </div>
-                <div class="col-md-4">
-                    <h4>Fecha inicio</h4>
-                    <p>$fecha_inicio</p>
-                </div>
-                <div class="col-md-4">
-                    <h4>Fecha fin</h4>
-                    <p>$fecha_fin</p>
-                </div>
+				<div class="col-md-12">
+					<h4>Empresa</h4>
+					<p>$empresa</p>
+				</div>           
+            </div>
+            <div class="row">
+			   <div class="col-md-4">
+				   <h4>Puesto</h4>
+				   <p>$puesto h </p>
+			   </div>
+			   <div class="col-md-4">
+				   <h4>Fecha inicio</h4>
+				   <p>$fecha_inicio</p>
+			   </div>
+			   <div class="col-md-4">
+				   <h4>Fecha fin</h4>
+				   <p>$fecha_fin</p>
+			   </div>
+            </div>
+			<div class="row">
+			   <div class="col-md-4">
+				   <h4>Horas</h4>
+				   <p>$horas </p>
+			   </div>
+			   <div class="col-md-4">
+				   <h4>Salario</h4>
+				   <p>$salario</p>
+			   </div>
+			   <div class="col-md-4">
+				   <h4>Estado</h4>
+				   <p>$estado</p>
+			   </div>
             </div>
             </div>
 EOF;
@@ -908,7 +916,32 @@ EOF;
             </div>
             <div id='$cssClass-modal-footer' class="dialogo-modal-footer">
 EOF;
+            if (($this->rol === 'Admin' || $this->rol === 'Empresa') && $estado ==="Activo" ) {
+                $content .= "<button id='finalizar-btn' type='button' class='btn btn-danger' onclick='finalizarContrato($id_contrato)'>Finalizar</button>";
+                $content .= "</div>";
+                $content .= "</div>";
         }
+		$content .= <<<EOF
+            <!--Script para finalizar contrato en portal administrador/empresa-->
+            <script>
+                function finalizarContrato(id) {
+                     $('#finalizar-btn').hide();
+                     $('.dialogo-modal-body').html('<h1>Procesando...</h1>');
+                    //Petición ajax para finalizar contrato
+                    $.ajax({
+                        type: 'GET',
+                        url: "ajaxRequest.php?val=FINALIZAR_CONTRATO&op="+id,
+                        success: function (data) {
+                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');
+                         },
+                        error: function (data) {
+                            $('.dialogo-modal-body').html('<h1>'+data+'</h1>');}
+                    })
+                }
+    
+            </script>
+EOF;
+		}
         else
             //Error block
             $content .= <<<EOF

@@ -116,6 +116,15 @@ function handle_adminRequest($req,$op){
 					}
 					break;
 				}
+				case 'FINALIZAR_CONTRATO': {
+					$content = ContratoDAO::finalizarContrato($op);
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Contrato finalizado";
+					}
+					break;
+				}
 
 				case 'CARGA_PERFIL': {
 					$user = UsuarioDAO::findUsuarioById($op);
@@ -263,6 +272,15 @@ function handle_empresaRequest($req,$op) {
 						$content = $content[0];
 					} else{
 						$content = "Demanda rechazada";
+					}
+					break;
+				}
+				case 'FINALIZAR_CONTRATO': {
+					$content = ContratoDAO::finalizarContrato($op);
+					if(is_array($content)){
+						$content = $content[0];
+					} else{
+						$content = "Contrato finalizado";
 					}
 					break;
 				}
