@@ -225,7 +225,7 @@ DROP TABLE IF EXISTS `grados`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `grados` (
-  `id_grado` int(6) NOT NULL,
+  `id_grado` int(6) NOT NULL AUTO_INCREMENT,
   `nombre_grado` varchar(50) NOT NULL,
   PRIMARY KEY (`id_grado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

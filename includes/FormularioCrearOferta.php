@@ -95,6 +95,19 @@ class FormularioCrearOferta extends Form
                         </div>
                     </div>
                 </div>
+                <div class="col-md-12 form-group">
+                    <label for="grados">Grados:</label>
+                    <div class="edit-grados class="col-md-12"">
+                        <div id="all-grados">
+                            <div class="form-group col-xs-2">
+                                <input type="text" class="form-control" name="grados[]" id="grados">
+                            </div>
+                        </div>  
+                        <div class='form-group col-md-2'>
+                            <button type='button' class='btn btn-success' id='add-grado' onclick='addInputGrados()'>+</button>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-3 form-group">
                     <label for="reqMinimos">Requisitos mínimos:</label>
                     <textarea class="form-control" name="reqMinimos" id="reqMinimos" rows="6"></textarea>
@@ -106,7 +119,7 @@ class FormularioCrearOferta extends Form
                 </div>
                 <div class="col-md-12">
                     <br>
-                    <button type='button' onclick='submitFormCrearOferta()' class="btn btn-success">Crear</button>
+                    <button type='submit' class="btn btn-success">Crear</button>
                 </div>
 
         <script type="text/javascript">

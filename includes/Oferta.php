@@ -220,6 +220,15 @@ class Oferta
                 }
             }
         }
+
+        $sanitizedData['grados'] = array();
+        if(isset($datos['grados'])) {
+            foreach ($datos['grados'] as $grado) {
+                if (!empty(trim($grado))) {
+                    array_push($sanitizedData['grados'], isset($grado) ? filter_var($grado, FILTER_SANITIZE_STRING) : null);
+                }
+            }
+        }
         
         return $sanitizedData;
     }

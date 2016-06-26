@@ -19,6 +19,16 @@ else if (isset($_GET['alertas'])) {
 	if ($_GET['alertas'] === 'cont')
 		echo handle_getAlertas();
 }
+else if(isset($_GET['datamail'])) {
+	$email = $_GET['datamail'];
+	echo handle_emailValidation($email);
+} else if(isset($_GET['datagrado'])) {
+	$grado = $_GET['datagrado'];
+	echo handle_autocompleteGrado($grado);
+} else if(isset($_GET['datauni'])) {
+	$uni = $_GET['datauni'];
+	echo handle_autocompleteUni($uni);
+}
 else if($app -> usuarioLogueado()){
 	$rol = $app->rolUsuario();
 	$req = $_GET['val'];
@@ -40,16 +50,6 @@ else if($app -> usuarioLogueado()){
     /*Save active section if its not a modal dialog request*/
 	if(!$modalDialogReq && !$uploadAvatar)
     	$app->saveSection($req);
-}
-else if(isset($_GET['datamail'])) {
-	$email = $_GET['datamail']; 
-	echo handle_emailValidation($email);
-} else if(isset($_GET['datagrado'])) {
-	$grado = $_GET['datagrado'];
-	echo handle_autocompleteGrado($grado);
-} else if(isset($_GET['datauni'])) {
-	$uni = $_GET['datauni']; 
-	echo handle_autocompleteUni($uni);
 } else
 	$content = Error::generaErrorPermisos();
 /*Returns the content to dashboard by ajax*/
@@ -252,12 +252,15 @@ function handle_empresaRequest($req,$op) {
 				case 'DEMANDAS_NO_CLASIFICADAS': $content = $portalEmpresa->generaDemandas(false); break;
 				case 'CONTRATOS_VIGOR': $content = $portalEmpresa -> generaContratos("Activo"); break;
 				case 'CONTRATOS_FIN': $content = $portalEmpresa -> generaContratos("Expirado"); break;
-				case 'CREAR_OFERTA': $content = $portalEmpresa->generaCrearOferta(); break;
 				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
 				case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
 
 
 				//Acciones
+				case 'CREAR_OFERTA': {
+					$content = $portalEmpresa->generaCrearOferta();
+					break;
+				}
 				case 'ELIMINAR_OFERTA': {
 					$content = OfertaDAO::eliminarOferta($op);
 					if(is_array($content)){

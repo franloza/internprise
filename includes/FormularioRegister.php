@@ -2,6 +2,8 @@
 
 namespace es\ucm\aw\internprise;
 
+use es\ucm\aw\internprise\Aplicacion as App;
+
 class FormularioRegister extends Form{
 
     const HTML5_EMAIL_REGEXP = '^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$';
@@ -205,7 +207,10 @@ EOF;
      */
     protected function procesaFormulario($datos) {
 
-        $opciones = ['cost' => 6,];
+        $app = App::getSingleton();
+        $app->logout();
+
+        $opciones = ['cost' => 6];
         $datos['password'] = password_hash($datos['password'], PASSWORD_BCRYPT, $opciones);
        
 

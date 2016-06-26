@@ -24,7 +24,7 @@ class OfertaDAO
         $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa
                             FROM ofertas o
                               INNER JOIN empresas em ON o.id_empresa = em.id_usuario
-                              INNER JOIN grados_ofertas go ON go.id_oferta = o.id_oferta
+                              LEFT JOIN grados_ofertas go ON go.id_oferta = o.id_oferta
                               INNER JOIN grados g ON g.id_grado = go.id_grado $whereGrado estado IN ('Aceptada', 'Rechazada')
                               ORDER BY fecha_creacion DESC LIMIT $numOfertas");
         $rs = $conn->query($query);
@@ -119,7 +119,7 @@ class OfertaDAO
         $conn = $app->conexionBd();
         $id_estudiante = intval($app->idUsuario());
         $query = sprintf("SELECT COUNT(*) AS Total FROM (SELECT o.*,em.razon_social as empresa FROM ofertas o
-                          INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
+                          LEFT JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                           INNER JOIN estudiantes e ON e.id_grado = go.id_grado
                           WHERE e.id_usuario = $id_estudiante AND o.id_oferta NOT IN 
@@ -199,7 +199,7 @@ class OfertaDAO
         $conn = $app->conexionBd();
         $id_usuario = intval($app->idUsuario());
         $query = sprintf("SELECT o.*,em.razon_social as empresa FROM ofertas o
-                          INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
+                          LEFT JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                           INNER JOIN estudiantes e ON e.id_grado = go.id_grado
                           WHERE e.id_usuario = $id_usuario AND o.id_oferta NOT IN 
@@ -256,7 +256,7 @@ class OfertaDAO
         $id_usuario = $app->idUsuario();
         $numOfertas = isset($numOfertas)? intval($numOfertas) : 20;
         $query = sprintf("SELECT o.*,em.razon_social as empresa FROM ofertas o
-                          INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
+                          LEFT JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                           WHERE id_usuario = $id_usuario AND estado = $estado
                           ORDER BY fecha_creacion DESC LIMIT $numOfertas");
@@ -308,7 +308,7 @@ class OfertaDAO
         $app = App::getSingleton();
         $conn = $app->conexionBd();
         $query = sprintf("SELECT DISTINCT o.*,em.razon_social as empresa FROM ofertas o
-                          INNER JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
+                          LEFT JOIN grados_ofertas go ON o.id_oferta = go.id_oferta
                           INNER JOIN empresas em ON o.id_empresa = em.id_usuario
                           WHERE o.id_oferta = '%d'",intval($idOferta));
         $rs = $conn->query($query);
@@ -335,6 +335,7 @@ class OfertaDAO
         $descripcion = $datos['descripcion'];
         $reqMinimos = $datos['reqMinimos'];
         $idiomas = $datos['idiomas'];
+        $grados = $datos['grados'];
         $estado = 'Pendiente';
         
 
@@ -375,6 +376,34 @@ class OfertaDAO
 
             $stmt = $conn->prepare('INSERT INTO aptitudes_ofertas VALUES (?,?)');
             $stmt->bind_param("ii", intval($id_oferta), $idAptitud);
+            if (!$stmt->execute()) {
+                $rs->free();
+                $result [] = $stmt->error;
+                $conn->rollback();
+                return $result;
+            }
+        }
+
+        foreach ($grados as $grado){
+            //Conseguir id del grado o crearlo si no existe
+            $query = sprintf("SELECT id_grado FROM grados WHERE nombre_grado LIKE '%s'", $conn->real_escape_string($grado));
+            $rs = $conn->query($query);
+            if ($rs && $rs->num_rows>0) {
+                //Se ha encontrado el grado
+                $fila = $rs->fetch_assoc();
+                $idGrado = intval($fila['id_grado']);
+            } else {
+                //No se ha encontrado el grado -> Se inserta
+                $stmt = $conn->prepare('INSERT INTO grados(nombre_grado) VALUES (?)');
+                $stmt->bind_param("s",$grado);
+                if (!$stmt->execute()) {
+                    $result [] = "Hubo un problema en la inserción en la BBDD";
+                    return $result;
+                }
+                $idGrado = $conn->insert_id;
+            }
+            $stmt = $conn->prepare('INSERT INTO grados_ofertas VALUES (?,?)');
+            $stmt->bind_param("ii", intval($id_oferta), intval($idGrado));
             if (!$stmt->execute()) {
                 $rs->free();
                 $result [] = $stmt->error;

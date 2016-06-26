@@ -221,6 +221,10 @@ datalist option {
 	padding-top: 27vh;
 }
 
+#login > ul > li {
+	color: white;
+}
+
 article#main, article#artabout, article#main_login {
 	padding-top: 38vh;
 }

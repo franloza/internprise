@@ -239,13 +239,7 @@ EOF;
                 "dom": 'Blfrtip',
                 buttons: [
                     'pdf',
-                    'print',
-                    {
-                        text: 'Recargar',
-                        action: function (e, dt, node, config){
-                            dt.ajax.reload();
-                        }
-                    }
+                    'print'
                 ]
             } );
             function showDialog(row, rowType) {
@@ -393,6 +387,9 @@ EOF;
          function addInputAptitud() { 
                $('#all-aptitudes').append('<div class="form-group col-xs-2"><input type="text" class="form-control" name="aptitudes[]"/></div>');  
           }                
+          function addInputGrados() { 
+               $('#all-grados').append('<div class="form-group col-xs-2"><input type="text" class="form-control" name="grados[]"/></div>');  
+          }           
         </script>
         
         

@@ -135,9 +135,9 @@ class UsuarioDAO
             $app = App::getSingleton();
             $conn = $app->conexionBd();
             $stmt = $conn->prepare('INSERT INTO empresas(id_usuario ,cif ,razon_social ,direccion ,localidad ,provincia ,cp ,
-                                    pais ,telefono, descripcion, web ) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
-            $stmt->bind_param("isssssisss", $id, $datos['cif'], $datos['razonSocial'],$datos['direccion'],
-                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['descripcion'], $datos['web']);
+                                    pais ,telefono , web, descripcion ) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
+            $stmt->bind_param("isssssissss", $id, $datos['cif'], $datos['razonSocial'],$datos['direccion'],
+                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web'], $datos['descripcion']);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
                 return $result;
@@ -179,7 +179,7 @@ class UsuarioDAO
         //Conseguir id del grado o crearlo si no existe
         $query = sprintf("SELECT id_grado FROM grados WHERE nombre_grado LIKE '%s'", $conn->real_escape_string($grado));
         $rs = $conn->query($query);
-        if ($rs) {
+        if ($rs && $rs->num_rows>0) {
             //Se ha encontrado el grado
             $fila = $rs->fetch_assoc();
             $idGrado = intval($fila['id_grado']);
