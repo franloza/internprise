@@ -147,6 +147,20 @@ function handle_adminRequest($req,$op){
 						$content = false;
 					break;
 				}
+                case 'BUSCA_PERFIL': {
+                    $listaEmpresasEstudiantes = UsuarioDAO::listEmpresasEstudiantesConcatenado($op);
+                    if(sizeof($listaEmpresasEstudiantes) == 1) {
+
+                        if($listaEmpresasEstudiantes[0][2] == 'Estudiante')
+                            $content = PortalEstudiante::generaPerfil($listaEmpresasEstudiantes[0][0]);
+                        else
+                            $content = PortalEmpresa::generaPerfil($listaEmpresasEstudiantes[0][0]);
+                        break;
+                    }
+                    else
+                        $content = false;
+                    break;
+                }
 
 
 			}
@@ -295,7 +309,10 @@ function handle_empresaRequest($req,$op) {
 					$listaEmpresasEstudiantes = UsuarioDAO::listEmpresasEstudiantesConcatenado($op);
 					if(sizeof($listaEmpresasEstudiantes) == 1) {
 
+                        if($listaEmpresasEstudiantes[0][2] == 'Estudiante')
 							$content = PortalEstudiante::generaPerfil($listaEmpresasEstudiantes[0][0]);
+                        else
+                            $content = PortalEmpresa::generaPerfil($listaEmpresasEstudiantes[0][0]);
 							break;
 					}
 					else
