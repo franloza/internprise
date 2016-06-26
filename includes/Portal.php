@@ -316,6 +316,7 @@ EOF;
         <div class="search-bar">
        
             <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" id = "buscador" name="buscador" placeholder="Buscador..."/>
+            <datalist class="i_reg" id="list666"></datalist>
                <script>
               
                 $("#buscador").keyup(function (e) {
