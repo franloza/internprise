@@ -464,4 +464,38 @@ class UsuarioDAO
         }
         return false;
     }
+
+    public static function getAvatarByUsuarioId($idUsuario){
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        if($app->rolUsuario() === 'Empresa')
+            $query = sprintf("SELECT avatar FROM empresas e WHERE e.id_usuario='%d'", intval($idUsuario));
+        else if($app->rolUsuario() === 'Estudiante')
+            $query = sprintf("SELECT avatar FROM estudiantes e WHERE e.id_usuario='%d'", intval($idUsuario));
+        else
+            return false;
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $avatar = $fila['avatar'];
+            $rs->free();
+            return $avatar;
+        }
+        return false;
+    }
+
+    public static function updateAvatarByIdUsuario($idUsuario, $fileName){
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        if($app->rolUsuario() === 'Empresa')
+            $stmt = $conn->prepare("UPDATE empresas e SET avatar=? WHERE e.id_usuario = ?");
+        else if($app->rolUsuario() === 'Estudiante')
+            $stmt = $conn->prepare("UPDATE estudiantes e SET avatar=? WHERE e.id_usuario = ?");
+        else
+            return false;
+        $stmt->bind_param("si", $fileName, intval($idUsuario));
+        if ($stmt->execute())
+            return true;
+        return false;
+    }
 }

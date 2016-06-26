@@ -17,13 +17,12 @@ class PortalEmpresa extends Portal
     public function generaMenu()
     {
         $app = App::getSingleton();
-        $empresa = UsuarioDAO::cargaEmpresa($app->idUsuario());
-        $avatar = $empresa->getAvatar();
+        $avatar = UsuarioDAO::getAvatarByUsuarioId($app->idUsuario());
         $bloqueEmpresaSideBar = <<<EOF
         <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
-                <img src="img/$avatar" alt="Avatar image" width="100%"></img>
+                <img src="img/avatares/$avatar" alt="Avatar image" width="100%"></img>
             </div>
             <ul>
                 <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
@@ -171,6 +170,7 @@ EOF;
         $telefono = $empresa->getTelefono();
         $web = $empresa->getWeb();
         $descripcion  = $empresa->getDescripcion();
+        $avatar = $empresa->getAvatar();
 
         //Bloque contacto
         $bloqueContacto ="<div class='col-md-4'>";
@@ -188,15 +188,18 @@ EOF;
         <div style="width:100%" class="container">
         <div class="row">
             <div id="imagen-empresa" class="col-sm-3">
-                <IMG SRC="img/empresa-avatar.png" class="img-rounded" alt="Avatar" width="200" height="200">
-            </div>      
+                <img src="img/avatares/$avatar" class="img-rounded" alt="Avatar" width="200" height="200">
+            </div> 
+        
+        <!-- NOMBRE EMPRESA Y LOCALIZACION -->         
             <div class="col-sm-8">  
                 <h1 ><strong>$nombre</strong></h1>
                 <h3><strong>$localidad</strong></h3>
                 <p>$provincia</p>
             </div>
         </div>
-
+        
+        <!-- DESCRIPCION -->
         <div class="row">
             <div class="col-sm-12">
                 <div class="text-left"><h1>Descripción</h1></div>
@@ -206,11 +209,12 @@ EOF;
             </div>
         </div>
 
+        <!-- NUMERO DE OFERTAS ACTIVAS -->
         <div class="row">
             <div class="col-sm-6">
-            <div class="text-center"><h1>Ofertas</h1></div>                          
+            <div class="text-center"><h1>Ofertas activas</h1></div>                          
                 <table class="table table-hover ">
-                    <tr><td><strong>Puesto</strong></td><td><strong>Plazas</strong></td><td><strong>Estado</strong></td></tr>
+                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad aceptadas</strong></td><td><strong>Plazas totales</strong></td></tr>
 EOF;
 
         $ofertas = OfertaDAO::listOfertasEmpresa($id_empresa);
@@ -227,23 +231,34 @@ EOF;
                     $contPendiente++;
                     $contPlazasP += $row[1];
                 }
-                $content .= "<tr><td>$row[0]</td><td>$row[1]</td><td>$row[2]</td></tr>";
             }
         }
+
+        $contratosVigor = ContratoDAO::countContratosActivos($id_empresa);
         $content .= <<<EOF
+            <tr><td>Aceptadas</td><td>$contAceptadas</td><td>$contPlazasA</td></tr>
                 </table>
             </div>
+            
+            <!-- NUMERO DE OFERTAS PENDIENTES -->
             <div class="col-sm-6">
-            <div class="text-center""><h1>Datos</h1></div>
+            <div class="text-center""><h1>Ofertas pendientes</h1></div>
                 <table class="table table-hover ">
-                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad Aceptadas / pendientes</strong></td><td><strong>Plazas totales</strong></td></tr>
-                    <tr><td>Aceptadas</td><td>$contAceptadas</td><td>$contPlazasA</td></tr>
+                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad pendientes</strong></td><td><strong>Plazas totales</strong></td></tr>                    
                     <tr><td>Pendientes</td><td>$contPendiente</td><td>$contPlazasP</td></tr>
                 </table>
             </div>
   
-            <div class="row"></div>          
+            <!-- NUMERO DE CONTRATOS EN VIGOR-->
+            <div class="col-sm-6">
+            <div class="text-center""><h1>Contratos en vigor</h1></div>
+                <table class="table table-hover ">
+                    <tr><td><strong>Tipo</strong></td><td><strong>Cantidad</strong></td></tr>                    
+                    <tr><td>Contratos</td><td>$contratosVigor</td></tr>
+                </table>
+            </div>        
 
+            <div class="row"></div>
             <div class="row">
                 <div class="text-left"><h1>Contacto</h1></div>      
             </div>
