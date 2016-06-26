@@ -129,7 +129,7 @@ EOF;
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('dni', this)" name="dni" maxlength="9" placeholder="DNI"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('nombre', this)" name="nombre" maxlength="50" placeholder="Nombre"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('apellidos', this)" name="apellidos" maxlength="100" placeholder="Apellidos"/>
-			<p class="star">*</p><input list="listgrado" onblur="validate('grado', this)" onkeyup="validate('gradocomplete', this)" type="text" id="grado" maxlength="100" placeholder="Grado"/>
+			<p class="star">*</p><input list="listgrado" onblur="validate('grado', this)" onkeyup="validate('gradocomplete', this)" name="grado" type="text" id="grado" maxlength="100" placeholder="Grado"/>
 			<datalist class="i_reg" id="listgrado"></datalist>
 			<p class="star">*</p><input list="listuni" class="i_reg" type="text" onblur="validate('universidad', this)" onkeyup="validate('unicomplete', this)" name="nombre_universidad" maxlength="150" placeholder="Universidad"/>
 			<datalist class="i_reg" id="listuni"></datalist>
@@ -143,7 +143,7 @@ EOF;
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('provincia', this)" name="provincia" maxlength="50" placeholder="Provincia"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('pais', this)" name="pais" maxlength="50" placeholder="Pais"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="100" name="web" placeholder="Web"/>
-			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="9" name="telefono" placeholder="Telefono"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="9" name="telefono_movil" placeholder="Telefono"/>
 			<button type="submit" onsubmit="validateform('estudiante')" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 
