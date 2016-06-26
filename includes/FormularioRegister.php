@@ -143,7 +143,7 @@ EOF;
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('provincia', this)" name="provincia" maxlength="50" placeholder="Provincia"/>
 			<p class="star">*</p><input class="i_reg" type="text" onblur="validate('pais', this)" name="pais" maxlength="50" placeholder="Pais"/>
 			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="100" name="web" placeholder="Web"/>
-			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="9" name="telefono" placeholder="Telefono"/>
+			<p class="starnone">*</p><input class="i_reg" type="text" maxlength="9" name="telefono_movil" placeholder="Telefono"/>
 			<button type="submit" onsubmit="validateform('estudiante')" class="btn btn-primary btn-block btn-large">Registrarse</button>
 EOF;
 
