@@ -32,7 +32,8 @@ class PortalEstudiante extends Portal
                     <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
                     <li><a onclick="return loadContent('OFERTAS', 'Ofertas')" href="#">OFERTAS</a></li>
                     <li><a onclick="return loadContent('SOLICITUDES', 'Ofertas')" href="#">SOLICITUDES</a></li>
-					<li><a onclick="return loadContent('CONTRATOS', 'Contratos')" href="#">CONTRATOS</a></li>
+		    <li><a onclick="return loadContent('CONTRATOS', 'Contratos')" href="#">CONTRATOS</a></li>
+		    <li><a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
 EOF;
@@ -347,7 +348,9 @@ EOF;
     	return $content;
     	
     }
-
+    public function generaBuzon(){		
+        // TODO: Implement generaBuzon() method.		
+    }
     public function generaSettings(){
 
         $formAdmin =  new \es\ucm\aw\internprise\FormularioSettings('estudiante');
