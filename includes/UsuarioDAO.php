@@ -385,14 +385,14 @@ class UsuarioDAO
     public static function listEmpresasEstudiantes($patron) {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $query = sprintf("SELECT id_usuario,CONCAT(nombre,' ',apellidos) AS nombre FROM estudiantes WHERE nombre LIKE '%s'
-                          UNION ALL SELECT id_usuario,razon_social AS nombre FROM empresas WHERE razon_social LIKE '%s'",
-            $conn->real_escape_string($patron),$conn->real_escape_string($patron));
+        $query = sprintf("SELECT id_usuario,CONCAT(nombre,' ',apellidos) AS nombre , 'Estudiante' AS rol FROM estudiantes WHERE nombre LIKE '%s' 
+              UNION ALL SELECT id_usuario,razon_social AS nombre, 'Empresa' AS rol FROM empresas WHERE razon_social LIKE '%s'",
+            $conn->real_escape_string('%' . $patron  . '%'),$conn->real_escape_string('%' . $patron  . '%'));
         $rs = $conn->query($query);
         $list = array();
         if ($rs) {
             while ($fila = $rs->fetch_assoc()) {
-                array_push($list,array($fila['id_usuario'],$fila['nombre']));
+                array_push($list,array($fila['id_usuario'],$fila['nombre'],$fila['rol']));
             }
             $rs->free();
         }
@@ -400,7 +400,20 @@ class UsuarioDAO
     }
 
     public static function listEmpresasEstudiantesConcatenado($patron) {
-       return null;
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $query = sprintf("SELECT id_usuario,CONCAT(nombre,' ',apellidos) AS nombre, 'Estudiante' AS rol FROM estudiantes WHERE CONCAT(nombre,' ',apellidos) LIKE '%s' 
+              UNION ALL SELECT id_usuario,razon_social AS nombre, 'Empresa' AS rol FROM empresas WHERE razon_social LIKE '%s'",
+            $conn->real_escape_string('%' . $patron  . '%'),$conn->real_escape_string('%' . $patron  . '%'));
+        $rs = $conn->query($query);
+        $list = array();
+        if ($rs) {
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($list,array($fila['id_usuario'],$fila['nombre'],$fila['rol']));
+            }
+            $rs->free();
+        }
+        return $list;
     }
 
     public static function listEmpresas($patron) {
@@ -449,6 +462,40 @@ class UsuarioDAO
             $rs->free();
             return $user;
         }
+        return false;
+    }
+
+    public static function getAvatarByUsuarioId($idUsuario){
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        if($app->rolUsuario() === 'Empresa')
+            $query = sprintf("SELECT avatar FROM empresas e WHERE e.id_usuario='%d'", intval($idUsuario));
+        else if($app->rolUsuario() === 'Estudiante')
+            $query = sprintf("SELECT avatar FROM estudiantes e WHERE e.id_usuario='%d'", intval($idUsuario));
+        else
+            return false;
+        $rs = $conn->query($query);
+        if ($rs && $rs->num_rows == 1) {
+            $fila = $rs->fetch_assoc();
+            $avatar = $fila['avatar'];
+            $rs->free();
+            return $avatar;
+        }
+        return false;
+    }
+
+    public static function updateAvatarByIdUsuario($idUsuario, $fileName){
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        if($app->rolUsuario() === 'Empresa')
+            $stmt = $conn->prepare("UPDATE empresas e SET avatar=? WHERE e.id_usuario = ?");
+        else if($app->rolUsuario() === 'Estudiante')
+            $stmt = $conn->prepare("UPDATE estudiantes e SET avatar=? WHERE e.id_usuario = ?");
+        else
+            return false;
+        $stmt->bind_param("si", $fileName, intval($idUsuario));
+        if ($stmt->execute())
+            return true;
         return false;
     }
 }

@@ -386,31 +386,77 @@ EOF;
         $cif = $user->getCif();
         $razonSocial = $user->getRazonSocial();
         $direccion = $user->getDireccion();
+        $cp = $user->getCp();
         $localidad = $user->getLocalidad();
         $provincia = $user->getProvincia();
         $pais = $user->getPais();
-        $web = $user->getWeb();
         $telefono = $user->getTelefono();
-        $cp = $user->getCp();
+        $web = $user->getWeb();
+        $descripcion = $user->getDescripcion();
+        $avatar = $user->getAvatar();
+
 
         $content = <<<EOF
-       <legend id= "formSettings">Cambios en el perfil: </legend>
-        <div id = "formSettingsLeft">
-      <p><label>CIF:</label> <input type="text" name="cif" value="$cif"/></p>
-      <p><label>Razon Social:</label> <input type="text" name="razonSocial" value="$razonSocial"/><br /></p>
-      <p><label>Direccion:</label> <input type="text" size="50" name="direccion" value="$direccion"/></p>
-      </div>
-      <div id = "formSettingsRight">
-      <p><label>Codigo Postal:</label> <input type="text" name="cp" value="$cp"/><br /></p>
-      <p><label>Localidad:</label> <input type="text" name="localidad" value="$localidad"/></p>
-      <p><label>Provincia:</label> <input type="text" name="provincia" value="$provincia"/><br /></p>
-      <p><label>Pais:</label> <input type="text" name="pais" value="$pais"/></p>
-      <p><label>Web:</label> <input type="text" name="web" value="$web"/><br /></p>
-      <p><label>Telefono:</label> <input type="text" name="telefono" value="$telefono"/></p>
-      </div>
-        <legend id= "formSettingsSubmit">
-        <button class="btn btn-default" type="submit" id="formSettingsBotton">Confirmar cambios</button>
-        </legend>
+        <div id="formSettings">
+                <div id="infoPersonal" class="col-xs-12">
+                    <div class="row"><h1> Información personal </h1> </div>
+                    <div class="col-xs-6">
+                        <div class="form-group required">
+                            <label for="cif">CIF:</label>
+                            <input type="text" class="form-control" name="cif" id="cif" value="$cif">
+                        </div>  
+                        <div class="form-group required">
+                            <label for="razonSocial">Razón social:</label>
+                            <input type="text" class="form-control" name="razonSocial" id="razonSocial" value="$razonSocial"/>
+                        </div> 
+                        <div class="form-group required">
+                            <label for="direccion">Dirección:</label>
+                            <input type="text" class="form-control" name="direccion" id="direccion" value="$direccion"/>
+                        </div>
+                        <div class="form-group required">
+                            <label for="cp">Código postal:</label>
+                            <input type="text" class="form-control" name="cp" id="cp" value="$cp">
+                        </div>
+                        <div class="form-group required">
+                            <label for="localidad">Localidad:</label>
+                            <input type="text" class="form-control" name="localidad" id="localidad" value="$localidad">
+                        </div>
+                        <div class="form-group required">
+                            <label for="provincia">Provincia:</label>
+                            <input type="text" class="form-control" name="provincia" id="provincia" value="$provincia">
+                        </div>
+                        <div class="form-group required">
+                            <label for="pais">Pais:</label>
+                            <input type="text" class="form-control" name="pais" id="pais" value="$pais">
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                    <div class="row"><h1> Datos de contacto </h1> </div>
+                    <div class="col-xs-6">
+                        <div class="form-group required">
+                            <label for="web">Web:</label>
+                            <input type="text" class="form-control" name="web" id="web" value="$web">
+                        </div>
+                        <div class="form-group required">
+                            <label for="telefono">Teléfono:</label>
+                            <input type="text" class="form-control" name="telefono" id="telefono" value="$telefono">
+                        </div>
+                    </div>           
+                    <div class="row"></div>
+                    <div class="row"><h1> Descripción </h1> </div>
+                        <div class="col-xs-12">
+                            <div class="form-group required">
+                                <label for="descripcion">Descripción:</label>
+                                <input type="text" class="form-control" name="descripcion" id="descripcion" value="$descripcion">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row"></div>
+                    <div class="col-xs-12">  
+                        <button type="submit" class="btn btn-default center-block" id="formSettingsBotton">Confirmar cambios</button>   
+                    </div>     
+                </div>
+        
 EOF;
         return $content;
     }
