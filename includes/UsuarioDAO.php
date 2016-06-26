@@ -135,9 +135,9 @@ class UsuarioDAO
             $app = App::getSingleton();
             $conn = $app->conexionBd();
             $stmt = $conn->prepare('INSERT INTO empresas(id_usuario ,cif ,razon_social ,direccion ,localidad ,provincia ,cp ,
-                                    pais ,telefono , web, descripcion ) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
+                                    pais ,telefono, descripcion, web ) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
             $stmt->bind_param("isssssisss", $id, $datos['cif'], $datos['razonSocial'],$datos['direccion'],
-                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web'], $datos['descripcion']);
+                $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['descripcion'], $datos['web']);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
                 return $result;
