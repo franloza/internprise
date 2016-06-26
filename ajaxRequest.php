@@ -157,7 +157,9 @@ function handle_studentRequest($req,$op) {
 		if($modalDialogReq){
 			switch (substr($req, 2, 1)){
 				case 'O': $content = $portalEstudiante -> generaDialogoOferta(substr($req, 4)); break;
-				case 'D': $content = $portalEstudiante -> generaDialogoDemanda(substr($req, 4)); break;}
+				case 'D': $content = $portalEstudiante -> generaDialogoDemanda(substr($req, 4)); break;
+				case 'C': $content = $portalEstudiante -> generaDialogoContrato(substr($req, 4)); break;
+			}
 		}
 		else{
 			switch($req){
@@ -166,6 +168,7 @@ function handle_studentRequest($req,$op) {
 				case 'PERFIL': $content = $portalEstudiante ->generaPerfil(($app->idUsuario())); break;
 				case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
 				case 'SOLICITUDES': $content = $portalEstudiante -> generaDemandas(); break;
+				case 'CONTRATOS': $content = $portalEstudiante -> generaContratos(); break;	
 				case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
 				case 'SETTINGS': $content = $portalEstudiante -> generaSettings(); break;
 				

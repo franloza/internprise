@@ -32,6 +32,7 @@ class PortalEstudiante extends Portal
                     <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
                     <li><a onclick="return loadContent('OFERTAS', 'Ofertas')" href="#">OFERTAS</a></li>
                     <li><a onclick="return loadContent('SOLICITUDES', 'Ofertas')" href="#">SOLICITUDES</a></li>
+					<li><a onclick="return loadContent('CONTRATOS', 'Contratos')" href="#">CONTRATOS</a></li>
                     <li><a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
@@ -297,6 +298,7 @@ EOF;
             "Ofertas disponibles", $titulosColumnas, $listaOfertas, $listaIds, 'oferta');
 
         return $content;
+    	
     }
 
     public function generaDemandas(){
@@ -323,7 +325,30 @@ EOF;
 
         return $content;
     }
-
+    public function generaContratos(){
+    	$app = App::getSingleton();
+    	$contratos = contratoDAO::cargaContratoActivoEstudiante($app->idUsuario());
+    	$listaContratos = array();
+    	$listaIds = array();
+    	foreach ( $contratos as $contrato) {
+    		$estudiante = $contrato->getEstudiante();
+            $nombreEstudiante = $estudiante->getNombre() . " " . $estudiante->getApellidos();
+            $empresa = $contrato->getEmpresa();
+    		$puesto = $contrato->getPuesto();
+    		$fecha_inicio = $contrato->getFechaInicio();
+    		$fecha_fin = $contrato->getFechaFin();
+            $estado = $contrato->getEstado();
+    		$fila = array($nombreEstudiante, $empresa,$puesto, $fecha_inicio, $fecha_fin,$estado);
+    		array_push($listaContratos,$fila);
+    		array_push($listaIds, $contrato->getIdContrato());
+    	}
+    	$titulosColumnas = array("Estudiante", "Empresa", "Puesto", "Inicio", "Fin","Estado");
+    	$content = self::generaTabla("tabla-contratos","estudiante-table" ,
+    			"Contratos", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
+    	return $content;
+    	
+    }
+    
     public function generaBuzon(){
         // TODO: Implement generaBuzon() method.
     }
