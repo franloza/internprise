@@ -54,9 +54,6 @@ class PortalEmpresa extends Portal
                         </ul>
                     </div>
                 </li>
-                <li>
-                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a>
-                </li>
             </ul>
         </div>
 EOF;
@@ -343,10 +340,6 @@ EOF;
     	$content = self::generaTabla("tabla-contrato","empresa-table" ,
     			"Contratos", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
     	return $content;
-    }
-
-    public function generaBuzon(){
-        // TODO: Implement generaBuzon() method.
     }
 
     public function generaCrearOferta(){

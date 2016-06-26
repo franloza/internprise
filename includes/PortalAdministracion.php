@@ -36,8 +36,6 @@ class PortalAdministracion extends Portal
                     </li>
                     <li><a onclick="return loadContent('CONTRATOS', 'Contratos')" href="#">VER CONTRATOS</a></li>
                     <li><a onclick="return loadContent('HISTORIAL', 'Historial')" href="#">HISTORIAL</a></li>
-                    <li><a onclick="return loadContent('ENCUESTAS', 'Encuestas')" href="#">ENCUESTAS</a></li>
-                    <li><a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>
                 </ul>
         </div>
 EOF;
@@ -242,15 +240,7 @@ EOF;
             "Contratos", $titulosColumnas, $listaContratos, $listaIds, 'contrato');
         return $content;
     }
-
-    public function generaEncuestas(){
-        // TODO: Implement generaEncuestas() method.
-    }
-
-    public function generaBuzon(){
-        // TODO: Implement generaBuzon() method.
-    }
-    
+  
     public function generaSettings(){
         $formAdmin =  new \es\ucm\aw\internprise\FormularioSettings('admin');
         $formAdmin->gestiona();

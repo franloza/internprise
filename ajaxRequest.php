@@ -78,8 +78,6 @@ function handle_adminRequest($req,$op){
 				case 'DEMANDAS_NO_CLASIFICADAS': $content = $portalAdmin->generaDemandas(false); break;
 				case 'CONTRATOS': $content = $portalAdmin->generaContratos(); break;
 				case 'HISTORIAL': $content = $portalAdmin->generaHistorial(); break;
-				case 'ENCUESTAS': $content = $portalAdmin->generaEncuestas(); break;
-				case 'BUZON': $content = $portalAdmin->generaBuzon(); break;
 				case 'SETTINGS': $content = $portalAdmin->generaSettings(); break;
 
 				//Acciones
@@ -187,7 +185,6 @@ function handle_studentRequest($req,$op) {
 				case 'OFERTAS': $content = $portalEstudiante -> generaOfertas(); break;
 				case 'SOLICITUDES': $content = $portalEstudiante -> generaDemandas(); break;
 				case 'CONTRATOS': $content = $portalEstudiante -> generaContratos(); break;	
-				case 'BUZON': $content = $portalEstudiante -> generaBuzon(); break;
 				case 'SETTINGS': $content = $portalEstudiante -> generaSettings(); break;
 				
 				//Acciones
@@ -253,7 +250,6 @@ function handle_empresaRequest($req,$op) {
 				case 'DEMANDAS_NO_CLASIFICADAS': $content = $portalEmpresa->generaDemandas(false); break;
 				case 'CONTRATOS_VIGOR': $content = $portalEmpresa -> generaContratos("Activo"); break;
 				case 'CONTRATOS_FIN': $content = $portalEmpresa -> generaContratos("Expirado"); break;
-				case 'BUZON': $content = $portalEmpresa -> generaBuzon(); break;
 				case 'CREAR_OFERTA': $content = $portalEmpresa->generaCrearOferta(); break;
 				case 'SETTINGS': $content = $portalEmpresa -> generaSettings(); break;
 
