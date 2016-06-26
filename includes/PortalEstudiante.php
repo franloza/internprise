@@ -62,7 +62,7 @@ EOF;
 
         /*Generar contenido widget Ofertas */
         $widgets .= "<!-- INI Widget Ofertas activos -->";
-        $ofertas = OfertaDAO::cargasOfertasEstudiante(null);
+        $ofertas = OfertaDAO::cargasOfertasEstudiante(5);
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
             $titleItem = $oferta->getEmpresa();
@@ -77,15 +77,29 @@ EOF;
         $widgets .= "<!-- FIN Widget Ofertas activos -->";
 
         /*Generar contenido widget Novedades */
-        $widgets .= "<!-- INI Widget Contratos activos -->";
-        //$contratos = ContratoDAO::cargaTodosContratosActivos();
-        $novedades = array();
-        $novedades = array();
-        foreach ( $novedades as $contrato) {
+        $widgets .= "<!-- INI Widget Novedades -->";
 
+        $novedades = array();
+        $demandas = DemandaDAO::cargaDemandasEstudiante(App::getSingleton()->idUsuario());
+        foreach ( $demandas as $demanda) {
+            $titleItem = $demanda->getOferta()->getPuesto() . " en " . $demanda->getOferta()->getEmpresa();
+            $subtitleItem = $demanda->getEstado();
+            $dias = $demanda->getDiasDesdeCreacion();
+            if ($dias == 0) {
+                $description = "Solicitado hoy";
+            } else if ($dias == 1) {
+                $description = "Solicitado ayer";
+            } else {
+                $description = "Solicitado hace " . $dias . " dias";
+            };
+            $item = array($titleItem, $subtitleItem, $description);
+            array_push($novedades, $item);
         }
-        $widgets .= parent::generarWidget("Novedades", $novedades,"check-circle","green",null);
-        $widgets .= "<!-- FIN Widget Contratos activos -->\n<!-- FIN Contenedor widgets superior -->";
+        $widgets .= parent::generarWidget("Novedades", $novedades,"  fa-caret-square-o-down","#FF800D",null);
+
+        $widgets .= "<!-- FIN Widget Novedades-->\n<!-- FIN Novedades -->";
+
+
 
         $content = $buscador . $widgets;
         $content .= "</div>";

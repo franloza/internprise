@@ -136,7 +136,7 @@ class UsuarioDAO
             $conn = $app->conexionBd();
             $stmt = $conn->prepare('INSERT INTO empresas(id_usuario ,cif ,razon_social ,direccion ,localidad ,provincia ,cp ,
                                     pais ,telefono , web, descripcion ) VALUES (?,?,?,?,?,?,?,?,?,?,?)');
-            $stmt->bind_param("isssssisss", $id, $datos['cif'], $datos['razonSocial'],$datos['direccion'],
+            $stmt->bind_param("isssssissss", $id, $datos['cif'], $datos['razonSocial'],$datos['direccion'],
                 $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web'], $datos['descripcion']);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;

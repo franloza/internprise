@@ -41,7 +41,6 @@ class contratoDAO
             return $contratos;
         }
         return false;
-
     }
 
     /*
@@ -83,6 +82,36 @@ class contratoDAO
         }
         return false;
 
+    }
+
+    /*Devuelve el numero de contratos que es necesario expirar*/
+    public static function cargaContratosAExpirar($numContratos, $grado)
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $numContratos = isset($numContratos)? intval($numContratos) : 20;
+        if (isset($grado)) {
+            $whereGrado = sprintf("WHERE nombre_grado LIKE %s AND",$conn->real_escape_string($grado));
+        }
+        else {$whereGrado="WHERE";}
+
+        $query = sprintf("SELECT id_contrato, e.id_usuario, em.razon_social as empresa,puesto,fecha_incio ,fecha_fin,horas,sueldo as salario,c.estado, nombre_grado
+                          FROM contratos c
+                          INNER JOIN ofertas o ON c.id_oferta = o.id_oferta
+                          INNER JOIN estudiantes e ON e.id_usuario = c.id_estudiante
+                          INNER JOIN empresas em ON em.id_usuario = o.id_empresa
+                          INNER JOIN grados g ON g.id_grado = e.id_Grado
+                          $whereGrado c.estado = 'Activo' AND DATE(fecha_fin) <= CURDATE() LIMIT $numContratos");
+        $rs = $conn->query($query);
+        if ($rs) {
+            $contratos = array();
+            while ($fila = $rs->fetch_assoc()) {
+                array_push($contratos,self::constructContrato($fila));
+            }
+            $rs->free();
+            return $contratos;
+        }
+        return false;
     }
 
     /*FUNCIONES PARA ESTUDIANTE*/

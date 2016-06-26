@@ -90,6 +90,29 @@ class DemandaDAO
         return false;
     }
 
+    public static function countDemandasNoClasificadasEmpresa()
+    {
+        $app = App::getSingleton();
+        $conn = $app->conexionBd();
+        $id = $app->idUsuario();
+        $query = sprintf("SELECT COUNT(*) AS Total
+                          FROM (SELECT d.* FROM demandas d 
+                            INNER JOIN ofertas o ON d.id_oferta = o.id_oferta 
+                            WHERE d.estado LIKE('Pendiente de Empresa') AND id_empresa = '%d'
+                            ORDER BY d.fecha_solicitud 
+                            DESC LIMIT 20) 
+                          dt",intval($id));
+        $rs = $conn->query($query);
+        if ($rs) {
+            $numDemandas = 0;
+            while ($fila = $rs->fetch_assoc()) {
+                $numDemandas = $fila['Total'];
+            }
+            return $numDemandas;
+        }
+        return 0;
+    }
+
     /*FUNCIONES PARA ADMINISTRADOR*/
 
     /*
@@ -213,7 +236,7 @@ class DemandaDAO
         return 0;
     }
 
-    /*Cuenta el numero de demandas creadas en el día*/
+    /*Cuenta el numero de demandas sin clasificar por el administrador*/
     public static function countDemandasNoClasificadas()
     {
         $app = App::getSingleton();
@@ -309,4 +332,5 @@ class DemandaDAO
         $demanda->setDiasDesdeCreacion($fila['fecha_solicitud']);
         return $demanda;
     }
+
 }

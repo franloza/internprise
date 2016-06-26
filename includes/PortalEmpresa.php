@@ -54,9 +54,7 @@ class PortalEmpresa extends Portal
                         </ul>
                     </div>
                 </li>
-                <li>		                   
-                    <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a>
-                </li>
+                <!--<li> <a onclick="return loadContent('BUZON', 'Buzon')" href="#">BUZÓN</a></li>-->
             </ul>
         </div>
 EOF;
@@ -90,7 +88,7 @@ EOF;
 
         /*Generar contenido widget Ofertas */
         $widgets .= "<!-- INI Widget Ofertas activos -->";
-        $ofertas = OfertaDAO::cargaOfertasEmpresa(null,null);
+        $ofertas = OfertaDAO::cargaOfertasEmpresa(null);
         $listaOfertas = array();
         foreach ( $ofertas as $oferta) {
             $titleItem = $oferta->getEmpresa();
@@ -104,43 +102,28 @@ EOF;
         $widgets .= parent::generarWidget("Nuevas ofertas", $listaOfertas,"envelope-o","blue",$numNewOfertas);
         $widgets .= "<!-- FIN Widget Ofertas activos -->";
 
-        /*Generar contenido widget Contratos */
-        $widgets .= "<!-- INI Widget Contratos activos -->";
-        //TODO:Implementar Contrato model & ContratoDAO
-        //$contratos = ContratoDAO::cargaTodosContratosActivos();
-        $contratos = array();
-        $listaContratos = array();
-        foreach ( $contratos as $contrato) {
-
-        }
-        $widgets .= parent::generarWidget("Contratos", $listaContratos,"check-circle","green",null);
-        $widgets .= "<!-- FIN Widget Contratos activos -->\n<!-- FIN Contenedor widgets superior -->";
-
-        $widgets .= "<!-- INI Contenedor widgets inferior -->\n<!-- INI Contenedor widgets inferior -->";
-
         /*Generar contenido widget Demandas */
         $widgets .= "<!-- INI Widget Nuevas demandas -->";
-        //TODO:Implementar Demanda model & DemandaDAO
-        //$demandas = DemandaDAO::cargaTodasDemandas();
-        $demandas = array();
+        $demandas = DemandaDAO::cargaDemandasNoClasificadasEmpresa(5);
         $listaDemandas = array();
         foreach ( $demandas as $demanda) {
-
+            $titleItem = $demanda->getEstudiante()->getNombre() . " " . $demanda->getEstudiante()->getApellidos();
+            $subtitleItem = $demanda->getOferta()->getPuesto();
+            $dias = $demanda->getDiasDesdeCreacion();
+            if ($dias == 0) {
+                $description = "Hoy";
+            } else if ($dias == 1) {
+                $description = "Ayer";
+            } else {
+                $description = "Hace " . $dias . " dias";
+            };
+            $item = array($titleItem, $subtitleItem, $description);
+            array_push($listaDemandas, $item);
         }
-        $widgets .= parent::generarWidget("Demandas", $listaContratos," fa-caret-square-o-down","#FF800D",null);
-        $widgets .= "<!-- FIN Widget Nuevas demandas -->";
+        $numNewDemandas = DemandaDAO::countDemandasNoClasificadasEmpresa();
+        $widgets .= parent::generarWidget("Nuevas solicitudes sin clasificar", $listaDemandas,"  fa-caret-square-o-down","#FF800D",$numNewDemandas);
 
-        /*Generar contenido widget Dudas y sugerencias */
-        $widgets .= "<!-- INI Widget Dudas y sugerencias -->";
-        //TODO:Implementar Sugerencia model & SugerenciaDAO
-        //$sugerencias = SugerenciaDAO::cargaTodasSugerencias();
-        $sugerencias = array();
-        $listaSugerencias = array();
-        foreach ( $sugerencias as $sugerencia) {
-        }
-        $widgets .= parent::generarWidget("Dudas y sugerencias", $listaContratos," fa-commenting-o","#B9264F",null);
-        $widgets .= "<!-- FIN Widget Nuevas demandas -->";
-
+        $widgets .= "\"<!-- FIN Widget Nuevas demandas -->\n<!-- FIN Contenedor widgets superior -->";
 
         $content = $buscador . $widgets;
         $content .= "</div>";
