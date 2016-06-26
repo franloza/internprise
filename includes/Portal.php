@@ -315,10 +315,16 @@ EOF;
         </nav>
         <div class="search-bar">
        
-           <form method="post" action="#" accept-charset="utf-8">
-               <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" name="buscador" placeholder="Buscador..."/>
-			   <datalist class="i_reg" id="list666"></datalist>
-           </form>
+            <input list="list666" type="text" onkeyup="validate('buscador', this)" maxlength="100" id = "buscador" name="buscador" placeholder="Buscador..."/>
+               <script>
+              
+                $("#buscador").keyup(function (e) {
+                    if (e.keyCode == 13) {
+                            buscaPerfil($(this).val());
+                    }
+                });
+
+               </script>
            
        </div>
     </div>
@@ -361,6 +367,18 @@ EOF;
         <script>
         function cargaPerfil(id) { 
              $.get("ajaxRequest.php?val=CARGA_PERFIL&op=" + id , function(data, status){
+                if (data) {
+                    $('#dashboard-content').html(data);
+                    $('#current-page').text(currentPage);
+                }
+             });     
+        }
+        </script>
+        
+        <!-- script para buscar perfil -->
+        <script>
+        function buscaPerfil(nombre) { 
+             $.get("ajaxRequest.php?val=BUSCA_PERFIL&op=" + nombre , function(data, status){
                 if (data) {
                     $('#dashboard-content').html(data);
                     $('#current-page').text(currentPage);
