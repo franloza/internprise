@@ -210,9 +210,11 @@ class Estudiante extends Usuario
         $sanitizedData['twitter'] = isset($datos['twitter']) ? filter_var($datos['twitter'], FILTER_SANITIZE_STRING) : null ;
 
         $sanitizedData['aptitudes'] = array();
-        foreach ($datos['aptitudes'] as $aptitud) {
-            if(!empty(trim($aptitud))) {
-                array_push($sanitizedData['aptitudes'], isset($aptitud) ? filter_var($aptitud, FILTER_SANITIZE_STRING) : null);
+        if(isset($datos['aptitudes'])){
+            foreach ($datos['aptitudes'] as $aptitud) {
+                if(!empty(trim($aptitud))) {
+                    array_push($sanitizedData['aptitudes'], isset($aptitud) ? filter_var($aptitud, FILTER_SANITIZE_STRING) : null);
+                }
             }
         }
 

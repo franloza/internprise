@@ -447,7 +447,7 @@ EOF;
                         <div class="col-xs-12">
                             <div class="form-group required">
                                 <label for="descripcion">Descripción:</label>
-                                <input type="text" class="form-control" name="descripcion" id="descripcion" value="$descripcion">
+                                <textarea class="form-control" name="descripcion" id="descripcion" rows="6" cols="50">$descripcion</textarea>
                             </div>
                         </div>
                     </div>

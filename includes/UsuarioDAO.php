@@ -290,8 +290,8 @@ class UsuarioDAO
         if (!is_array($id)) {
             $conn = $app->conexionBd();
             $stmt = $conn->prepare('UPDATE empresas SET cif = ?,razon_social= ? ,direccion = ?,
-                                    localidad = ?,provincia = ?,cp = ?,pais = ?,telefono = ?, web= ?, descripcion= ?  WHERE id_usuario = ?');
-            $stmt->bind_param("sssssisssi",  $datos['cif'], $datos['razonSocial'],$datos['direccion'],
+                                    localidad = ?,provincia = ?,cp = ?,pais = ?,telefono = ?, web= ?, descripcion= ? WHERE id_usuario = ?');
+            $stmt->bind_param("sssssissssi",  $datos['cif'], $datos['razonSocial'],$datos['direccion'],
                 $datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'], $datos['telefono'], $datos['web'], $datos['descripcion'],$id);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
@@ -415,6 +415,7 @@ class UsuarioDAO
         }
         return $list;
     }
+
 
     public static function listEmpresas($patron) {
         $app = App::getSingleton();

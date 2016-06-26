@@ -390,7 +390,6 @@ class OfertaDAO
     public static function listOfertasEmpresa($id_empresa) {
         $app = App::getSingleton();
         $conn = $app->conexionBd();
-        $aptitudes = array();
         $query = sprintf("SELECT puesto, plazas, estado FROM ofertas WHERE id_empresa='%d'", intval($id_empresa));
         $rs = $conn->query($query);
         $list = array();

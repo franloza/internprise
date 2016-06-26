@@ -22,7 +22,7 @@ class PortalEmpresa extends Portal
         <!-- Fragmento para definir el menú de empresa-->
         <div id="empresa-sidebar" class="sidebar">
             <div id="empresa-menu-avatar" class="menu-avatar">
-                <img src="img/avatares/$avatar" alt="Avatar image" width="100%"></img>
+                <img id="avatar" src="img/avatares/$avatar" alt="Avatar image" width="100%"></img>
             </div>
             <ul>
                 <li><a onclick="return loadContent('PERFIL', 'Perfil')" href="#">PERFIL</a></li>
@@ -156,17 +156,11 @@ EOF;
     }
 
     public function generaPerfil($id_empresa) {
-        $app = Aplicacion::getSingleton();
-
         $empresa = UsuarioDAO::cargaEmpresa($id_empresa);
-        $ofertas = OfertaDAO::listOfertasEmpresa($id_empresa);
-
         $nombre = $empresa->getRazonSocial();
         $direccion = $empresa->getDireccion();
         $localidad = $empresa->getLocalidad();
         $provincia = $empresa->getProvincia();
-        $cp = $empresa->getCp();
-        $pais = $empresa->getPais();
         $telefono = $empresa->getTelefono();
         $web = $empresa->getWeb();
         $descripcion  = $empresa->getDescripcion();
@@ -183,7 +177,7 @@ EOF;
             $bloqueContacto .= "<h3><i class='fa fa-mobile'></i> $telefono</h3>";
         }
         $bloqueContacto .="</div>";
-        
+
         $content = <<<EOF
         <div style="width:100%" class="container">
         <div class="row">
@@ -212,49 +206,30 @@ EOF;
         <!-- NUMERO DE OFERTAS ACTIVAS -->
         <div class="row">
             <div class="col-sm-6">
-            <div class="text-center"><h1>Ofertas activas</h1></div>                          
+            <div class="text-center"><h1>Ofertas disponibles</h1></div>                          
                 <table class="table table-hover ">
-                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad aceptadas</strong></td><td><strong>Plazas totales</strong></td></tr>
+                    <tr></td><td><strong>Oferta</strong></td><td><strong>Plazas totales</strong></td></tr>
 EOF;
 
         $ofertas = OfertaDAO::listOfertasEmpresa($id_empresa);
-        $contAceptadas = 0;
-        $contPendiente = 0;
-        $contPlazasA = 0;
-        $contPlazasP = 0;
         foreach ($ofertas as $row){
             if(!empty(trim($row[0]))){
                 if (strcmp($row[2], "Aceptada") == 0) {
-                    $contAceptadas++;
-                    $contPlazasA += $row[1];
-                } else if (strcmp($row[2], "Pendiente") == 0) {
-                    $contPendiente++;
-                    $contPlazasP += $row[1];
+                    $content .="<tr><td>$row[0]</td><td>$row[1]</td></tr>";
                 }
             }
         }
 
         $contratosVigor = ContratoDAO::countContratosActivos($id_empresa);
         $content .= <<<EOF
-            <tr><td>Aceptadas</td><td>$contAceptadas</td><td>$contPlazasA</td></tr>
                 </table>
             </div>
             
-            <!-- NUMERO DE OFERTAS PENDIENTES -->
-            <div class="col-sm-6">
-            <div class="text-center""><h1>Ofertas pendientes</h1></div>
-                <table class="table table-hover ">
-                    <tr><td><strong>Estado</strong></td><td><strong>Cantidad pendientes</strong></td><td><strong>Plazas totales</strong></td></tr>                    
-                    <tr><td>Pendientes</td><td>$contPendiente</td><td>$contPlazasP</td></tr>
-                </table>
-            </div>
-  
             <!-- NUMERO DE CONTRATOS EN VIGOR-->
             <div class="col-sm-6">
-            <div class="text-center""><h1>Contratos en vigor</h1></div>
-                <table class="table table-hover ">
-                    <tr><td><strong>Tipo</strong></td><td><strong>Cantidad</strong></td></tr>                    
-                    <tr><td>Contratos</td><td>$contratosVigor</td></tr>
+            <div class="text-center""><h1>Estudiantes contratados</h1></div>
+                <table class="table table-hover ">                
+                    <tr><td><strong>$contratosVigor</strong></td></tr>
                 </table>
             </div>        
 
@@ -353,7 +328,46 @@ EOF;
     }
 
     public function generaSettings(){
-
+        //Avatar form
+        $content = <<<EOF
+        <div id="formSettings">
+            <div id="avatar" class="col-xs-12">
+                <div class="row"><h1> Avatar </h1> </div>           
+                    <div id="avatar-div" class="col-md-12">
+                        <form id="upload-avatar" action="" method="post" enctype="multipart/form-data">
+                            <div id="avatar-div" class="col-md-6">
+                                <input type='file' name='avatar-upload' style="width:200px display:inline">
+                            </div>
+                            <div id="avatar-div" class="col-md-6">
+                                <button type="submit" class="btn btn-default">Cambiar avatar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+             </div>
+         </div>
+            <script>
+                    $("#upload-avatar").on('submit',(function(e) {
+                    //e.preventDefault();
+                    //$("#message").empty();
+                    //$('#loading').show();
+                    $.ajax({
+                        url: "ajaxRequest.php?val=UPLOAD_AVATAR", // Url to which the request is send
+                        type: "POST",             // Type of request to be send, called as method
+                        data: new FormData(this), // Data sent to server, a set of key/value pairs (i.e. form fields and values)
+                        contentType: false,       // The content type used when sending data to the server.
+                        cache: false,             // To unable request pages to be cached
+                        processData:false,        // To send DOMDocument or non processed data file it is set to false
+                        success: function(data)   // A function to be called if request succeeds
+                    {
+                    $("#avatar-div").html(data);
+                    window.location.replace("dashboard.php");
+                    }
+                    });
+                    }));
+            </script>
+EOF;
+        echo $content;
         $formAdmin =  new \es\ucm\aw\internprise\FormularioSettings('empresa');
         $formAdmin->gestiona();
     }

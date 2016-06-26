@@ -213,9 +213,11 @@ class Oferta
         $sanitizedData['idiomas'] = isset($datos['idiomas']) ? filter_var($datos['idiomas'], FILTER_SANITIZE_STRING) : null ;
 
         $sanitizedData['aptitudes'] = array();
-        foreach ($datos['aptitudes'] as $aptitud) {
-            if(!empty(trim($aptitud))) {
-                array_push($sanitizedData['aptitudes'], isset($aptitud) ? filter_var($aptitud, FILTER_SANITIZE_STRING) : null);
+        if(isset($datos['aptitudes'])) {
+            foreach ($datos['aptitudes'] as $aptitud) {
+                if (!empty(trim($aptitud))) {
+                    array_push($sanitizedData['aptitudes'], isset($aptitud) ? filter_var($aptitud, FILTER_SANITIZE_STRING) : null);
+                }
             }
         }
         

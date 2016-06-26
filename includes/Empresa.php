@@ -50,7 +50,7 @@ class Empresa extends Usuario
     public static function update($datos)
     {
         $datos = self::sanitizeData($datos);
-        $result = self::validateData($datos);
+        $result = self::validateDataUpdate($datos);
         if(!is_array($result)) {
             //Los datos son correctos y han sido sanitizados
             $result = UsuarioDAO::updateEmpresa($datos);
@@ -68,6 +68,19 @@ class Empresa extends Usuario
             return $result;
 
         }
+
+        /*Comprobar campos obligatorios*/
+        if((!isset($datos['cif']))|| (!isset($datos['razonSocial']))  ||  (!isset($datos['direccion'])) ||  (!isset($datos['cp'])) ||  (!isset($datos['localidad']))
+            ||  (!isset($datos['provincia'])) ||  (!isset($datos['pais'])) ) {
+            $result = array();
+            $result[] = 'No se ha introducido un campo obligatorio';
+            return $result;
+        }
+
+        return true;
+    }
+
+    private static function validateDataUpdate ($datos) {
 
         /*Comprobar campos obligatorios*/
         if((!isset($datos['cif']))|| (!isset($datos['razonSocial']))  ||  (!isset($datos['direccion'])) ||  (!isset($datos['cp'])) ||  (!isset($datos['localidad']))
