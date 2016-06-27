@@ -83,8 +83,8 @@ CREATE TABLE `aptitudes_ofertas` (
   `id_aptitud` int(6) NOT NULL,
   KEY `aptitudes_ofertas_ofertas_id_oferta_fk` (`id_oferta`),
   KEY `aptitudes_ofertas_aptitudes_id_aptitud_fk` (`id_aptitud`),
-  CONSTRAINT `aptitudes_ofertas_aptitudes_id_aptitud_fk` FOREIGN KEY (`id_aptitud`) REFERENCES `aptitudes` (`id_aptitud`),
-  CONSTRAINT `aptitudes_ofertas_ofertas_id_oferta_fk` FOREIGN KEY (`id_oferta`) REFERENCES `ofertas` (`id_oferta`)
+  CONSTRAINT `aptitudes_ofertas_aptitudes_id_aptitud_fk` FOREIGN KEY (`id_aptitud`) REFERENCES `aptitudes` (`id_aptitud`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `aptitudes_ofertas_ofertas_id_oferta_fk` FOREIGN KEY (`id_oferta`) REFERENCES `ofertas` (`id_oferta`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
