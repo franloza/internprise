@@ -248,9 +248,9 @@ class UsuarioDAO
                                     idiomas_idioma_2=?,idiomas_nivel_2=?,idiomas_idioma_3=?,idiomas_nivel_3=?,
                                     cursos_titulo_1=?,cursos_horas_1=?,cursos_titulo_2=?,cursos_horas_2=?,
                                     cursos_titulo_3=?,cursos_horas_3=?,skype=?,google_plus=?,linkedin=?,
-                                    twitter=?,avatar=?, web = ? WHERE id_usuario = ?');
+                                    twitter=?, web = ? WHERE id_usuario = ?');
 
-        $stmt->bind_param("ssisssssssssssssssisisisssssssssssssisisissssssi",$datos['dni'],$datos['nombre_universidad'],$idGrado,
+        $stmt->bind_param("ssisssssssssssssssisisisssssssssssssisisisssssi",$datos['dni'],$datos['nombre_universidad'],$idGrado,
             $datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['sexo'], $datos['nacionalidad'],
             $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'], $datos['cp'],$datos['pais'],
             $datos['telefono_fijo'],$datos['telefono_movil'],$datos['descripción'],$datos['localización'],
@@ -261,7 +261,7 @@ class UsuarioDAO
             $datos['idiomas_idioma_2'],$datos['idiomas_nivel_2'],$datos['idiomas_idioma_3'],$datos['idiomas_nivel_3'],
             $datos['cursos_titulo_1'],$datos['cursos_horas_1'],$datos['cursos_titulo_2'],$datos['cursos_horas_2'],
             $datos['cursos_titulo_3'],$datos['cursos_horas_3'],$datos['skype'],$datos['google_plus'],$datos['linkedin'],
-            $datos['twitter'],$datos['avatar'],$datos['web'],intval($id));
+            $datos['twitter'],$datos['web'],intval($id));
         if (!$stmt->execute()) {
             $rs->free();
             $result [] = $stmt->error;
