@@ -86,7 +86,11 @@ function validate(field, item) {
 		case 'gradocomplete':
 			validateGradoAutocomplete(item);
 			break;
-		
+
+		case 'gradosFill':
+			getAllGrados();
+			break;
+
 		case 'universidad':
 			fieldsAdmin["universidad"] = fieldsEstudiante["universidad"] = validateUniversidad(item);
 			break;
@@ -278,6 +282,21 @@ function validateGradoAutocomplete(item) {
 		for (var i = 0; i < data.length; i++)
 			options += '<option value="' + data[i] + '" />';
 		document.getElementById('listgrado').innerHTML = options;
+	});
+}
+
+function getAllGrados(){
+	$.ajax({
+		url : 'ajaxRequest.php',
+		type: "GET",
+		dataType: "json",
+		data: {datagrado: 'G'}
+	}) .done (function(data) {
+		var options = '';
+		for (var i = 0; i < data.length; i++)
+			options += '<option> ' + data[i] + ' </option>';
+		//document.getElementById('listgrados')[0].innerHTML = options;
+		$("#list-grados:last-child").html(options);
 	});
 }
 

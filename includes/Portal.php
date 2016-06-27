@@ -388,7 +388,8 @@ EOF;
                $('#all-aptitudes').append('<div class="form-group col-xs-2"><input type="text" class="form-control" name="aptitudes[]"/></div>');  
           }                
           function addInputGrados() { 
-               $('#all-grados').append('<div class="form-group col-xs-2"><input type="text" class="form-control" name="grados[]"/></div>');  
+               $('#all-grados').append("<div class='form-group col-xs-3'><select class='form-control' name='grados[]' id='list-grados'></select></div>");
+               validate('gradosFill', this);
           }           
         </script>
         

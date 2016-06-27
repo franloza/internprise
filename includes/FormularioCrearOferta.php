@@ -99,8 +99,8 @@ class FormularioCrearOferta extends Form
                     <label for="grados">Grados:</label>
                     <div class="edit-grados class="col-md-12"">
                         <div id="all-grados">
-                            <div class="form-group col-xs-2">
-                                <input type="text" class="form-control" name="grados[]" id="grados">
+                            <div class="form-group col-xs-3">
+                                <select class="form-control" name="grados[]" id='list-grados'></select>
                             </div>
                         </div>  
                         <div class='form-group col-md-2'>
@@ -108,6 +108,7 @@ class FormularioCrearOferta extends Form
                         </div>
                     </div>
                 </div>
+                <script>validate('gradosFill', this)</script>
                 <div class="col-md-3 form-group">
                     <label for="reqMinimos">Requisitos mínimos:</label>
                     <textarea class="form-control" name="reqMinimos" id="reqMinimos" rows="6"></textarea>
