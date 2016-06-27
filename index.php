@@ -4,9 +4,11 @@
 	<meta charset="utf-8">
 	<link rel="stylesheet" type="text/css" href="css/estilo_index.css" />
 	<script src="js/jquery-2.2.3.js"></script>
+	<script src="js/bckgEffect.js"></script>
 	<title>Inicio</title>
 </head>
 <body>
+<canvas></canvas>
 	<main>
 		<section id="left"></section>
 		<article id="main">
