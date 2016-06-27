@@ -138,8 +138,7 @@ function handle_adminRequest($req,$op){
 							break;
 						}
 						else if($rol == 'Empresa') {
-							//TODO:
-							//$content = PortalEmpresa::generaPerfil($op);
+							$content = PortalEmpresa::generaPerfil($op);
 						}
 					}
 					else
@@ -215,7 +214,6 @@ function handle_studentRequest($req,$op) {
 				case 'BUSCA_PERFIL': {
 					$listaEmpresas = UsuarioDAO::listEmpresas($op);
 					if(sizeof($listaEmpresas) == 1) {
-
 						$content = PortalEmpresa::generaPerfil($listaEmpresas[0][0]);
 						break;
 					}
@@ -274,9 +272,8 @@ function handle_empresaRequest($req,$op) {
 					$user = UsuarioDAO::findUsuarioById($op);
 					if($user) {
 						$rol = $user->getRol();
-						if($rol == 'Empresa') {
-							//TODO:
-							//$content = PortalEmpresa::generaPerfil($op);
+						if($rol == 'Estudiante') {
+							$content = PortalEstudiante::generaPerfil($op);
 						}
 					}
 					else
