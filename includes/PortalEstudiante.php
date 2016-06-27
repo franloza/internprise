@@ -334,7 +334,7 @@ EOF;
     }
     public function generaContratos(){
     	$app = App::getSingleton();
-    	$contratos = contratoDAO::cargaContratoActivoEstudiante($app->idUsuario());
+    	$contratos = ContratoDAO::cargaContratoActivoEstudiante($app->idUsuario());
     	$listaContratos = array();
     	$listaIds = array();
     	foreach ( $contratos as $contrato) {

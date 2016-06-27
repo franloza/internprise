@@ -121,9 +121,9 @@ EOF;
             array_push($listaDemandas, $item);
         }
         $numNewDemandas = DemandaDAO::countDemandasNoClasificadasEmpresa();
-        $widgets .= parent::generarWidget("Nuevas solicitudes sin clasificar", $listaDemandas,"  fa-caret-square-o-down","#FF800D",$numNewDemandas);
+        $widgets .= parent::generarWidget("Nuevas solicitudes sin clasificar", $listaDemandas,"  fa-caret-square-o-down","#FF800D", $numNewDemandas);
 
-        $widgets .= "\"<!-- FIN Widget Nuevas demandas -->\n<!-- FIN Contenedor widgets superior -->";
+        $widgets .= "<!-- FIN Widget Nuevas demandas -->\n<!-- FIN Contenedor widgets superior -->";
 
         $content = $buscador . $widgets;
         $content .= "</div>";
