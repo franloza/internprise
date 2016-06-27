@@ -80,6 +80,9 @@ class UsuarioDAO
             $app = App::getSingleton();
             $conn = $app->conexionBd();
             $grado = $datos['grado'];
+            $sex = "Mujer";
+            if ($datos['sexo'] === 'on')
+                $sex = "Hombre";
 
             //Conseguir id del grado o crearlo si no existe
             $query = sprintf("SELECT id_grado FROM grados WHERE nombre_grado LIKE '%s'", $conn->real_escape_string($grado));
@@ -103,7 +106,7 @@ class UsuarioDAO
                                         nombre,apellidos,direccion,sexo, nacionalidad,fecha_nacimiento,localidad,provincia,
                                         pais,telefono_fijo,telefono_movil) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)');
             $stmt->bind_param("ississsssssssss",$id,$datos['dni'],$datos['nombre_universidad'],$idGrado,
-                $datos['nombre'],$datos['apellidos'],$datos['direccion'],$datos['sexo'], $datos['nacionalidad'],
+                $datos['nombre'],$datos['apellidos'],$datos['direccion'],$sex, $datos['nacionalidad'],
                 $datos['fecha_nacimiento'],$datos['localidad'],$datos['provincia'],$datos['pais'],$datos['telefono_fijo'],
                 $datos['telefono_movil']);
             if (!$stmt->execute()) {
@@ -148,13 +151,16 @@ class UsuarioDAO
 
     public static function registerAdmin($datos) {
         $id = self::registerUsuario ($datos['email'],$datos['password'],$datos['rol']);
+        $sex = "Mujer";
+        if ($datos['sexo'] === 'on')
+            $sex = "Hombre";
         if (!is_array($id)) {
             $app = App::getSingleton();
             $conn = $app->conexionBd();
             $stmt = $conn->prepare('INSERT INTO administradores(id_usuario,nombre,apellidos,nombre_universidad,sexo,dirección,cp,localidad,
                 provincia,pais,web,telefono) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)');
             $stmt->bind_param("isssssssssss", $id, $datos['nombre'], $datos['apellidos'],$datos['nombre_universidad'],
-                $datos['sexo'],$datos['direccion'],$datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'],
+                $sex,$datos['direccion'],$datos['localidad'], $datos['provincia'], $datos['cp'], $datos['pais'],
                 $datos['telefono'], $datos['web']);
             if (!$stmt->execute()) {
                 $result [] = $stmt->error;
