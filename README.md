@@ -1,40 +1,79 @@
-#Memoria Práctica 3 Internprise
-![alt text](https://github.com/franloza/AW/blob/master/resources/favicon-admin.png?raw=true "Logo Internprise")
+Internprise
+===========
 
-##Scripts de vista
+![Logo Internprise](https://cloud.githubusercontent.com/assets/9200682/16498360/ccafd2b6-3efb-11e6-9d24-51f54de74062.gif)
 
-- ```index.php```: Muestra la pantalla de login si el usuario no ha iniciado sesión, si no redirige a ```dashboard.php```.
-- ```dashboard.php```: Se encarga de mostrar la pantalla principal de cada usuario, dependiendo del rol que tenga el usuario logeado se mostrará un portal u otro.
+What is Internprise?
+--------------------
 
-- ```login.php```: Muestra el formulario de login para acceder al portal.
-- ```Portal.php```: Clase abstracta que se encarga de generar los distintos elementos HTML de la aplicación.
-- ```PortalAdminstracion.php```: Hereda de Portal, genera los contenidos especificos para el rol administrador.
-- ```PortalEstudiante.php```: Hereda de Portal, genera los contenidos especificos para el rol estudiante.
-- ```PortalEmpresa.php```: Hereda de Portal, genera los contenidos especificos para el rol empresa.
-- Diagrama de Flujo:
+Internprise is a web application that supports the task of finding internship
+for university students as well as their hiring by enterprises. This process is
+managed by an administrator that belongs to the university and that behaves as
+an intermediate among these two entities, pre-accepting offers and applications.
 
-![alt text](https://github.com/franloza/AW/blob/master/resources/DiagramaFlujo.png?raw=true "Diagrama de flujo")
+![Internprise Workflow](https://cloud.githubusercontent.com/assets/9200682/16502027/a3a0b8f2-3f0c-11e6-99b9-f5004255f302.png)
 
-##Scripts adicionales
- como configuración, clases, lógica de la aplicación, base de datos...<br>
- Dentro de ```includes/```:
- 
- - ```config.php```: Establece los parámetros de configuración de la aplicación, como la conexión con la base de datos (host, usuario, contraseña, etc) y la resolución de rutas. Se encarga de inicializar el objeto de la clase Aplicación con los valores introducidos.
- - ```Aplicacion.php```: Clase que representa la aplicación en si, siempre se usa una única instancia de ella (patrón Singleton), provee de funciones para la gestión de sesiones, de usuarios y de la base de datos. 
- - ```Usuario.php```: Clase que representa a un usuario con cualquier rol, sus atributos son los datos básicos para localizar al usuario en la BD (id, email, contraseña y rol), también contiene funciones para realizar el login, buscar a un usuario y validarlo.
- - ```Administrador.php```: Hereda de Usuario, contiene más datos para representar el usuario con rol de administrador.
- - ```Empresa.php```: Hereda de Usuario, contiene más datos para representar el usuario con rol de empresa.
- - ```Estudiante.php```: Hereda de Usuario, contiene más datos para representar el usuario con rol de estudiante.
- - ```Form.php```: Clase de gestión de formularios. 
- - ```FormLogin.php```: Hereda de Form y se encarga de mostrar el formulario de login y procesar su contenido.
- - ```/comun/Error.php```: Clase encargada de generar HTML para comunicar al usuario diversos fallos.
- 
-##Estructura de la base de datos
- Tablas, campos y relaciones.
- Explicar cada tabla y su propósito...
- Diagrama de entidad relación.
-![alt text](https://raw.githubusercontent.com/franloza/AW/master/resources/bd_diagram.png?raw=true "Diagrama entidad relación")
+In addition, is also a social network in which each student has a personal
+profile with his skills that make easier the task of finding the job that fits
+him best. Get Internprise for your university and start offering to your
+students job opportunities for their last university courses.
 
- 
-##Prototipo funcional del proyecto
-Login y una funcionalidad completa.
+Features
+--------
+
+### All dashboards
+
+-   Sign up as user with three different roles: Administrator, enterprise or
+    student
+
+-   Have access to settings, where the user can modify his profile, personal information or update the avatar (This last feature is not available to the
+    administrator)
+
+-   Use the search engine to find profiles of students and enterprises
+
+-   See the profile of any student or enterprise that belong to the network
+
+-   See the last news thanks to the widgets that are located in the index page
+    of every dashboard
+
+
+### Administrator dashboard
+
+-   Accept or reject new offers created by an enterprise
+
+-   Accept or reject new applications of the students to the previosly accepted offers
+
+-   Expire contracts that are out of date
+
+-   Check all the offers, applications and contracts
+
+![Administrator Dashboard](https://cloud.githubusercontent.com/assets/9200682/16502281/f1c69f14-3f0d-11e6-9d68-c8890426662e.png)
+
+
+### Enterprise dashboard
+
+-   Create new offers, selecting the recommended skills,the target careers and the proper information for its acceptance by the university
+
+-   Accept or reject student applications that have been previously accepted by the adminstrator. Once is accepted, a new contract is created
+    using the dates specified in the offer
+
+
+![Enterprise Dashboard](https://cloud.githubusercontent.com/assets/9200682/16502278/eddfbb9c-3f0d-11e6-8b69-884e016ce218.png)
+
+### Student dashboard
+
+-   Request internships among all the available offers for the student's carreer
+
+-   Start a contract with an enterprise if the adminsitrator and the company accept the application
+
+![Student Dashboard](https://cloud.githubusercontent.com/assets/9200682/16502284/f4674890-3f0d-11e6-87b9-bd41c223427f.png)
+
+
+Application structure
+---------------------
+![Application structure](https://cloud.githubusercontent.com/assets/9200682/16502293/faf64c74-3f0d-11e6-8cf4-2a15bdb62507.png)
+
+Database
+--------
+
+![Database](https://cloud.githubusercontent.com/assets/9200682/16502296/fd5f1e64-3f0d-11e6-8b3b-d2d8ed113f2f.png)
