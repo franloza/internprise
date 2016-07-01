@@ -66,7 +66,7 @@ Features
 
 -   Start a contract with an enterprise if the adminsitrator and the company accept the application
 
-![Student Dashboard](https://cloud.githubusercontent.com/assets/9200682/16502284/f4674890-3f0d-11e6-87b9-bd41c223427f.png)
+![Student Dashboard](https://cloud.githubusercontent.com/assets/9200682/16521610/572599e8-3f98-11e6-809c-c36b77bafe46.png)
 
 
 Application structure
